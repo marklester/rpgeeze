@@ -1,0 +1,8 @@
+#summary Log for Mark Lester
+#labels log
+
+1/27/09	16:00-17:30
+  * Helped revise CRC Cards
+
+1/28/09	18:00-21:30
+  * Collaborated on creating Use Cases

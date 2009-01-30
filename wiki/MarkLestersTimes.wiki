@@ -1,4 +1,0 @@
-#labels time
-||Date ||Time||Description||
-||1/27/09||4:00-5:30||Helped Revised CRC Cards||
-||1/28/09||6:00-9:30||Collaborated on creating Use Cases||
