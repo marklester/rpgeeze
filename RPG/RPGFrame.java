@@ -20,7 +20,7 @@ public class RPGFrame extends JFrame implements Runnable {
 	
 	Board board;
 	
-    public RPGFrame() {
+    public RPGFrame(int number) {
     	
     	super("Medevil");
 		/******************************************************************/
@@ -35,14 +35,14 @@ public class RPGFrame extends JFrame implements Runnable {
         };
         addKeyListener(keyHandler);
 		/******************************************************************/
-      	board = new Board();
+      	board = new Board(number);
       	new Thread(board).start();
       	board.setBorder(new EtchedBorder());
     	BorderLayout layout = new BorderLayout();
     	this.setLayout(layout);
       	this.add( board ,BorderLayout.CENTER); // in center
 
-    	this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	this.setSize(1000,500);
     	this.setLocation(125,100);
     	this.setResizable(false);

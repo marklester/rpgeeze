@@ -12,6 +12,7 @@ public class MapBadGuy extends Thread{
 	Integer movement = 5;//Movement speed
 	Integer proximaty = 4;
 	MapPanel board;//MapPanel
+	boolean dead = false;
 	
     public MapBadGuy(MapPanel b, Point p) {
     //Needs Offset, Player position, Start Point, and Grid
@@ -24,7 +25,9 @@ public class MapBadGuy extends Thread{
     	Random randomNumber = new Random();
     	char direction = 'S';
     	int previous[] = {1,5,7};
-    	while(true){
+    	Integer map[][] = board.getLevel();
+    	
+    	while(!dead){
     				
     				int value = previous[randomNumber.nextInt(3)];
     				Point temp = new Point(position.x,position.y);
@@ -69,7 +72,7 @@ public class MapBadGuy extends Thread{
     					default: direction = 'S';
     				}
 					
-					if(position.x < 44 && position.x >= 0 && position.y < 22 && position.y >= 0 && board.map1[position.y][position.x] >= 0 && !MapPanel.stop) {
+					if(position.x < 44 && position.x >= 0 && position.y < 22 && position.y >= 0 && map[position.y][position.x] <= 50 && !MapPanel.stop) {
 						
 						for(int i = 0; i < MapPanel.grid;i = i + movement) {
 							switch(direction) {
@@ -106,6 +109,7 @@ public class MapBadGuy extends Thread{
     }
     
     public void getPlayer(Graphics g) {
+    	if(dead) return;
 		g.setColor(Color.ORANGE);
 		g.fillOval(PanelPoint.x-board.Offset.x, PanelPoint.y-board.Offset.y, MapPanel.grid, MapPanel.grid);
 		g.setColor(Color.BLACK);
