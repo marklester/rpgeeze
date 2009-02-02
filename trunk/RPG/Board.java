@@ -14,15 +14,15 @@ public class Board extends JPanel implements Runnable
 {
    Point position = new Point(243,223);
    Player player;
-   BadGuy badguy[] = new BadGuy[6];
+   BadGuy badguy[];
    int round = 0;
    Point grass[] = new Point[20];
    Point grass1[] = new Point[10];
    static AudioClip laser = Applet.newAudioClip(new images().getClass().getResource("laser.wav"));
    
-   public Board()
+   public Board(int number)
    {
-      	
+      	badguy = new BadGuy[number];
       	Point points[] = {new Point(600, 150),
       					  new Point(650, 250),
       					  new Point(650, 50),
@@ -49,13 +49,13 @@ public class Board extends JPanel implements Runnable
          	{  
             	public void mouseClicked( MouseEvent event )
             	{
-                  	if(!player.dead) {
+                  	if(!player.dead && !player.shoot[round].active) {
                   		player.shoot[round] = new Shoot(position, event.getPoint());
-                  		player.shoot[round++].start();
+                  		player.shoot[round].start();
                   		laser.play();
-                  		if (round >= player.shoot.length)
-                  			round = 0;
                   	}
+                  	if (++round >= player.shoot.length)
+                  		round = 0;
             	} 
          	} 
       	);

@@ -53,6 +53,7 @@ Scanner input;
     				value = input.nextInt();
     			} else{
     				input = new Scanner(new File("script.txt"));
+    				value = input.nextInt();
     			}
     		} catch (Exception e){System.out.println("Error");}
         	

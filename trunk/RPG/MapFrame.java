@@ -23,7 +23,7 @@ public class MapFrame extends JFrame {
     public MapFrame() {
     	super("Happy World");
 
-      	MapPanel map = new MapPanel();
+      	MapPanel map = new MapPanel(this);
     	BorderLayout layout = new BorderLayout();
     	this.setLayout(layout);
       	this.add( map ,BorderLayout.CENTER); // in center
@@ -262,6 +262,5 @@ public class MapFrame extends JFrame {
         r.add(jp);        
         return r;
     }
-    
     
 }
