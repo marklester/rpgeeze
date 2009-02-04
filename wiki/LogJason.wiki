@@ -12,3 +12,6 @@
 
 1/28/09	18:00-21:30
   * Collaborated on creating Use Cases
+
+2/4/09 19:00-21:00  
+  * Worked on UML Diagram with group
