@@ -6,3 +6,5 @@
 
 1/28/09	18:00-21:30
   * Collaborated on creating Use Cases
+2/3/09		18:00-21:00
+ * Collaborated on creating uml Specification
