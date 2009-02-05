@@ -8,7 +8,7 @@
   * Use Cases
 
 1/29/09 21:00-23:00
-  *Revised Use Case Diagram
+  * Revised Use Case Diagram
 
 2/3/09 19:00-21:00
-  *UML
+  * UML
