@@ -14,4 +14,4 @@
   * UML
 
 2/5/09 21:00-23:30
-  *Group meeting, worked on UML
+  * Group meeting, worked on UML
