@@ -6,3 +6,15 @@
 
 1/28/09	18:00-21:30
   * Use Cases
+
+1/29/09 21:00-23:00 
+  *Revised Use Case Diagram 
+
+2/3/09 19:00-21:00 
+  *UML 
+
+2/5/09 21:00-23:30 
+  *Group meeting, worked on UML 
+
+2/8/09 13:00-15:00 
+  *Group meeting, worked on UML 
