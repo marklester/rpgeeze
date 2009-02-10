@@ -3,8 +3,11 @@
 
 1/27/09	16:00-17:30
   * Helped revise CRC Cards
-
 1/28/09	18:00-21:30
   * Collaborated on creating Use Cases
 2/3/09		18:00-21:00
  * Collaborated on creating uml Specification
+2/5/09 21:00-23:30
+    * Group meeting, worked on UML 
+2/8/09 13:00-15:00
+    * Group meeting, worked on UML 
