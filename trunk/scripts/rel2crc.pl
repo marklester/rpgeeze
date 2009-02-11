@@ -1,4 +1,10 @@
 #!/usr/bin/perl
+# 
+# Script to convert a loose relationship class diagram into CRC
+# 
+# This probably doesn't work, but it's a good start for scripts
+# that read UMLet files.
+#
 
 use warnings;
 use strict;
