@@ -1,6 +1,9 @@
 #summary Log for Eric Hayden
 #labels log
 
+1/10/09
+Started working on a self-created project to understand the realm of RPG creation
+
 1/27/09 16:00-17:30 
 Revised CRC Cards 
 
@@ -15,11 +18,14 @@ UML
 2/5/09 21:00-23:30 
 Group meeting, worked on UML 
 
+1/10/09
+Completed creation of RPG program.
+
 2/8/09 13:00-15:00 
 Group meeting, worked on UML 
 
 2/10/09 10:30-11:30 
 Cleaned up UML, added relationships between classes. 
 
-2/10/09 19:30-23:30 
+2/10/09 19:30-23:00 
 Group meeting, finished UML 
