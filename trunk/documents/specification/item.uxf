@@ -33,6 +33,7 @@ Jason McAninley
 _testing:_
 Mark Lester
 Matt Lance</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>310</x><y>360</y><w>120</w><h>170</h></coordinates><panel_attributes>TakeableItem
+{abstract}
 --
 activate(e: Entity) : void
 --
@@ -41,6 +42,7 @@ This item can be
 put in the inventory 
 and (un)equipped
 such as a sword</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>440</x><y>360</y><w>120</w><h>170</h></coordinates><panel_attributes>InteractiveItem
+{abstract}
 --
 activate(e: Entity) : void
 --
@@ -51,6 +53,7 @@ item is in the
 inventory, or a 
 certain event has 
 occured</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>180</x><y>360</y><w>120</w><h>170</h></coordinates><panel_attributes>OneShotItem
+{abstract}
 --
 activate(e: Entity) : void
 --
@@ -58,7 +61,7 @@ _raison d'être:_
 This can be used 
 once, such as 
 life juice or mana</panel_attributes><additional_attributes/></element><element><type>com.umlet.element.base.Class</type><coordinates><x>50</x><y>360</y><w>120</w><h>170</h></coordinates><panel_attributes>Obstacle
-
+{abstract}
 --
 activate(e: Entity) : void
 --
