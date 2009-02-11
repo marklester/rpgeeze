@@ -14,4 +14,7 @@
   * Group meeting, worked on UML
 
 2/8/09 13:00-15:00
-  * Group meeting, worked on UML 
+  * Group meeting, worked on UML
+
+2/11/09 19:00-23:00
+  * Group meeting, finished UML, created Code Assignments  
