@@ -1,3 +1,5 @@
+package model;
+
 /*
  * 
  * One-shot Item - activated and removed from map when touched by an Entity

@@ -1,8 +1,12 @@
+package model;
+
 /*
  * Decals augment the terrain and primarily serve as eye-candy. They do not
  * intrinsically affect game play -- though one may be used to mark a tile to
  * indicate an area-effect, &c.
  */
+
+import view.*;
 
 public abstract class Decal implements Drawable {
 	

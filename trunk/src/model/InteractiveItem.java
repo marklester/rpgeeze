@@ -1,3 +1,5 @@
+package model;
+
 /*
  * 
  * Interactive Item - (potentially) activated on touch; 

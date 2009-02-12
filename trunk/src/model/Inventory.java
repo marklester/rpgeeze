@@ -1,9 +1,12 @@
+package model;
+
 /*
  * An inventory is a set of items carried by an entity. 
  * Items may be added to or dropped from the inventory 
  * and items in the inventory may be equipped.
  *  
  */
+ 
 import java.util.*;
 
 public class Inventory {

@@ -1,3 +1,5 @@
+package model;
+
 public class SkullAndCrossbones extends Decal {
 	
 	public SkullAndCrossbones() {

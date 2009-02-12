@@ -1,3 +1,5 @@
+package model;
+
 public class RedCross extends Decal {
 
 	public RedCross() {
