@@ -1,6 +1,43 @@
 package view;
 
-public class View {
+import java.awt.BorderLayout;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
+
+public class View extends JFrame{
+
+
+	public View() {
+		
+    	super("RPG Game");
+
+
+    	BorderLayout layout = new BorderLayout();
+    	MenuBar bar = new MenuBar();
+    	this.setLayout(layout);
+    	this.setJMenuBar(bar);
+    	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	this.setSize(995,495);
+    	this.setLocation(125,100);
+    	this.setResizable(false);
+    	this.setVisible(true);
+
+		/******************************************************************/
+		KeyListener keyHandler = new KeyAdapter(){
+            public void keyPressed(KeyEvent e) {
+            	//code = e.getKeyCode();
+                //moving = true;
+            } 
+            public void keyReleased(KeyEvent e) {
+				//moving = false;
+            } 
+        };
+        addKeyListener(keyHandler);
+		/******************************************************************/
+
+	}
 
 }
 
