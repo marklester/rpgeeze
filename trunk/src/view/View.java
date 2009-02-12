@@ -12,6 +12,7 @@ public class View extends Thread{
  * THIS STUFF NEEDS TO BE PART OF THE CONTROLLER
  * 		KEYPRESSES AND HANDLERS
  *		FULL SCREEN FRAME WILL ALSO BE PART OF THE CONTROLLER
+ *			--Jose
  */
 /*
 	public View() {
@@ -51,7 +52,15 @@ public class View extends Thread{
 
 	public void run()
 	{
-		
+		synchronized(this)
+		{			
+			try{
+				this.wait();
+			}catch(InterruptedException e)
+			{
+				
+			}
+		}
 	}
 }
 

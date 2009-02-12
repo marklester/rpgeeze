@@ -8,6 +8,7 @@ public class Model {
 			//create tiles and encompassing stuff
 		//create entity
 		//create task queue
+		//		--Jose
 	}
 	public void update()
 	{
@@ -17,6 +18,7 @@ public class Model {
 			//update AoE's
 			//update NPC's
 		//update entity
+		//		--Jose
 	}
 }
 

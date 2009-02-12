@@ -9,12 +9,19 @@ public class Time extends Thread{
 	private Model model;
 	private View view;
 	
+	private int framePeriod_ms;
+	
 	private boolean gameEnd = false;
 	
 	public Time(Model model, View view)
 	{
+		this(model, view, 80);
+	}
+	public Time(Model model, View view, int fps)
+	{
 		this.model = model;
 		this.view = view;
+		framePeriod_ms = 1/fps * 1000;
 	}
 	/*
 	private void timerStart()
@@ -32,16 +39,21 @@ public class Time extends Thread{
 	public void run()
 	{
 		view.start();
-		while(!gameEnd)
+		try
 		{
-			start = System.nanoTime();
-			model.update();
-			synchronized(view)
+			while(!Thread.interrupted())
 			{
-				view.notify();
+				start = System.nanoTime();
+				model.update();
+				synchronized(view)
+				{
+					view.notify();
+				}
+				long timeDiff_ms = framePeriod_ms - (System.nanoTime() - start)/1000000L;			
+				Thread.sleep(timeDiff_ms);
 			}
-			long timeDiff = System.nanoTime() - start;			
-		}
+		}catch(InterruptedException e)
+		{}
 		
 	}
 	
