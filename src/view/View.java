@@ -6,9 +6,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 
-public class View extends JFrame{
+public class View extends Thread{
 
-
+/*
+ * THIS STUFF NEEDS TO BE PART OF THE CONTROLLER
+ * 		KEYPRESSES AND HANDLERS
+ *		FULL SCREEN FRAME WILL ALSO BE PART OF THE CONTROLLER
+ */
+/*
 	public View() {
 		
     	super("RPG Game");
@@ -24,7 +29,7 @@ public class View extends JFrame{
     	this.setResizable(false);
     	this.setVisible(true);
 
-		/******************************************************************/
+		//*****************************************************************
 		KeyListener keyHandler = new KeyAdapter(){
             public void keyPressed(KeyEvent e) {
             	//code = e.getKeyCode();
@@ -35,9 +40,18 @@ public class View extends JFrame{
             } 
         };
         addKeyListener(keyHandler);
-		/******************************************************************/
-
+		//*****************************************************************
+	}
+*/
+	
+	public View()
+	{
+		
 	}
 
+	public void run()
+	{
+		
+	}
 }
 

@@ -9,6 +9,8 @@ public class Time extends Thread{
 	private Model model;
 	private View view;
 	
+	private boolean gameEnd = false;
+	
 	public Time(Model model, View view)
 	{
 		this.model = model;
@@ -26,7 +28,7 @@ public class Time extends Thread{
 		return stop - start;
 	}
 	*/
-	/*
+	
 	public void run()
 	{
 		view.start();
@@ -42,10 +44,6 @@ public class Time extends Thread{
 		}
 		
 	}
-	*/
-	public void run()
-	{
-		
-	}
+	
 }
 
