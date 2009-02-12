@@ -52,15 +52,19 @@ public class View extends Thread{
 
 	public void run()
 	{
+		//waits for an update to occur
 		synchronized(this)
 		{			
 			try{
 				this.wait();
 			}catch(InterruptedException e)
-			{
-				
-			}
+			{}
 		}
+		//getModelState
+		//draw/Render all Drawable Objects onto image buffer-- responsibility of Drawer
+		//paint image buffer on screen
+		//		--Jose
+		
 	}
 }
 
