@@ -24,3 +24,9 @@
 
 2/10/09 19:30-23:30
   * Group meeting, finished UML
+
+2/11/09 13:00-14:00
+  * Worked on adding reason for being, implementing and testing fields to the UML.
+
+2/11/09 15:00-17:00
+  * Finished adding reason for being, implementing and testing fields to the UML.
