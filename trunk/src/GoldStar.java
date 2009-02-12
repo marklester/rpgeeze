@@ -1,14 +1,8 @@
 public class GoldStar extends Decal {
 
-
 	public GoldStar() {
-		this.name = "GoldStar";
+		this.name = "Gold Star";
 	}
-	
-	public String toString() {
-		return "Gold Star";
-	}
-	
 
 }
 
