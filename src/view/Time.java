@@ -11,8 +11,6 @@ public class Time extends Thread{
 	
 	private int framePeriod_ms;
 	
-	private boolean gameEnd = false;
-	
 	public Time(Model model, View view)
 	{
 		this(model, view, 80);
@@ -23,18 +21,6 @@ public class Time extends Thread{
 		this.view = view;
 		framePeriod_ms = 1/fps * 1000;
 	}
-	/*
-	private void timerStart()
-	{
-		start = System.nanoTime();
-	}
-	
-	public long timerStop()
-	{
-		long stop = System.nanoTime();
-		return stop - start;
-	}
-	*/
 	
 	public void run()
 	{
@@ -54,8 +40,5 @@ public class Time extends Thread{
 			}
 		}catch(InterruptedException e)
 		{}
-		
 	}
-	
 }
-
