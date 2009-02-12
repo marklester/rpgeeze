@@ -1,5 +1,7 @@
 package model;
 
+import view.Drawer;
+
 public class MountainTerrain extends Terrain {
 	
 	public MountainTerrain() {
@@ -15,5 +17,8 @@ public class MountainTerrain extends Terrain {
 		//Vehicle" which will allow for easy checking within this method
 	}
 
+	public void draw(Drawer d) {
+		d.drawMountainTerrain(this);
+	}
 }
 

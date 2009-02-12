@@ -1,6 +1,10 @@
 package model;
 
 public class Map {
-//TileMatrix
+	private Tile[][] matrix;
+	
+	public Map() {
+		
+	}
 }
 
