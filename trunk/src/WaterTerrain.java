@@ -1,4 +1,4 @@
-public class WaterTerrain {
+public class WaterTerrain extends Terrain {
 
 }
 

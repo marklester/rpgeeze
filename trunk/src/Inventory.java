@@ -12,7 +12,7 @@ public class Inventory {
 	public static final int INV_FULL = -1;
 	public static final int INV_MAX_SIZE = 6;
 	
-	private ArrayList<Item> items;
+	private List<Item> items;
 	
 	
 	public Inventory() {
@@ -20,7 +20,7 @@ public class Inventory {
 	}
 	
 	public int addItem(Item i) {
-		if (items.size() < 6) {
+		if (items.size() < INV_MAX_SIZE) {
 			items.add(i);
 			return INV_SUCCESS;
 		}
