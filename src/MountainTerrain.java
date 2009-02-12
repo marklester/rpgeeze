@@ -1,4 +1,4 @@
-public class MountainTerrain {
+public class MountainTerrain extends Terrain {
 
 }
 
