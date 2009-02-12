@@ -1,4 +1,12 @@
-public class Obstacle {
+/*
+ * 
+ * Obstacle - makes tile permanently impassable
+ * 
+ */
 
+
+public abstract class Obstacle extends Item {
+
+	
 }
 
