@@ -1,9 +1,9 @@
 public class Entity {
-Stats
-Inventory
-Occupation
-Location
-Name
-EquippedItems
+//    Stats
+//    Inventory
+//    Occupation
+//    Location
+//    Name
+//    EquippedItems
 }
 
