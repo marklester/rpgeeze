@@ -1,6 +1,6 @@
 package controller;
 
-
+import view.Drawable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
@@ -9,7 +9,7 @@ import javax.swing.JMenuItem;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButtonMenuItem;
 
-public class MenuBar extends JMenuBar{
+public class MenuBar extends JMenuBar implements Drawable {
 
 	public MenuBar() {
     		JMenu fileMenu = new JMenu("File");
