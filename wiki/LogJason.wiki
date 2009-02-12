@@ -28,6 +28,10 @@
     * Met with team
     * Finished specification-level class diagrams 
 
-2/11/09 11:00-12:00
+2/11/09 11:00-13:30
     * Created delegations sheet
     * Began skeleton code for Model classes
+
+2/11/09 22:00-25:00
+    *Hopefully 25 keeps your scrip from messing up
+    *Created Decal(&c.), Drawable, Inventory, Items(&c.), Location classes
