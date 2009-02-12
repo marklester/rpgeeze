@@ -1,3 +1,5 @@
+package model;
+
 /*
  * 
  * Take-able Item - added to inventory on touch

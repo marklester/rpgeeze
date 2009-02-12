@@ -1,10 +1,10 @@
+package view;
 
-
-public class Time {
+public class Timer {
 //CurrentTime
 	private long start;
 	
-	public Time()
+	public Timer()
 	{
 	}
 	

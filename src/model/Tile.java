@@ -1,3 +1,5 @@
+package model;
+
 public class Tile {
 //+getX(): int
 //+getY(): int
