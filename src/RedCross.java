@@ -1,15 +1,8 @@
 public class RedCross extends Decal {
 
-
 	public RedCross() {
-		this.name = "RedCross";
+		this.name = "Red Cross";
 	}
 	
-	public String toString() {
-		return "Red Cross";
-	}
-
-
-
 }
 
