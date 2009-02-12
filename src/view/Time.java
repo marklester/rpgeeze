@@ -1,5 +1,8 @@
 package view;
 
+import model.*;
+import controller.*;
+
 public class Time extends Thread{
 //CurrentTime
 	private long start;
@@ -23,11 +26,25 @@ public class Time extends Thread{
 		return stop - start;
 	}
 	*/
-	
+	/*
 	public void run()
 	{
 		view.start();
+		while(!gameEnd)
+		{
+			start = System.nanoTime();
+			model.update();
+			synchronized(view)
+			{
+				view.notify();
+			}
+			long timeDiff = System.nanoTime() - start;			
+		}
 		
+	}
+	*/
+	public void run()
+	{
 		
 	}
 }
