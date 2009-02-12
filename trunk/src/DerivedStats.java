@@ -1,7 +1,7 @@
 public class DerivedStats {
-Level
-Life
-Mana
-Offensive
+//    Level
+//    Life
+//    Mana
+//    Offensive
 }
 

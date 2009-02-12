@@ -1,5 +1,5 @@
 public interface Occupation {
-OccupationType
-StatSet
+//OccupationType
+//StatSet
 }
 
