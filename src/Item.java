@@ -1,6 +1,7 @@
 public abstract class Item {
-Name
-Location
+
+	public String name;
+	public Location location;
 
 }
 
