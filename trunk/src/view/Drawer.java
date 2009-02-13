@@ -10,6 +10,7 @@ import model.*;
 public class Drawer {
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar,redCross,skullAndCrossbones;
+	private static Image bolder;
 	
 	private static Image sprite;
 	
@@ -27,10 +28,14 @@ public class Drawer {
 				waterTerrain = ImageIO.read(loader.getResourceAsStream("res/img/water.png"));
 
 				goldStar = ImageIO.read(loader.getResourceAsStream("res/img/goldenstar.png"));
-				redCross = ImageIO.read(loader.getResourceAsStream("res/img/redcross.png"));
+				redCross = ImageIO.read(loader.getResourceAsStream("res/img/sprite_left.PNG"));
 				//skullAndCrossbones = ImageIO.read(loader.getResourceAsStream("res/img/skull.png"));
+
+				bolder = ImageIO.read(loader.getResourceAsStream("res/img/bolder.png"));
+
 				
 				sprite = ImageIO.read(loader.getResourceAsStream("res/img/sprite_left.png"));
+
 			}
 			catch(IOException e) {}
 		}
@@ -90,7 +95,9 @@ public class Drawer {
 	
 	
 	public void drawTakeableItem(TakeableItem item) {}
-	public void drawObstacle(Obstacle item) {}
+	public void drawBolder(Bolder item) {
+		graphics.drawImage(bolder, cursor.getX(), cursor.getY(), null);
+	}
 	public void drawOneShotItem (OneShotItem item) {}
 	public void drawInteractiveItem (InteractiveItem item) {}
 }
