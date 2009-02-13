@@ -35,3 +35,12 @@
   * Minor cleanup to specification-level class diagrams
   * Split up class diagrams into subsystems
   * Wrote a couple of utility scripts
+
+2/12/09 1:00-2:00
+  * Added some skeleton code
+
+2/12/09 11:00-12:00
+  * Worked on View module of project
+
+2/12/09 7:00-8:00
+  * Implemented occupation selection window to be displayed at start of game
