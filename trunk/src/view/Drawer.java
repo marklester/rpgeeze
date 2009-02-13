@@ -7,6 +7,8 @@ import java.io.IOException;
 import util.*;
 import model.*;
 
+import java.util.Hashtable;
+
 public class Drawer {
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar, redCross, skullAndCrossbones;
@@ -15,8 +17,7 @@ public class Drawer {
 
 	private static Image sword;
 
-	
-	private static Image sprite;
+	private static Hashtable<Direction,Image> avatar = new Hashtable<Direction,Image>();
 	
 	private static boolean loaded = false;
 	
@@ -34,12 +35,14 @@ public class Drawer {
 				goldStar = ImageIO.read(loader.getResourceAsStream("res/img/goldenstar.png"));
 				redCross = ImageIO.read(loader.getResourceAsStream("res/img/redcross.png"));
 				//skullAndCrossbones = ImageIO.read(loader.getResourceAsStream("res/img/skull.png"));
-                //sword = ImageIO.read(loader.getResourceAsStream("res/img/sword.png"));
-				boulder = ImageIO.read(loader.getResourceAsStream("res/img/bolder.png"));
+		                //sword = 
+ImageIO.read(loader.getResourceAsStream("res/img/sword.png"));
+				boulder = ImageIO.read(loader.getResourceAsStream("res/img/boulder.png"));
 
-				
-				sprite = ImageIO.read(loader.getResourceAsStream("res/img/sprite_left.png"));
-
+				avatar.put(Direction.NORTH, ImageIO.read(loader.getResourceAsStream("res/img/avatar_n.png")));
+				avatar.put(Direction.SOUTH, ImageIO.read(loader.getResourceAsStream("res/img/avatar_s.png")));
+				avatar.put(Direction.EAST, ImageIO.read(loader.getResourceAsStream("res/img/avatar_e.png")));
+				avatar.put(Direction.WEST, ImageIO.read(loader.getResourceAsStream("res/img/avatar_w.png")));
 			}
 			catch(IOException e) {}
 		}
@@ -85,11 +88,8 @@ public class Drawer {
 	
 	
 	public void drawEntity(Entity entity) {
-		graphics.drawImage(sprite, cursor.getX(), cursor.getY(), null);
+		graphics.drawImage(avatar.get(entity.getFacingDirection()), cursor.getX(), cursor.getY(), null);
 	}
-	
-	
-	
 	
 	public void drawGoldStarDecal(GoldStar decal) {
 		graphics.drawImage(goldStar, cursor.getX() + 5, cursor.getY() + 10, null);
