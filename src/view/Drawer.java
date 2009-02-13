@@ -61,5 +61,10 @@ public class Drawer {
 	public void drawGoldStarDecal(GoldStar decal) {}
 	public void drawRedCrossDecal(RedCross decal) {}
 	public void drawSkullAndCrossbonesDecal(SkullAndCrossbones decal) {}
+	
+	public void drawTakeableItem(TakeableItem item) {}
+	public void drawObstacle(Obstacle item) {}
+	public void drawOneShotItem (OneShotItem item) {}
+	public void drawInteractiveItem (InteractiveItem item) {}
 }
 
