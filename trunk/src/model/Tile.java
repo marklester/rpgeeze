@@ -49,11 +49,19 @@ public class Tile {
 		return terrain;
 	}
 	
+	public Entity getEntity() {
+		return entity;
+	}
+	
+	void setEntity(Entity entity) {
+		this.entity = entity;
+	}
+	
 	public void draw(Drawer d) {
 		terrain.draw(d);
 		if(decal!= null) decal.draw(d);
 		if(item != null) item.draw(d);
-		//if(entity != null) entity.draw(d);
+		if(entity != null) entity.draw(d);
 	}
 }
 

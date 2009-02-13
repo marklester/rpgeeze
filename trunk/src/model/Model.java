@@ -13,7 +13,7 @@ public class Model {
 		/* Made constructor public so that RunGame would compile. If you
 		 * come up with another way of retrieving a Model, update
 		 * RunGame accordingly.
-		 * - Miorel
+		 * -- Miorel
 		 */
 		
 		//create map
@@ -24,6 +24,13 @@ public class Model {
 		
 		this.map = map;
 		this.avatar = avatar;
+		
+		// The following code should probably be moved elsewhere. -- Miorel
+		ClassLoader loader = getClass().getClassLoader();
+		Scanner scanner = new Scanner(loader.getResourceAsStream("res/entities.txt"));
+		int x = scanner.nextInt();
+		int y = scanner.nextInt();
+		map.getTile(x, y).setEntity(avatar);
 	}
 	
 	public Map getMap() {

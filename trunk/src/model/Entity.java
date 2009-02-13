@@ -1,6 +1,8 @@
 package model;
 
-public class Entity {
+import view.*;
+
+public class Entity implements Drawable {
 	private Stats stats;
 	private Inventory inventory;
 	private Occupation occupation;
@@ -10,6 +12,10 @@ public class Entity {
 	
 	public Entity(Occupation occupation) {
 		this.occupation = occupation;
+	}
+	
+	public void draw(Drawer d) {
+		d.drawEntity(this);
 	}
 }
 
