@@ -78,6 +78,14 @@ public class Tile {
 		if(entity != null) entity.draw(d);
 	}
 	
+	public void accept(Entity e) {
+		if(getTerrain().isPassable(e)) {
+			e.getTile().setEntity(null);
+			this.setEntity(e);
+			e.setTile(this);
+		}
+	}
+	
 	public String toString() {
 		return "Tile at " + location;
 	}
