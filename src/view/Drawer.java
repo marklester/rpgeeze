@@ -8,10 +8,11 @@ import util.*;
 import model.*;
 
 public class Drawer {
-	private static Image grassTerrain;
-	private static Image mountainTerrain;
-	private static Image waterTerrain;
+	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar,redCross,skullAndCrossbones;
+	
+	private static Image sprite;
+	
 	private static boolean loaded = false;
 	
 	private Graphics graphics;
@@ -24,9 +25,12 @@ public class Drawer {
 				grassTerrain = ImageIO.read(loader.getResourceAsStream("res/img/grass.png"));
 				mountainTerrain = ImageIO.read(loader.getResourceAsStream("res/img/mountain.png"));
 				waterTerrain = ImageIO.read(loader.getResourceAsStream("res/img/water.png"));
+
 				goldStar = ImageIO.read(loader.getResourceAsStream("res/img/goldenstar.png"));
 				redCross = ImageIO.read(loader.getResourceAsStream("res/img/redcross.png"));
 				//skullAndCrossbones = ImageIO.read(loader.getResourceAsStream("res/img/skull.png"));
+				
+				sprite = ImageIO.read(loader.getResourceAsStream("res/img/sprite_left.png"));
 			}
 			catch(IOException e) {}
 		}
@@ -63,15 +67,27 @@ public class Drawer {
 		graphics.drawImage(waterTerrain, cursor.getX(), cursor.getY(), null);
 	}
 	
+	
+	public void drawEntity(Entity entity) {
+		graphics.drawImage(sprite, cursor.getX(), cursor.getY(), null);
+	}
+	
+	
+	
+	
 	public void drawGoldStarDecal(GoldStar decal) {
 		graphics.drawImage(goldStar, cursor.getX() + 5, cursor.getY() + 10, null);
 	}
+	
 	public void drawRedCrossDecal(RedCross decal) {
 		graphics.drawImage(redCross, cursor.getX() + 5, cursor.getY() + 10, null );
 	}
+	
 	public void drawSkullAndCrossbonesDecal(SkullAndCrossbones decal) {
 		graphics.drawImage(skullAndCrossbones, cursor.getX() + 5, cursor.getY() + 10, null);	
 	}
+	
+	
 	
 	public void drawTakeableItem(TakeableItem item) {}
 	public void drawObstacle(Obstacle item) {}
