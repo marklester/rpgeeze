@@ -58,7 +58,7 @@ public class Map {
 				default: throw new RuntimeException("Bad map - Area Effect");
 				}
 				
-				arr[c] = new Tile(ter, new Location(c, r), item, ae);
+				arr[c] = new Tile(ter, new Location(c, r), dec, item, ae);
 			}
 			list.add(arr);
 		}
