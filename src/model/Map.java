@@ -24,23 +24,21 @@ public class Map {
 				}
 				
 				Decal dec = null;
-				switch(line.charAt(c+1)) {
+				switch(line.charAt(++c)) {
 				case '+': dec = RedCross.getInstance(); break;
 				case '*': dec = GoldStar.getInstance(); break;
 				case 'X': dec = SkullAndCrossbones.getInstance(); break;
-				default: throw new RuntimeException("Bad map - Decal");
 				}
 				
 				Item item = null;
 				switch(line.charAt(++c)) {
 				case 'S': item = new Sword(); break;
-				case 'B': item = new Bolder (); break;
+				case 'B': item = new Bolder(); break;
 				//case 'L': item = new PotionLife(); break;
 				//case 'm': item = new Mana(); break;
 				//case 'C': item = new Crossbow(); break;
 				//case 'A': item = new Arrows(); break;
 				//case 't': item = new Staff(); break;
-				default: throw new RuntimeException("Bad map - Item");
 				}
 				
 				AreaEffect ae = null;
@@ -49,10 +47,9 @@ public class Map {
 				case 'l': ae = new LevelUp() ; break;
 				case 'd': ae = new TakeDamage(); break;
 				case 'x': ae = new InstantDeath(); break;
-				default: throw new RuntimeException("Bad map - AE");
 				}
 				
-				arr[c] = new Tile(ter, new Location(c, r));
+				arr[c] = new Tile(ter, new Location(c, r), item, ae);
 			}
 			list.add(arr);
 		}
