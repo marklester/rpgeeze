@@ -11,6 +11,19 @@ public class Tile {
 	private Decal decal;
 	private Entity entity;
 
+	public Tile(Terrain terrain, Location location, Item item, AreaEffect ae) {
+		this.terrain = terrain;
+		this.location = location;
+		this.item = item;
+		this.ae = ae;
+	}
+	
+	public Tile(Terrain terrain, Location location, Item item) {
+		this.terrain = terrain;
+		this.location = location;
+		this.item = item;
+	}
+	
 	public Tile(Terrain terrain, Location location) {
 		this.terrain = terrain;
 		this.location = location;
