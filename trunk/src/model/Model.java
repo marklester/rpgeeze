@@ -41,5 +41,11 @@ public class Model {
 		//update entity
 		//		--Jose
 	}
+	
+	public void moveEntity(Distance d)
+	{
+		//forward move request to Entity
+		//		--Jose
+	}
 }
 

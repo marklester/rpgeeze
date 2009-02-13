@@ -4,8 +4,7 @@ import model.*;
 import controller.*;
 
 public class Time extends Thread{
-//CurrentTime
-	private long start;
+//CurrentTime	
 	private Model model;
 	private View view;
 	
@@ -29,7 +28,7 @@ public class Time extends Thread{
 		{
 			while(!Thread.interrupted())
 			{
-				start = System.nanoTime();
+				long start = System.nanoTime();
 				model.update();
 				synchronized(view)
 				{

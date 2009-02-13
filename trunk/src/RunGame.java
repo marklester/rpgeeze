@@ -17,7 +17,7 @@ public class RunGame {
     	Entity e = new Entity(o);
         Model m = new Model(e);
         View v = new View();
-        Controller c = new Controller();
+        Controller c = new Controller(m);
     }
     
     public static Occupation getOccupation() {
