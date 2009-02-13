@@ -12,8 +12,8 @@ import view.Drawer;
 
 
 public abstract class InteractiveItem extends Item {
-	public InteractiveItem(Location location) {
-		super("Interactive Item",location);
+	protected InteractiveItem(Location location) {
+		super("Interactive Item", location);
 	}
 	
 	public void activate() {

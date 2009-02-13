@@ -46,20 +46,19 @@ public class Drawer {
 		this.graphics = g;
 	}
 	
-	private Location modelToView(Location location) {
-		int height = grassTerrain.getHeight(null);
-		int width = grassTerrain.getWidth(null);
-		return new Location(
-			location.getX() * width,
-			location.getY() * height
-		);
-	}
-	
-	public void doDraw(Map map) {
+	public void doDraw(Map map, Entity avatar, int width, int height) {
+		int tileHeight = grassTerrain.getHeight(null);
+		int tileWidth = grassTerrain.getWidth(null);
+		int horizOffset = (width - tileWidth) / 2 - avatar.getTile().getLocation().getX() * tileWidth;
+		int vertOffset = (height - tileHeight) / 2 - avatar.getTile().getLocation().getY() * tileHeight;
+		
 		Iterator<Tile> iter = map.getTiles();
 		for(iter.reset(); !iter.isDone(); iter.advance()) {
 			Tile tile = iter.current();
-			cursor = modelToView(tile.getLocation());
+			cursor = new Location(
+				tile.getLocation().getX() * tileWidth + horizOffset,
+				tile.getLocation().getY() * tileHeight + vertOffset
+			);
 			tile.draw(this);
 		}
 	}
