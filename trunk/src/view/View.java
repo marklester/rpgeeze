@@ -15,12 +15,27 @@ public class View extends Thread {
 	private final Model model;
 	private volatile boolean running = false;
 
+	private final static int GOAL_FPS = 80;
+	
 	private volatile Image dbImage = null;
 	public final GameFrame frame;
 	
 	public View(Model model, Controller controller) {
 		this.model = model;
 		frame = new GameFrame();
+		frame.add(controller);
+/*		frame.addKeyListener(new KeyListener() {
+			public void keyPressed(KeyEvent e) {
+				System.out.println(e.getKeyChar() + " was pressed.");
+			}
+			public void keyReleased(KeyEvent e) {
+				System.out.println(e.getKeyChar() + " was released.");
+			}
+			public void keyTyped(KeyEvent e) {
+				System.out.println(e.getKeyChar() + " was typed.");
+			}
+		});*/
+		
 	}
 	
 /*
@@ -63,8 +78,10 @@ public class View extends Thread {
 	public void run() {
 		frame.setVisible(true);
 		frame.requestFocus();
+		long sleepNanos = 1000000000L / GOAL_FPS; 
 		running = true;
 		while(running) {
+			long beforeTime = System.nanoTime();
 			//waits for an update to occur
 			/*synchronized(this) {			
 				try {
@@ -74,10 +91,14 @@ public class View extends Thread {
 			}*/
 			render();
 			paint();
-			try {
-				Thread.sleep(10);
+			long afterTime = System.nanoTime();
+			int sleepMillis = (int) ((sleepNanos - (afterTime - beforeTime)) / 1000000L);
+			if(sleepMillis > 0) {
+				try {
+					Thread.sleep(10);
+				}
+				catch(InterruptedException e) {}
 			}
-			catch(InterruptedException e) {}
 			
 			//getModelState
 			//draw/Render all Drawable Objects onto image buffer-- responsibility of Drawer
@@ -118,4 +139,3 @@ public class View extends Thread {
 	    }
 	}
 }
-
