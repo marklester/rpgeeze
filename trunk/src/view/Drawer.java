@@ -3,6 +3,8 @@ package view;
 import model.*;
 
 public class Drawer {
+	
+	
 	public Drawer() {
 		
 	}

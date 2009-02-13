@@ -1,5 +1,3 @@
-package util;
-
 import model.*;
 import view.*;
 import controller.*;
@@ -13,7 +11,7 @@ public class RunGame {
     	Entity e = new Entity(o);
         Model m = new Model(e);
         View v = new View(m);
-        Controller c = new Controller();
+        Controller c = new Controller(m);
         
         v.run();
     }

@@ -99,8 +99,8 @@ public class View extends Thread {
 		g.setColor(Color.blue);
 		
 		try {
-			ClassLoader loader = RunGame.class.getClassLoader();
-			BufferedImage img = ImageIO.read(loader.getResourceAsStream("res/img.png"));
+			ClassLoader loader = getClass().getClassLoader();
+			BufferedImage img = ImageIO.read(loader.getResourceAsStream("res/img/water.png"));
 			g.drawImage(img, 0, 0, null);
 		}
 		catch(Exception e) {}
