@@ -1,0 +1,7 @@
+#summary My early morning thoughts.
+
+1. What equations do we want to use for the derived stats?
+
+2. Need some sort of stat in Item class to calculate armor rating and offensive rating.
+
+
