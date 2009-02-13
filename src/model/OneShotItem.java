@@ -10,8 +10,8 @@ import view.Drawer;
 
 
 public abstract class OneShotItem extends Item {
-	public OneShotItem() {
-		super("One Shot Item");
+	public OneShotItem(Location location) {
+		super("One Shot Item",location);
 	}
 	
 	public void draw(Drawer d) {
