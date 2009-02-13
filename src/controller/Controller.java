@@ -101,7 +101,6 @@ public class Controller implements KeyListener {
 	public void keyReleased(KeyEvent e) {}
 	
 	public void keyPressed(KeyEvent e) {
-		System.err.println("Key typed: " + e.getKeyChar());
 		switch(e.getKeyCode()) {
 		case KeyEvent.VK_W:
 			model.invoke(new MoveCommand(model, Distance.NORTH));

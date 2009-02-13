@@ -1,7 +1,11 @@
 package model;
 
 import java.io.*;
-import java.util.*;
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+
+import util.*;
 
 public class Map {
 	public static final int NUM_OF_CHARS_REPRESENTING_A_TILE = 5;
@@ -33,7 +37,7 @@ public class Map {
 				Item item = null;
 				switch(line.charAt(++c)) {
 				case 'S': item = new Sword(); break;
-				case 'B': item = new Bolder(); break;
+				case 'B': item = new Boulder(); break;
 				//case 'L': item = new PotionLife(); break;
 				//case 'm': item = new Mana(); break;
 				//case 'C': item = new Crossbow(); break;
@@ -62,4 +66,32 @@ public class Map {
 			ret = matrix[y][x];
 		return ret;
 	}
+	
+    public Iterator<Tile> getTiles() {
+    	return new Iterator<Tile>() {
+    		private int x;
+    		private int y;
+                
+    		public void reset() {
+    			x = 0;
+    			y = 0;
+    		}
+                
+    		public boolean isDone() {
+    			return y >= Map.this.matrix.length;
+    		}
+                
+    		public Tile current() {
+    			return Map.this.matrix[x][y];
+    		}
+
+    		public void advance() {
+    			++x;
+    			if(x == Map.this.matrix[0].length) {
+    				++y;
+    				x = 0;
+    			}
+    		}
+    	};
+    }
 }

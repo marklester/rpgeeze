@@ -1,7 +1,5 @@
 package model;
 
-import view.Drawer;
-
 /*
  * 
  * Take-able Item - added to inventory on touch
@@ -10,12 +8,12 @@ import view.Drawer;
 
 
 public abstract class TakeableItem extends Item {
+	
 	public TakeableItem(String name, Location location) {
 		super(name,location);
 	}
 	
-	public void activate()
-	{
+	public void activate() {
 		
 	}
 
