@@ -4,4 +4,4 @@
 
 2. Need some sort of stat in Item class to calculate armor rating and offensive rating.
 
-
+3. Does Entity need Derived stats?
