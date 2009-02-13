@@ -39,27 +39,33 @@ import java.awt.event.*;
  * 		--Jose
  */
 
+/*
+Here is an example of the usage that is appropriate to allow the
+model's thread to execute whatever message you need it to.
+
+	1. create an action object for the key bindings
+	2. add the key bindings to this Component
+	3. create a Task object that can be put on the models message queue
+		in order for the model thread to execute it.
+		
+If you have any questions about the crap I am typing, feel free to call me
+561-386-0083
+
+	--Jose
+
+*/ 
 
 public class Controller extends JComponent{
 	
 	private static Model model;
+	private static Controller controller;
 	
-	/*
-	Here is an example of the usage that is appropriate to allow the
-	model's thread to execute whatever message you need it to.
-	
-		1. create an action object for the key bindings
-		2. add the key bindings to this Component
-		3. create a Task object that can be put on the models message queue
-			in order for the model thread to execute it.
-			
-	If you have any questions about the crap I am typing, feel free to call me
-	561-386-0083
-	
-		--Jose
-	
-	*/ 
-	public Controller(Model model)
+	//constructor is private
+	//can only be accessed by the static method
+	//to ensure creation of only one controller
+	//One controller = One set of key bindings
+	//		--Jose
+	private Controller(Model model)
 	{
 		this.model = model;
 		Action move = new AbstractAction(){
@@ -74,7 +80,14 @@ public class Controller extends JComponent{
 		
 		this.getInputMap().put(KeyStroke.getKeyStroke("d"), "D");
 		this.getActionMap().put("D", move);
-		
+	}
+	
+	//Keeping one instance of controller
+	public static Controller createController(Model m)
+	{
+		if(controller == null)
+			controller = new Controller(m);
+		return controller;
 	}
 	
 	private class moveRight implements Task
