@@ -87,7 +87,7 @@ int armorRating;
 		return defensiveRating;
 	}
 	
-	public void calculateArmorRating()
+	public void calculateArmorRating(int armorRating)
 	{
 		
 	}
