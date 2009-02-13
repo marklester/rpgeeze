@@ -10,12 +10,13 @@ import view.*;
 
 public abstract class Item implements Drawable {
 
-	protected final String name;
+	public String name;
 	public Location location;
-	
-	protected Item(String name)
+		
+	public Item(String name, Location location)
 	{
 		this.name = name;
+		this.location = location;
 	}
 	
 	public String toString()
