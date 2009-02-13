@@ -1,0 +1,13 @@
+#summary Accelerated Eclipse Guide
+#labels howto
+
+  * download and install [http://www.eclipse.org/ Eclipse]
+  * install [http://subclipse.tigris.org/ Subclipse]
+   * fire up Eclipse
+   * go to Help, Software Updates, Find and Install
+   * continue following the [http://subclipse.tigris.org/servlets/ProjectProcess?pageID=p4wYuA online instructions]
+  * in Eclipse, create a new project
+   * select New, Project..., SVN, Checkout Projects from SVN
+   * add the repository location
+   * input your Google Code credentials when prompted
+   * you probably just want the trunk
