@@ -4,15 +4,15 @@ import controller.*;
 
 public class RunGame {
     public static void main(String[] arg) {
-    	//ClassLoader loader = RunGame.class.getClassLoader();
-    	//loader.getResource("res/example.txt");
+    	ClassLoader loader = RunGame.class.getClassLoader();
     	
-    	Occupation o = getOccupation();
-    	Entity e = new Entity(o);
-        Model m = new Model(e);
+    	Occupation occ = getOccupation();
+    	Entity avatar = new Entity(occ);
+    	Map map = new Map(loader.getResourceAsStream("res/map.txt"));
+        Model model = new Model(map, avatar);
         
-        Controller c = Controller.createController(m);
-        View v = new View(m);
+        Controller c = Controller.createController(model);
+        View v = new View(model);
         
         v.run();
     }

@@ -15,11 +15,13 @@ public class View extends Thread {
 	private volatile boolean running = false;
 
 	private volatile Image dbImage = null;
+	private Drawer drawer;
 	private GameFrame frame;
 	
 	public View(Model model) {
 		this.model = model;
 		frame = new GameFrame();
+		drawer = new Drawer();
 	}
 	
 /*
@@ -98,12 +100,7 @@ public class View extends Thread {
 		g.fillRect (0, 0, PWIDTH, PHEIGHT);
 		g.setColor(Color.blue);
 		
-		try {
-			ClassLoader loader = getClass().getClassLoader();
-			BufferedImage img = ImageIO.read(loader.getResourceAsStream("res/img/water.png"));
-			g.drawImage(img, 0, 0, null);
-		}
-		catch(Exception e) {}
+		drawer.doDraw(model.getMap(), g);
 		
 		g.setFont(new Font("SansSerif", Font.BOLD, 16));
 		g.drawString("System.nanoTime() returns " + System.nanoTime(), 50, 50);
