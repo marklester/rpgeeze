@@ -4,16 +4,25 @@ import java.io.*;
 import java.util.*;
 
 public class Map {
-	private Tile[][] matrix;
+	public Tile[][] matrix;
 	
 	public Map(InputStream stream) {
 		Scanner s = new Scanner(stream);
 		List<Tile[]> list = new ArrayList<Tile[]>();
-		while(s.hasNextLine()) {
+		for(int r = 0; s.hasNextLine(); ++r) {
 			String line = s.nextLine();
 			Tile[] arr = new Tile[line.length()];
-			// parse the line and set Tile in arr
-			list.add(0, arr);
+			for(int c = 0; c != line.length(); ++c) {
+				Terrain ter = null;
+				switch(line.charAt(c)) {
+				case 'G': ter = GrassTerrain.getInstance(); break;
+				case 'M': ter = MountainTerrain.getInstance(); break;
+				case 'W': ter = WaterTerrain.getInstance(); break;
+				default: throw new RuntimeException("Bad map");
+				}
+				arr[c] = new Tile(ter, new Location(r, c));
+			}
+			list.add(arr);
 		}
 		matrix = list.toArray(new Tile[0][]);
 	}

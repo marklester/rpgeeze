@@ -57,7 +57,7 @@ If you have any questions about the crap I am typing, feel free to call me
 
 public class Controller extends JComponent{
 	
-	private static Model model;
+	private final Model model;
 	private static Controller controller;
 	
 	//constructor is private
@@ -68,13 +68,14 @@ public class Controller extends JComponent{
 	private Controller(Model model)
 	{
 		this.model = model;
-		Action move = new AbstractAction(){
+		Action move = new AbstractAction() {
 			public void actionPerformed(ActionEvent ae)
 			{
-				Controller.model.invoke(new moveRight());
+				System.out.println("The D key has been pressed.");
+				Controller.this.model.invoke(new moveRight());
 				
 				//For Testing purposes
-				//System.out.println("The D key has been pressed.");
+				System.out.println("The D key has been pressed.");
 			}
 		};
 		

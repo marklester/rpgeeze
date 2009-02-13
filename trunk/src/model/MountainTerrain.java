@@ -3,9 +3,16 @@ package model;
 import view.Drawer;
 
 public class MountainTerrain extends Terrain {
+	private static MountainTerrain instance = null;
 	
-	public MountainTerrain() {
+	private MountainTerrain() {
 		super("Mountain Terrain");
+	}
+	
+	public static MountainTerrain getInstance() {
+		if(instance == null)
+			instance = new MountainTerrain();
+		return instance;
 	}
 	
 	public boolean isPassable(Entity e) {

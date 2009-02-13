@@ -8,7 +8,8 @@ public class Tile {
 	private AreaEffect ae;
 	private Decal decal;
 
-	public Tile(Location location) {
+	public Tile(Terrain terrain, Location location) {
+		this.terrain = terrain;
 		this.location = location;
 	}
 	

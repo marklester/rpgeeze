@@ -7,8 +7,9 @@ public class Model {
 	protected Queue<Task> tasks = new LinkedList<Task>();
 	
 	private Entity avatar;
+	private Map map;
 	
-	public Model(Entity avatar) {		
+	public Model(Map map, Entity avatar) {		
 		/* Made constructor public so that RunGame would compile. If you
 		 * come up with another way of retrieving a Model, update
 		 * RunGame accordingly.
@@ -21,9 +22,13 @@ public class Model {
 		//create task queue
 		//		--Jose
 		
+		this.map = map;
 		this.avatar = avatar;
 	}
 	
+	public Map getMap() {
+		return map;
+	}
 	
 	public synchronized void invoke(Task t) {
 		tasks.add(t);

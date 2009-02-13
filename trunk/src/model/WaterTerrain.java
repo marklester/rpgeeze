@@ -3,9 +3,16 @@ package model;
 import view.Drawer;
 
 public class WaterTerrain extends Terrain {
+	private static WaterTerrain instance = null;
 	
-	public WaterTerrain() {
+	private WaterTerrain() {
 		super("Water Terrain");
+	}
+	
+	public static WaterTerrain getInstance() {
+		if(instance == null)
+			instance = new WaterTerrain();
+		return instance;
 	}
 	
 	public boolean isPassable(Entity e) {
