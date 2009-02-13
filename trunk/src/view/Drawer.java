@@ -10,7 +10,7 @@ import model.*;
 public class Drawer {
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar,redCross,skullAndCrossbones;
-	private static Image bolder;
+	private static Image bolder,sword;
 	
 	private static Image sprite;
 	
@@ -30,7 +30,7 @@ public class Drawer {
 				goldStar = ImageIO.read(loader.getResourceAsStream("res/img/goldenstar.png"));
 				redCross = ImageIO.read(loader.getResourceAsStream("res/img/sprite_left.PNG"));
 				//skullAndCrossbones = ImageIO.read(loader.getResourceAsStream("res/img/skull.png"));
-
+                sword = ImageIO.read(loader.getResourceAsStream("res/img/sword.png"));
 				bolder = ImageIO.read(loader.getResourceAsStream("res/img/bolder.png"));
 
 				
@@ -94,7 +94,9 @@ public class Drawer {
 	
 	
 	
-	public void drawTakeableItem(TakeableItem item) {}
+	public void drawSword(Sword item) {
+		graphics.drawImage(sword, cursor.getX(), cursor.getY(), null);
+	}
 	public void drawBolder(Bolder item) {
 		graphics.drawImage(bolder, cursor.getX(), cursor.getY(), null);
 	}
