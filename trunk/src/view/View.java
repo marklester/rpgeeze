@@ -121,7 +121,7 @@ public class View extends Thread {
 		g.fillRect (0, 0, PWIDTH, PHEIGHT);
 		g.setColor(Color.blue);
 		
-		new Drawer(g).doDraw(model.getMap());
+		new Drawer(g).doDraw(model.getMap(), model.getAvatar(), frame.getWidth(), frame.getHeight());
 		
 		g.setFont(new Font("SansSerif", Font.BOLD, 16));
 		g.drawString("System.nanoTime() returns " + System.nanoTime(), 50, 50);

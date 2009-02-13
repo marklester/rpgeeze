@@ -54,15 +54,18 @@ public class Model extends Thread {
 
 	public void update() {
 		//read task queue
-		while(!commands.isEmpty()) {
+		while(!commands.isEmpty())
 			commands.remove().execute();
-		}
 		//update map
 			//update items
 			//apply  AoE's
 			//update NPC's
 		//update entity
 		//		--Jose
+	}
+	
+	public Entity getAvatar() {
+		return avatar;
 	}
 	
 	public void moveEntity(Distance d) {

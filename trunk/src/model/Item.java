@@ -19,8 +19,7 @@ public abstract class Item implements Drawable {
 		this.location = location;
 	}
 	
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 
