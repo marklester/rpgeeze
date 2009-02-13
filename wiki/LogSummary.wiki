@@ -2,7 +2,7 @@
 #labels log
 
 || [LogEric Eric Hayden] || 18.00 ||
-|| [LogBrennan Brennan Jones] || 21.50 ||
+|| [LogBrennan Brennan Jones] || 25.00 ||
 || [LogMatt Matt Lance] || 13.50 ||
 || [LogMark Mark Lester] || 16.50 ||
 || [LogJason Jason McAninley] || 28.50 ||
