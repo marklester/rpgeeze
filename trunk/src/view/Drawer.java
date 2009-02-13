@@ -12,10 +12,8 @@ import java.util.Hashtable;
 public class Drawer {
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar, redCross, skullAndCrossbones;
+	private static Image boulder,sword;
 
-	private static Image boulder;
-
-	private static Image sword;
 
 	private static Hashtable<Direction,Image> avatar = new Hashtable<Direction,Image>();
 	
@@ -35,8 +33,8 @@ public class Drawer {
 				goldStar = ImageIO.read(loader.getResourceAsStream("res/img/goldenstar.png"));
 				redCross = ImageIO.read(loader.getResourceAsStream("res/img/redcross.png"));
 				//skullAndCrossbones = ImageIO.read(loader.getResourceAsStream("res/img/skull.png"));
-		                //sword = 
-ImageIO.read(loader.getResourceAsStream("res/img/sword.png"));
+				
+		        sword = ImageIO.read(loader.getResourceAsStream("res/img/sword.png")); 
 				boulder = ImageIO.read(loader.getResourceAsStream("res/img/boulder.png"));
 
 				avatar.put(Direction.NORTH, ImageIO.read(loader.getResourceAsStream("res/img/avatar_n.png")));
@@ -92,11 +90,11 @@ ImageIO.read(loader.getResourceAsStream("res/img/sword.png"));
 	}
 	
 	public void drawGoldStarDecal(GoldStar decal) {
-		graphics.drawImage(goldStar, cursor.getX() + 5, cursor.getY() + 10, null);
+		graphics.drawImage(goldStar, cursor.getX() + 20, cursor.getY() + 20, null);
 	}
 	
 	public void drawRedCrossDecal(RedCross decal) {
-		graphics.drawImage(redCross, cursor.getX() + 5, cursor.getY() + 10, null );
+		graphics.drawImage(redCross, cursor.getX() + 20, cursor.getY() + 20, null );
 	}
 	
 	public void drawSkullAndCrossbonesDecal(SkullAndCrossbones decal) {
@@ -110,6 +108,10 @@ ImageIO.read(loader.getResourceAsStream("res/img/sword.png"));
 	public void drawBoulder(Boulder item) {
 		graphics.drawImage(boulder, cursor.getX(), cursor.getY(), null);
 	}	
+	
+	public void drawBoulder(Sword item) {
+		graphics.drawImage(sword, cursor.getX(), cursor.getY(), null);
+	}
 	
 	
 }
