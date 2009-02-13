@@ -34,8 +34,8 @@ public class Map {
 				Item item = null;
 				switch(line.charAt(++c)) {
 				case 'S': item = new Sword(); break;
-				case 'B': item = new Bolder(); break;
-				case 'L': item = new PotionLife(); break;
+				case 'B': item = new Bolder (); break;
+				//case 'L': item = new PotionLife(); break;
 				//case 'm': item = new Mana(); break;
 				//case 'C': item = new Crossbow(); break;
 				//case 'A': item = new Arrows(); break;
