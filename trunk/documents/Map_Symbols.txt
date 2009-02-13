@@ -1,0 +1,20 @@
+W Water
+M Mountain
+G Grass
+
++ Red Cross
+* Gold Cross 
+X skull and crossbones
+
+S sword
+B Bolder (Rock)
+L Life Potion
+m Mana
+C Crossbow
+A arrows
+t Staff
+
+H Heal Damage
+l Level up
+d Take damage
+x Instant Death
