@@ -68,13 +68,9 @@ public class Model extends Thread {
 	public void moveEntity(Distance d) {
 		Tile from = avatar.getTile();
 		
-		System.err.println("Moving from " + from);
-		
 		int newX = from.getLocation().getX() + d.getX();
 		int newY = from.getLocation().getY() + d.getY();
 		Tile to = map.getTile(newX, newY);
-		
-		System.err.println("Moving to " + to);
 		
 		// watch out for race conditions here		
 		from.setEntity(null);
