@@ -7,5 +7,9 @@ public class Entity {
 //    Location
 //    Name
 //    EquippedItems
+	
+	public Entity(Occupation occupation) {
+		this.occupation = occupation;
+	}
 }
 

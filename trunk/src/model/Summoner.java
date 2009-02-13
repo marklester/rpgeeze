@@ -1,6 +1,8 @@
 package model;
 
-public class Summoner {
-
+public class Summoner extends Occupation {
+	public Summoner() {
+		super("Summoner");
+	}
 }
 

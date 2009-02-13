@@ -1,6 +1,8 @@
 package model;
 
-public class Sneak {
-
+public class Sneak extends Occupation {
+	public Sneak() {
+		super("Sneak");
+	}
 }
 

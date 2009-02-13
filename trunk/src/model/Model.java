@@ -4,10 +4,15 @@ import java.util.*;
 
 public class Model {
 //Paused
-	LinkedList<Task> taskQueue = new LinkedList<Task>();
+	protected Queue<Task> tasks = new LinkedList<Task>();
 	
-	private Model()
-	{
+	public Model() 	{
+		/* Made constructor public so that RunGame would compile. If you
+		 * come up with another way of retrieving a Model, update
+		 * RunGame accordingly.
+		 * - Miorel
+		 */
+		
 		//create map
 			//create tiles and encompassing stuff
 		//create entity
@@ -16,16 +21,14 @@ public class Model {
 	}
 	
 	
-	public synchronized void invoke(Task t)
-	{
-		taskQueue.addLast(t);
+	public synchronized void invoke(Task t) {
+		tasks.add(t);
 	}	
-	public void update()
-	{
+
+	public void update() {
 		//read task queue
-		while(!taskQueue.isEmpty())
-		{
-			taskQueue.removeFirst().operation();
+		while(!tasks.isEmpty()) {
+			tasks.remove().operation();
 		}
 		//update map
 			//update items
