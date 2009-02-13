@@ -10,8 +10,9 @@ public class RunGame {
     	Occupation o = getOccupation();
     	Entity e = new Entity(o);
         Model m = new Model(e);
+        
+        Controller c = Controller.createController(m);
         View v = new View(m);
-        Controller c = new Controller(m);
         
         v.run();
     }
