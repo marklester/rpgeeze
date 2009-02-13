@@ -22,6 +22,7 @@ public class Location {
 		return y;
 	}
 	
+	/*
 	public void setX(int x) {
 		this.x = x;
 	}
@@ -33,6 +34,7 @@ public class Location {
 	public void setXY(int x, int y) {
 		this.x = x; this.y = y;
 	}
+	/* I think Location should be immutable. -- Miorel */
 	
 	public String toString() {
 		return "(" + x + "," + y + ")";
