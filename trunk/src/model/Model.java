@@ -75,10 +75,8 @@ public class Model extends Thread {
 		int newY = from.getLocation().getY() + d.getY();
 		Tile to = map.getTile(newX, newY);
 		
-		// watch out for race conditions here		
-		from.setEntity(null);
-		to.setEntity(avatar);
-		avatar.setTile(to);
+		// watch out for race conditions here
+		to.accept(avatar);
 		
 		//forward move request to Entity
 		//		--Jose
