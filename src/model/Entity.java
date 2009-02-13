@@ -6,6 +6,9 @@ public class Entity implements Drawable {
 	private Stats stats;
 	private Inventory inventory;
 	private Occupation occupation;
+	
+	private Direction facing = Direction.EAST;
+	
 //    Location
 //    Name
 //    EquippedItems
@@ -31,8 +34,16 @@ public class Entity implements Drawable {
 		return tile;
 	}
 	
-	public void setTile(Tile tile) {
+	void setTile(Tile tile) {
 		this.tile = tile;
+	}
+	
+	public Direction getFacingDirection() {
+		return facing;
+	}
+	
+	void setFacingDirection(Direction d) {
+		facing = d;
 	}
 }
 

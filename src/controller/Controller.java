@@ -103,16 +103,16 @@ public class Controller implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {
 		case KeyEvent.VK_W:
-			model.invoke(new MoveCommand(model, Distance.NORTH));
+			model.invoke(new MoveCommand(model, Direction.NORTH));
 			break;
 		case KeyEvent.VK_A:
-			model.invoke(new MoveCommand(model, Distance.WEST));
+			model.invoke(new MoveCommand(model, Direction.WEST));
 			break;
 		case KeyEvent.VK_S:
-			model.invoke(new MoveCommand(model, Distance.SOUTH));
+			model.invoke(new MoveCommand(model, Direction.SOUTH));
 			break;
 		case KeyEvent.VK_D:
-			model.invoke(new MoveCommand(model, Distance.EAST));
+			model.invoke(new MoveCommand(model, Direction.EAST));
 			break;
 		default:
 			break;

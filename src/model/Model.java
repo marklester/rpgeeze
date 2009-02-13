@@ -68,7 +68,7 @@ public class Model extends Thread {
 		return avatar;
 	}
 	
-	public void moveEntity(Distance d) {
+	public void moveAvatar(Direction d) {
 		Tile from = avatar.getTile();
 		
 		int newX = from.getLocation().getX() + d.getX();
@@ -77,6 +77,7 @@ public class Model extends Thread {
 		
 		// watch out for race conditions here
 		to.accept(avatar);
+		avatar.setFacingDirection(d);
 		
 		//forward move request to Entity
 		//		--Jose
