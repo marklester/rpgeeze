@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
 /*
  * Controller is going to pass messages in somewhat of a non conventional manner
  * when receiving an action, the respective handler will be set off.
@@ -57,16 +56,9 @@ If you have any questions about the crap I am typing, feel free to call me
 
 */ 
 
-/*
- * OK, so I wasn't quite sure how the ActionMap was supposed to work so I'm making
- * this class a KeyListener. -- Miorel 
- * 
- */
-
-
-public class Controller implements KeyListener {
+public class Controller extends JComponent {
 	
-	private final Model model;
+//	private final Model model;
 	
 	private static Controller controller;
 	
@@ -76,17 +68,17 @@ public class Controller implements KeyListener {
 	//One controller = One set of key bindings
 	//		--Jose
 	private Controller(Model model) {
-		this.model = model;
+//		this.model = model;	
 		
-		/*Action move = new AbstractAction() {
-			public void actionPerformed(ActionEvent ae) {
-				System.err.println("The D key has been pressed.");
-				Controller.this.model.invoke(new moveRight());
-			}
-		};*/
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('w'), "North");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "South");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('d'), "East");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('a'), "West");
 		
-//		this.getInputMap().put(KeyStroke.getKeyStroke("d"), "D");
-//		this.getActionMap().put("D", move);
+		this.getActionMap().put("North", new ActionCommand(model, new MoveCommand(model, Direction.NORTH)));
+		this.getActionMap().put("South", new ActionCommand(model, new MoveCommand(model, Direction.SOUTH)));
+		this.getActionMap().put("East", new ActionCommand(model, new MoveCommand(model, Direction.EAST)));
+		this.getActionMap().put("West", new ActionCommand(model, new MoveCommand(model, Direction.WEST)));
 	}
 	
 	//Keeping one instance of controller
@@ -94,29 +86,6 @@ public class Controller implements KeyListener {
 		if(controller == null)
 			controller = new Controller(m);
 		return controller;
-	}
-	
-	public void keyTyped(KeyEvent e) {}
-
-	public void keyReleased(KeyEvent e) {}
-	
-	public void keyPressed(KeyEvent e) {
-		switch(e.getKeyCode()) {
-		case KeyEvent.VK_W:
-			model.invoke(new MoveCommand(model, Direction.NORTH));
-			break;
-		case KeyEvent.VK_A:
-			model.invoke(new MoveCommand(model, Direction.WEST));
-			break;
-		case KeyEvent.VK_S:
-			model.invoke(new MoveCommand(model, Direction.SOUTH));
-			break;
-		case KeyEvent.VK_D:
-			model.invoke(new MoveCommand(model, Direction.EAST));
-			break;
-		default:
-			break;
-		}
 	}
 }
 

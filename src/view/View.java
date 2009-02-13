@@ -23,19 +23,7 @@ public class View extends Thread {
 	public View(Model model, Controller controller) {
 		this.model = model;
 		frame = new GameFrame();
-		//frame.add(controller);
-		frame.addKeyListener(controller);
-/*		frame.addKeyListener(new KeyListener() {
-			public void keyPressed(KeyEvent e) {
-				System.out.println(e.getKeyChar() + " was pressed.");
-			}
-			public void keyReleased(KeyEvent e) {
-				System.out.println(e.getKeyChar() + " was released.");
-			}
-			public void keyTyped(KeyEvent e) {
-				System.out.println(e.getKeyChar() + " was typed.");
-			}
-		});*/
+		frame.add(controller);
 		
 	}
 	
