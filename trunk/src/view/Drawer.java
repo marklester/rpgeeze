@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.imageio.*;
 import java.io.IOException;
 
+import util.*;
 import model.*;
 
 public class Drawer {
@@ -42,11 +43,11 @@ public class Drawer {
 	}
 	
 	public void doDraw(Map map) {
-		for(Tile[] row: map.matrix) {
-			for(Tile tile: row) {
-				cursor = modelToView(tile.getLocation());
-				tile.draw(this);
-			}
+		Iterator<Tile> iter = map.getTiles();
+		for(iter.reset(); !iter.isDone(); iter.advance()) {
+			Tile tile = iter.current();
+			cursor = modelToView(tile.getLocation());
+			tile.draw(this);
 		}
 	}
 	
