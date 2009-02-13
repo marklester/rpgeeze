@@ -1,5 +1,7 @@
 package model;
 
+import view.Drawer;
+
 /*
  * 
  * Interactive Item - (potentially) activated on touch; 
@@ -10,7 +12,13 @@ package model;
 
 
 public abstract class InteractiveItem extends Item {
-
+	public InteractiveItem() {
+		super("Interactive Item");
+	}
+	
+	public void draw(Drawer d) {
+		d.drawInteractiveItem(this);
+	}
 	public void activate() {
 		
 	}
