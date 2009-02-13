@@ -11,10 +11,10 @@ public class RunGame {
     	Map map = new Map(loader.getResourceAsStream("res/map.txt"));
         Model model = new Model(map, avatar);
         
-        Controller c = Controller.createController(model);
-        View v = new View(model);
+        Controller controller = Controller.createController(model);
+        View view = new View(model, controller);
         
-        v.run();
+        view.run();
     }
     
     public static Occupation getOccupation() {

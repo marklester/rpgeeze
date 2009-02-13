@@ -20,7 +20,7 @@ public class Map {
 				case 'W': ter = WaterTerrain.getInstance(); break;
 				default: throw new RuntimeException("Bad map");
 				}
-				arr[c] = new Tile(ter, new Location(r, c));
+				arr[c] = new Tile(ter, new Location(c, r));
 			}
 			list.add(arr);
 		}

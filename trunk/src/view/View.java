@@ -6,6 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.imageio.*;
 
+import controller.*;
 import model.*;
 import util.*;
 import static view.GameFrame.*;
@@ -15,13 +16,11 @@ public class View extends Thread {
 	private volatile boolean running = false;
 
 	private volatile Image dbImage = null;
-	private Drawer drawer;
-	private GameFrame frame;
+	public final GameFrame frame;
 	
-	public View(Model model) {
+	public View(Model model, Controller controller) {
 		this.model = model;
 		frame = new GameFrame();
-		drawer = new Drawer();
 	}
 	
 /*
@@ -76,7 +75,7 @@ public class View extends Thread {
 			render();
 			paint();
 			try {
-				Thread.sleep(50);
+				Thread.sleep(10);
 			}
 			catch(InterruptedException e) {}
 			
@@ -89,7 +88,7 @@ public class View extends Thread {
 	
 	private void render() {
 		if(dbImage == null) {
-			dbImage = frame.createImage(PWIDTH, PHEIGHT);
+			dbImage = frame.createImage(frame.getWidth(), frame.getHeight());
 			if(dbImage == null) {
 				System.out.println("dbImage is null");
 				return;
@@ -100,7 +99,7 @@ public class View extends Thread {
 		g.fillRect (0, 0, PWIDTH, PHEIGHT);
 		g.setColor(Color.blue);
 		
-		drawer.doDraw(model.getMap(), g);
+		new Drawer(g).doDraw(model.getMap());
 		
 		g.setFont(new Font("SansSerif", Font.BOLD, 16));
 		g.drawString("System.nanoTime() returns " + System.nanoTime(), 50, 50);

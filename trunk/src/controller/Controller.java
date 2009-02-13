@@ -1,6 +1,8 @@
 package controller;
 
 import model.*;
+import view.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -55,9 +57,10 @@ If you have any questions about the crap I am typing, feel free to call me
 
 */ 
 
-public class Controller extends JComponent{
+public class Controller extends JComponent {
 	
 	private final Model model;
+	
 	private static Controller controller;
 	
 	//constructor is private
@@ -65,9 +68,9 @@ public class Controller extends JComponent{
 	//to ensure creation of only one controller
 	//One controller = One set of key bindings
 	//		--Jose
-	private Controller(Model model)
-	{
+	private Controller(Model model) {
 		this.model = model;
+		
 		Action move = new AbstractAction() {
 			public void actionPerformed(ActionEvent ae)
 			{
@@ -84,8 +87,7 @@ public class Controller extends JComponent{
 	}
 	
 	//Keeping one instance of controller
-	public static Controller createController(Model m)
-	{
+	public static Controller createController(Model m) {
 		if(controller == null)
 			controller = new Controller(m);
 		return controller;

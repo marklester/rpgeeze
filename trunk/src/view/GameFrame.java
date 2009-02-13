@@ -13,7 +13,7 @@ public class GameFrame extends JFrame {
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    setFocusable(true);
 	    setSize(new Dimension(PWIDTH, PHEIGHT));
-	    setResizable(false);
-//	      readyForTermination();
+ 	    setResizable(false);
+//      readyForTermination();
 	}
 }

@@ -7,49 +7,55 @@ import java.io.IOException;
 import model.*;
 
 public class Drawer {
-	private Image grassTerrain;
-	private Image mountainTerrain;
-	private Image waterTerrain;
+	private static Image grassTerrain;
+	private static Image mountainTerrain;
+	private static Image waterTerrain;
+	private static boolean loaded = false;
 	
-	public Drawer() {
-		ClassLoader loader = getClass().getClassLoader();
-		try {
-			grassTerrain = ImageIO.read(loader.getResourceAsStream("res/img/grass.png"));
-			mountainTerrain = ImageIO.read(loader.getResourceAsStream("res/img/mountain.png"));
-			waterTerrain = ImageIO.read(loader.getResourceAsStream("res/img/water.png"));			
+	private Graphics graphics;
+	private Location cursor = null;
+	
+	public Drawer(Graphics g) {
+		if(!loaded) {
+			ClassLoader loader = getClass().getClassLoader();
+			try {
+				grassTerrain = ImageIO.read(loader.getResourceAsStream("res/img/grass.png"));
+				mountainTerrain = ImageIO.read(loader.getResourceAsStream("res/img/mountain.png"));
+				waterTerrain = ImageIO.read(loader.getResourceAsStream("res/img/water.png"));			
+			}
+			catch(IOException e) {}
 		}
-		catch(IOException e) {}
+		this.graphics = g;
 	}
 	
-	public void doDraw(Map map, Graphics g) {
+	private Location modelToView(Location location) {
 		int height = grassTerrain.getHeight(null);
 		int width = grassTerrain.getWidth(null);
-		int x = 0;
-		int y = 0;
+		return new Location(
+			location.getX() * width,
+			location.getY() * height
+		);
+	}
+	
+	public void doDraw(Map map) {
 		for(Tile[] row: map.matrix) {
-			x = 0;
 			for(Tile tile: row) {
-				Image img = null;
-				if(tile.getTerrain().toString().contains("Grass")) img = grassTerrain;
-				else if(tile.getTerrain().toString().contains("Mountain")) img = mountainTerrain;
-				else if(tile.getTerrain().toString().contains("Water")) img = waterTerrain;
-				g.drawImage(img, x, y, null);
-				x += width;
+				cursor = modelToView(tile.getLocation());
+				tile.draw(this);
 			}
-			y += height;
 		}
 	}
 	
 	public void drawGrassTerrain(GrassTerrain terrain) {
-		
+		graphics.drawImage(grassTerrain, cursor.getX(), cursor.getY(), null);
 	}
 	
 	public void drawMountainTerrain(MountainTerrain terrain) {
-		
+		graphics.drawImage(mountainTerrain, cursor.getX(), cursor.getY(), null);
 	}
 	
 	public void drawWaterTerrain(WaterTerrain terrain) {
-		
+		graphics.drawImage(waterTerrain, cursor.getX(), cursor.getY(), null);
 	}
 	
 	public void drawGoldStarDecal(GoldStar decal) {}

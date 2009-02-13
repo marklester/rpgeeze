@@ -1,5 +1,7 @@
 package model;
 
+import view.*;
+
 public class Tile {
 
 	private Location location;
@@ -7,18 +9,15 @@ public class Tile {
 	private Terrain terrain;
 	private AreaEffect ae;
 	private Decal decal;
+	private Entity entity;
 
 	public Tile(Terrain terrain, Location location) {
 		this.terrain = terrain;
 		this.location = location;
 	}
 	
-	public int getX(){
-		return location.getX();
-	}
-	
-	public int getY(){
-		return location.getY();
+	public Location getLocation(){
+		return location;
 	}
 	
 	public Item getItem() {
@@ -50,5 +49,11 @@ public class Tile {
 		return terrain;
 	}
 	
+	public void draw(Drawer d) {
+		terrain.draw(d);
+		if(decal!= null) decal.draw(d);
+		if(item != null) item.draw(d);
+		//if(entity != null) entity.draw(d);
+	}
 }
 
