@@ -10,12 +10,17 @@ import view.Drawer;
 
 
 public abstract class TakeableItem extends Item {
-	public TakeableItem() {
-		super("Takeable Item");
+	public TakeableItem(Location location) {
+		super("Takeable Item",location);
 	}
 	
 	public void draw(Drawer d) {
 		d.drawTakeableItem(this);
+	}
+	
+	public void activate()
+	{
+		
 	}
 
 }
