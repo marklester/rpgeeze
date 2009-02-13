@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -26,6 +26,7 @@ public class OccupationSelector extends JFrame {
         			if(getOccupation() != null) {
         				OccupationSelector.this.setVisible(false);
         				OccupationSelector.this.notifyAll();
+        				OccupationSelector.this.dispose();
         			}
         		}
         	}

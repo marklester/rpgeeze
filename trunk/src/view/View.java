@@ -6,7 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 
-public class View extends Thread{
+public class View extends Thread {
 
 /*
  * THIS STUFF NEEDS TO BE PART OF THE CONTROLLER
@@ -45,20 +45,17 @@ public class View extends Thread{
 	}
 */
 	
-	public View()
-	{
+	public View() {
 		
 	}
 
-	public void run()
-	{
+	public void run() {
 		//waits for an update to occur
-		synchronized(this)
-		{			
-			try{
+		synchronized(this) {			
+			try {
 				this.wait();
-			}catch(InterruptedException e)
-			{}
+			}
+			catch(InterruptedException e) {}
 		}
 		//getModelState
 		//draw/Render all Drawable Objects onto image buffer-- responsibility of Drawer
