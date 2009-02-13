@@ -52,7 +52,15 @@ public class Drawer {
 		int horizOffset = (width - tileWidth) / 2 - avatar.getTile().getLocation().getX() * tileWidth;
 		int vertOffset = (height - tileHeight) / 2 - avatar.getTile().getLocation().getY() * tileHeight;
 		
-		Iterator<Tile> iter = map.getTiles();
+		int horizTiles = width / tileWidth + 3;
+		int vertTiles = height / tileHeight + 3;
+		
+		int minX = avatar.getTile().getLocation().getX() - horizTiles / 2;
+		int minY = avatar.getTile().getLocation().getY() - vertTiles / 2;
+		int maxX = avatar.getTile().getLocation().getX() + horizTiles / 2;
+		int maxY = avatar.getTile().getLocation().getY() + vertTiles / 2;
+		
+		Iterator<Tile> iter = map.getTiles(minX, minY, maxX, maxY);
 		for(iter.reset(); !iter.isDone(); iter.advance()) {
 			Tile tile = iter.current();
 			cursor = new Location(
