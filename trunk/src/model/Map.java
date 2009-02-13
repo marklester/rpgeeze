@@ -69,34 +69,40 @@ public class Map {
 		Tile ret = null;
 		if(y >= 0 && y < matrix.length && x >= 0 && x < matrix[y].length)
 			ret = matrix[y][x];
+		else
+			ret = new Tile(MountainTerrain.getInstance(), new Location(x, y), null, null, null);
 		return ret;
 	}
 	
-    public Iterator<Tile> getTiles() {
+	public Iterator<Tile> getTiles(final int minX, final int minY, final int maxX, final int maxY) {
     	return new Iterator<Tile>() {
     		private int x;
     		private int y;
                 
     		public void reset() {
-    			x = 0;
-    			y = 0;
+    			x = minX;
+    			y = minY;
     		}
                 
     		public boolean isDone() {
-    			return y >= Map.this.matrix.length;
+    			return y > maxY;
     		}
                 
     		public Tile current() {
-    			return Map.this.matrix[x][y];
+    			return Map.this.getTile(x, y);
     		}
 
     		public void advance() {
     			++x;
-    			if(x == Map.this.matrix[0].length) {
+    			if(x > maxX) {
     				++y;
-    				x = 0;
+    				x = minX;
     			}
     		}
     	};
+	}
+	
+    public Iterator<Tile> getTiles() {
+    	return getTiles(0, 0, matrix[0].length - 1, matrix.length - 1);
     }
 }
