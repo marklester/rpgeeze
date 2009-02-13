@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.Graphics;
-
 import model.*;
 
 public class Drawer {

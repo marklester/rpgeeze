@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="jar">
+	<target name="jar">
+		<jar
+			destfile="dist/rpgeeze.jar"
+			basedir="."
+			excludes="bin/**,dist/**,.project,.classpath"
+		>
+			<fileset dir="bin"/>
+		    <manifest>
+				<attribute name="Built-By" value="${user.name}"/>
+		    	<attribute name="Main-Class" value="RunGame"/>
+		    </manifest>
+		</jar>
+	</target>
+</project>
