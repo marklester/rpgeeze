@@ -35,7 +35,7 @@ public class Drawer {
 				redCross = ImageIO.read(loader.getResourceAsStream("res/img/redcross.png"));
 				//skullAndCrossbones = ImageIO.read(loader.getResourceAsStream("res/img/skull.png"));
                 //sword = ImageIO.read(loader.getResourceAsStream("res/img/sword.png"));
-				//boulder = ImageIO.read(loader.getResourceAsStream("res/img/boulder.png"));
+				boulder = ImageIO.read(loader.getResourceAsStream("res/img/bolder.png"));
 
 				
 				sprite = ImageIO.read(loader.getResourceAsStream("res/img/sprite_left.png"));
@@ -107,12 +107,10 @@ public class Drawer {
 		graphics.drawImage(sword, cursor.getX(), cursor.getY(), null);
 	}
 	
-	public void drawBolder(Boulder item) {
+	public void drawBoulder(Boulder item) {
 		graphics.drawImage(boulder, cursor.getX(), cursor.getY(), null);
 	}	
 	
-	public void drawBoulder(Boulder boulder) {
-		
-	}
+	
 }
 
