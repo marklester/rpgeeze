@@ -12,8 +12,8 @@ import view.Drawer;
 
 
 public abstract class InteractiveItem extends Item {
-	public InteractiveItem() {
-		super("Interactive Item");
+	public InteractiveItem(Location location) {
+		super("Interactive Item",location);
 	}
 	
 	public void draw(Drawer d) {
