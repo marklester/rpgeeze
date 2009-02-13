@@ -6,7 +6,9 @@ public class Model {
 //Paused
 	protected Queue<Task> tasks = new LinkedList<Task>();
 	
-	public Model() 	{
+	private Entity avatar;
+	
+	public Model(Entity avatar) {		
 		/* Made constructor public so that RunGame would compile. If you
 		 * come up with another way of retrieving a Model, update
 		 * RunGame accordingly.
@@ -18,6 +20,8 @@ public class Model {
 		//create entity
 		//create task queue
 		//		--Jose
+		
+		this.avatar = avatar;
 	}
 	
 	
