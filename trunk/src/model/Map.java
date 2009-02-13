@@ -16,11 +16,11 @@ public class Map {
 		List<Tile[]> list = new ArrayList<Tile[]>();
 		for(int r = 0; s.hasNextLine(); ++r) {
 			String line = s.nextLine();
-			Tile[] arr = new Tile[line.length()/NUM_OF_CHARS_REPRESENTING_A_TILE];
+			Tile[] arr = new Tile[line.length() / NUM_OF_CHARS_REPRESENTING_A_TILE];
 			
-			for(int c = 0; c != line.length(); ++c) {
+			for(int c = 0; c != arr.length; ++c) {
 				Terrain ter = null;
-				switch(line.charAt(c)) {
+				switch(line.charAt(NUM_OF_CHARS_REPRESENTING_A_TILE * c)) {
 				case 'G': ter = GrassTerrain.getInstance(); break;
 				case 'M': ter = MountainTerrain.getInstance(); break;
 				case 'W': ter = WaterTerrain.getInstance(); break;
@@ -28,16 +28,19 @@ public class Map {
 				}
 				
 				Decal dec = null;
-				switch(line.charAt(++c)) {
+				switch(line.charAt(NUM_OF_CHARS_REPRESENTING_A_TILE * c + 1)) {
 				case '+': dec = RedCross.getInstance(); break;
 				case '*': dec = GoldStar.getInstance(); break;
 				case 'X': dec = SkullAndCrossbones.getInstance(); break;
+				case ' ': break;
+				default: throw new RuntimeException("Bad map - Decal");
 				}
 				
 				Item item = null;
-				switch(line.charAt(++c)) {
+				switch(line.charAt(NUM_OF_CHARS_REPRESENTING_A_TILE * c + 2)) {
 				case 'S': item = new Sword(); break;
 				case 'B': item = new Boulder(); break;
+				case ' ': break;
 				//case 'L': item = new PotionLife(); break;
 				//case 'm': item = new Mana(); break;
 				//case 'C': item = new Crossbow(); break;
@@ -46,11 +49,13 @@ public class Map {
 				}
 				
 				AreaEffect ae = null;
-				switch(line.charAt(++c)) {
+				switch(line.charAt(NUM_OF_CHARS_REPRESENTING_A_TILE * c + 3)) {
 				case 'H': ae = new HealDamage(); break;
 				case 'l': ae = new LevelUp() ; break;
 				case 'd': ae = new TakeDamage(); break;
 				case 'x': ae = new InstantDeath(); break;
+				case ' ': break;
+				default: throw new RuntimeException("Bad map - Area Effect");
 				}
 				
 				arr[c] = new Tile(ter, new Location(c, r), item, ae);
