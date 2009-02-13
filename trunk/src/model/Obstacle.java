@@ -10,13 +10,10 @@ import view.Drawer;
 
 
 public abstract class Obstacle extends Item {
-	public Obstacle(Location location) {
-		super("Obstacle",location);
+	public Obstacle(String name, Location location) {
+		super(name,location);
 	}
 	
-	public void draw(Drawer d) {
-		d.drawObstacle(this);
-	}
 	
 	public void activate()
 	{
