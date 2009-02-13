@@ -9,22 +9,24 @@ import model.*;
 public class OccupationSelector extends JFrame {
 	private Occupation occupation = null;
 	
-	private Occupation[] occs = {
+	private static final Occupation[] occs = {
 		new Smasher(),
 		new Summoner(),
 		new Sneak()
 	};
 	
     public OccupationSelector() {
-    	super("Occupation Selector");
+    	super("Select Occupation");
     	JPanel panel = new JPanel(new GridLayout(0, 1));
     	
         JButton ok = new JButton("OK");
         ok.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		synchronized(OccupationSelector.this) {
-        			if(getOccupation() != null)
-        				OccupationSelector.this.notifyAll();	
+        			if(getOccupation() != null) {
+        				OccupationSelector.this.setVisible(false);
+        				OccupationSelector.this.notifyAll();
+        			}
         		}
         	}
         });
