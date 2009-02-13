@@ -16,9 +16,6 @@ public abstract class InteractiveItem extends Item {
 		super("Interactive Item",location);
 	}
 	
-	public void draw(Drawer d) {
-		d.drawInteractiveItem(this);
-	}
 	public void activate() {
 		
 	}
