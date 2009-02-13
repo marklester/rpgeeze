@@ -63,5 +63,9 @@ public class Tile {
 		if(item != null) item.draw(d);
 		if(entity != null) entity.draw(d);
 	}
+	
+	public String toString() {
+		return "Tile at " + location;
+	}
 }
 

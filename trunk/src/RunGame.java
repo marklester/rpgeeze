@@ -14,7 +14,8 @@ public class RunGame {
         Controller controller = Controller.createController(model);
         View view = new View(model, controller);
         
-        view.run();
+        model.start();
+        view.start();
     }
     
     public static Occupation getOccupation() {
