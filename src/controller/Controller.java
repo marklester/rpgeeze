@@ -57,7 +57,14 @@ If you have any questions about the crap I am typing, feel free to call me
 
 */ 
 
-public class Controller extends JComponent {
+/*
+ * OK, so I wasn't quite sure how the ActionMap was supposed to work so I'm making
+ * this class a KeyListener. -- Miorel 
+ * 
+ */
+
+
+public class Controller implements KeyListener {
 	
 	private final Model model;
 	
@@ -71,19 +78,15 @@ public class Controller extends JComponent {
 	private Controller(Model model) {
 		this.model = model;
 		
-		Action move = new AbstractAction() {
-			public void actionPerformed(ActionEvent ae)
-			{
-				System.out.println("The D key has been pressed.");
+		/*Action move = new AbstractAction() {
+			public void actionPerformed(ActionEvent ae) {
+				System.err.println("The D key has been pressed.");
 				Controller.this.model.invoke(new moveRight());
-				
-				//For Testing purposes
-				System.out.println("The D key has been pressed.");
 			}
-		};
+		};*/
 		
-		this.getInputMap().put(KeyStroke.getKeyStroke("d"), "D");
-		this.getActionMap().put("D", move);
+//		this.getInputMap().put(KeyStroke.getKeyStroke("d"), "D");
+//		this.getActionMap().put("D", move);
 	}
 	
 	//Keeping one instance of controller
@@ -93,11 +96,27 @@ public class Controller extends JComponent {
 		return controller;
 	}
 	
-	private class moveRight implements Task
-	{
-		public void operation()
-		{
-			model.moveEntity(new Distance(0,1));
+	public void keyTyped(KeyEvent e) {}
+
+	public void keyReleased(KeyEvent e) {}
+	
+	public void keyPressed(KeyEvent e) {
+		System.err.println("Key typed: " + e.getKeyChar());
+		switch(e.getKeyCode()) {
+		case KeyEvent.VK_W:
+			model.invoke(new MoveCommand(model, Distance.NORTH));
+			break;
+		case KeyEvent.VK_A:
+			model.invoke(new MoveCommand(model, Distance.WEST));
+			break;
+		case KeyEvent.VK_S:
+			model.invoke(new MoveCommand(model, Distance.SOUTH));
+			break;
+		case KeyEvent.VK_D:
+			model.invoke(new MoveCommand(model, Distance.EAST));
+			break;
+		default:
+			break;
 		}
 	}
 }
