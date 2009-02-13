@@ -14,9 +14,6 @@ public abstract class OneShotItem extends Item {
 		super("One Shot Item",location);
 	}
 	
-	public void draw(Drawer d) {
-		d.drawOneShotItem(this);
-	}
 	
 	public void activate() {
 		//Do nothing
