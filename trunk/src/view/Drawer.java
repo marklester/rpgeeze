@@ -92,15 +92,13 @@ public class Drawer {
 		graphics.drawImage(skullAndCrossbones, cursor.getX() + 5, cursor.getY() + 10, null);	
 	}
 	
-	
-	
 	public void drawSword(Sword item) {
 		graphics.drawImage(sword, cursor.getX(), cursor.getY(), null);
 	}
+	
 	public void drawBolder(Bolder item) {
 		graphics.drawImage(bolder, cursor.getX(), cursor.getY(), null);
 	}
-	public void drawOneShotItem (OneShotItem item) {}
-	public void drawInteractiveItem (InteractiveItem item) {}
+	
 }
 
