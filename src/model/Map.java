@@ -140,7 +140,7 @@ public class Map {
 				switch(line.charAt(NUM_OF_CHARS_REPRESENTING_A_TILE * c + 2)) {
 				case 'S': item = new Sword(new Location(c,r)); break;
 				case 'B': item = new Boulder(new Location(c,r)); break;
-				//case 'L': item = new PotionLife(); break;
+				case 'L': item = new PotionLife(new Location(c,r)); break;
 				//case 'm': item = new Mana(); break;
 				//case 'C': item = new Crossbow(); break;
 				//case 'A': item = new Arrows(); break;
