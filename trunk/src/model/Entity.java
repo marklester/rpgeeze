@@ -47,6 +47,20 @@ public class Entity implements Drawable {
 	
 	void setTile(Tile tile) {
 		this.tile = tile;
+		//Check if there is an item on this tile. If so, add it to inventory, if not full.
+		//We could eventually prompt to ask if user wants to add to inventory
+		Item temp = tile.getItem();
+		if (temp != null) {
+			switch (inventory.addItem(temp)) {
+			case Inventory.INV_FULL : System.out.println("Inventory Full"); break;
+			case Inventory.INV_SUCCESS : 
+				System.out.println("Added Successfully. " + temp.name);
+				//temp.unDraw(Location??);
+				break;
+			
+			}
+		}
+			
 	}
 	
 	public Direction getFacingDirection() {
