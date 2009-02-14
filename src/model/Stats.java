@@ -1,132 +1,129 @@
 package model;
 
-public class Stats implements Cloneable{
+public class Stats {
 
-	//how many more times the entity can die before the game is over.
-	//Start the game with 3 lives
-	int livesLeft;
+	//measures how good the entity is at her occupation;based on experience
+	//between 1-5
+	int level;
 	
-	//primary attribute of the Smasher
-	//Everyone starts w/ 20, except smasher, who starts with 40
-	int strength;
+	//how close the entity is to death; based upon hardiness and level
+	//between 0-100
+	int life;
 	
-	//primary attribute of the Sneak
-	//Everyone starts w/ 20, except sneak, who starts with 40
-	int agility;
+	//how much energy the entity has to fuel her spells; based on intellect and level
+	//between 0-100 - play starts with 20
+	int mana;
 	
-	//primary attribute of the Summoner
-	//Everyone starts w/ 20, except summoner, who starts with 40
-	int intellect;
+	//damage dealt when attacking;based on the equipped weapon,strength and level
+	//between 0-110
+	int offensiveRating;
 	
-	//measures how resistant a character is to physical abuse
-	//Scale is 0-1 (a double) All start with .2
-	double hardiness;
+	//how difficult it is to successfully attack this entity;based on agility and level
+	//between 0-110
+	int defensiveRating;
 	
-	//measures how much an entity knows about her occupation; earned by adventuring, solving problems, etc.
-	//Scale is 0-100
-	int experience;
-	
-	//the max. distance an entity may move over ideal terrain per unit time
-	//1 unit for now... Portal, here we come
-	int movement;
+	//armor absorbs a fixed amount of damage;based on equipped armor and hardiness
+	//between 0-110
+	int armorRating;
+	Stats primaryStats;
 
-	//Generic stats
 	public Stats()
 	{
-		livesLeft = 3;
-	 	strength = 20;
-	 	agility = 20;
-	 	intellect = 20;
-	 	hardiness = 2;
-	 	experience = 1;
-	 	movement = 300;
+		level = 1;
+		life = 100;
+		mana = 20;
+		offensiveRating = 1;
+		defensiveRating = 1;
+		armorRating = 1;
+		primaryStats = new Stats();
 	}
 	
-	public Stats(int livesLeft, int strength, int agility, int intellect, double hardiness, int experience, int movement)
+	public Stats(int level, int life, int mana, Stats stats)
 	{
-		this.livesLeft = livesLeft;
-		this.strength = strength;
-		this.agility = agility;
-		this.intellect = intellect;
-		this.hardiness = hardiness;
-		this.experience = experience;
-		this.movement = movement;
+		this.level = level;
+		this.life = life;
+		this.mana = mana;
+		this.primaryStats = stats;
 	}
 	
-	public void setLivesLeft(int livesLeft)
+	public void calculateLevel()
 	{
-		this.livesLeft = livesLeft;
+		if((primaryStats.experience >= level * level * 5) && level < 5)
+		{
+			level += 1;
+		}
 	}
 	
-	public int getLivesLeft()
+	public int getLevel()
 	{
-		return livesLeft;
+		return level;
 	}
 	
-	public void setStrength(int strength)
+	public int getMana()
 	{
-		this.strength = strength;
-	}
-	
-	public int getStrength()
-	{
-		return strength;
-	}
-	
-	public void setAgility(int agility)
-	{
-		this.agility = agility;
-	}
-	
-	public int getAgility()
-	{
-		return agility;
-	}
-	
-	public void setIntellect(int intellect)
-	{
-		this.intellect = intellect;
-	}
-	
-	public int getIntellect()
-	{
-		return intellect;
-	}
-	
-	public void setHardiness(int hardiness)
-	{
-		this.hardiness = hardiness;
-	}
-	
-	public double getHardiness()
-	{
-		return hardiness;
-	}
-	
-	public void setExperience(int experience)
-	{
-		this.experience = experience;
-	}
-	
-	public int getExperience()
-	{
-		return experience;
-	}
-	
-	public void setMovement(int movement)
-	{
-		this.movement = movement;
-	}
-	
-	public int getMovement()
-	{
-		return movement;
-	}
-	
-	public Object clone() throws CloneNotSupportedException 
-	{
-        return super.clone();
+		return mana;
 	}
 
+	public int getOffensiveRating()
+	{
+		return offensiveRating;
+	}
+	
+	public int getDefensiveRating()
+	{
+		return defensiveRating;
+	}
+
+	public int getArmorRating()
+	{
+		return armorRating;
+	}
+	
+	
+	public void incLife(int amount)
+	{
+		life += amount;
+		if (life > 100) life = 100; //max is 100
+	}
+	
+	public void decLife(int amount)
+	{
+		life -= amount / (level + primaryStats.hardiness);
+	}
+	
+	public void decMana(int amount)
+	{
+		mana -= amount;
+	}
+	
+	public void incMana(int amount) {
+		mana += amount;
+	}
+	
+	
+	//Ratings are passed an integer "effectiveness" which is a property of 
+	//each weapon/armor, which will be on a 1-20 scale
+	//These methods will need to be called upon equipping & unequipping
+	
+	public void calculateOffensiveRating(int effectiveness)
+	{
+		offensiveRating = (primaryStats.strength/2 + effectiveness) * level;
+		if (offensiveRating > 100) offensiveRating = 110;
+	}
+	
+
+	public void calculateDefensiveRating()
+	{
+		defensiveRating = primaryStats.agility * level + 10;
+	}
+	
+	
+	public void calculateArmorRating(int effectiveness)
+	{
+		armorRating = effectiveness + (int)(effectiveness * primaryStats.hardiness);
+		//hardiness is a dec between 1 & 0
+	}
+	
+	
 }
 
