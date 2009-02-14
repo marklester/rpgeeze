@@ -26,6 +26,7 @@ public class Entity implements Drawable {
 	
 	public Entity(Occupation occupation) {
 		this.occupation = occupation;
+		inventory = new Inventory();
 	}
 	
 	public void draw(Drawer d) {
