@@ -1,7 +1,6 @@
 package model;
 
-import model.items.Item;
-import model.items.Obstacle;
+import model.items.*;
 import view.*;
 
 public class Entity implements Drawable, Cloneable {
@@ -19,6 +18,7 @@ public class Entity implements Drawable, Cloneable {
 	public static final int ENT_FEET 	= 12;
 	public static final int ENT_HEAD 	= 13;
 	public static final int ENT_ARMOR 	= 14;
+	public static final int DROP_ITEM   = 15;
 	
 	private Direction facing = Direction.EAST;
 	
@@ -101,6 +101,25 @@ public class Entity implements Drawable, Cloneable {
 		case ENT_HEAD 		: //inventory.dropItem(feetItem);
 		case ENT_FEET 		: //inventory.dropItem(headItem);
 		case ENT_ARMOR 		: //inventory.dropItem(armorItem);
+		}
+	}
+	
+	public void dropItem()
+	{ 
+		if(!(inventory.isEmtpy()))
+		{
+		Item i = inventory.removeItemAt(0);
+		i.setLocation(getTile().getLocation());
+		getTile().setItem(i);
+		String itemType = i.getClass().getName();
+		if(itemType.equals("Sword")) {
+			i.setLocation(getTile().getLocation());
+			Drawer.getInstance().drawSword((Sword) i);
+			}
+		else if(itemType.equals("PotionLife")){
+		    i.setLocation(getTile().getLocation());
+		    Drawer.getInstance().drawPotionLife((PotionLife) i);
+		}
 		}
 	}
 	public Stats getStats(){
