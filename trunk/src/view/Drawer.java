@@ -36,7 +36,7 @@ public class Drawer {
 
 				goldStar = ImageIO.read(loader.getResourceAsStream("res/img/goldenstar.png"));
 				redCross = ImageIO.read(loader.getResourceAsStream("res/img/redcross.png"));
-				//skullAndCrossbones = ImageIO.read(loader.getResourceAsStream("res/img/skull.png"));
+				skullAndCrossbones = ImageIO.read(loader.getResourceAsStream("res/img/skullandcrossbones.png"));
 				
 		        sword = ImageIO.read(loader.getResourceAsStream("res/img/sword.png")); 
 				boulder = ImageIO.read(loader.getResourceAsStream("res/img/boulder.png"));
@@ -111,7 +111,7 @@ public class Drawer {
 	}
 	
 	public void drawSkullAndCrossbonesDecal(SkullAndCrossbones decal) {
-		graphics.drawImage(skullAndCrossbones, cursor.getX() + 5, cursor.getY() + 10, null);	
+		graphics.drawImage(skullAndCrossbones, cursor.getX() + 20, cursor.getY() + 20, null);	
 	}
 	
 	public void drawSword(Sword item) {
