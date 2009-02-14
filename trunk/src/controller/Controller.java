@@ -20,7 +20,7 @@ import java.awt.event.*;
  * // assume the variable model is an instance of Model.
  * 
  * 
- * inner class Op1 extends Task
+ * inner class Op1 extends command
  * {
  * 		operation()
  * 		{
@@ -84,6 +84,8 @@ public class Controller extends JComponent {
 		//** Once that is established, the command object is EquipCommand(model, index_of_item)
 		//** -Jason
 		
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('m'), "Menu");
+		
 		this.getActionMap().put("North", new ActionCommand(model, new MoveCommand(model, Direction.NORTH)));
 		this.getActionMap().put("South", new ActionCommand(model, new MoveCommand(model, Direction.SOUTH)));
 		this.getActionMap().put("East", new ActionCommand(model, new MoveCommand(model, Direction.EAST)));
@@ -92,6 +94,8 @@ public class Controller extends JComponent {
 		this.getActionMap().put("UnequipRH", new ActionCommand(model, new UnequipCommand(model, Entity.ENT_RIGHT_H)));
 		this.getActionMap().put("UnequipHEAD", new ActionCommand(model, new UnequipCommand(model, Entity.ENT_HEAD)));
 		this.getActionMap().put("UnequipFEET", new ActionCommand(model, new UnequipCommand(model, Entity.ENT_FEET)));
+		//For Stats;
+		this.getActionMap().put("Menu", new ActionCommand(model, new MenuCommand(model, null)));
 	}
 	
 	//Keeping one instance of controller
