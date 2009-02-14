@@ -25,7 +25,7 @@ public class Stats {
 	//armor absorbs a fixed amount of damage;based on equipped armor and hardiness
 	//between 0-110
 	int armorRating;
-	Stats primaryStats;
+	PrimaryStats primaryStats;
 
 	public Stats()
 	{
@@ -35,10 +35,10 @@ public class Stats {
 		offensiveRating = 1;
 		defensiveRating = 1;
 		armorRating = 1;
-		primaryStats = new Stats();
+		primaryStats = new PrimaryStats();
 	}
 	
-	public Stats(int level, int life, int mana, Stats stats)
+	public Stats(int level, int life, int mana, PrimaryStats stats)
 	{
 		this.level = level;
 		this.life = life;
