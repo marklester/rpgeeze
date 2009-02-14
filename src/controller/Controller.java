@@ -80,6 +80,10 @@ public class Controller extends JComponent {
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_F11), "UnequipARMOR");
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_F12), "UnequipFEET");
 		
+		//** We need commands for selecting items to equip... May need to be selected by mouse
+		//** Once that is established, the command object is EquipCommand(model, index_of_item)
+		//** -Jason
+		
 		this.getActionMap().put("North", new ActionCommand(model, new MoveCommand(model, Direction.NORTH)));
 		this.getActionMap().put("South", new ActionCommand(model, new MoveCommand(model, Direction.SOUTH)));
 		this.getActionMap().put("East", new ActionCommand(model, new MoveCommand(model, Direction.EAST)));
