@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.*;
+
 import javax.imageio.*;
 import java.io.IOException;
 
@@ -23,7 +24,7 @@ public class Drawer {
 	
 	private static boolean loaded = false;
 	
-	private Graphics graphics;
+	private Graphics2D graphics;//For Transparency
 	private Location cursor = null;
 	
 	private Drawer() {
@@ -55,8 +56,8 @@ public class Drawer {
 		return drawerInstance;
 	}
 	
-	public void doDraw(Graphics g, Map map, Entity avatar, int width, int height) {
-		this.graphics = g;
+	public void doDraw(Graphics g, Map map, Entity avatar, int width, int height,boolean show_menu) {
+		this.graphics = (Graphics2D)g;
 		int tileHeight = grassTerrain.getHeight(null);
 		int tileWidth = grassTerrain.getWidth(null);
 		int horizOffset = (width - tileWidth) / 2 - avatar.getTile().getLocation().getX() * tileWidth;
@@ -78,6 +79,10 @@ public class Drawer {
 				tile.getLocation().getY() * tileHeight + vertOffset
 			);
 			tile.draw(this);
+		}
+		//Menu Stuff
+		if(show_menu){
+			this.drawMenu(avatar, width, height);
 		}
 	}
 	
@@ -121,7 +126,62 @@ public class Drawer {
 	public void drawBoulder(Sword item) {
 		graphics.drawImage(sword, cursor.getX(), cursor.getY(), null);
 	}
-	
+	//Not visitor like but whatev
+	public void drawMenu(Entity entity, int width, int height){
+		int menu_width = width/3;
+		int menu_height = height/3;
+		
+		graphics.setColor(Color.black);
+		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f));
+		graphics.fillRect (width-menu_width, height-menu_height, menu_width, menu_height);
+		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+		graphics.setColor(Color.white);
+		graphics.setFont(new Font("SansSerif", Font.BOLD, 16));
+		StringBuffer stats = new StringBuffer();
+		stats.append("Your Stats:\n");
+		stats.append("Life:"+entity.getStats().getLivesLeft());
+		//Text Formatting Numbers
+		int left_indent = menu_width/10;
+		int top_indent = menu_height/8;
+		int text_width = width - menu_width + left_indent; 
+		int text_height = height - menu_height + top_indent;
+		//Freaking ugly tedious code
+		int current_line=0;
+		graphics.drawString("Your Stats", text_width, text_height);
+		current_line+=18;
+		graphics.drawString("Lives Left:"+entity.getStats().getLivesLeft(), text_width, text_height+current_line);
+		current_line+=18;
+		graphics.drawString("Strength:"+entity.getStats().getStrength(), text_width, text_height+current_line);
+		current_line+=18;
+		graphics.drawString("Agility:"+entity.getStats().getAgility(), text_width, text_height+current_line);
+		current_line+=18;
+		graphics.drawString("Experience:"+entity.getStats().getExperience(), text_width, text_height+current_line);
+		current_line+=18;
+		graphics.drawString("Hardiness:"+entity.getStats().getHardiness(), text_width, text_height+current_line);
+		current_line+=18;
+		graphics.drawString("Intellect:"+entity.getStats().getIntellect(), text_width, text_height+current_line);
+		current_line+=18;
+		graphics.drawString("Movement:"+entity.getStats().getMovement(), text_width, text_height+current_line);
+		current_line+=18;
+		graphics.drawString("nanoTime:" + System.nanoTime(), text_width, text_height+current_line);
+		//More Ugly Code for the Second Column of Stats this will show Derived Stats
+		text_width = width - menu_width/2;
+		current_line = 0;
+		graphics.drawString("Derived Stats Go Here", text_width, text_height);
+		current_line+=18;
+		graphics.drawString("Level:"+entity.getStats().getLivesLeft(), text_width, text_height+current_line);
+		current_line+=18;
+		graphics.drawString("HP(Life):"+entity.getStats().getStrength(), text_width, text_height+current_line);
+		current_line+=18;
+		graphics.drawString("Mana:"+entity.getStats().getAgility(), text_width, text_height+current_line);
+		current_line+=18;
+		graphics.drawString("Offensive:"+entity.getStats().getExperience(), text_width, text_height+current_line);
+		current_line+=18;
+		graphics.drawString("Defensive:"+entity.getStats().getHardiness(), text_width, text_height+current_line);
+		current_line+=18;
+		graphics.drawString("Armor Rating:"+entity.getStats().getIntellect(), text_width, text_height+current_line);
+		current_line+=18;
+	}
 	
 }
 
