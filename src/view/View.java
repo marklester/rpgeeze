@@ -60,7 +60,7 @@ public class View extends Thread {
 		g.setColor(Color.white);
 		g.fillRect (0, 0, PWIDTH, PHEIGHT);
 		g.setColor(Color.blue);
-		Drawer.getInstance().doDraw(g, model.getMap(), model.getAvatar(), frame.getWidth(), frame.getHeight(),model.isMenuUp());
+		Drawer.getInstance().doDraw(g, model.getMap(), model.getAvatar(), frame.getWidth(), frame.getHeight(),model.isStatsUp());
 	}
 	
 	private void paint() {
