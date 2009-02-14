@@ -54,15 +54,11 @@ public class Model implements util.Subject{
 		{
 			while(!commands.isEmpty())
 			{
-				System.out.println("commands " + commands.size());
-				Command c = commands.remove();
-				while(commands.contains(c))
-				{
-					commands.remove(c);
-				}
-				c.execute();
+				while(!commands.isEmpty())
+					commands.remove().execute();
 			}
 		}
+		avatar.update();
 		
 		snapshot = map.getMatrix();
 		updateObservers();
@@ -100,7 +96,13 @@ public class Model implements util.Subject{
 		return avatar;
 	}
 	
-	public void moveAvatar(Direction d) {
+	public void moveAvatarRequest(Direction d) {
+		if (avatar.canMove())
+			moveAvatar(d);
+	}	
+	
+	private void moveAvatar(Direction d)
+	{
 		Tile from = avatar.getTile();
 		int newX = from.getLocation().getX() + d.getX();
 		int newY = from.getLocation().getY() + d.getY();
@@ -109,7 +111,7 @@ public class Model implements util.Subject{
 		// watch out for race conditions here
 		to.accept(avatar);
 		avatar.setFacingDirection(d);
-	}	
+	}
 	public void equipItem(int index) {
 		avatar.equipItem(index);
 	}

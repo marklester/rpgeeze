@@ -39,7 +39,7 @@ public class Stats implements Cloneable{
 	 	intellect = 20;
 	 	hardiness = 2;
 	 	experience = 1;
-	 	movement = 1;
+	 	movement = 300;
 	}
 	
 	public Stats(int livesLeft, int strength, int agility, int intellect, double hardiness, int experience, int movement)

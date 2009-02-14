@@ -12,6 +12,6 @@ public class MoveCommand implements Command {
 	}
 	
 	public void execute() {
-		m.moveAvatar(d);
+		m.moveAvatarRequest(d);
 	}
 }
