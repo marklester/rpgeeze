@@ -138,14 +138,15 @@ public class Map {
 				
 				Item item = null;
 				switch(line.charAt(NUM_OF_CHARS_REPRESENTING_A_TILE * c + 2)) {
-				case 'S': item = new Sword(); break;
-				case 'B': item = new Boulder(); break;
-				case ' ': break;
+				case 'S': item = new Sword(new Location(c,r)); break;
+				case 'B': item = new Boulder(new Location(c,r)); break;
 				//case 'L': item = new PotionLife(); break;
 				//case 'm': item = new Mana(); break;
 				//case 'C': item = new Crossbow(); break;
 				//case 'A': item = new Arrows(); break;
 				//case 't': item = new Staff(); break;
+				case ' ': break;
+				default: throw new RuntimeException("Bad map - Item");
 				}
 				
 				AreaEffect ae = null;
