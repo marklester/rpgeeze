@@ -32,4 +32,13 @@
   * Finished adding reason for being, implementing and testing fields to the UML.
 
 2/13/09 2:00-5:30
-  *Worked on Item, Stats, Derived Stats and seeing how all the code works together.
+  * Worked on Item, Stats, Derived Stats and seeing how all the code works together.
+
+2/13/09 7:00-11:30
+  * Worked on Stats, Derived Stats and Map with Jason, added items to screen
+
+2/13/09 12:30-2:00
+  * Continued working on things above.
+
+2/14/09 8:00-11:00
+  * Added PotionLife item, modified adding item to inventory, made Obstacle impassable, created Item package
