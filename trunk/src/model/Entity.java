@@ -27,6 +27,7 @@ public class Entity implements Drawable {
 	public Entity(Occupation occupation) {
 		this.occupation = occupation;
 		inventory = new Inventory();
+		this.stats = new Stats();
 	}
 	
 	public void draw(Drawer d) {
@@ -89,6 +90,9 @@ public class Entity implements Drawable {
 		case ENT_FEET 		: //inventory.dropItem(headItem);
 		case ENT_ARMOR 		: //inventory.dropItem(armorItem);
 		}
+	}
+	public Stats getStats(){
+		return this.stats;
 	}
 }
 
