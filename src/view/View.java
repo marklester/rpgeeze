@@ -22,9 +22,22 @@ public class View extends Thread implements Observer {
 	
 	public View(Model model, Controller controller) {
 		this.model = model;
-		frame = new GameFrame();
+		
+		
+		GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+    	GraphicsConfiguration gc = dev.getDefaultConfiguration();
+    	DisplayMode mode = new DisplayMode(1024, 768, 32, DisplayMode.REFRESH_RATE_UNKNOWN);
+    	if(dev.isDisplayChangeSupported())
+    	{    		
+    		frame = new GameFrame(gc);
+    		dev.setDisplayMode(mode);
+    	}else
+    		frame = new GameFrame();
+    		
 		frame.add(controller);
 		model.register(this);
+		
+		
 	}
 
 	public void run() {
@@ -56,10 +69,11 @@ public class View extends Thread implements Observer {
 			}
 		}
 		Graphics g = dbImage.getGraphics();
-		g.setColor(Color.white);
-		g.fillRect (0, 0, PWIDTH, PHEIGHT);
-		g.setColor(Color.blue);
+		//g.setColor(Color.white);
+		//g.fillRect (0, 0, PWIDTH, PHEIGHT);
+		//g.setColor(Color.blue);
 		Drawer.getInstance().doDraw(g, model.getMap(), model.getAvatar(), frame.getWidth(), frame.getHeight(),model.isStatsUp());
+		g.dispose();
 	}
 	
 	private void paint() {

@@ -2,6 +2,8 @@ import model.*;
 import view.*;
 import controller.*;
 
+import java.awt.*;
+
 public class RunGame {
     public static void main(String[] arg) {
     	ClassLoader loader = RunGame.class.getClassLoader();

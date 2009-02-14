@@ -8,8 +8,18 @@ public class GameFrame extends JFrame {
 	static int PHEIGHT = 800;
 	
 	public GameFrame() {
-		super("Game");
-		
+		super("Game");	
+		initFrame();
+//      readyForTermination();
+	}
+	public GameFrame(GraphicsConfiguration gc)
+	{
+		super(gc);
+		initFrame();
+	}
+	
+	private void initFrame()
+	{
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension screen = tk.getScreenSize();
 		
@@ -23,6 +33,5 @@ public class GameFrame extends JFrame {
 	    setUndecorated(true);
  	    setResizable(false);
  	    setVisible(true);
-//      readyForTermination();
 	}
 }
