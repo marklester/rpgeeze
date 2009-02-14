@@ -26,9 +26,6 @@ public class PrimaryStats implements Cloneable{
 	//Scale is 0-100
 	int experience;
 	
-	//the max. distance an entity may move over ideal terrain per unit time
-	//1 unit for now... Portal, here we come
-	int movement;
 
 	//Generic stats
 	public PrimaryStats()
@@ -39,7 +36,6 @@ public class PrimaryStats implements Cloneable{
 	 	intellect = 20;
 	 	hardiness = 2;
 	 	experience = 1;
-	 	movement = 1;
 	}
 	
 	public PrimaryStats(int livesLeft, int strength, int agility, int intellect, double hardiness, int experience, int movement)
@@ -50,7 +46,6 @@ public class PrimaryStats implements Cloneable{
 		this.intellect = intellect;
 		this.hardiness = hardiness;
 		this.experience = experience;
-		this.movement = movement;
 	}
 	
 	public void setLivesLeft(int livesLeft)
@@ -113,15 +108,6 @@ public class PrimaryStats implements Cloneable{
 		return experience;
 	}
 	
-	public void setMovement(int movement)
-	{
-		this.movement = movement;
-	}
-	
-	public int getMovement()
-	{
-		return movement;
-	}
 	
 	public Object clone() throws CloneNotSupportedException 
 	{

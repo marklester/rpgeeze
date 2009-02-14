@@ -25,8 +25,14 @@ public class Stats {
 	//armor absorbs a fixed amount of damage;based on equipped armor and hardiness
 	//between 0-110
 	int armorRating;
+	
+	//the max. distance an entity may move over ideal terrain per unit time
+	//1 unit for now... Portal, here we come
+	int movement;
+	
 	PrimaryStats primaryStats;
 
+	
 	public Stats()
 	{
 		level = 1;
@@ -35,14 +41,16 @@ public class Stats {
 		offensiveRating = 1;
 		defensiveRating = 1;
 		armorRating = 1;
+		movement = 1;
 		primaryStats = new PrimaryStats();
 	}
 	
-	public Stats(int level, int life, int mana, PrimaryStats stats)
+	public Stats(int level, int life, int mana, int movement, PrimaryStats stats)
 	{
 		this.level = level;
 		this.life = life;
 		this.mana = mana;
+		this.movement = movement;
 		this.primaryStats = stats;
 	}
 	
@@ -122,6 +130,22 @@ public class Stats {
 	{
 		armorRating = effectiveness + (int)(effectiveness * primaryStats.hardiness);
 		//hardiness is a dec between 1 & 0
+	}
+	
+	
+	public void setMovement(int movement)
+	{
+		this.movement = movement;
+	}
+	
+	public int getMovement()
+	{
+		return movement;
+	}
+	
+	public Object clone() throws CloneNotSupportedException 
+	{
+        return super.clone();
 	}
 	
 	
