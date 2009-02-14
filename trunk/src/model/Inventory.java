@@ -50,16 +50,16 @@ public class Inventory implements Cloneable{
 	{
 		Inventory i = (Inventory)super.clone();
         if(items != null)
-        {
+        {        
         	i.items = (ArrayList<Item>)this.items.clone();
         	Iterator<Item> iter = i.items.iterator();
+        	System.out.println(Thread.currentThread() + " is cloning inventory.");
         	while(iter.hasNext())
         	{
         		i.addItem((Item)iter.next().clone());
-        	}        	
-        }
+        	}        	        
+		}
         return i;
-        
 	}
 }
 

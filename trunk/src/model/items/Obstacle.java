@@ -15,6 +15,10 @@ public abstract class Obstacle extends Item {
 		super(name,location);
 	}
 	
+	public boolean isPassable()
+	{
+		return false;
+	}
 	
 	public void activate()
 	{
