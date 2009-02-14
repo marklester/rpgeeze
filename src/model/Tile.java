@@ -79,7 +79,7 @@ public class Tile implements Cloneable{
 	}
 	
 	public void accept(Entity e) {
-		if(getTerrain().isPassable(e)) {
+		if(getTerrain().isPassable(e) && !(getItem() instanceof Obstacle)) {
 			System.out.println("moved from tile: " + e.getTile());
 			e.getTile().setEntity(null);
 			System.out.println(this.entity == null);
