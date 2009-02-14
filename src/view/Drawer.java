@@ -28,6 +28,7 @@ public class Drawer implements Observer{
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar, redCross, skullAndCrossbones;
 	private static Image boulder,sword,potionlife;
+	private static Image statsView;
 
 
 	private static Hashtable<Direction,Image> avatar = new Hashtable<Direction,Image>();
@@ -37,7 +38,6 @@ public class Drawer implements Observer{
 	
 	private Graphics2D graphics;//For Transparency
 	private Location cursor = null;
-	
 	private Drawer() {
 			ClassLoader loader = getClass().getClassLoader();
 			try {
@@ -52,7 +52,10 @@ public class Drawer implements Observer{
 		        sword = ImageIO.read(loader.getResourceAsStream("res/img/sword.png")); 
 				boulder = ImageIO.read(loader.getResourceAsStream("res/img/boulder.png"));
 				potionlife = ImageIO.read(loader.getResourceAsStream("res/img/potionlife.png"));
-
+				
+				statsView=ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg"));
+				
+					
 				avatar.put(Direction.NORTH, ImageIO.read(loader.getResourceAsStream("res/img/avatar_n.png")));
 				avatar.put(Direction.SOUTH, ImageIO.read(loader.getResourceAsStream("res/img/avatar_s.png")));
 				avatar.put(Direction.EAST, ImageIO.read(loader.getResourceAsStream("res/img/avatar_e.png")));
@@ -68,7 +71,9 @@ public class Drawer implements Observer{
 		return drawerInstance;
 	}
 	
-	public void doDraw(Graphics g, Map map, Entity avatar, int width, int height,boolean show_menu) {
+	public void doDraw(Graphics g, Model model,int width, int height) {
+		Entity avatar = model.getAvatar();
+		Map map = model.getMap();
 		this.graphics = (Graphics2D)g;
 		int tileHeight = grassTerrain.getHeight(null);
 		int tileWidth = grassTerrain.getWidth(null);
@@ -103,9 +108,13 @@ public class Drawer implements Observer{
 //				entityTile.getLocation().getY() * tileHeight + vertOffset
 //			);
 //		entityTile.getEntity().draw(this);
-		//Menu Stuff
-		if(show_menu){
-			this.drawMenu(avatar, width, height);
+		//Stats Stuff
+		if(model.isStatsUp()){
+			this.drawStatsView(avatar, width, height);
+		}
+		//Inventory Stuff
+		if(model.isInventoryUp()){
+			this.drawInventoryView(avatar, width, height);
 		}
 	}
 	
@@ -119,12 +128,13 @@ public class Drawer implements Observer{
 	
 	public synchronized void holdSnapshot(Map.Matrix matrix)
 	{
-		mapStateQueue.clear();
 		mapStateQueue.add(matrix);
 	}
 	
 	private synchronized Map.Matrix getLatestState()
 	{
+		while(mapStateQueue.size() > 1)
+			mapStateQueue.poll();
 		return mapStateQueue.poll();
 	}
 	
@@ -168,27 +178,24 @@ public class Drawer implements Observer{
 		graphics.drawImage(potionlife, cursor.getX() + 1, cursor.getY() + 1, null);
 	}
 	//Not visitor like but whatev
-	public void drawMenu(Entity entity, int width, int height){
-		int menu_width = width/3;
-		int menu_height = height/3;
-		
+	public void drawStatsView(Entity entity, int width, int height){
+		int menu_width = 300;
+		int menu_height = 300;
+		int left_indent = 20;
+		int top_indent = 80;
 		graphics.setColor(Color.black);
-		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f));
-		graphics.fillRect (width-menu_width, height-menu_height, menu_width, menu_height);
+		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .9f));
+		graphics.drawImage(statsView,width-menu_width, height-menu_height,null);
 		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-		graphics.setColor(Color.white);
+		graphics.setColor(Color.black);
 		graphics.setFont(new Font("SansSerif", Font.BOLD, 16));
 		StringBuffer stats = new StringBuffer();
-		stats.append("Your Stats:\n");
-		stats.append("Life:"+entity.getStats().getLivesLeft());
 		//Text Formatting Numbers
-		int left_indent = menu_width/10;
-		int top_indent = menu_height/8;
 		int text_width = width - menu_width + left_indent; 
 		int text_height = height - menu_height + top_indent;
 		//Freaking ugly tedious code
 		int current_line=0;
-		graphics.drawString("Your Stats", text_width, text_height);
+		graphics.drawString("Primary Stats", text_width, text_height);
 		current_line+=18;
 		graphics.drawString("Lives Left:"+entity.getStats().getLivesLeft(), text_width, text_height+current_line);
 		current_line+=18;
@@ -208,7 +215,7 @@ public class Drawer implements Observer{
 		//More Ugly Code for the Second Column of Stats this will show Derived Stats
 		text_width = width - menu_width/2;
 		current_line = 0;
-		graphics.drawString("Derived Stats Go Here", text_width, text_height);
+		graphics.drawString("Derived Stats ", text_width, text_height);
 		current_line+=18;
 		graphics.drawString("Level:"+entity.getStats().getLivesLeft(), text_width, text_height+current_line);
 		current_line+=18;
@@ -223,6 +230,6 @@ public class Drawer implements Observer{
 		graphics.drawString("Armor Rating:"+entity.getStats().getIntellect(), text_width, text_height+current_line);
 		current_line+=18;
 	}
-	
+	public void drawInventoryView(Entity avater,int width,int height){}
 }
 
