@@ -42,8 +42,7 @@
 
 2/13/09 09:00-11:00
     * Had numerous issues with the CISE Labs.
-    * Worked with Brennan on creating the map files, and parsing them into the program as 
-Tiles
+    * Worked with Brennan on creating the map files, and parsing them into the program as Tiles
     * Worked with Brennan on Stats and Derived Stats
 
 2/13/09 19:00-23:00
