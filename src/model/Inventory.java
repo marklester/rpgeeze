@@ -9,13 +9,13 @@ package model;
  
 import java.util.*;
 
-public class Inventory {
+public class Inventory implements Cloneable{
 	
 	public static final int INV_SUCCESS = 0;
 	public static final int INV_FULL = -1;
 	public static final int INV_MAX_SIZE = 6;
 	
-	private List<Item> items;
+	private ArrayList<Item> items;
 	
 	
 	public Inventory() {
@@ -43,6 +43,20 @@ public class Inventory {
 	public void dropItem() {
 		
 	}
-	
+	public Object clone() throws CloneNotSupportedException 
+	{
+		Inventory i = (Inventory)super.clone();
+        if(items != null)
+        {
+        	i.items = (ArrayList<Item>)this.items.clone();
+        	Iterator<Item> iter = i.items.iterator();
+        	while(iter.hasNext())
+        	{
+        		i.addItem((Item)iter.next().clone());
+        	}        	
+        }
+        return i;
+        
+	}
 }
 

@@ -8,7 +8,7 @@ import view.Drawable;
  */
 
 
-public abstract class Terrain implements Drawable {
+public abstract class Terrain implements Drawable, Cloneable {
 
 	protected final String name;
 	
@@ -21,6 +21,12 @@ public abstract class Terrain implements Drawable {
 	public boolean isPassable(Entity e) {
 		return true;
 	}
+	
+	public Object clone() throws CloneNotSupportedException 
+	{
+        return super.clone();
+	}
+
 	
 	public String toString(){
 		return name;

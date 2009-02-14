@@ -2,7 +2,7 @@ package model;
 
 import view.*;
 
-public class Tile {
+public class Tile implements Cloneable{
 
 	private Location location;
 	private Item item;
@@ -80,10 +80,31 @@ public class Tile {
 	
 	public void accept(Entity e) {
 		if(getTerrain().isPassable(e)) {
+			System.out.println("moved from tile: " + e.getTile());
 			e.getTile().setEntity(null);
+			System.out.println(this.entity == null);
 			this.setEntity(e);
 			e.setTile(this);
+			System.out.println("moved to tile: " + e.getTile());
 		}
+	}
+	public void releaseEntity()
+	{
+		this.entity = null;
+	}
+	
+	public Object clone() throws CloneNotSupportedException
+	{
+		
+		Tile t = (Tile)super.clone();
+		if(t.location != null) t.location = (Location)this.location.clone();
+		if(t.item != null) t.item = (Item)this.item.clone();
+		//t.terrain = (Terrain)this.terrain.clone();
+		if(t.ae != null) t.ae = (AreaEffect)this.ae.clone();
+		if(t.decal != null) t.decal = (Decal)this.decal.clone();
+		if(t.entity != null) t.entity = (Entity)this.entity.clone();
+		return t;
+		
 	}
 	
 	public String toString() {

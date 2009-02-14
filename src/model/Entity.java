@@ -2,7 +2,7 @@ package model;
 
 import view.*;
 
-public class Entity implements Drawable {
+public class Entity implements Drawable, Cloneable {
 	private Stats stats;
 	private Inventory inventory;
 	private Occupation occupation;
@@ -72,6 +72,16 @@ public class Entity implements Drawable {
 	void setFacingDirection(Direction d) {
 		facing = d;
 	}
+
+	
+	public Object clone() throws CloneNotSupportedException 
+	{
+        Entity e = (Entity)super.clone();
+        if(this.stats != null) e.stats = (Stats)this.stats.clone();
+        if(this.inventory != null)e.inventory = (Inventory)this.inventory.clone();
+        return e;
+	}
+
 	
 	public void equipItem(int index) {
 		Item i = inventory.removeItemAt(index);

@@ -1,6 +1,6 @@
 package model;
 
-public abstract class AreaEffect {
+public abstract class AreaEffect implements Cloneable {
 	
 	protected final String name;
 	protected float rate;
@@ -20,6 +20,11 @@ public abstract class AreaEffect {
 		this.rate = rate;
 	}
 	
+	public Object clone() throws CloneNotSupportedException 
+	{
+        return super.clone();
+	}
+
 	
 
 }

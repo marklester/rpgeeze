@@ -35,7 +35,7 @@ public class View extends Thread {
 		while(!interrupted()) {
 			//long beforeTime = System.nanoTime();
 			//waits for an update to occur
-			synchronized(this) {			
+			synchronized(this) {
 				try {
 					this.wait();
 				}
@@ -45,11 +45,6 @@ public class View extends Thread {
 			}
 			render();
 			paint();
-			
-			//getModelState
-			//draw/Render all Drawable Objects onto image buffer-- responsibility of Drawer
-			//paint image buffer on screen
-			//		--Jose
 		}
 	}
 	
