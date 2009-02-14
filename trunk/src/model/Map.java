@@ -14,9 +14,10 @@ import util.*;
 
 public class Map {
 	public static final int NUM_OF_CHARS_REPRESENTING_A_TILE = 5;
+	
 	private volatile Matrix matrix;
 	
-	private class Matrix implements Cloneable
+	public class Matrix implements Cloneable
 	{
 		private volatile Tile[][] map;
 		
@@ -67,29 +68,7 @@ public class Map {
 		}
 	    public Iterator<Tile> getTiles() {
 	    	return getTiles(0, 0, map[0].length - 1, map.length - 1);
-	    }
-	    
-	    private Tile[][] cloneMatrix() 
-		{
-			Tile[][] set = map.clone();
-			for(int i = 0; i < set.length; i++)
-			{
-				for (int j = 0; j < set[i].length; j++)
-				{
-					if( map[i][j] != null)
-					{
-						try{
-							set[i][j] = (Tile)map[i][j].clone();
-						}catch (CloneNotSupportedException e)
-						{
-							System.err.println("This should never occur.");
-						}
-					}else
-						System.out.println("No Good.");
-				}
-			}
-			return set;
-		}
+	    }	   
 	
 	    public Object clone() throws CloneNotSupportedException
 	    {
@@ -175,15 +154,24 @@ public class Map {
 		return matrix.getTile(x, y);
 	}
 	
+	public Matrix getMatrix()
+	{
+		Matrix m = null;
+		try{
+			m = (Matrix)matrix.clone();
+		}catch (CloneNotSupportedException e){}
+		return m;
+	}
+	
 	public Iterator<Tile> getTiles(final int minX, final int minY, final int maxX, final int maxY) {
-//		Matrix m = null;
-//		try
-//		{
-//			m = (Matrix)matrix.clone();
-//		}catch (CloneNotSupportedException e)
-//		{/* Should never occur*/}
-//    	return  matrix.getTiles(minX, minY, maxX, maxY);
-		return matrix.getTiles(minX, minY, maxX, maxY);
+		Matrix m = null;
+		try
+		{
+			m = (Matrix)matrix.clone();
+		}catch (CloneNotSupportedException e)
+		{/* Should never occur*/}
+    	return  m.getTiles(minX, minY, maxX, maxY);
+		//return matrix.getTiles(minX, minY, maxX, maxY);
 	}
 	
     public Iterator<Tile> getTiles() { 

@@ -2,8 +2,13 @@ package model;
 
 import java.util.*;
 
-public class Model{
-	protected Queue<Command> commands = new LinkedList<Command>();
+import util.Observer;
+
+public class Model implements util.Subject{
+	protected final Queue<Command> commands = new LinkedList<Command>();
+	protected final List<Observer> observers = new LinkedList<Observer>();
+	
+	private Map.Matrix snapshot;
 	
 	private Entity avatar;
 	private Map map;
@@ -44,8 +49,25 @@ public class Model{
 
 	public void update() {
 		//read task queue
-		while(!commands.isEmpty())
-			commands.remove().execute();
+		
+		synchronized(this)
+		{
+			while(!commands.isEmpty())
+			{
+				System.out.println("commands " + commands.size());
+				Command c = commands.remove();
+				while(commands.contains(c))
+				{
+					commands.remove(c);
+				}
+				c.execute();
+			}
+		}
+		
+		snapshot = map.getMatrix();
+		updateObservers();
+		
+		
 		
 		//update map
 			//update items
@@ -53,6 +75,25 @@ public class Model{
 			//update NPC's
 		//update entity
 		//		--Jose
+	}
+	
+	public void register(Observer o)
+	{
+		observers.add(o);
+	}
+	public void unregister(Observer o)
+	{
+		observers.remove(o);
+	}
+	public void updateObservers()
+	{
+		Iterator<Observer> iter = observers.iterator();
+		while(iter.hasNext())
+			iter.next().update(this);			
+	}
+	public Map.Matrix publishState()
+	{	
+		return snapshot;
 	}
 	
 	public Entity getAvatar() {

@@ -9,10 +9,10 @@ public class Direction {
 	public static final Direction EAST = new Direction(1, 0);
 	public static final Direction WEST = new Direction(-1, 0);
 	
-	public static final Direction NORTHEAST = new Direction(1, 1);
-	public static final Direction NORTHWEST = new Direction(-1, 1);
-	public static final Direction SOUTHEAST = new Direction(1, -1);
-	public static final Direction SOUTWEST = new Direction(-1, -1);
+	public static final Direction NORTHEAST = new Direction(1, -1);
+	public static final Direction NORTHWEST = new Direction(-1, -1);
+	public static final Direction SOUTHEAST = new Direction(1, 1);
+	public static final Direction SOUTWEST = new Direction(-1, 1);
 	
 	public Direction(int x, int y) 	{
 		this.x = x;

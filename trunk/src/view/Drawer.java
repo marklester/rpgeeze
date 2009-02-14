@@ -11,7 +11,16 @@ import model.items.*;
 
 import java.util.Hashtable;
 
-public class Drawer {
+public class Drawer implements Observer{
+	
+	
+	public class Constraint
+	{
+		public int minX;
+		public int minY;
+		public int maxX;
+		public int maxY;
+	}
 	
 	//Drawer Singleton
 	private static Drawer drawerInstance;
@@ -22,6 +31,7 @@ public class Drawer {
 
 
 	private static Hashtable<Direction,Image> avatar = new Hashtable<Direction,Image>();
+	private final java.util.Queue<Map.Matrix> mapStateQueue = new java.util.LinkedList<Map.Matrix>(); 
 	
 	private static boolean loaded = false;
 	
@@ -73,19 +83,52 @@ public class Drawer {
 		int maxX = avatar.getTile().getLocation().getX() + horizTiles / 2;
 		int maxY = avatar.getTile().getLocation().getY() + vertTiles / 2;
 		
-		Iterator<Tile> iter = map.getTiles(minX, minY, maxX, maxY);
+		Tile entityTile = null;
+		
+		
+		Map.Matrix m = getLatestState();
+		Iterator<Tile> iter = m.getTiles(minX, minY, maxX, maxY);
 		for(iter.reset(); !iter.isDone(); iter.advance()) {
 			Tile tile = iter.current();
+			if(tile.hasEntity())
+				entityTile = tile;
+			
 			cursor = new Location(
 				tile.getLocation().getX() * tileWidth + horizOffset,
 				tile.getLocation().getY() * tileHeight + vertOffset
 			);
 			tile.draw(this);
 		}
+		
+		cursor = new Location(
+				entityTile.getLocation().getX() * tileWidth + horizOffset,
+				entityTile.getLocation().getY() * tileHeight + vertOffset
+			);
+		entityTile.getEntity().draw(this);
 		//Menu Stuff
 		if(show_menu){
 			this.drawMenu(avatar, width, height);
 		}
+	}
+	
+	public void update(Subject s)
+	{
+		if(s instanceof Model)
+		{
+			this.holdSnapshot(((Model)s).publishState());
+		}
+	}
+	
+	public synchronized void holdSnapshot(Map.Matrix matrix)
+	{
+		mapStateQueue.add(matrix);
+	}
+	
+	private synchronized Map.Matrix getLatestState()
+	{
+		while(mapStateQueue.size() > 1)
+			mapStateQueue.poll();
+		return mapStateQueue.poll();
 	}
 	
 	public void drawGrassTerrain(GrassTerrain terrain) {
