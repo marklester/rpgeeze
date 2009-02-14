@@ -57,7 +57,11 @@ If you have any questions about the crap I am typing, feel free to call me
 */ 
 
 public class Controller extends JComponent {
-	
+	public static final int MAP_VIEW =0 ;
+	public static final int INVENTORY_VIEW=1;
+	public static final int MENU_VIEW=2;
+	public static final int STAT_VIEW=3;
+	private int contolled_view = MAP_VIEW;
 //	private final Model model;
 	
 	private static Controller controller;
@@ -70,7 +74,7 @@ public class Controller extends JComponent {
 	private Controller(Model model) {
 //		this.model = model;	
 		
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('w'), "North");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_W)), "North");//Yeah got w to work as a key
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "South");
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('d'), "East");
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('a'), "West");
@@ -84,7 +88,8 @@ public class Controller extends JComponent {
 		//** Once that is established, the command object is EquipCommand(model, index_of_item)
 		//** -Jason
 		
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('m'), "Menu");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('m'), "Stats");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('i'), "Inventory");
 		
 		this.getActionMap().put("North", new ActionCommand(model, new MoveCommand(model, Direction.NORTH)));
 		this.getActionMap().put("South", new ActionCommand(model, new MoveCommand(model, Direction.SOUTH)));
@@ -95,7 +100,8 @@ public class Controller extends JComponent {
 		this.getActionMap().put("UnequipHEAD", new ActionCommand(model, new UnequipCommand(model, Entity.ENT_HEAD)));
 		this.getActionMap().put("UnequipFEET", new ActionCommand(model, new UnequipCommand(model, Entity.ENT_FEET)));
 		//For Stats;
-		this.getActionMap().put("Menu", new ActionCommand(model, new MenuCommand(model, null)));
+		this.getActionMap().put("Stats", new ActionCommand(model, new MenuCommand(model, controller,Controller.STAT_VIEW)));
+		this.getActionMap().put("Inventory", new ActionCommand(model, new MenuCommand(model, controller,Controller.INVENTORY_VIEW)));
 	}
 	
 	//Keeping one instance of controller
@@ -103,6 +109,12 @@ public class Controller extends JComponent {
 		if(controller == null)
 			controller = new Controller(m);
 		return controller;
+	}
+	public void setView(int view){
+		this.contolled_view=view;
+	}
+	public int getView(){
+		return this.contolled_view;
 	}
 }
 
