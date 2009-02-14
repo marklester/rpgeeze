@@ -20,7 +20,7 @@ import java.awt.event.*;
  * // assume the variable model is an instance of Model.
  * 
  * 
- * inner class Op1 extends command
+ * inner class Op1 extends Task
  * {
  * 		operation()
  * 		{
@@ -74,11 +74,20 @@ public class Controller extends JComponent {
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "South");
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('d'), "East");
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('a'), "West");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_F8), "UnequipLH");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_F9), "UnequipRH");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_F10), "UnequipHEAD");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_F11), "UnequipARMOR");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_F12), "UnequipFEET");
 		
 		this.getActionMap().put("North", new ActionCommand(model, new MoveCommand(model, Direction.NORTH)));
 		this.getActionMap().put("South", new ActionCommand(model, new MoveCommand(model, Direction.SOUTH)));
 		this.getActionMap().put("East", new ActionCommand(model, new MoveCommand(model, Direction.EAST)));
 		this.getActionMap().put("West", new ActionCommand(model, new MoveCommand(model, Direction.WEST)));
+		this.getActionMap().put("UnequipLH", new ActionCommand(model, new UnequipCommand(model, Entity.ENT_LEFT_H)));
+		this.getActionMap().put("UnequipRH", new ActionCommand(model, new UnequipCommand(model, Entity.ENT_RIGHT_H)));
+		this.getActionMap().put("UnequipHEAD", new ActionCommand(model, new UnequipCommand(model, Entity.ENT_HEAD)));
+		this.getActionMap().put("UnequipFEET", new ActionCommand(model, new UnequipCommand(model, Entity.ENT_FEET)));
 	}
 	
 	//Keeping one instance of controller
