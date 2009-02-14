@@ -26,68 +26,25 @@ public class View extends Thread {
 		frame.add(controller);
 		
 	}
-	
-/*
- * THIS STUFF NEEDS TO BE PART OF THE CONTROLLER
- * 		KEYPRESSES AND HANDLERS
- *		FULL SCREEN FRAME WILL ALSO BE PART OF THE CONTROLLER
- *			--Jose
- */
-/*
-	public View() {
-		
-    	super("RPG Game");
-
-
-    	BorderLayout layout = new BorderLayout();
-    	MenuBar bar = new MenuBar();
-    	this.setLayout(layout);
-    	this.setJMenuBar(bar);
-    	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	this.setSize(995,495);
-    	this.setLocation(125,100);
-    	this.setResizable(false);
-    	this.setVisible(true);
-
-		//*****************************************************************
-		KeyListener keyHandler = new KeyAdapter(){
-            public void keyPressed(KeyEvent e) {
-            	//code = e.getKeyCode();
-                //moving = true;
-            } 
-            public void keyReleased(KeyEvent e) {
-				//moving = false;
-            } 
-        };
-        addKeyListener(keyHandler);
-		//*****************************************************************
-	}
-*/
 
 	public void run() {
 		frame.setVisible(true);
 		frame.requestFocus();
-		long sleepNanos = 1000000000L / GOAL_FPS; 
-		running = true;
-		while(running) {
-			long beforeTime = System.nanoTime();
+		//long sleepNanos = 1000000000L / GOAL_FPS; 
+		//running = true;
+		while(!interrupted()) {
+			//long beforeTime = System.nanoTime();
 			//waits for an update to occur
-			/*synchronized(this) {			
+			synchronized(this) {			
 				try {
 					this.wait();
 				}
-				catch(InterruptedException e) {}
-			}*/
+				catch(InterruptedException e) {
+					this.interrupt();
+				}
+			}
 			render();
 			paint();
-			long afterTime = System.nanoTime();
-			int sleepMillis = (int) ((sleepNanos - (afterTime - beforeTime)) / 1000000L);
-			if(sleepMillis > 0) {
-				try {
-					Thread.sleep(10);
-				}
-				catch(InterruptedException e) {}
-			}
 			
 			//getModelState
 			//draw/Render all Drawable Objects onto image buffer-- responsibility of Drawer
@@ -109,7 +66,7 @@ public class View extends Thread {
 		g.fillRect (0, 0, PWIDTH, PHEIGHT);
 		g.setColor(Color.blue);
 		
-		new Drawer(g).doDraw(model.getMap(), model.getAvatar(), frame.getWidth(), frame.getHeight());
+		Drawer.getInstance().doDraw(g, model.getMap(), model.getAvatar(), frame.getWidth(), frame.getHeight());
 		
 		g.setFont(new Font("SansSerif", Font.BOLD, 16));
 		g.drawString("System.nanoTime() returns " + System.nanoTime(), 50, 50);

@@ -24,21 +24,23 @@ public class Time extends Thread{
 	public void run()
 	{
 		view.start();
-		try
+
+		while(!Thread.interrupted())
 		{
-			while(!Thread.interrupted())
+			long start = System.nanoTime();
+			model.update();
+			synchronized(view)
 			{
-				long start = System.nanoTime();
-				model.update();
-				synchronized(view)
-				{
-					view.notify();
-				}
-				long timeDiff_ms = framePeriod_ms - (System.nanoTime() - start)/1000000L;		
-				if(timeDiff_ms > 0)
-					Thread.sleep(timeDiff_ms);
+				view.notify();
 			}
-		}catch(InterruptedException e)
-		{}
+			long timeDiff_ms = framePeriod_ms - (System.nanoTime() - start)/1000000L;		
+			if(timeDiff_ms > 0)
+				try{	
+					Thread.sleep(timeDiff_ms);
+				}catch (InterruptedException ie)
+				{ this.interrupt();	}
+		}
+		view.interrupt();
+	
 	}
 }

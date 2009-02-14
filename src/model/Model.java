@@ -43,7 +43,7 @@ public class Model{
 	}	
 
 	public void update() {
-		//read task queue
+		//run through task queue
 		while(!commands.isEmpty())
 			commands.remove().execute();
 		//update map
