@@ -9,6 +9,8 @@ package model;
  
 import java.util.*;
 
+import model.items.Item;
+
 public class Inventory implements Cloneable{
 	
 	public static final int INV_SUCCESS = 0;
