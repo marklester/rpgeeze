@@ -83,6 +83,7 @@ public class Controller extends JComponent {
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_F10), "UnequipHEAD");
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_F11), "UnequipARMOR");
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_F12), "UnequipFEET");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('l'),"DropITEM");
 		
 		//** We need commands for selecting items to equip... May need to be selected by mouse
 		//** Once that is established, the command object is EquipCommand(model, index_of_item)
@@ -99,6 +100,7 @@ public class Controller extends JComponent {
 		this.getActionMap().put("UnequipRH", new ActionCommand(model, new UnequipCommand(model, Entity.ENT_RIGHT_H)));
 		this.getActionMap().put("UnequipHEAD", new ActionCommand(model, new UnequipCommand(model, Entity.ENT_HEAD)));
 		this.getActionMap().put("UnequipFEET", new ActionCommand(model, new UnequipCommand(model, Entity.ENT_FEET)));
+		this.getActionMap().put("DropITEM", new ActionCommand(model, new DropItemCommand(model)));
 		//For Stats;
 		this.getActionMap().put("Stats", new ActionCommand(model, new MenuCommand(model, controller,Controller.STAT_VIEW)));
 		this.getActionMap().put("Inventory", new ActionCommand(model, new MenuCommand(model, controller,Controller.INVENTORY_VIEW)));
