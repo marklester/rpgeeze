@@ -97,15 +97,18 @@ public class Stats {
 	public void decLife(int amount)
 	{
 		life -= amount / (level + primaryStats.hardiness);
+		if (life < 0) life = 0;
 	}
 	
 	public void decMana(int amount)
 	{
 		mana -= amount;
+		if (mana < 0) mana = 0;
 	}
 	
 	public void incMana(int amount) {
 		mana += amount;
+		if (mana > 100) mana = 100;
 	}
 	
 	
