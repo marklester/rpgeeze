@@ -49,12 +49,12 @@ public class Model implements util.Subject{
 
 	public void update() {
 		//read task queue
-		
+		int cmdCount = 0;
 		synchronized(this)
 		{
 			while(!commands.isEmpty())
 			{
-				System.out.println("commands " + commands.size());
+				//System.out.println("commands in queue " + commands.size());
 				Command c = commands.remove();
 				while(commands.contains(c))
 				{
@@ -63,6 +63,7 @@ public class Model implements util.Subject{
 				c.execute();
 			}
 		}
+		
 		
 		snapshot = map.getMatrix();
 		updateObservers();
