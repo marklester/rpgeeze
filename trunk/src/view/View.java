@@ -72,7 +72,7 @@ public class View extends Thread implements Observer {
 		//g.setColor(Color.white);
 		//g.fillRect (0, 0, PWIDTH, PHEIGHT);
 		//g.setColor(Color.blue);
-		Drawer.getInstance().doDraw(g, model.getMap(), model.getAvatar(), frame.getWidth(), frame.getHeight(),model.isStatsUp());
+		Drawer.getInstance().doDraw(g, model, frame.getWidth(), frame.getHeight());
 		g.dispose();
 	}
 	
