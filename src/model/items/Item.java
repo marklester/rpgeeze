@@ -20,6 +20,11 @@ public abstract class Item implements Drawable, Cloneable {
 		this.location = location;
 	}
 	
+	public void setLocation(Location location)
+	{
+		this.location = location;
+	}
+	
 	public String toString() {
 		return name;
 	}
