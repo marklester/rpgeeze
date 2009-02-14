@@ -13,9 +13,9 @@ public class RunGame {
         
         Controller controller = Controller.createController(model);
         View view = new View(model, controller);
-        
-        model.start();
-        view.start();
+                
+        Time time = new Time(model, view);
+        time.start();
     }
     
     public static Occupation getOccupation() {

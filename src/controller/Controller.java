@@ -20,7 +20,7 @@ import java.awt.event.*;
  * // assume the variable model is an instance of Model.
  * 
  * 
- * inner class Op1 extends Task
+ * inner class Op1 extends command
  * {
  * 		operation()
  * 		{

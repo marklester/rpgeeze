@@ -2,7 +2,7 @@ package model;
 
 import java.util.*;
 
-public class Model extends Thread {
+public class Model{
 	protected Queue<Command> commands = new LinkedList<Command>();
 	
 	private Entity avatar;
@@ -32,16 +32,6 @@ public class Model extends Thread {
 		Tile tile = map.getTile(x, y);
 		tile.setEntity(avatar);
 		avatar.setTile(tile);
-	}
-	
-	public void run() {
-		for(;;) {
-			update();
-			try {
-				Thread.sleep(30);
-			}
-			catch(InterruptedException e) {}
-		}
 	}
 	
 	public Map getMap() {
