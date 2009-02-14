@@ -17,4 +17,7 @@
   * Group meeting, worked on UML
 
 2/11/09 19:00-23:00
-  * Group meeting, finished UML, created Code Assignments  
+  * Group meeting, finished UML, created Code Assignments 
+2/13/09 18:30-03:00
+  * Coding StatView Menu Commands
+2/14/09 15:30-*
