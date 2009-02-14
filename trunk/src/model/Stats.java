@@ -1,30 +1,45 @@
 package model;
 
 public class Stats {
-//how many more times the entity can die before the game is over.
-int livesLeft;
-//primary attribute of the Smasher
-int strength;
-//primary attribute of the Sneak
-int agility;
-//primary attribute of the Summoner
-int intellect;
-//measures how resistant a character is to physical abuse
-int hardiness;
-//measures how much an entity knows about her occupation; earned by adventuring, solving problems, etc.
-int experience;
-//the max. distance an entity may move over ideal terrain per unit time
-int movement;
 
+	//how many more times the entity can die before the game is over.
+	//Start the game with 3 lives
+	int livesLeft;
+	
+	//primary attribute of the Smasher
+	//Everyone starts w/ 20, except smasher, who starts with 40
+	int strength;
+	
+	//primary attribute of the Sneak
+	//Everyone starts w/ 20, except sneak, who starts with 40
+	int agility;
+	
+	//primary attribute of the Summoner
+	//Everyone starts w/ 20, except summoner, who starts with 40
+	int intellect;
+	
+	//measures how resistant a character is to physical abuse
+	//Scale is 0-1 (a float) All start with .2
+	int hardiness;
+	
+	//measures how much an entity knows about her occupation; earned by adventuring, solving problems, etc.
+	//Scale is 0-100
+	int experience;
+	
+	//the max. distance an entity may move over ideal terrain per unit time
+	//1 unit for now... Portal, here we come
+	int movement;
+
+	//Generic stats
 	public Stats()
 	{
-	 livesLeft = 0;
-	 strength = 0;
-	 agility = 0;
-	 intellect = 0;
-	 hardiness = 0;
-	 experience = 0;
-	 movement = 0;
+		livesLeft = 3;
+	 	strength = 20;
+	 	agility = 20;
+	 	intellect = 20;
+	 	hardiness = .2;
+	 	experience = 1;
+	 	movement = 1;
 	}
 	
 	public Stats(int livesLeft, int strength, int agility, int intellect, int hardiness, int experience, int movement)
