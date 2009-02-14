@@ -12,7 +12,8 @@ public class Model implements util.Subject{
 	
 	private Entity avatar;
 	private Map map;
-	private boolean stats_up;
+	private boolean stats_up=false;
+	private boolean inventory_up=false;
 	public Model(Map map, Entity avatar) {		
 		/* Made constructor public so that RunGame would compile. If you
 		 * come up with another way of retrieving a Model, update
@@ -28,7 +29,6 @@ public class Model implements util.Subject{
 		
 		this.map = map;
 		this.avatar = avatar;
-		this.stats_up=false;
 		// The following code should probably be moved elsewhere. -- Miorel
 		ClassLoader loader = getClass().getClassLoader();
 		Scanner scanner = new Scanner(loader.getResourceAsStream("res/entities.txt"));
@@ -49,12 +49,12 @@ public class Model implements util.Subject{
 
 	public void update() {
 		//read task queue
-		int cmdCount = 0;
+		
 		synchronized(this)
 		{
 			while(!commands.isEmpty())
 			{
-				//System.out.println("commands in queue " + commands.size());
+				System.out.println("commands " + commands.size());
 				Command c = commands.remove();
 				while(commands.contains(c))
 				{
@@ -63,7 +63,6 @@ public class Model implements util.Subject{
 				c.execute();
 			}
 		}
-		
 		
 		snapshot = map.getMatrix();
 		updateObservers();
@@ -129,6 +128,15 @@ public class Model implements util.Subject{
 	}
 	public boolean isStatsUp(){
 		if(stats_up){
+			return true;
+		}
+		return false;
+	}
+	public void setInventoryVisible(boolean visible){
+		this.inventory_up = visible;
+	}
+	public boolean isInventoryUp(){
+		if(inventory_up){
 			return true;
 		}
 		return false;
