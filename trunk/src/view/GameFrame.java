@@ -4,8 +4,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class GameFrame extends JFrame {
-	static final int PWIDTH = 500;
-	static final int PHEIGHT = 400;
+	static final int PWIDTH = 1000;
+	static final int PHEIGHT = 800;
 	
 	public GameFrame() {
 		super("Game");
