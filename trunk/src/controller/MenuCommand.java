@@ -3,19 +3,27 @@ package controller;
 import model.*;
 //Used to control Menu Popups
 public class MenuCommand implements Command {
-	private final String action;
+	private final Controller controller;
 	private final Model m;
-	
-	public MenuCommand(Model m, String action) {
+	private final int viewport;
+	public MenuCommand(Model m, Controller controller,int viewport) {
 		this.m = m;
-		this.action = action;
+		this.controller = controller;
+		this.viewport=viewport;
 	}
 	
 	public void execute() {
-		if(m.isMenuUp()){
-			m.setMenuVisible(false);
-		}else{
-			m.setMenuVisible(true);
+		switch(viewport){
+			case Controller.STAT_VIEW:
+				if(m.isStatsUp()){
+					m.setStatsVisible(false);
+				}else{
+					m.setStatsVisible(true);
+				}
+			break;
+			default:
+			break;
 		}
+		
 	}
 }
