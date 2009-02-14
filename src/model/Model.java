@@ -2,7 +2,7 @@ package model;
 
 import java.util.*;
 
-public class Model{
+public class Model extends Thread {
 	protected Queue<Command> commands = new LinkedList<Command>();
 	
 	private Entity avatar;
@@ -34,6 +34,16 @@ public class Model{
 		avatar.setTile(tile);
 	}
 	
+	public void run() {
+		for(;;) {
+			update();
+			try {
+				Thread.sleep(30);
+			}
+			catch(InterruptedException e) {}
+		}
+	}
+	
 	public Map getMap() {
 		return map;
 	}
@@ -43,7 +53,7 @@ public class Model{
 	}	
 
 	public void update() {
-		//run through task queue
+		//read task queue
 		while(!commands.isEmpty())
 			commands.remove().execute();
 		//update map
@@ -77,8 +87,8 @@ public class Model{
 		avatar.equipItem(index);
 	}
 	
-	public void uneqipItem(int index) {
-		avatar.unequipItem(index);
+	public void uneqipItem(int where) {
+		avatar.unequipItem(where);
 	}
 }
 
