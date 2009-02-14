@@ -72,7 +72,6 @@ public class Model{
 		//forward move request to Entity
 		//		--Jose
 	}	
-}
 	public void equipItem(int index) {
 		avatar.equipItem(index);
 	}
@@ -89,3 +88,4 @@ public class Model{
 		}
 		return false;
 	}
+}
