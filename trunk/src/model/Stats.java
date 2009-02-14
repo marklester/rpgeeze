@@ -151,6 +151,10 @@ public class Stats {
         return super.clone();
 	}
 	
+	public PrimaryStats getPrimary() {
+		return primaryStats;
+	}
+	
 	
 }
 
