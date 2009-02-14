@@ -197,17 +197,17 @@ public class Drawer implements Observer{
 		int current_line=0;
 		graphics.drawString("Primary Stats", text_width, text_height);
 		current_line+=18;
-		graphics.drawString("Lives Left:"+entity.getStats().getLivesLeft(), text_width, text_height+current_line);
+		graphics.drawString("Lives Left:"+entity.getStats().getPrimary().getLivesLeft(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("Strength:"+entity.getStats().getStrength(), text_width, text_height+current_line);
+		graphics.drawString("Strength:"+entity.getStats().getPrimary().getStrength(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("Agility:"+entity.getStats().getAgility(), text_width, text_height+current_line);
+		graphics.drawString("Agility:"+entity.getStats().getPrimary().getAgility(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("Experience:"+entity.getStats().getExperience(), text_width, text_height+current_line);
+		graphics.drawString("Experience:"+entity.getStats().getPrimary().getExperience(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("Hardiness:"+entity.getStats().getHardiness(), text_width, text_height+current_line);
+		graphics.drawString("Hardiness:"+entity.getStats().getPrimary().getHardiness(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("Intellect:"+entity.getStats().getIntellect(), text_width, text_height+current_line);
+		graphics.drawString("Intellect:"+entity.getStats().getPrimary().getIntellect(), text_width, text_height+current_line);
 		current_line+=18;
 		graphics.drawString("Movement:"+entity.getStats().getMovement(), text_width, text_height+current_line);
 		current_line+=18;
@@ -217,17 +217,17 @@ public class Drawer implements Observer{
 		current_line = 0;
 		graphics.drawString("Derived Stats ", text_width, text_height);
 		current_line+=18;
-		graphics.drawString("Level:"+entity.getStats().getLivesLeft(), text_width, text_height+current_line);
+		graphics.drawString("Level:"+entity.getStats().getPrimary().getLivesLeft(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("HP(Life):"+entity.getStats().getStrength(), text_width, text_height+current_line);
+		graphics.drawString("HP(Life):"+entity.getStats().getPrimary().getStrength(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("Mana:"+entity.getStats().getAgility(), text_width, text_height+current_line);
+		graphics.drawString("Mana:"+entity.getStats().getPrimary().getAgility(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("Offensive:"+entity.getStats().getExperience(), text_width, text_height+current_line);
+		graphics.drawString("Offensive:"+entity.getStats().getPrimary().getExperience(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("Defensive:"+entity.getStats().getHardiness(), text_width, text_height+current_line);
+		graphics.drawString("Defensive:"+entity.getStats().getPrimary().getHardiness(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("Armor Rating:"+entity.getStats().getIntellect(), text_width, text_height+current_line);
+		graphics.drawString("Armor Rating:"+entity.getStats().getPrimary().getIntellect(), text_width, text_height+current_line);
 		current_line+=18;
 	}
 	public void drawInventoryView(Entity avater,int width,int height){}
