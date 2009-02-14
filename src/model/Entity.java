@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Iterator;
+
 import model.items.*;
 import view.*;
 
@@ -122,6 +124,10 @@ public class Entity implements Drawable, Cloneable {
 	}
 	public Stats getStats(){
 		return this.stats;
+	}
+	
+	public Iterator<Item> getInventoryItems() {
+		return inventory.getItems();
 	}
 }
 
