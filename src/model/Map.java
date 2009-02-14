@@ -156,31 +156,31 @@ public class Map {
 	
 	public Matrix getMatrix()
 	{
-		Matrix m = null;
-		try{
-			m = (Matrix)matrix.clone();
-		}catch (CloneNotSupportedException e){}
-		return m;
+//		Matrix m = null;
+//		try{
+//			m = (Matrix)matrix.clone();
+//		}catch (CloneNotSupportedException e){}
+		return matrix;
 	}
 	
 	public Iterator<Tile> getTiles(final int minX, final int minY, final int maxX, final int maxY) {
-		Matrix m = null;
-		try
-		{
-			m = (Matrix)matrix.clone();
-		}catch (CloneNotSupportedException e)
-		{/* Should never occur*/}
-    	return  m.getTiles(minX, minY, maxX, maxY);
+//		Matrix m = null;
+//		try
+//		{
+//			m = (Matrix)matrix.clone();
+//		}catch (CloneNotSupportedException e)
+//		{/* Should never occur*/}
+    	return  matrix.getTiles(minX, minY, maxX, maxY);
 		//return matrix.getTiles(minX, minY, maxX, maxY);
 	}
 	
     public Iterator<Tile> getTiles() { 
-    	Matrix m = null;
-		try
-		{
-			m = (Matrix)matrix.clone();
-		}catch (CloneNotSupportedException e)
-		{/* Should never occur*/}
+//    	Matrix m = null;
+//		try
+//		{
+//			m = (Matrix)matrix.clone();
+//		}catch (CloneNotSupportedException e)
+//		{/* Should never occur*/}
 //    	return  matrix.getTiles();
     	return matrix.getTiles();
     }

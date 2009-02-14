@@ -90,21 +90,19 @@ public class Drawer implements Observer{
 		Iterator<Tile> iter = m.getTiles(minX, minY, maxX, maxY);
 		for(iter.reset(); !iter.isDone(); iter.advance()) {
 			Tile tile = iter.current();
-			if(tile.hasEntity())
-				entityTile = tile;
-			
+//			if(tile.hasEntity())
+//				entityTile = tile;			
 			cursor = new Location(
 				tile.getLocation().getX() * tileWidth + horizOffset,
 				tile.getLocation().getY() * tileHeight + vertOffset
 			);
 			tile.draw(this);
-		}
-		
-		cursor = new Location(
-				entityTile.getLocation().getX() * tileWidth + horizOffset,
-				entityTile.getLocation().getY() * tileHeight + vertOffset
-			);
-		entityTile.getEntity().draw(this);
+		}		
+//		cursor = new Location(
+//				entityTile.getLocation().getX() * tileWidth + horizOffset,
+//				entityTile.getLocation().getY() * tileHeight + vertOffset
+//			);
+//		entityTile.getEntity().draw(this);
 		//Menu Stuff
 		if(show_menu){
 			this.drawMenu(avatar, width, height);

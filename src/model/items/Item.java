@@ -29,7 +29,7 @@ public abstract class Item implements Drawable, Cloneable {
 	{
 		return true;
 	}
-	
+		
 	public String toString() {
 		return name;
 	}

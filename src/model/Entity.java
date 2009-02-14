@@ -60,8 +60,7 @@ public class Entity implements Drawable, Cloneable {
 			case Inventory.INV_SUCCESS : 
 				System.out.println("Added Successfully. " + temp.name);
 				tile.setItem(null);
-				break;
-			
+				break;			
 			}
 		}
 			

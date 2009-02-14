@@ -1,6 +1,7 @@
 package model;
 
 import view.*;
+import model.items.*;
 
 public class Tile implements Cloneable{
 
