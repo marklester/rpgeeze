@@ -17,7 +17,7 @@ public class Drawer {
 	
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar, redCross, skullAndCrossbones;
-	private static Image boulder,sword;
+	private static Image boulder,sword,potionlife;
 
 
 	private static Hashtable<Direction,Image> avatar = new Hashtable<Direction,Image>();
@@ -40,6 +40,7 @@ public class Drawer {
 				
 		        sword = ImageIO.read(loader.getResourceAsStream("res/img/sword.png")); 
 				boulder = ImageIO.read(loader.getResourceAsStream("res/img/boulder.png"));
+				potionlife = ImageIO.read(loader.getResourceAsStream("res/img/potionlife.png"));
 
 				avatar.put(Direction.NORTH, ImageIO.read(loader.getResourceAsStream("res/img/avatar_n.png")));
 				avatar.put(Direction.SOUTH, ImageIO.read(loader.getResourceAsStream("res/img/avatar_s.png")));
@@ -115,15 +116,15 @@ public class Drawer {
 	}
 	
 	public void drawSword(Sword item) {
-		graphics.drawImage(sword, cursor.getX(), cursor.getY(), null);
+		graphics.drawImage(sword, cursor.getX() + 1, cursor.getY() + 1, null);
 	}
 	
 	public void drawBoulder(Boulder item) {
 		graphics.drawImage(boulder, cursor.getX(), cursor.getY(), null);
 	}	
 	
-	public void drawBoulder(Sword item) {
-		graphics.drawImage(sword, cursor.getX(), cursor.getY(), null);
+	public void drawPotionLife(PotionLife item) {
+		graphics.drawImage(potionlife, cursor.getX() + 1, cursor.getY() + 1, null);
 	}
 	//Not visitor like but whatev
 	public void drawMenu(Entity entity, int width, int height){
