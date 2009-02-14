@@ -130,7 +130,6 @@ public class Entity implements Drawable, Cloneable {
 	}
 	public Stats getStats(){
 		return this.stats;
-<<<<<<< .mine
 	}
 	
 	public void update()
@@ -142,12 +141,10 @@ public class Entity implements Drawable, Cloneable {
 	{		
 		System.out.println("Speed: " + speed);
 		return speed <= 0;
-=======
 	}
 	
 	public Iterator<Item> getInventoryItems() {
 		return inventory.getItems();
->>>>>>> .r255
 	}
 }
 
