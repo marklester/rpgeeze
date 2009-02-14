@@ -72,5 +72,13 @@ public class Model{
 		//forward move request to Entity
 		//		--Jose
 	}
+	
+	public void equipItem(int index) {
+		avatar.equipItem(index);
+	}
+	
+	public void uneqipItem(int index) {
+		avatar.unequipItem(index);
+	}
 }
 
