@@ -7,7 +7,7 @@ public class Model{
 	
 	private Entity avatar;
 	private Map map;
-	private boolean menu_up;
+	private boolean stats_up;
 	public Model(Map map, Entity avatar) {		
 		/* Made constructor public so that RunGame would compile. If you
 		 * come up with another way of retrieving a Model, update
@@ -23,7 +23,7 @@ public class Model{
 		
 		this.map = map;
 		this.avatar = avatar;
-		this.menu_up=false;
+		this.stats_up=false;
 		// The following code should probably be moved elsewhere. -- Miorel
 		ClassLoader loader = getClass().getClassLoader();
 		Scanner scanner = new Scanner(loader.getResourceAsStream("res/entities.txt"));
@@ -75,11 +75,11 @@ public class Model{
 	public void uneqipItem(int where) {
 		avatar.unequipItem(where);
 	}
-	public void setMenuVisible(boolean visible){
-		this.menu_up = visible;
+	public void setStatsVisible(boolean visible){
+		this.stats_up = visible;
 	}
-	public boolean isMenuUp(){
-		if(menu_up){
+	public boolean isStatsUp(){
+		if(stats_up){
 			return true;
 		}
 		return false;
