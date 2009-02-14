@@ -46,6 +46,7 @@ public class Model{
 		//read task queue
 		while(!commands.isEmpty())
 			commands.remove().execute();
+		
 		//update map
 			//update items
 			//apply  AoE's
@@ -75,6 +76,12 @@ public class Model{
 	public void uneqipItem(int where) {
 		avatar.unequipItem(where);
 	}
+	
+	public void dropItem()
+	{
+		avatar.dropItem();
+	}
+	
 	public void setStatsVisible(boolean visible){
 		this.stats_up = visible;
 	}
