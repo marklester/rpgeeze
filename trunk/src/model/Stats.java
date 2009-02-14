@@ -19,8 +19,8 @@ public class Stats {
 	int intellect;
 	
 	//measures how resistant a character is to physical abuse
-	//Scale is 0-1 (a float) All start with .2
-	int hardiness;
+	//Scale is 0-1 (a double) All start with .2
+	double hardiness;
 	
 	//measures how much an entity knows about her occupation; earned by adventuring, solving problems, etc.
 	//Scale is 0-100
@@ -42,7 +42,7 @@ public class Stats {
 	 	movement = 1;
 	}
 	
-	public Stats(int livesLeft, int strength, int agility, int intellect, int hardiness, int experience, int movement)
+	public Stats(int livesLeft, int strength, int agility, int intellect, double hardiness, int experience, int movement)
 	{
 		this.livesLeft = livesLeft;
 		this.strength = strength;
@@ -98,7 +98,7 @@ public class Stats {
 		this.hardiness = hardiness;
 	}
 	
-	public int getHardiness()
+	public double getHardiness()
 	{
 		return hardiness;
 	}

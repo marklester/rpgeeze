@@ -30,6 +30,10 @@ public class Inventory {
 		return INV_FULL;
 	}
 	
+	public Item removeItemAt(int i) {
+		return items.remove(i);
+	}
+	
 	//Should this return the Item object... It may need to be re-drawn on the map once dropped.
 	//Also, what should it receive? Controller will receive the "command" to drop a certain 
 	//item in the inventory. This command is somehow sent to the Model, who says, "Hey Entity 
