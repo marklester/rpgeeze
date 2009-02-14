@@ -34,9 +34,6 @@
 
 2/11/09 22:00-25:00
     * Hopefully 25 keeps your script from messing up
-    * Created Decal(&c.), Drawable, Inventory, Items(&c.), Location classes
-
-2/12/09 09:00-12:00
     * Create basic classes, such as Area Effects, Decals, Items, Terrains, etc.
     * Basically accessors, constructors, inheritance, etc. of all the minor classes
 
