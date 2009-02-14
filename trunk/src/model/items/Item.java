@@ -25,6 +25,11 @@ public abstract class Item implements Drawable, Cloneable {
 		this.location = location;
 	}
 	
+	public boolean isPassable()
+	{
+		return true;
+	}
+	
 	public String toString() {
 		return name;
 	}
