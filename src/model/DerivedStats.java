@@ -1,42 +1,54 @@
 package model;
 
 public class DerivedStats {
-//measures how good the entity is at her occupation;based on experience
-int level;
-//how close the entity is to death; based upon hardiness and level
-int life;
-//how much energy the entity has to fuel her spells; based on intellect and level
-int mana;
-//damage dealt when attacking;based on the equipped weapon,strength and level
-int offensiveRating;
-//how difficult it is to successfully attack this entity;based on agility and level
-int defensiveRating;
-//armor absorbs a fixed amount of damage;based on equipped armor and hardiness
-int armorRating;
+
+	//measures how good the entity is at her occupation;based on experience
+	//between 1-5
+	int level;
+	
+	//how close the entity is to death; based upon hardiness and level
+	//between 0-100
+	int life;
+	
+	//how much energy the entity has to fuel her spells; based on intellect and level
+	//between 0-100 - play starts with 20
+	int mana;
+	
+	//damage dealt when attacking;based on the equipped weapon,strength and level
+	//between 0-110
+	int offensiveRating;
+	
+	//how difficult it is to successfully attack this entity;based on agility and level
+	//between 0-110
+	int defensiveRating;
+	
+	//armor absorbs a fixed amount of damage;based on equipped armor and hardiness
+	//between 0-110
+	int armorRating;
+	Stats primaryStats;
 
 	public DerivedStats()
 	{
-		level = 0;
-		life = 0;
-		mana = 0;
-		offensiveRating = 0;
-		defensiveRating = 0;
-		armorRating = 0;
+		level = 1;
+		life = 100;
+		mana = 20;
+		offensiveRating = 1;
+		defensiveRating = 1;
+		armorRating = 1;
+		primaryStats = new Stats();
 	}
 	
-	public DerivedStats(int level, int life, int mana, int offensiveRating, int defensiveRating, int armorRating)
+	public DerivedStats(int level, int life, int mana, Stats stats)
 	{
 		this.level = level;
 		this.life = life;
 		this.mana = mana;
-		this.offensiveRating = offensiveRating;
-		this.defensiveRating = defensiveRating;
-		this.armorRating = armorRating;
+		this.primaryStats = stats;
 	}
 	
-	public void calculateLevel(int experience)
+	public void calculateLevel()
 	{
-		if(experience >= level * level * 100)
+		if((primaryStats.experience >= level * level * 5) && level < 5)
 		{
 			level += 1;
 		}
@@ -47,54 +59,71 @@ int armorRating;
 		return level;
 	}
 	
-	public void calculateLife(int hardiness)
-	{
-		life = level * hardiness;
-	}
-	
-	public int getLife()
-	{
-		return life;
-	}
-	
-	public void calculateMana(int intellect)
-	{
-		mana = level * intellect;
-	}
-	
 	public int getMana()
 	{
 		return mana;
 	}
-	
-	public void calculateOffensiveRating(int strength)
-	{
-		
-	}
-	
+
 	public int getOffensiveRating()
 	{
 		return offensiveRating;
-	}
-	
-	public void calculateDefensiveRating(int agility)
-	{
-		defensiveRating = agility * level;
 	}
 	
 	public int getDefensiveRating()
 	{
 		return defensiveRating;
 	}
-	
-	public void calculateArmorRating(int armorRating)
-	{
-		
-	}
-	
+
 	public int getArmorRating()
 	{
 		return armorRating;
 	}
+	
+	
+	public void incLife(int amount)
+	{
+		life += amount;
+		if (life > 100) life = 100; //max is 100
+	}
+	
+	public void decLife(int amount)
+	{
+		life -= amount / (level + primaryStats.hardiness);
+	}
+	
+	public void decMana(int amount)
+	{
+		mana -= amount;
+	}
+	
+	public void incMana(int amount) {
+		mana += amount;
+	}
+	
+	
+	//Ratings are passed an integer "effectiveness" which is a property of 
+	//each weapon/armor, which will be on a 1-20 scale
+	//These methods will need to be called upon equipping & unequipping
+	
+	public void calculateOffensiveRating(int effectiveness)
+	{
+		offensiveRating = (primaryStats.strength/2 + effectiveness) * level;
+		if (offensiveRating > 100) offensiveRating = 110;
+	}
+	
+
+	public void calculateDefensiveRating()
+	{
+		defensiveRating = primaryStats.agility * level + 10;
+	}
+	
+	
+	public void calculateArmorRating(int effectiveness)
+	{
+		armorRating = effectiveness + (int)(effectiveness * primaryStats.hardiness);
+		//hardiness is a dec between 1 & 0
+	}
+	
+	
 }
 
