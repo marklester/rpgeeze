@@ -5,6 +5,11 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
+import model.items.Boulder;
+import model.items.Item;
+import model.items.PotionLife;
+import model.items.Sword;
+
 import util.*;
 
 public class Map {
