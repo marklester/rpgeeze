@@ -1,6 +1,6 @@
 package model;
 
-public class Stats implements Cloneable{
+public class PrimaryStats implements Cloneable{
 
 	//how many more times the entity can die before the game is over.
 	//Start the game with 3 lives
@@ -31,7 +31,7 @@ public class Stats implements Cloneable{
 	int movement;
 
 	//Generic stats
-	public Stats()
+	public PrimaryStats()
 	{
 		livesLeft = 3;
 	 	strength = 20;
@@ -42,7 +42,7 @@ public class Stats implements Cloneable{
 	 	movement = 1;
 	}
 	
-	public Stats(int livesLeft, int strength, int agility, int intellect, double hardiness, int experience, int movement)
+	public PrimaryStats(int livesLeft, int strength, int agility, int intellect, double hardiness, int experience, int movement)
 	{
 		this.livesLeft = livesLeft;
 		this.strength = strength;
