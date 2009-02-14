@@ -11,7 +11,7 @@ import model.*;
 import util.*;
 import static view.GameFrame.*;
 
-public class View extends Thread {	
+public class View extends Thread implements Observer {	
 	private final Model model;
 	private volatile boolean running = false;
 
@@ -24,17 +24,16 @@ public class View extends Thread {
 		this.model = model;
 		frame = new GameFrame();
 		frame.add(controller);
-		
+		model.register(this);
 	}
 
 	public void run() {
+		//Handlers were intended to be in their own thread
+		//Not on the drawing thread.
 		frame.setVisible(true);
 		frame.requestFocus();
-		//long sleepNanos = 1000000000L / GOAL_FPS; 
-		//running = true;
+
 		while(!interrupted()) {
-			//long beforeTime = System.nanoTime();
-			//waits for an update to occur
 			synchronized(this) {
 				try {
 					this.wait();
@@ -74,5 +73,10 @@ public class View extends Thread {
 	    catch (Exception e) {
 	    	System.out.println("Graphics context error: " + e);
 	    }
+	}
+
+	public void update(Subject s)
+	{
+		Drawer.getInstance().update(s);
 	}
 }

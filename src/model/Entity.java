@@ -84,7 +84,6 @@ public class Entity implements Drawable, Cloneable {
         return e;
 	}
 
-	
 	public void equipItem(int index) {
 		Item i = inventory.removeItemAt(index);
 		if (rightHandItem == null)

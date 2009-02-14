@@ -102,6 +102,7 @@ public class Controller extends JComponent {
 		this.getActionMap().put("UnequipFEET", new ActionCommand(model, new UnequipCommand(model, Entity.ENT_FEET)));
 		this.getActionMap().put("DropITEM", new ActionCommand(model, new DropItemCommand(model)));
 		//For Stats;
+		*/
 		this.getActionMap().put("Stats", new ActionCommand(model, new MenuCommand(model, controller,Controller.STAT_VIEW)));
 		this.getActionMap().put("Inventory", new ActionCommand(model, new MenuCommand(model, controller,Controller.INVENTORY_VIEW)));
 	}

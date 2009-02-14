@@ -1,7 +1,5 @@
 package model;
 
-import model.items.Item;
-import model.items.Obstacle;
 import view.*;
 
 public class Tile implements Cloneable{
@@ -39,6 +37,10 @@ public class Tile implements Cloneable{
 	public Item getItem() {
 		return item;
 	}
+	public boolean hasItem()
+	{
+		return item != null;
+	}
 	
 	// package level so that nobody outside Model can mess with this
 	void setItem(Item item) {
@@ -68,6 +70,10 @@ public class Tile implements Cloneable{
 	public Entity getEntity() {
 		return entity;
 	}
+	public boolean hasEntity()
+	{
+		return entity != null;
+	}
 	
 	void setEntity(Entity entity) {
 		this.entity = entity;
@@ -81,13 +87,15 @@ public class Tile implements Cloneable{
 	}
 	
 	public void accept(Entity e) {
-		if(getTerrain().isPassable(e) && !(getItem() instanceof Obstacle)) {
-			System.out.println("moved from tile: " + e.getTile());
-			e.getTile().setEntity(null);
-			System.out.println(this.entity == null);
-			this.setEntity(e);
-			e.setTile(this);
-			System.out.println("moved to tile: " + e.getTile());
+		if(getTerrain().isPassable(e))
+		{
+			if(hasItem() && getItem().isPassable() || !hasItem())
+			{
+				e.getTile().setEntity(null);
+				this.setEntity(e);
+				e.setTile(this);
+			}
+				
 		}
 	}
 	public void releaseEntity()
@@ -101,7 +109,6 @@ public class Tile implements Cloneable{
 		Tile t = (Tile)super.clone();
 		if(t.location != null) t.location = (Location)this.location.clone();
 		if(t.item != null) t.item = (Item)this.item.clone();
-		//t.terrain = (Terrain)this.terrain.clone();
 		if(t.ae != null) t.ae = (AreaEffect)this.ae.clone();
 		if(t.decal != null) t.decal = (Decal)this.decal.clone();
 		if(t.entity != null) t.entity = (Entity)this.entity.clone();
