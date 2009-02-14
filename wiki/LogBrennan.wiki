@@ -41,4 +41,4 @@
   * Continued working on things above.
 
 2/14/09 8:00-11:00
-  * Added PotionLife item, modified adding item to inventory, made Obstacle impassable, created Item package
+  * Added Potion Life item, modified adding item to inventory, made Obstacle impassable, created Item package
