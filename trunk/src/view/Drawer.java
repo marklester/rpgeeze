@@ -119,13 +119,12 @@ public class Drawer implements Observer{
 	
 	public synchronized void holdSnapshot(Map.Matrix matrix)
 	{
+		mapStateQueue.clear();
 		mapStateQueue.add(matrix);
 	}
 	
 	private synchronized Map.Matrix getLatestState()
 	{
-		while(mapStateQueue.size() > 1)
-			mapStateQueue.poll();
 		return mapStateQueue.poll();
 	}
 	
