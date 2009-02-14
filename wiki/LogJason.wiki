@@ -35,3 +35,21 @@
 2/11/09 22:00-25:00
     * Hopefully 25 keeps your script from messing up
     * Created Decal(&c.), Drawable, Inventory, Items(&c.), Location classes
+
+2/12/09 09:00-12:00
+    * Create basic classes, such as Area Effects, Decals, Items, Terrains, etc.
+    * Basically accessors, constructors, inheritance, etc. of all the minor classes
+
+2/12/09 16:00-19:00
+    * Worked on Entity, activation functions for area effects, and passability of Entities over certain terrains
+
+2/13/09 09:00-11:00
+    * Had numerous issues with the CISE Labs.
+    * Worked with Brennan on creating the map files, and parsing them into the program as 
+Tiles
+    * Worked with Brennan on Stats and Derived Stats
+
+2/13/09 19:00-23:00
+    * Worked on avatar picking up items and putting them in inventory
+    * Created commands for equipping and unequipping items from inventory
+    * Created several issue-tickets for additional tasks that need to be completed
