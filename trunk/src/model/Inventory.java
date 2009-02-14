@@ -42,9 +42,10 @@ public class Inventory implements Cloneable{
 	//X, go ahead and drop item i from your inventory"... I think we're going to need a way 
 	//for the Controller to tell the Entity WHICH SPECIFIC item in the inventory needs to 
 	//be dropped
-	public void dropItem() {
-		
+	public boolean isEmtpy() {
+		return items.isEmpty();		
 	}
+	
 	public Object clone() throws CloneNotSupportedException 
 	{
 		Inventory i = (Inventory)super.clone();
