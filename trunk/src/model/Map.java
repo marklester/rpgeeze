@@ -9,11 +9,111 @@ import util.*;
 
 public class Map {
 	public static final int NUM_OF_CHARS_REPRESENTING_A_TILE = 5;
-	public Tile[][] matrix;
+	private volatile Matrix matrix;
+	
+	private class Matrix implements Cloneable
+	{
+		private volatile Tile[][] map;
+		
+		public Matrix(Tile[][] map)
+		{
+			this.map = map;
+		}
+		
+		public Tile getTile(int x, int y) {
+			return getTile(x, y, this.map);
+		}
+		private Tile getTile(int x, int y, Tile[][] matrix)
+		{
+			Tile ret = null;
+			if(y >= 0 && y < matrix.length && x >= 0 && x < matrix[y].length)
+				ret = matrix[y][x];
+			else
+				ret = new Tile(MountainTerrain.getInstance(), new Location(x, y), null, null, null);
+			return ret;
+		}
+		
+		public Iterator<Tile> getTiles(final int minX, final int minY, final int maxX, final int maxY) {			
+	    	return new Iterator<Tile>() {
+	    		private int x;
+	    		private int y;
+	    		
+	    		public void reset() {
+	    			x = minX;
+	    			y = minY;
+	    		}
+	                
+	    		public boolean isDone() {
+	    			return y > maxY;
+	    		}
+	                
+	    		public Tile current() {
+	    			return getTile(x, y, map);
+	    		}
+
+	    		public void advance() {
+	    			++x;
+	    			if(x > maxX) {
+	    				++y;
+	    				x = minX;
+	    			}
+	    		}
+	    	};
+		}
+	    public Iterator<Tile> getTiles() {
+	    	return getTiles(0, 0, map[0].length - 1, map.length - 1);
+	    }
+	    
+	    private Tile[][] cloneMatrix() 
+		{
+			Tile[][] set = map.clone();
+			for(int i = 0; i < set.length; i++)
+			{
+				for (int j = 0; j < set[i].length; j++)
+				{
+					if( map[i][j] != null)
+					{
+						try{
+							set[i][j] = (Tile)map[i][j].clone();
+						}catch (CloneNotSupportedException e)
+						{
+							System.err.println("This should never occur.");
+						}
+					}else
+						System.out.println("No Good.");
+				}
+			}
+			return set;
+		}
+	
+	    public Object clone() throws CloneNotSupportedException
+	    {
+	    	Matrix m = (Matrix)super.clone();
+	    	m.map = this.map.clone();
+	    	for(int i = 0; i < m.map.length; i++)
+			{
+				for (int j = 0; j < m.map[i].length; j++)
+				{
+					if( this.map[i][j] != null)
+					{
+						try{
+							m.map[i][j] = (Tile)this.map[i][j].clone();
+						}catch (CloneNotSupportedException e)
+						{
+							System.err.println("This should never occur.");
+						}
+					}else
+						System.out.println("No Good.");
+				}
+			}
+	    	return m;
+	    }
+	
+	}
 	
 	public Map(InputStream stream) {
 		Scanner s = new Scanner(stream);
-		List<Tile[]> list = new ArrayList<Tile[]>();
+		ArrayList<Tile[]> list = new ArrayList<Tile[]>();
 		for(int r = 0; s.hasNextLine(); ++r) {
 			String line = s.nextLine();
 			Tile[] arr = new Tile[line.length() / NUM_OF_CHARS_REPRESENTING_A_TILE];
@@ -62,51 +162,32 @@ public class Map {
 			}
 			list.add(arr);
 		}
-		matrix = list.toArray(new Tile[0][]);
+		matrix = new Matrix(list.toArray(new Tile[0][]));
 	}
 	
 	public Tile getTile(int x, int y) {
-		Tile ret = null;
-		if(y >= 0 && y < matrix.length && x >= 0 && x < matrix[y].length)
-			ret = matrix[y][x];
-		else
-			ret = new Tile(MountainTerrain.getInstance(), new Location(x, y), null, null, null);
-		return ret;
+		return matrix.getTile(x, y);
 	}
 	
 	public Iterator<Tile> getTiles(final int minX, final int minY, final int maxX, final int maxY) {
-    	return new Iterator<Tile>() {
-    		private int x;
-    		private int y;
-                
-    		private Tile[][] mapCopy = matrix.clone();
-    		
-    		public void reset() {
-    			x = minX;
-    			y = minY;
-    		}
-                
-    		public boolean isDone() {
-    			return y > maxY;
-    		}
-                
-    		public Tile current() {
-    			
-    			//return mapCopy[x][y];
-    			return Map.this.getTile(x, y);
-    		}
-
-    		public void advance() {
-    			++x;
-    			if(x > maxX) {
-    				++y;
-    				x = minX;
-    			}
-    		}
-    	};
+//		Matrix m = null;
+//		try
+//		{
+//			m = (Matrix)matrix.clone();
+//		}catch (CloneNotSupportedException e)
+//		{/* Should never occur*/}
+//    	return  matrix.getTiles(minX, minY, maxX, maxY);
+		return matrix.getTiles(minX, minY, maxX, maxY);
 	}
 	
-    public Iterator<Tile> getTiles() {
-    	return getTiles(0, 0, matrix[0].length - 1, matrix.length - 1);
+    public Iterator<Tile> getTiles() { 
+    	Matrix m = null;
+		try
+		{
+			m = (Matrix)matrix.clone();
+		}catch (CloneNotSupportedException e)
+		{/* Should never occur*/}
+//    	return  matrix.getTiles();
+    	return matrix.getTiles();
     }
 }

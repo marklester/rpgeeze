@@ -96,8 +96,7 @@ public class Drawer {
 	
 	public void drawWaterTerrain(WaterTerrain terrain) {
 		graphics.drawImage(waterTerrain, cursor.getX(), cursor.getY(), null);
-	}
-	
+	}	
 	
 	public void drawEntity(Entity entity) {
 		graphics.drawImage(avatar.get(entity.getFacingDirection()), cursor.getX(), cursor.getY(), null);

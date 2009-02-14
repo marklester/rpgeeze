@@ -1,6 +1,6 @@
 package model;
 
-public class Stats {
+public class Stats implements Cloneable{
 
 	//how many more times the entity can die before the game is over.
 	//Start the game with 3 lives
@@ -37,7 +37,7 @@ public class Stats {
 	 	strength = 20;
 	 	agility = 20;
 	 	intellect = 20;
-	 	hardiness = .2;
+	 	hardiness = 2;
 	 	experience = 1;
 	 	movement = 1;
 	}
@@ -122,5 +122,11 @@ public class Stats {
 	{
 		return movement;
 	}
+	
+	public Object clone() throws CloneNotSupportedException 
+	{
+        return super.clone();
+	}
+
 }
 

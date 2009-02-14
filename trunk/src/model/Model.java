@@ -60,7 +60,6 @@ public class Model{
 	
 	public void moveAvatar(Direction d) {
 		Tile from = avatar.getTile();
-		
 		int newX = from.getLocation().getX() + d.getX();
 		int newY = from.getLocation().getY() + d.getY();
 		Tile to = map.getTile(newX, newY);
@@ -68,9 +67,6 @@ public class Model{
 		// watch out for race conditions here
 		to.accept(avatar);
 		avatar.setFacingDirection(d);
-		
-		//forward move request to Entity
-		//		--Jose
 	}	
 	public void equipItem(int index) {
 		avatar.equipItem(index);

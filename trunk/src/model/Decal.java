@@ -8,12 +8,17 @@ package model;
 
 import view.*;
 
-public abstract class Decal implements Drawable {
+public abstract class Decal implements Drawable, Cloneable {
 	
     protected final String name;	
 	
 	protected Decal(String name) {
 	    this.name = name;
+	}
+	
+	public Object clone() throws CloneNotSupportedException
+	{
+		return super.clone();
 	}
 	
     public String toString() {
