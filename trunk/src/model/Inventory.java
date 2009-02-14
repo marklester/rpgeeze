@@ -61,5 +61,9 @@ public class Inventory implements Cloneable{
 		}
         return i;
 	}
+	
+	public Iterator<Item> getItems() {
+		return items.iterator();
+	}
 }
 
