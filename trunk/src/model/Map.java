@@ -79,6 +79,8 @@ public class Map {
     		private int x;
     		private int y;
                 
+    		private Tile[][] mapCopy = matrix.clone();
+    		
     		public void reset() {
     			x = minX;
     			y = minY;
@@ -89,6 +91,8 @@ public class Map {
     		}
                 
     		public Tile current() {
+    			
+    			//return mapCopy[x][y];
     			return Map.this.getTile(x, y);
     		}
 

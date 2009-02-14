@@ -10,6 +10,10 @@ import model.*;
 import java.util.Hashtable;
 
 public class Drawer {
+	
+	//Drawer Singleton
+	private static Drawer drawerInstance;
+	
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar, redCross, skullAndCrossbones;
 	private static Image boulder,sword;
@@ -22,8 +26,7 @@ public class Drawer {
 	private Graphics graphics;
 	private Location cursor = null;
 	
-	public Drawer(Graphics g) {
-		if(!loaded) {
+	private Drawer() {
 			ClassLoader loader = getClass().getClassLoader();
 			try {
 				grassTerrain = ImageIO.read(loader.getResourceAsStream("res/img/grass.png"));
@@ -43,11 +46,17 @@ public class Drawer {
 				avatar.put(Direction.WEST, ImageIO.read(loader.getResourceAsStream("res/img/avatar_w.png")));
 			}
 			catch(IOException e) {}
-		}
-		this.graphics = g;
 	}
 	
-	public void doDraw(Map map, Entity avatar, int width, int height) {
+	public static Drawer getInstance()
+	{
+		if (drawerInstance == null)
+			drawerInstance = new Drawer();
+		return drawerInstance;
+	}
+	
+	public void doDraw(Graphics g, Map map, Entity avatar, int width, int height) {
+		this.graphics = g;
 		int tileHeight = grassTerrain.getHeight(null);
 		int tileWidth = grassTerrain.getWidth(null);
 		int horizOffset = (width - tileWidth) / 2 - avatar.getTile().getLocation().getX() * tileWidth;
