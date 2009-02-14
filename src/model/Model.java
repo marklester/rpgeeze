@@ -2,12 +2,12 @@ package model;
 
 import java.util.*;
 
-public class Model extends Thread {
+public class Model{
 	protected Queue<Command> commands = new LinkedList<Command>();
 	
 	private Entity avatar;
 	private Map map;
-	
+	private boolean menu_up;
 	public Model(Map map, Entity avatar) {		
 		/* Made constructor public so that RunGame would compile. If you
 		 * come up with another way of retrieving a Model, update
@@ -23,7 +23,7 @@ public class Model extends Thread {
 		
 		this.map = map;
 		this.avatar = avatar;
-		
+		this.menu_up=false;
 		// The following code should probably be moved elsewhere. -- Miorel
 		ClassLoader loader = getClass().getClassLoader();
 		Scanner scanner = new Scanner(loader.getResourceAsStream("res/entities.txt"));
@@ -32,16 +32,6 @@ public class Model extends Thread {
 		Tile tile = map.getTile(x, y);
 		tile.setEntity(avatar);
 		avatar.setTile(tile);
-	}
-	
-	public void run() {
-		for(;;) {
-			update();
-			try {
-				Thread.sleep(30);
-			}
-			catch(InterruptedException e) {}
-		}
 	}
 	
 	public Map getMap() {
@@ -81,8 +71,8 @@ public class Model extends Thread {
 		
 		//forward move request to Entity
 		//		--Jose
-	}
-	
+	}	
+}
 	public void equipItem(int index) {
 		avatar.equipItem(index);
 	}
@@ -90,5 +80,12 @@ public class Model extends Thread {
 	public void uneqipItem(int where) {
 		avatar.unequipItem(where);
 	}
-}
-
+	public void setMenuVisible(boolean visible){
+		this.menu_up = visible;
+	}
+	public boolean isMenuUp(){
+		if(menu_up){
+			return true;
+		}
+		return false;
+	}
