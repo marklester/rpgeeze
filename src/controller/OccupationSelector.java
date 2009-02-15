@@ -13,9 +13,12 @@ import javax.swing.JRadioButton;
 import javax.swing.WindowConstants;
 
 import model.Occupation;
+import model.PrimaryStats;
 import model.Smasher;
 import model.Sneak;
 import model.Summoner;
+import model.Stats;
+import model.PrimaryStats;
 
 public class OccupationSelector extends JFrame {
 	/**
@@ -25,7 +28,7 @@ public class OccupationSelector extends JFrame {
 
 	private Occupation occupation = null;
 
-	private static final Occupation[] occs = { new Smasher(), new Summoner(), new Sneak() };
+	private static final Occupation[] occs = { new Smasher(new Stats(1,100,20,15,(new PrimaryStats(3,20,5,5,2,1)))), new Summoner(new Stats(1,100,20,15,new PrimaryStats(3,5,5,20,2,1))), new Sneak(new Stats(1,100,20,15,new PrimaryStats(3,5,20,5,2,1))) };
 
 	public OccupationSelector() {
 		super("Select Occupation");
