@@ -42,6 +42,10 @@ public class Tile implements Cloneable {
 	public boolean hasItem() {
 		return this.item != null;
 	}
+	
+	public boolean hasAE() {
+		return this.ae != null;
+	}
 
 	// package level so that nobody outside Model can mess with this
 	void setItem(Item item) {
@@ -91,12 +95,15 @@ public class Tile implements Cloneable {
 	}
 
 	public void accept(Entity e) {
-		if(getTerrain().isPassable(e))
+		if(getTerrain().isPassable(e)) {
 			if(hasItem() && getItem().isPassable() || !hasItem()) {
 				e.getTile().setEntity(null);
 				setEntity(e);
 				e.setTile(this);
 			}
+			if( this.hasAE() )
+				ae.applyEffect(e);
+		}
 	}
 
 	public void releaseEntity() {

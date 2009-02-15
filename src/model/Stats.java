@@ -36,10 +36,12 @@ public class Stats implements Cloneable {
 
 	PrimaryStats primaryStats;
 	private boolean visible = true;
+	
+	public static final int MAX_LIFE = 100;
 
 	public Stats() {
 		this.level = 1;
-		this.life = 100;
+		this.life = MAX_LIFE;
 		this.mana = 20;
 		this.offensiveRating = 1;
 		this.defensiveRating = 1;
