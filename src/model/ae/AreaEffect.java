@@ -1,4 +1,5 @@
-package model;
+package model.ae;
+import model.Entity;
 
 public abstract class AreaEffect implements Cloneable {
 
