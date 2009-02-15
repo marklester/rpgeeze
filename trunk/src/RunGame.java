@@ -32,7 +32,7 @@ public class RunGame {
 		Model model = new Model(map, avatar);
 
 		View view = new View(model);
-		Controller controller = Controller.createController(model, view);
+		//Controller controller = Controller.createController(model, view);
 
 		Time time = new Time(model, view);
 		time.start();

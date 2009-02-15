@@ -37,7 +37,7 @@ public class View extends Thread implements Observer {
 			this.frame = new GameFrame();
 
 		// ugly hack that works because Controller is a singleton
-		Controller controller = Controller.createController(null, null);
+		Controller controller = Controller.createController(model, this);
 		this.frame.add(controller);
 		this.frame.addMouseListener(controller);
 		

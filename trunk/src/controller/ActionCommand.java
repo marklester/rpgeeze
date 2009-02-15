@@ -8,9 +8,6 @@ import model.Command;
 import model.Model;
 
 public class ActionCommand extends AbstractAction {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4146539588574258362L;
 	private final Model model;
 	private final Command command;
@@ -21,6 +18,8 @@ public class ActionCommand extends AbstractAction {
 	}
 
 	public void actionPerformed(ActionEvent ae) {
+		System.out.println(model);
+		System.out.println(command);
 		this.model.invoke(this.command);
 	}
 }
