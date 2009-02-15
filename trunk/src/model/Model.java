@@ -122,14 +122,24 @@ public class Model implements util.Subject{
 		//Drawer.getTileFromPosition(x,y) or isOver(someMenu/Inventory) 
 		//Make some high level decision about pressing on screen buttons
 	}
-	//MouseClickedCommand
-	public void mouseClickedAt(int x, int y)
-	{
-		if(avatar.getInventory().isVisible() &&  avatar.getInventory().isOnInventory(x, y))
-			//avatar.getInventory().click(x, y);
-			System.out.println("clicked inventory space");
-	}
 	
+	//MouseClickedCommand
+//	public void mouseClickedAt(int x, int y)
+//	{
+//		if(avatar.getInventory().isVisible() &&  avatar.getInventory().isOnInventory(x, y)) {}
+//			//avatar.getInventory().click(x, y);
+//			//System.out.println("clicked inventory space");
+//	}
+	public void mouseRightClickAt(int x, int y)
+	{
+		if(avatar.getInventory().isVisible() &&  avatar.getInventory().isOnInventory(x, y));
+			//avatar.getInventory().rightClick(x, y);
+	}
+	public void mouseLeftClickAt(int x, int y)
+	{
+		if(avatar.getInventory().isVisible() &&  avatar.getInventory().isOnInventory(x, y));
+			avatar.getInventory().leftClick(x, y);
+	}
 	public void equipItem(int index) {
 		avatar.equipItem(index);
 	}
