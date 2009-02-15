@@ -4,14 +4,12 @@ import model.*;
 
 public class UnequipCommand implements Command {
 	private final int where; // eg head, left/right hand, etc.
-	private final Model m;
 	
-	public UnequipCommand(Model m, int i) {
-		this.m = m;
+	public UnequipCommand(int i) {
 		this.where = i;
 	}
 	
-	public void execute() {
+	public void execute(Model m) {
 		m.uneqipItem(where);
 	}
 }

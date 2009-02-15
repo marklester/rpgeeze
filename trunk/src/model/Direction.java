@@ -44,4 +44,12 @@ public class Direction {
 	private Direction add(Direction d) {
 		return new Direction(this.x + d.x, this.y + d.y);
 	}
+
+	public Command moveCommand() {
+		return new Command() {
+			public void execute(Model m) {
+				m.moveAvatarRequest(Direction.this);
+			}	
+		};
+	}
 }

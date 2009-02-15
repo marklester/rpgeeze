@@ -3,19 +3,15 @@ package controller;
 import model.*;
 
 public class MousePressedCommand implements Command {
-
-	Model m;
-	int x;
-	int y;
+	private final int x;
+	private final int y;
 	
-	MousePressedCommand(Model m, int x, int y)
-	{
-		this.m = m;
+	MousePressedCommand(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
-	@Override
-	public void execute() {
+
+	public void execute(Model m) {
 		m.mousePressAt(x, y);
 	}
 	
