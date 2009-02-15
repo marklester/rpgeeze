@@ -1,6 +1,6 @@
 package model;
 
-public class Stats {
+public class Stats implements Cloneable{
 
 	//measures how good the entity is at her occupation;based on experience
 	//between 1-5
@@ -151,15 +151,18 @@ public class Stats {
 		return movement;
 	}
 	
-	public Object clone() throws CloneNotSupportedException 
+	public Stats clone() throws CloneNotSupportedException 
 	{
-        return super.clone();
+        Stats s = (Stats)super.clone();
+        s.primaryStats = primaryStats.clone();
+        return s;
 	}
 	
 	public PrimaryStats getPrimary() {
 		return primaryStats;
 	}
 	
+
 	
 }
 

@@ -95,8 +95,7 @@ public class Tile implements Cloneable{
 				e.getTile().setEntity(null);
 				this.setEntity(e);
 				e.setTile(this);
-			}
-				
+			}	
 		}
 	}
 	public void releaseEntity()
@@ -104,7 +103,7 @@ public class Tile implements Cloneable{
 		this.entity = null;
 	}
 	
-	public Object clone() throws CloneNotSupportedException
+	public Tile clone() throws CloneNotSupportedException
 	{
 		
 		Tile t = (Tile)super.clone();

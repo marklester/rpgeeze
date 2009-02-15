@@ -35,6 +35,7 @@ public class View extends Thread implements Observer {
     		frame = new GameFrame();
     		
 		frame.add(controller);
+		frame.addMouseListener(controller);
 		model.register(this);
 		
 		
@@ -45,7 +46,6 @@ public class View extends Thread implements Observer {
 		//Not on the drawing thread.
 		frame.setVisible(true);
 		frame.requestFocus();
-
 		while(!interrupted()) {
 			synchronized(this) {
 				try {

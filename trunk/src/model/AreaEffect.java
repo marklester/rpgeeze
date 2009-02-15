@@ -20,9 +20,9 @@ public abstract class AreaEffect implements Cloneable {
 		this.rate = rate;
 	}
 	
-	public Object clone() throws CloneNotSupportedException 
+	public AreaEffect clone() throws CloneNotSupportedException 
 	{
-        return super.clone();
+        return (AreaEffect)super.clone();
 	}
 
 	

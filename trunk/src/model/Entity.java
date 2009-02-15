@@ -3,7 +3,6 @@ package model;
 import java.util.Iterator;
 
 import model.items.*;
-import util.Console;
 import view.*;
 
 public class Entity implements Drawable, Cloneable {
@@ -99,13 +98,7 @@ public class Entity implements Drawable, Cloneable {
 	}
 
 	
-	public Object clone() throws CloneNotSupportedException 
-	{
-        Entity e = (Entity)super.clone();
-        if(this.stats != null) e.stats = (Stats)this.stats.clone();
-        if(this.inventory != null)e.inventory = (Inventory)this.inventory.clone();
-        return e;
-	}
+
 
 	public void equipItem(int index) {
 		Item i = inventory.removeItemAt(index);
@@ -154,6 +147,14 @@ public class Entity implements Drawable, Cloneable {
 	
 	public Iterator<Item> getInventoryItems() {
 		return inventory.getItems();
+	}
+	
+	public Entity clone() throws CloneNotSupportedException 
+	{
+        Entity e = (Entity)super.clone();
+        if(this.stats != null) e.stats = this.stats.clone();
+        if(this.inventory != null)e.inventory = this.inventory.clone();
+        return e;
 	}
 }
 

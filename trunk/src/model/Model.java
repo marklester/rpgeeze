@@ -124,7 +124,7 @@ public class Model implements util.Subject{
 		//Make some high level decision about pressing on screen buttons
 	}
 	public void mousePressAt(int x, int y)
-	{
+	{		
 		//check what click was on
 		//make high level decision for the click
 	}

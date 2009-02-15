@@ -119,8 +119,8 @@ public class Controller extends JComponent implements  MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		//model.invoke(new MousePressedCommand(model, arg0.getX(), arg0.getY()));
+		System.out.println("mose click");
+		model.invoke(new MousePressedCommand(model, arg0.getX(), arg0.getY()));
 	}
 
 	@Override

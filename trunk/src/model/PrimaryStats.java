@@ -109,9 +109,9 @@ public class PrimaryStats implements Cloneable{
 	}
 	
 	
-	public Object clone() throws CloneNotSupportedException 
+	public PrimaryStats clone() throws CloneNotSupportedException 
 	{
-        return super.clone();
+        return (PrimaryStats)super.clone();
 	}
 
 }
