@@ -23,8 +23,8 @@ public class GameFrame extends JFrame {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension screen = tk.getScreenSize();
 		
-		//PWIDTH = screen.width;
-		//PHEIGHT = screen.height;
+		PWIDTH = screen.width;
+		PHEIGHT = screen.height;
 		
 		setBackground(Color.white);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
