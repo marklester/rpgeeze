@@ -2,6 +2,7 @@ package model;
 
 import model.item.Item;
 import model.decal.Decal;
+import model.ae.AreaEffect;
 import view.Drawer;
 
 public class Tile implements Cloneable {
