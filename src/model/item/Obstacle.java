@@ -14,8 +14,4 @@ public abstract class Obstacle extends Item {
 	public boolean isPassable() {
 		return false;
 	}
-
-	public void activate() {
-		// do nothing
-	}
 }
