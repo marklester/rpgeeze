@@ -1,7 +1,10 @@
 package model;
 
 public class Smasher extends Occupation {
-	public Smasher() {
-		super("Smasher"); // <-- haha
+	private Stats stats;
+	
+	public Smasher(Stats stats) {
+		super("Smasher",stats); // <-- haha
 	}
+	
 }
