@@ -11,6 +11,6 @@ public class EquipCommand implements Command {
 	}
 
 	public void execute(Model m) {
-		m.equipItem(this.index);
+		//m.equipItem(this.index);
 	}
 }

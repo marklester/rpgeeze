@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.awt.Point;
 
 import model.Model;
+import model.Command;
 import util.Observer;
 import util.Subject;
 import controller.Controller;
@@ -18,6 +19,7 @@ import controller.Controller;
 public class View extends Thread implements Observer {
 	private final Model model;
 	private final GameFrame frame;
+	private InventoryView inventoryView;
 	
 	private Image dbImage = null;
 
@@ -26,6 +28,8 @@ public class View extends Thread implements Observer {
 	public View(Model model) {
 		this.model = model;
 		Drawer.view = this;
+		inventoryView = new InventoryView();
+		Drawer.getInstance().setInventoryView(inventoryView);
 		
 		GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		GraphicsConfiguration gc = dev.getDefaultConfiguration();
@@ -49,6 +53,8 @@ public class View extends Thread implements Observer {
 		// Not on the drawing thread.
 		this.frame.setVisible(true);
 		this.frame.requestFocus();
+		
+		
 		while(!interrupted()) {
 			synchronized(this) {
 				try {
@@ -106,12 +112,26 @@ public class View extends Thread implements Observer {
 	}
 	
 	public void mouseRightClickAt(Point p) {
-		if(isInventoryVisible() && model.getAvatar().getInventory().isOnInventory(p))
-			model.getAvatar().getInventory().rightClick(p);
+		
+		if(isInventoryVisible() && inventoryView.isOnInventory(p))
+		{
+			final Point index = inventoryView.click(p);
+			if(index == null) return;
+			model.invoke( new Command(){
+				public void execute(Model m)
+				{
+					m.getAvatar().actionAtIndex(index);
+				}
+			});
+		}
+		if(isInventoryVisible() && inventoryView.isOnEquipedItems(p))
+		{		
+			
+		}
 	}
 
 	public void mouseLeftClickAt(Point p) {
-		if(isInventoryVisible() && model.getAvatar().getInventory().isOnInventory(p))
-			model.getAvatar().getInventory().leftClick(p);
+		//if(isInventoryVisible() && model.getAvatar().getInventory().isOnInventory(p))
+			//model.getAvatar().getInventory().leftClick(p);
 	}
 }

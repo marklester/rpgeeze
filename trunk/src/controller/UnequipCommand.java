@@ -11,6 +11,6 @@ public class UnequipCommand implements Command {
 	}
 
 	public void execute(Model m) {
-		m.uneqipItem(this.where);
+		//m.uneqipItem(this.where);
 	}
 }

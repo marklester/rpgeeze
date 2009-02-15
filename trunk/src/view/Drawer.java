@@ -70,7 +70,7 @@ public class Drawer implements Observer {
 		shield = ResourceLoader.getInstance().getImage("img/shield.png");
 
 		statsView = new StatView(ResourceLoader.getInstance().getImage("img/statsviewbg.jpg"));
-		inventoryView = new InventoryView();
+		//inventoryView = new InventoryView();
 
 		avatar.put(Direction.NORTH, new ContinuousIterator<Image>(
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth1.png"),
@@ -99,6 +99,11 @@ public class Drawer implements Observer {
 		return drawerInstance;
 	}
 
+	public void setInventoryView(InventoryView iv)
+	{
+		inventoryView = iv;
+	}
+	
 	public void doDraw(Graphics g, Model model, int width, int height) {
 		Entity avatar = model.getAvatar();
 		// Map map = model.getMap();
@@ -132,8 +137,8 @@ public class Drawer implements Observer {
 			Console.getInstance().drawConsoleView(this.graphics, width, height);
 		}
 		// Inventory Stuff
-		if(view.isInventoryVisible())
-			inventoryView.drawInventoryView(this.graphics, model.getAvatar().getInventory().clone(), width, height);
+		//if(view.isInventoryVisible())
+		//	inventoryView.drawInventoryView(this.graphics, model.getAvatar().getInventory().clone(), width, height);
 	}
 
 	public void update(Subject s) {
@@ -207,13 +212,5 @@ public class Drawer implements Observer {
 
 	public boolean isOnInventory(Point p) {
 		return inventoryView.isOnInventory(p);
-	}
-
-	public void rightClickInventory(Point p) {
-		inventoryView.rightClick(p);
-	}
-
-	public void leftClickInventory(Point p) {
-		inventoryView.leftClick(p);
 	}
 }

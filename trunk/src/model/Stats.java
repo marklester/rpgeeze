@@ -8,7 +8,7 @@ public class Stats implements Cloneable {
 
 	// measures how good the entity is at her occupation;based on experience
 	// between 1-5
-	int level;
+	public int level;
 
 	// how close the entity is to death; based upon hardiness and level
 	// between 0-100

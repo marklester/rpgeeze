@@ -10,7 +10,7 @@ import model.Entity;
 
 public class StatView implements Drawable {
 	private final int menu_width = 300;
-	private final int menu_height = 300;
+	private final int menu_height = 220;
 	private final int left_indent = 20;
 	private final int top_indent = 80;
 
@@ -55,7 +55,7 @@ public class StatView implements Drawable {
 		current_line += 18;
 		graphics.drawString("Movement:" + entity.getStats().getMovement(), text_width, text_height + current_line);
 		current_line += 18;
-		graphics.drawString("nanoTime:" + System.nanoTime(), text_width, text_height + current_line);
+		//graphics.drawString("nanoTime:" + System.nanoTime(), text_width, text_height + current_line);
 		// More Ugly Code for the Second Column of Stats this will show Derived
 		// Stats
 		text_width = width - this.menu_width / 2;
