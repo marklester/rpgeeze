@@ -155,19 +155,24 @@ public class Drawer implements Observer{
 	}
 	
 	public void drawGoldStarDecal(GoldStar decal) {
-		graphics.drawImage(goldStar, cursor.getX() + 20, cursor.getY() + 20, null);
+		graphics.drawImage(goldStar, cursor.getX(), cursor.getY(), null);
 	}
 	
 	public void drawRedCrossDecal(RedCross decal) {
-		graphics.drawImage(redCross, cursor.getX() + 20, cursor.getY() + 20, null );
+		graphics.drawImage(redCross, cursor.getX(), cursor.getY(), null );
+		//graphics.drawImage(redCross, cursor.getX() + 20, cursor.getY() + 20, null );
+		// Please don't hardcode offsets, ideally if somebody changes all the images
+		// all the code automagically works.
 	}
 	
 	public void drawSkullAndCrossbonesDecal(SkullAndCrossbones decal) {
-		graphics.drawImage(skullAndCrossbones, cursor.getX() + 20, cursor.getY() + 20, null);	
+		//graphics.drawImage(skullAndCrossbones, cursor.getX() + 20, cursor.getY() + 20, null);	
+		graphics.drawImage(skullAndCrossbones, cursor.getX(), cursor.getY(), null);
 	}
 	
 	public void drawSword(Sword item) {
-		graphics.drawImage(sword, cursor.getX() + 1, cursor.getY() + 1, null);
+		//graphics.drawImage(sword, cursor.getX() + 1, cursor.getY() + 1, null);
+		graphics.drawImage(sword, cursor.getX(), cursor.getY(), null);
 	}
 	
 	public void drawBoulder(Boulder item) {
@@ -175,7 +180,8 @@ public class Drawer implements Observer{
 	}	
 	
 	public void drawPotionLife(PotionLife item) {
-		graphics.drawImage(potionlife, cursor.getX() + 1, cursor.getY() + 1, null);
+		//graphics.drawImage(potionlife, cursor.getX() + 1, cursor.getY() + 1, null);
+		graphics.drawImage(potionlife, cursor.getX(), cursor.getY(), null);
 	}
 	
 	public void drawConsoleView(int width, int height){
@@ -198,13 +204,15 @@ public class Drawer implements Observer{
 		int text_height = height - console_height + top_indent;
 		//Draws Messages on Console
 		int current_line=0;
-		if(messages!=null){
-			while(messages.size()>0&&current_line<max_messages){
+		if(messages != null){
+			while(!messages.isEmpty() && current_line < max_messages){
 				graphics.drawString(messages.remove(), text_width, text_height+current_line*18);
-				current_line++;
+				++current_line;
 			}
 		}
 	}
-	public void drawInventoryView(Entity avater,int width,int height){}
+	public void drawInventoryView(Entity avater, int width, int height) {
+		
+	}
 }
 
