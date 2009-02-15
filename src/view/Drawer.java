@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
-import java.io.IOException;
 import java.util.Hashtable;
 import java.util.LinkedList;
 

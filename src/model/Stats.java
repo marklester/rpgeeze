@@ -3,8 +3,6 @@ package model;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.lang.Math;
-
 
 public class Stats implements Cloneable {
 
