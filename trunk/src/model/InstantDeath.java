@@ -6,7 +6,7 @@ public class InstantDeath extends AreaEffect {
 		super("Instant Death");
 	}
 
-	public InstantDeath(float rate) {
+	public InstantDeath(int rate) {
 		super(rate, "Instant Death");
 	}
 	

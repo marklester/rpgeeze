@@ -6,7 +6,7 @@ public class LevelUp extends AreaEffect {
 		super("Level Up");
 	}
 
-	public LevelUp(float rate) {
+	public LevelUp(int rate) {
 		super(rate, "Level Up");
 	}
 

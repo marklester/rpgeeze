@@ -8,13 +8,13 @@ public class HealDamage extends AreaEffect {
 		super("Heal Damage");
 	}
 
-	public HealDamage(float rate) {
+	public HealDamage(int rate) {
 		super(rate, "Heal Damage");
 	}
 	
 	public void applyEffect(Entity e) {
 		if (--counter == 0) {
-			e.getStats().incLife(1);
+			e.getStats().incLife(rate);
 			counter = UPDATE_RATE; //reset
 			if (!f_msg_was_sent) {
 				Console.getInstance().writeLine("Congrats. Enjoy some life");
