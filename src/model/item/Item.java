@@ -8,8 +8,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Hashtable;
 
+
 import model.Location;
 import view.Drawable;
+import model.Entity;
 
 public abstract class Item implements Drawable, Cloneable {
 	protected final String name;
@@ -48,6 +50,8 @@ public abstract class Item implements Drawable, Cloneable {
 	public String toString() {
 		return this.name;
 	}
+	
+	public abstract void activate(Entity e);
 
 	public Item clone() {
 		Item i = null;

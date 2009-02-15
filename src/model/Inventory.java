@@ -10,6 +10,7 @@ package model;
 //import util.*;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import model.item.Item;
@@ -25,11 +26,11 @@ public class Inventory implements Cloneable {
 	private List<Item> items;
 
 	public Inventory() {
-		this.items = new ArrayList<Item>(INV_MAX_SIZE);
+		this.items = new LinkedList<Item>();
 	}
 
 	public int addItem(Item i) {
-		if(this.items.size() < INV_MAX_SIZE) {
+		if(this.items.size() <= INV_MAX_SIZE) {
 			this.items.add(i);
 			return INV_SUCCESS;
 		}
@@ -38,6 +39,10 @@ public class Inventory implements Cloneable {
 
 	public Item removeItemAt(int i) {
 		return this.items.remove(i);
+	}
+	public void removeItem(Item i)
+	{
+		items.remove(i);
 	}
 
 	// Should this return the Item object... It may need to be re-drawn on the
@@ -55,6 +60,11 @@ public class Inventory implements Cloneable {
 		return this.items.isEmpty();
 	}
 
+	public int count()
+	{
+		return items.size();
+	}
+	
 	public synchronized Inventory clone() {
 		Inventory clone = new Inventory();
 		for(Item i: items) clone.addItem(i.clone());
@@ -85,17 +95,5 @@ public class Inventory implements Cloneable {
 				++cursor;
 			}
 		};
-	}
-
-	public boolean isOnInventory(Point p) {
-		return Drawer.getInstance().isOnInventory(p);
-	}
-
-	public void leftClick(Point p) {
-		Drawer.getInstance().leftClickInventory(p);
-	}
-
-	public void rightClick(Point p) {
-		Drawer.getInstance().rightClickInventory(p);
 	}
 }

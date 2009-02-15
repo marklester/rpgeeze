@@ -145,13 +145,14 @@ public class Model implements util.Subject {
 	
 	// Why is Model dealing with mouse clicks?
 
-	public void equipItem(int index) {
-		this.avatar.equipItem(index);
-	}
+	
+//	public void equipItem(int index) {
+//		this.avatar.equipItem(index);
+//	}
 
-	public void uneqipItem(int where) {
-		this.avatar.unequipItem(where);
-	}
+//	public void uneqipItem(int where) {
+//		this.avatar.unequipItem(where);
+//	}
 
 	public void dropItem() {
 		this.avatar.dropItem();

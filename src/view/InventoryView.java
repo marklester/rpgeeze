@@ -93,8 +93,13 @@ public class InventoryView {
 		int startx = this.tableWidth * (this.ibox_size + this.spacer) + this.xOffset;
 		return p.x < startx;
 	}
+	
+	public boolean isOnEquipedItems(Point p)
+	{
+		return false;
+	}
 
-	private Point click(Point p) {
+	public Point click(Point p) {
 		int xIndex = -1;
 		int yIndex = -1;
 		// figuring out the logic here
