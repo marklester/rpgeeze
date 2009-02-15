@@ -12,8 +12,7 @@ public class Tile implements Cloneable {
 	private Decal decal;
 	private Entity entity;
 
-	public Tile(Terrain terrain, Location location, Decal decal, Item item,
-			AreaEffect ae) {
+	public Tile(Terrain terrain, Location location, Decal decal, Item item, AreaEffect ae) {
 		this.terrain = terrain;
 		this.location = location;
 		this.decal = decal;

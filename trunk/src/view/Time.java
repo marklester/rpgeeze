@@ -30,8 +30,7 @@ public class Time extends Thread {
 			synchronized(this.view) {
 				this.view.notify();
 			}
-			long timeDiff_ms = this.framePeriod_ms
-					- (System.nanoTime() - start) / 1000000;
+			long timeDiff_ms = this.framePeriod_ms - (System.nanoTime() - start) / 1000000;
 			// System.out.println(timeDiff_ms);
 			if(timeDiff_ms > 0)
 				try {

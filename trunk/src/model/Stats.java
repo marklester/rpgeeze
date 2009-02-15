@@ -57,8 +57,7 @@ public class Stats implements Cloneable {
 	}
 
 	public void calculateLevel() {
-		if(this.primaryStats.experience >= this.level * this.level * 5
-				&& this.level < 5)
+		if(this.primaryStats.experience >= this.level * this.level * 5 && this.level < 5)
 			++this.level;
 	}
 
@@ -123,8 +122,7 @@ public class Stats implements Cloneable {
 	// These methods will need to be called upon equipping & unequipping
 
 	public void calculateOffensiveRating(int effectiveness) {
-		this.offensiveRating = (this.primaryStats.strength / 2 + effectiveness)
-				* this.level;
+		this.offensiveRating = (this.primaryStats.strength / 2 + effectiveness) * this.level;
 		if(this.offensiveRating > 100)
 			this.offensiveRating = 110;
 	}
@@ -134,8 +132,7 @@ public class Stats implements Cloneable {
 	}
 
 	public void calculateArmorRating(int effectiveness) {
-		this.armorRating = effectiveness
-				+ (int) (effectiveness * this.primaryStats.hardiness);
+		this.armorRating = effectiveness + (int) (effectiveness * this.primaryStats.hardiness);
 		// hardiness is a dec between 1 & 0
 	}
 

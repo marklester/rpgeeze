@@ -26,8 +26,7 @@ public class InventoryView {
 		// this.inventory = inventory;
 	}
 
-	public void drawInventoryView(Graphics2D graphics, Inventory inv,
-			int width, int height) {
+	public void drawInventoryView(Graphics2D graphics, Inventory inv, int width, int height) {
 
 		int inventory_height = height;
 
@@ -35,19 +34,15 @@ public class InventoryView {
 		// Location mouse_clicked=new Location(35,255);
 
 		graphics.setColor(Color.black);
-		graphics.setComposite(AlphaComposite.getInstance(
-				AlphaComposite.SRC_OVER, .3f));
-		graphics.fillRoundRect(0, 0, this.inventory_width, inventory_height, 3,
-				3);
+		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f));
+		graphics.fillRoundRect(0, 0, this.inventory_width, inventory_height, 3, 3);
 
 		graphics.setColor(Color.RED);
 		graphics.fillRect(0, 0, this.inventory_width, 200);
-		graphics.setComposite(AlphaComposite.getInstance(
-				AlphaComposite.SRC_OVER, 1));
+		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 		graphics.setColor(Color.white);
 		graphics.setFont(new Font("SansSerif", Font.BOLD, 24));
-		graphics.drawString("Inventory", this.spacer * 7.5f, this.atHeight
-				+ this.spacer * 3f - this.spacer * 5f);
+		graphics.drawString("Inventory", this.spacer * 7.5f, this.atHeight + this.spacer * 3f - this.spacer * 5f);
 
 		for(int i = 0; i < this.tableHeight; i++) {
 
@@ -74,8 +69,7 @@ public class InventoryView {
 				// graphics.setColor(Color.YELLOW);
 				// do Damage to Item
 				// }
-				graphics.fillRoundRect(startx, starty, this.ibox_size,
-						this.ibox_size, 3, 3);
+				graphics.fillRoundRect(startx, starty, this.ibox_size, this.ibox_size, 3, 3);
 				if(img != null)
 					graphics.drawImage(img, startx, starty, null);
 				graphics.setColor(prev);
@@ -85,8 +79,7 @@ public class InventoryView {
 
 	public boolean isOnInventory(Point p) {
 		// Logic to find if clicking was done on the inventory
-		int startx = this.tableWidth * (this.ibox_size + this.spacer)
-				+ this.xOffset;
+		int startx = this.tableWidth * (this.ibox_size + this.spacer) + this.xOffset;
 		return p.x < startx;
 	}
 
@@ -97,14 +90,11 @@ public class InventoryView {
 		if(p.x > this.xOffset && p.y > this.yOffset) {
 			p.x -= this.xOffset;
 			p.y -= this.yOffset;
-			xIndex = p.x % (this.ibox_size + this.spacer) <= this.ibox_size ? (int) (p.x / (this.ibox_size + this.spacer))
-					: -1;
-			yIndex = p.y % (this.ibox_size + this.spacer) <= this.ibox_size ? (int) (p.y / (this.ibox_size + this.spacer))
-					: -1;
+			xIndex = p.x % (this.ibox_size + this.spacer) <= this.ibox_size ? (int) (p.x / (this.ibox_size + this.spacer)) : -1;
+			yIndex = p.y % (this.ibox_size + this.spacer) <= this.ibox_size ? (int) (p.y / (this.ibox_size + this.spacer)) : -1;
 		}
 
-		if(xIndex == -1 || yIndex == -1 || xIndex >= this.tableWidth
-				|| yIndex >= this.tableHeight)
+		if(xIndex == -1 || yIndex == -1 || xIndex >= this.tableWidth || yIndex >= this.tableHeight)
 			// check for a different item press
 			return null;
 
@@ -120,8 +110,7 @@ public class InventoryView {
 		Item i = null;
 		if(index != null)
 			i = getItemAt(p);
-		Console.getInstance().writeLine(
-				i != null ? i.toString() : "No item there to equip");
+		Console.getInstance().writeLine(i != null ? i.toString() : "No item there to equip");
 	}
 
 	public void rightClick(Point p) {

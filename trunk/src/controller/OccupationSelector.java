@@ -25,8 +25,7 @@ public class OccupationSelector extends JFrame {
 
 	private Occupation occupation = null;
 
-	private static final Occupation[] occs = { new Smasher(), new Summoner(),
-			new Sneak() };
+	private static final Occupation[] occs = { new Smasher(), new Summoner(), new Sneak() };
 
 	public OccupationSelector() {
 		super("Select Occupation");

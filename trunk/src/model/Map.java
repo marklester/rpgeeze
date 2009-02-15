@@ -32,13 +32,11 @@ public class Map {
 			if(y >= 0 && y < matrix.length && x >= 0 && x < matrix[y].length)
 				ret = matrix[y][x];
 			else
-				ret = new Tile(MountainTerrain.getInstance(),
-						new Location(x, y), null, null, null);
+				ret = new Tile(MountainTerrain.getInstance(), new Location(x, y), null, null, null);
 			return ret;
 		}
 
-		public Iterator<Tile> getTiles(final int minX, final int minY,
-				final int maxX, final int maxY) {
+		public Iterator<Tile> getTiles(final int minX, final int minY, final int maxX, final int maxY) {
 			return new Iterator<Tile>() {
 				private int x;
 				private int y;
@@ -94,8 +92,7 @@ public class Map {
 		ArrayList<Tile[]> list = new ArrayList<Tile[]>();
 		for(int r = 0; s.hasNextLine(); ++r) {
 			String line = s.nextLine();
-			Tile[] arr = new Tile[line.length()
-					/ NUM_OF_CHARS_REPRESENTING_A_TILE];
+			Tile[] arr = new Tile[line.length() / NUM_OF_CHARS_REPRESENTING_A_TILE];
 
 			for(int c = 0; c != arr.length; ++c) {
 				Terrain ter = null;
@@ -193,8 +190,7 @@ public class Map {
 	}
 
 	// Not entirely thread safe, but better than before.
-	public Iterator<Tile> getTiles(final int minX, final int minY,
-			final int maxX, final int maxY) {
+	public Iterator<Tile> getTiles(final int minX, final int minY, final int maxX, final int maxY) {
 		Matrix m = null;
 		try {
 			m = this.matrix.clone();

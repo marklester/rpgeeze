@@ -19,12 +19,6 @@ public class Model implements util.Subject {
 	private final Map map;
 
 	public Model(Map map, Entity avatar) {
-		/*
-		 * Made constructor public so that RunGame would compile. If you come up
-		 * with another way of retrieving a Model, update RunGame accordingly. --
-		 * Miorel
-		 */
-
 		// create map
 		// create tiles and encompassing stuff
 		// create entity
@@ -34,8 +28,7 @@ public class Model implements util.Subject {
 		this.avatar = avatar;
 		// The following code should probably be moved elsewhere. -- Miorel
 		ClassLoader loader = getClass().getClassLoader();
-		Scanner scanner = new Scanner(loader
-				.getResourceAsStream("res/entities.txt"));
+		Scanner scanner = new Scanner(loader.getResourceAsStream("res/entities.txt"));
 		int x = scanner.nextInt();
 		int y = scanner.nextInt();
 		Tile tile = map.getTile(x, y);
@@ -129,17 +122,13 @@ public class Model implements util.Subject {
 	// //System.out.println("clicked inventory space");
 	// }
 	public void mouseRightClickAt(Point p) {
-		if(this.avatar.getInventory().isVisible()
-				&& this.avatar.getInventory().isOnInventory(p))
-			;
-		this.avatar.getInventory().rightClick(p);
+		if(this.avatar.getInventory().isVisible() && this.avatar.getInventory().isOnInventory(p))
+			this.avatar.getInventory().rightClick(p);
 	}
 
 	public void mouseLeftClickAt(Point p) {
-		if(this.avatar.getInventory().isVisible()
-				&& this.avatar.getInventory().isOnInventory(p))
-			;
-		this.avatar.getInventory().leftClick(p);
+		if(this.avatar.getInventory().isVisible() && this.avatar.getInventory().isOnInventory(p))
+			this.avatar.getInventory().leftClick(p);
 	}
 
 	public void equipItem(int index) {
