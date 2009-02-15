@@ -26,6 +26,10 @@ public class Map {
 		public Tile getTile(int x, int y) {
 			return getTile(x, y, this.map);
 		}
+		
+		public Tile getTile(Location l) {
+			return getTitle(l.getX, l.getY(), this.map);
+		}
 
 		private Tile getTile(int x, int y, Tile[][] matrix) {
 			Tile ret = null;
