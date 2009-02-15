@@ -53,10 +53,7 @@ public class Model implements util.Subject{
 		synchronized(this)
 		{
 			while(!commands.isEmpty())
-			{
-				while(!commands.isEmpty())
-					commands.remove().execute();
-			}
+				commands.remove().execute();
 		}
 		avatar.update();
 		
