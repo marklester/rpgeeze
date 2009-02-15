@@ -1,4 +1,5 @@
-package model;
+package model.ae;
+import model.Entity;
 
 import view.Console;
 

@@ -74,6 +74,11 @@ public class Stats implements Cloneable {
 	public int getLevel() {
 		return this.level;
 	}
+	
+	public void incLevel() {
+		if (level < 5)
+			level++;
+	}
 
 	public int getMana() {
 		return this.mana;

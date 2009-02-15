@@ -1,4 +1,6 @@
-package model;
+package model.ae;
+import model.Entity;
+import model.Stats;
 
 import view.Console;
 
@@ -14,7 +16,7 @@ public class LevelUp extends AreaEffect {
 
 	public void appyEffect(Entity e) {
 		if (!f_msg_was_sent) {
-			e.getStats().level++;
+			e.getStats().incLevel();
 			Console.getInstance().writeLine("Woohoo! You leveled up!");
 			f_msg_was_sent = true;			
 		}
