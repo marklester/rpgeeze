@@ -10,6 +10,8 @@ import java.awt.Point;
 import model.Inventory;
 import model.items.Item;
 
+import util.Iterator;
+
 public class InventoryView {
 
 	private final int spacer = 10;
@@ -30,7 +32,8 @@ public class InventoryView {
 
 		int inventory_height = height;
 
-		java.util.Iterator<Item> items = inv.iterator();
+		Iterator<Item> items = inv.iterator();
+		items.reset();
 		// Location mouse_clicked=new Location(35,255);
 
 		graphics.setColor(Color.black);
@@ -48,16 +51,17 @@ public class InventoryView {
 
 			graphics.setColor((i % 2 == 0 ? Color.BLACK : Color.GRAY));
 
-			for(int j = 0; j < this.tableWidth; j++) {
+			for(int j = 0; j < this.tableWidth; ++j) {
 				Image img = null;
-				if(items.hasNext()) {
-					Item citem = items.next();
+				if(!items.isDone()) {
+					Item citem = items.current();
 					if(citem.toString().compareTo("Sword") == 0) {
 						// img = this.sword;
 					}
 					if(citem.toString().compareTo("Potion Life") == 0) {
 						// img Potion image
 					}
+					items.advance();
 				}
 				int startx = j * (this.ibox_size + this.spacer) + this.xOffset;
 				int starty = i * (this.ibox_size + this.spacer) + this.yOffset;
