@@ -1,7 +1,8 @@
 package model;
 
 public class Summoner extends Occupation {
-	public Summoner() {
-		super("Summoner");
+	private Stats stats;
+	public Summoner(Stats stats) {
+		super("Summoner",stats);
 	}
 }
