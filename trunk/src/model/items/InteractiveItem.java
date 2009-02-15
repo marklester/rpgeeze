@@ -13,8 +13,8 @@ import view.Drawer;
 
 
 public abstract class InteractiveItem extends Item {
-	protected InteractiveItem(Location location) {
-		super("Interactive Item", location);
+	public InteractiveItem(String name,Location location) {
+		super(name, location);
 	}
 	
 	public void activate() {
