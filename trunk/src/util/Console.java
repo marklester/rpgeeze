@@ -22,12 +22,7 @@ public class Console {
 	}
 	public synchronized Queue<String> getStringList()
 	{
-		try{ 
-			return (LinkedList<String>)super.clone();
-		}catch(CloneNotSupportedException e)
-		{
-			return null;
-		}
+		return (LinkedList<String>)list.clone();
 	}
 	
 }
