@@ -7,10 +7,13 @@ import java.awt.event.MouseListener;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
+import model.Command;
 import model.Direction;
 import model.Entity;
 import model.Model;
 import view.View;
+
+import java.awt.Point;
 
 
 /*
@@ -131,11 +134,19 @@ public class Controller extends JComponent implements MouseListener {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(final MouseEvent e) {
 		if(e.getButton() == MouseEvent.BUTTON1)
-			this.model.invoke(new MouseRightClickCommand(e.getX(), e.getY()));
+			this.model.invoke(new Command() {
+				public void execute(Model m) {
+					view.mouseRightClickAt(new Point(e.getX(), e.getY()));
+				}
+			});
 		else if(e.getButton() == MouseEvent.BUTTON3)
-			this.model.invoke(new MouseLeftClickCommand(e.getX(), e.getY()));
+			this.model.invoke(new Command() {
+				public void execute(Model m) {
+					view.mouseLeftClickAt(new Point(e.getX(), e.getY()));
+				}
+			});
 	}
 
 	@Override

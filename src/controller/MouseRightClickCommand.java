@@ -9,9 +9,8 @@ public class MouseRightClickCommand implements Command {
 	private final int x;
 	private final int y;
 
-	MouseRightClickCommand(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public MouseRightClickCommand(int x, int y) {
+		throw new RuntimeException("Why are you creating me? I'm deprecated.");
 	}
 
 	public void execute(Model m) {
