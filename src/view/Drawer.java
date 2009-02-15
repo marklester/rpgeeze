@@ -21,6 +21,7 @@ import model.item.Boulder;
 import model.item.CrossBow;
 import model.item.PotionLife;
 import model.item.Sword;
+import model.item.Shield;
 import util.ContinuousIterator;
 import util.Iterator;
 import util.Observer;
@@ -41,7 +42,7 @@ public class Drawer implements Observer {
 
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar, redCross, skullAndCrossbones;
-	private static Image boulder, sword, potionlife, crossbow;
+	private static Image boulder, sword, potionlife, crossbow, shield;
 	private static StatView statsView;
 	private static InventoryView inventoryView;
 
@@ -66,6 +67,7 @@ public class Drawer implements Observer {
 		boulder = ResourceLoader.getInstance().getImage("img/terrain20px/Boulder.png");
 		potionlife = ResourceLoader.getInstance().getImage("img/potionlife.png");
 		crossbow = ResourceLoader.getInstance().getImage("img/crossbow.png");
+		shield = ResourceLoader.getInstance().getImage("img/shield.png");
 
 		statsView = new StatView(ResourceLoader.getInstance().getImage("img/statsviewbg.jpg"));
 		inventoryView = new InventoryView();
@@ -197,6 +199,10 @@ public class Drawer implements Observer {
 
 	public void drawPotionLife(PotionLife item) {
 		doDrawImage(potionlife);
+	}
+	
+	public void drawShield(Shield item) {
+		doDrawImage(shield);
 	}
 
 	public boolean isOnInventory(Point p) {
