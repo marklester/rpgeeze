@@ -10,7 +10,6 @@ import java.util.Queue;
 public class Console {
 	private static Console instance;
 	private final LinkedList<String> list = new LinkedList<String>();
-
 	private Console() {
 	}
 
@@ -30,8 +29,7 @@ public class Console {
 
 	public void drawConsoleView(Graphics2D graphics, int width, int height) {
 		Queue<String> messages = Console.getInstance().getStringList();// Messages
-		// to
-		// Show
+		// to Show
 		int stats_width = 310;// only change this is stats window size is
 		// changed
 		int console_width = 400;
@@ -46,7 +44,7 @@ public class Console {
 		graphics.fillRoundRect(width - (console_width + stats_width), height - console_height, console_width, console_height, 3, 3);
 		// graphics.drawImage(statsView,width-menu_width,
 		// height-menu_height,null);
-		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+		
 		graphics.setColor(Color.white);
 		graphics.setFont(new Font("SansSerif", Font.BOLD, 16));
 		// Text Formatting Numbers
@@ -56,6 +54,11 @@ public class Console {
 		int current_line = 0;
 		if(messages != null)
 			while(messages.size() > 0 && current_line < max_messages) {
+				float v = max_messages-1;
+				v= current_line*1/v; 
+				v = 1-v;
+				//transparency =Math.abs(1-transparency);
+				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,v));
 				graphics.drawString(messages.remove(), text_width, text_height + current_line * 18);
 				current_line++;
 			}
