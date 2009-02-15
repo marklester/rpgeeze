@@ -5,10 +5,7 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
-import model.items.Boulder;
-import model.items.Item;
-import model.items.PotionLife;
-import model.items.Sword;
+import model.items.*;
 
 import util.*;
 
@@ -125,8 +122,8 @@ public class Map {
 				case 'S': item = new Sword(new Location(c,r)); break;
 				case 'B': item = new Boulder(new Location(c,r)); break;
 				case 'L': item = new PotionLife(new Location(c,r)); break;
+				case 'C': item = new CrossBow(new Location(c,r)); break;
 				//case 'm': item = new Mana(); break;
-				//case 'C': item = new Crossbow(); break;
 				//case 'A': item = new Arrows(); break;
 				//case 't': item = new Staff(); break;
 				case ' ': break;
