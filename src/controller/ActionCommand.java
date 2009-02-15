@@ -18,8 +18,6 @@ public class ActionCommand extends AbstractAction {
 	}
 
 	public void actionPerformed(ActionEvent ae) {
-		System.out.println(model);
-		System.out.println(command);
 		this.model.invoke(this.command);
 	}
 }

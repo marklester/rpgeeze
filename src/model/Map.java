@@ -36,7 +36,7 @@ public class Map {
 			if(y >= 0 && y < matrix.length && x >= 0 && x < matrix[y].length)
 				ret = matrix[y][x];
 			else
-				ret = new Tile(MountainTerrain.getInstance(), new Location(x, y), null, null, null);
+				ret = new Tile(WaterTerrain.getInstance(), new Location(x, y), null, null, null);
 			return ret;
 		}
 
