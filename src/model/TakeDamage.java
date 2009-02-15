@@ -6,7 +6,7 @@ public class TakeDamage extends AreaEffect {
 		super("Take Damage");
 	}
 
-	public TakeDamage(float rate) {
+	public TakeDamage(int rate) {
 		super(rate, "Take Damage");
 	}
 
