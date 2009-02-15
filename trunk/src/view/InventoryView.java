@@ -6,11 +6,11 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import util.Iterator;
+import util.ResourceLoader;
 
 import model.Inventory;
 import model.items.Item;
-
-import util.Iterator;
 
 public class InventoryView {
 
@@ -38,10 +38,22 @@ public class InventoryView {
 
 		graphics.setColor(Color.black);
 		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f));
-		graphics.fillRoundRect(0, 0, this.inventory_width, inventory_height, 3, 3);
-
+		graphics.fillRect(0, 0, this.inventory_width, inventory_height);
+		//Equip Area
 		graphics.setColor(Color.RED);
 		graphics.fillRect(0, 0, this.inventory_width, 200);
+		graphics.setColor(Color.BLACK);
+		//CHEST
+		int chest_x=125;
+		int chest_y=60;
+		graphics.fillRect(chest_x,chest_y, 50, 75);
+		//HEAD FEET
+		graphics.fillRect(chest_x,chest_y-40-10, 50, 40);//HEAD
+		graphics.fillRect(chest_x,chest_y+75+10, 50, 40);//FEET
+		//WEAPONS
+		graphics.fillRect(chest_x-40-5,chest_y, 40, 40);//LEFT
+		graphics.fillRect(chest_x+40+15,chest_y, 40, 40);//RIGHT
+		
 		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 		graphics.setColor(Color.white);
 		graphics.setFont(new Font("SansSerif", Font.BOLD, 24));
@@ -51,16 +63,11 @@ public class InventoryView {
 
 			graphics.setColor((i % 2 == 0 ? Color.BLACK : Color.GRAY));
 
-			for(int j = 0; j < this.tableWidth; ++j) {
+			for(int j = 0; j < this.tableWidth; j++) {
 				Image img = null;
 				if(!items.isDone()) {
 					Item citem = items.current();
-					if(citem.toString().compareTo("Sword") == 0) {
-						// img = this.sword;
-					}
-					if(citem.toString().compareTo("Potion Life") == 0) {
-						// img Potion image
-					}
+					img =ResourceLoader.getInstance().getItemImage(citem.toString());
 					items.advance();
 				}
 				int startx = j * (this.ibox_size + this.spacer) + this.xOffset;
@@ -101,7 +108,7 @@ public class InventoryView {
 		if(xIndex == -1 || yIndex == -1 || xIndex >= this.tableWidth || yIndex >= this.tableHeight)
 			// check for a different item press
 			return null;
-
+		Console.getInstance().writeLine(new Point(xIndex,yIndex).toString());
 		return new Point(xIndex, yIndex);
 	}
 
