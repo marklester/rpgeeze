@@ -3,6 +3,7 @@ package model;
 import java.util.Iterator;
 
 import model.items.*;
+import util.Console;
 import view.*;
 
 public class Entity implements Drawable, Cloneable {
@@ -62,9 +63,12 @@ public class Entity implements Drawable, Cloneable {
 		speed = stats.getMovement();
 		if (temp != null && !(temp instanceof Obstacle)) {
 			switch (inventory.addItem(temp)) {
-			case Inventory.INV_FULL : System.out.println("Inventory Full"); break;
+			case Inventory.INV_FULL :
+				Console.getInstance().writeLine("Inventory Full"); 
+				break;
 			case Inventory.INV_SUCCESS : 
-				System.out.println("Added Successfully. " + temp.name);
+				String message= temp.toString()+" has been added to your Inventory.";
+				Console.getInstance().writeLine(message);
 				tile.setItem(null);
 				break;			
 			}
@@ -126,18 +130,11 @@ public class Entity implements Drawable, Cloneable {
 	{ 
 		if(!(inventory.isEmtpy()))
 		{
-		Item i = inventory.removeItemAt(0);
-		i.setLocation(getTile().getLocation());
-		getTile().setItem(i);
-		String itemType = i.getClass().getName();
-		if(itemType.equals("Sword")) {
+			Item i = inventory.removeItemAt(0);
 			i.setLocation(getTile().getLocation());
-			Drawer.getInstance().drawSword((Sword) i);
-			}
-		else if(itemType.equals("PotionLife")){
-		    i.setLocation(getTile().getLocation());
-		    Drawer.getInstance().drawPotionLife((PotionLife) i);
-		}
+			getTile().setItem(i);
+			Console.getInstance().writeLine(i.toString() +" has been dropped");
+			
 		}
 	}
 	public Stats getStats(){
