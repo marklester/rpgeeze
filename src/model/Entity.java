@@ -1,11 +1,10 @@
 package model;
 
-import java.util.Iterator;
-
 import model.items.Item;
 import view.Console;
 import view.Drawable;
 import view.Drawer;
+import util.Iterator;
 
 public class Entity implements Drawable, Cloneable {
 	private Stats stats;
