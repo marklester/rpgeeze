@@ -41,7 +41,7 @@ public class Stats {
 		offensiveRating = 1;
 		defensiveRating = 1;
 		armorRating = 1;
-		movement = 1;
+		movement = 35;
 		primaryStats = new PrimaryStats();
 	}
 	

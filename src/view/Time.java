@@ -34,7 +34,8 @@ public class Time extends Thread{
 			{
 				view.notify();
 			}						
-			long timeDiff_ms = framePeriod_ms - (long)((System.nanoTime() - start)/1000000);		
+			long timeDiff_ms = framePeriod_ms - (long)((System.nanoTime() - start)/1000000);
+			//System.out.println(timeDiff_ms);
 			if(timeDiff_ms > 0)
 				try{	
 					Thread.sleep(timeDiff_ms);

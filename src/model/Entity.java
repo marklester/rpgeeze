@@ -59,6 +59,7 @@ public class Entity implements Drawable, Cloneable {
 		//Check if there is an item on this tile. If so, add it to inventory, if not full.
 		//We could eventually prompt to ask if user wants to add to inventory
 		Item temp = tile.getItem();
+		speed = stats.getMovement();
 		if (temp != null && !(temp instanceof Obstacle)) {
 			switch (inventory.addItem(temp)) {
 			case Inventory.INV_FULL : System.out.println("Inventory Full"); break;
