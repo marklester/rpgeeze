@@ -5,9 +5,13 @@ public class Direction {
 	private int y;
 	
 	public static final Direction NORTH = new Direction(0, -1);
+	public static final Direction NORTH1 = new Direction(0, -2);
 	public static final Direction SOUTH = new Direction(0, 1);
+	public static final Direction SOUTH1 = new Direction(0, 2);
 	public static final Direction EAST = new Direction(1, 0);
+	public static final Direction EAST1 = new Direction(2, 0);
 	public static final Direction WEST = new Direction(-1, 0);
+	public static final Direction WEST1 = new Direction(-2, 0);
 	
 	public static final Direction NORTHEAST = new Direction(1, -1);
 	public static final Direction NORTHWEST = new Direction(-1, -1);
