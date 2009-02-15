@@ -14,7 +14,8 @@ public class Entity implements Drawable, Cloneable {
 	private Item headItem;
 	private Item armorItem;
 	private Item feetItem;
-	
+	private boolean step; //Used for changing between two different steps in the avatar
+	private int speed;
 	public static final int ENT_LEFT_H 	= 10;
 	public static final int ENT_RIGHT_H	= 11;
 	public static final int ENT_FEET 	= 12;
@@ -28,14 +29,11 @@ public class Entity implements Drawable, Cloneable {
 //    Name
 //    EquippedItems
 	
-	//Used to throttle movement
-	private int speed;
-	
-	
 	public Entity(Occupation occupation) {
 		this.occupation = occupation;
 		inventory = new Inventory();
 		this.stats = new Stats();
+		this.step=false;
 		speed = stats.getMovement();
 	}
 	
@@ -58,11 +56,9 @@ public class Entity implements Drawable, Cloneable {
 	
 	void setTile(Tile tile) {
 		this.tile = tile;
-		speed = stats.getMovement();
 		//Check if there is an item on this tile. If so, add it to inventory, if not full.
 		//We could eventually prompt to ask if user wants to add to inventory
-		Item temp = null; 
-			if(tile != null) tile.getItem();
+		Item temp = tile.getItem();
 		if (temp != null && !(temp instanceof Obstacle)) {
 			switch (inventory.addItem(temp)) {
 			case Inventory.INV_FULL : System.out.println("Inventory Full"); break;
@@ -70,7 +66,7 @@ public class Entity implements Drawable, Cloneable {
 				System.out.println("Added Successfully. " + temp.name);
 				tile.setItem(null);
 				break;			
-			}			
+			}
 		}
 			
 	}
@@ -80,6 +76,21 @@ public class Entity implements Drawable, Cloneable {
 	}
 	
 	void setFacingDirection(Direction d) {
+		if(step==true){
+			if(d.equals(Direction.NORTH)){
+				d = Direction.NORTH1;
+				System.out.println("NORTH1");
+			}else if(d.equals(Direction.SOUTH)){
+				d= Direction.SOUTH1;
+			}else if(d.equals(Direction.EAST)){
+				d= Direction.EAST1;
+			}else if(d.equals(Direction.WEST)){
+				d= Direction.WEST1;
+			}
+			step=false;
+		}else{
+			step=true;
+		}
 		facing = d;
 	}
 
@@ -132,8 +143,7 @@ public class Entity implements Drawable, Cloneable {
 	public Stats getStats(){
 		return this.stats;
 	}
-	
-	public void update()
+		public void update()
 	{
 		if(speed > 0)
 		{
