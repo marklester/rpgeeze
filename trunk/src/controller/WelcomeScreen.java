@@ -63,9 +63,10 @@ public class WelcomeScreen extends JFrame {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setContentPane(panel);
 		setResizable(false);
-		setLocationRelativeTo(null);
+		
 		pack();
 		setSize(500,500);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 	
