@@ -5,20 +5,16 @@ public class Direction {
 	private int y;
 	
 	public static final Direction NORTH = new Direction(0, -1);
-	public static final Direction NORTH1 = new Direction(0, -2);
 	public static final Direction SOUTH = new Direction(0, 1);
-	public static final Direction SOUTH1 = new Direction(0, 2);
 	public static final Direction EAST = new Direction(1, 0);
-	public static final Direction EAST1 = new Direction(2, 0);
 	public static final Direction WEST = new Direction(-1, 0);
-	public static final Direction WEST1 = new Direction(-2, 0);
+
+	public static final Direction NORTHEAST = NORTH.add(EAST);
+	public static final Direction NORTHWEST = NORTH.add(WEST);
+	public static final Direction SOUTHEAST = SOUTH.add(EAST);
+	public static final Direction SOUTHWEST = SOUTH.add(WEST);
 	
-	public static final Direction NORTHEAST = new Direction(1, -1);
-	public static final Direction NORTHWEST = new Direction(-1, -1);
-	public static final Direction SOUTHEAST = new Direction(1, 1);
-	public static final Direction SOUTWEST = new Direction(-1, 1);
-	
-	public Direction(int x, int y) 	{
+	public Direction(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -43,5 +39,9 @@ public class Direction {
 	
 	public int hashCode() {
 		return x + 23 * y;
+	}
+	
+	private Direction add(Direction d) {
+		return new Direction(this.x + d.x, this.y + d.y);
 	}
 }
