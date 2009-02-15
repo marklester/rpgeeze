@@ -8,6 +8,7 @@ import util.Iterator;
 
 public class Entity implements Drawable, Cloneable {
 	private Stats stats;
+	private Occupation occupation;
 	private Inventory inventory;
 	private Item leftHandItem;
 	private Item rightHandItem;
@@ -26,10 +27,11 @@ public class Entity implements Drawable, Cloneable {
 	// Location
 	// Name
 	// EquippedItems
-
+	
 	public Entity(Occupation occupation) {
 		this.inventory = new Inventory();
 		this.stats = (Stats) occupation.stats.clone();
+		this.occupation = occupation;
 	}
 
 	public void draw(Drawer d) {
@@ -135,4 +137,12 @@ public class Entity implements Drawable, Cloneable {
 		e.inventory = this.inventory.clone();
 		return e;
 	}
+	
+	public Stats resetStats(int numOfLives) {
+		stats = (Stats) occupation.stats.clone();
+		stats.getPrimary().setLivesLeft(numOfLives);
+		return stats;
+			
+	}
+
 }
