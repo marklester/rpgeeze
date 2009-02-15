@@ -4,14 +4,12 @@ import model.Model;
 import model.Occupation;
 import view.Time;
 import view.View;
-import controller.Controller;
 import controller.OccupationSelector;
 import controller.WelcomeScreen;
 import util.ResourceLoader;
 import javax.swing.JFileChooser;
 import java.io.File;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 /**
  * Entry point to the entire game!
