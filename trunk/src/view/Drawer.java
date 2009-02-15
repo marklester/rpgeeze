@@ -9,14 +9,12 @@ import java.util.LinkedList;
 
 import model.Direction;
 import model.Entity;
-import model.GoldStar;
+import model.decal.*;
 import model.GrassTerrain;
 import model.Location;
 import model.Map;
 import model.Model;
 import model.MountainTerrain;
-import model.RedCross;
-import model.SkullAndCrossbones;
 import model.Tile;
 import model.WaterTerrain;
 import model.item.Boulder;

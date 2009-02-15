@@ -1,6 +1,7 @@
 package model;
 
 import model.item.Item;
+import model.decal.Decal;
 import view.Drawer;
 
 public class Tile implements Cloneable {
