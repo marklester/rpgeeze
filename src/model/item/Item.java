@@ -1,4 +1,4 @@
-package model.items;
+package model.item;
 
 /**
  * An immobile Map element with a specific location.    

@@ -1,4 +1,4 @@
-package model.items;
+package model.item;
 
 /**
  * Makes the Tile that contains it permanently impassable.

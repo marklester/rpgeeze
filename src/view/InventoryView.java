@@ -10,7 +10,7 @@ import util.Iterator;
 import util.ResourceLoader;
 
 import model.Inventory;
-import model.items.Item;
+import model.item.Item;
 
 public class InventoryView {
 

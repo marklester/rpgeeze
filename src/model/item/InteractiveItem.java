@@ -1,4 +1,4 @@
-package model.items;
+package model.item;
 
 /**
  * An Item that is (potentially) activated on touch. Activation may require

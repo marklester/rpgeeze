@@ -12,7 +12,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.items.Item;
+import model.item.Item;
 import view.Drawer;
 import util.Iterator;
 

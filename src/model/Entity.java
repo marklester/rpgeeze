@@ -1,6 +1,6 @@
 package model;
 
-import model.items.Item;
+import model.item.Item;
 import view.Console;
 import view.Drawable;
 import view.Drawer;
