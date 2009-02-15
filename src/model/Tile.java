@@ -101,8 +101,6 @@ public class Tile implements Cloneable {
 				setEntity(e);
 				e.setTile(this);
 			}
-			if( this.hasAE() )
-				ae.applyEffect(e);
 		}
 	}
 
