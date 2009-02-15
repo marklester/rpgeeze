@@ -14,12 +14,15 @@ import java.util.List;
 import java.util.ArrayList;
 
 import model.items.Item;
+import view.*;
 
 public class Inventory implements Cloneable {
 	
 	public static final int INV_SUCCESS = 0;
 	public static final int INV_FULL = -1;
 	public static final int INV_MAX_SIZE = 6;
+	
+	private boolean visible = true;
 	
 	private List<Item> items;
 	
@@ -48,15 +51,39 @@ public class Inventory implements Cloneable {
 	public boolean isEmpty() {
 		return items.isEmpty();		
 	}
+	public boolean isVisible()
+	{
+		return visible;
+	}
+	public void setVisible(boolean b)
+	{
+		visible = b;
+	}
+	
 	
 	public Inventory clone() {
+		//shallow copy is already created from clone() on arraylist
 		Inventory clone = new Inventory();
-        for(Item i: items) clone.addItem(i);
+		clone.items = (List<Item>)((ArrayList<Item>)(this.items)).clone();
+        //for(Item i: items) clone.addItem(i);
         return clone;
 	}
 	
-	public Iterator<Item> getItems() {
+	public List<Item> getItems() {
+		return items;
+	}
+	public Iterator<Item> iterator()
+	{
 		return items.iterator();
+	}
+	
+	public boolean isOnInventory(int x, int y)
+	{
+		return Drawer.getInstance().isOnInventory(x, y);
+	}
+	public void click(int x, int y)
+	{
+		Drawer.getInstance().clickInventory(x, y);
 	}
 }
 

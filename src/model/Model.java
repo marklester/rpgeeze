@@ -12,8 +12,8 @@ public class Model implements util.Subject{
 	
 	private Entity avatar;
 	private Map map;
-	private boolean stats_up=false;
-	private boolean inventory_up=false;
+	
+	
 	public Model(Map map, Entity avatar) {		
 		/* Made constructor public so that RunGame would compile. If you
 		 * come up with another way of retrieving a Model, update
@@ -116,17 +116,18 @@ public class Model implements util.Subject{
 		avatar.setFacingDirection(d);
 	}
 	
-	
 	//MouseMoveCommand
 	public void mouseOnscreenAt(int x, int y)
 	{
 		//Drawer.getTileFromPosition(x,y) or isOver(someMenu/Inventory) 
 		//Make some high level decision about pressing on screen buttons
 	}
-	public void mousePressAt(int x, int y)
-	{		
-		//check what click was on
-		//make high level decision for the click
+	//MouseClickedCommand
+	public void mouseClickedAt(int x, int y)
+	{
+		if(avatar.getInventory().isVisible() &&  avatar.getInventory().isOnInventory(x, y))
+			//avatar.getInventory().click(x, y);
+			System.out.println("clicked inventory space");
 	}
 	
 	public void equipItem(int index) {
@@ -140,24 +141,5 @@ public class Model implements util.Subject{
 	public void dropItem()
 	{
 		avatar.dropItem();
-	}
-	
-	public void setStatsVisible(boolean visible){
-		this.stats_up = visible;
-	}
-	public boolean isStatsUp(){
-		if(stats_up){
-			return true;
-		}
-		return false;
-	}
-	public void setInventoryVisible(boolean visible){
-		this.inventory_up = visible;
-	}
-	public boolean isInventoryUp(){
-		if(inventory_up){
-			return true;
-		}
-		return false;
 	}
 }

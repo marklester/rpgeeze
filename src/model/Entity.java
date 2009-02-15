@@ -92,6 +92,13 @@ public class Entity implements Drawable, Cloneable {
 		}
 	}
 	
+	public Inventory getInventory()
+	{
+		//shallow copy of inventory held in clone.
+		//a deep copy will be more costly
+		return inventory.clone();
+	}
+	
 	public void dropItem() { 
 		if(!inventory.isEmpty()) {
 			Item i = inventory.removeItemAt(0);
@@ -109,12 +116,12 @@ public class Entity implements Drawable, Cloneable {
 			--speed;
 	}
 	
-	public boolean canMove() {				
+	public boolean canMove() {
 		return speed <= 0;
 	}
 	
-	public Iterator<Item> getInventoryItems() {
-		return inventory.getItems();
+	public Iterator<Item> getInventoryItemIterator() {
+		return inventory.iterator();
 	}
 	
 	public Entity clone() throws CloneNotSupportedException {

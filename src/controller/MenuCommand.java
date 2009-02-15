@@ -12,10 +12,10 @@ public class MenuCommand implements Command {
 	public void execute(Model m) {
 		switch(viewport){
 			case Controller.STAT_VIEW:
-				m.setStatsVisible(!m.isStatsUp());
+				m.getAvatar().getStats().setVisible((!m.getAvatar().getStats().isVisible()));
 				break;
 			case Controller.INVENTORY_VIEW:
-				m.setInventoryVisible(!m.isInventoryUp());
+				m.getAvatar().getInventory().setVisible(!m.getAvatar().getInventory().isVisible());
 				break;
 			default:
 				break;
