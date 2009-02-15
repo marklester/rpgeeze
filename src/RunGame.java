@@ -7,7 +7,23 @@ import view.View;
 import controller.Controller;
 import controller.OccupationSelector;
 
+/**
+ * Entry point to the entire game!
+ * 
+ * The main method:
+ * - asks the user to pick an Occupation
+ * - creates an avatar
+ * - reads a Map from a file
+ * - initializes a Model with the avatar and Map
+ * - creates a Controller
+ * - initializes a View with the specified Model and Controller  
+ * - starts the Time thread
+ */
+
 public class RunGame {
+	/**
+	 * Starts a new game. See the description above for what happens.
+	 */
 	public static void main(String[] arg) {
 		ClassLoader loader = RunGame.class.getClassLoader();
 
@@ -23,6 +39,10 @@ public class RunGame {
 		time.start();
 	}
 
+	/**
+	 * Presents the user with a dialog, waits for the user to select an
+	 * Occupation, then returns the user's selection.
+	 */
 	public static Occupation getOccupation() {
 		OccupationSelector os = new OccupationSelector();
 		os.setVisible(true);
