@@ -29,7 +29,7 @@ public class Drawer implements Observer{
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar, redCross, skullAndCrossbones;
 	private static Image boulder,sword,potionlife;
-	private static Image statsView;
+	private static StatView statsView;
 
 
 	private static Hashtable<Direction,Image> avatar = new Hashtable<Direction,Image>();
@@ -54,7 +54,7 @@ public class Drawer implements Observer{
 				boulder = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/Boulder.png"));
 				potionlife = ImageIO.read(loader.getResourceAsStream("res/img/potionlife.png"));
 				
-				statsView=ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg"));
+				statsView= new StatView(ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg")));
 				
 					
 				avatar.put(Direction.NORTH, ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkNorth1.png")));
@@ -109,7 +109,7 @@ public class Drawer implements Observer{
 
 		//Stats Stuff
 		if(model.isStatsUp()){
-			statView.drawStatsView(graphics, avatar, width, height);
+			statsView.drawStatsView(graphics, avatar, width, height);
 			this.drawConsoleView(width, height);
 		}
 		//Inventory Stuff
@@ -177,59 +177,7 @@ public class Drawer implements Observer{
 	public void drawPotionLife(PotionLife item) {
 		graphics.drawImage(potionlife, cursor.getX() + 1, cursor.getY() + 1, null);
 	}
-	/*//Not visitor like but whatev
-	public void drawStatsView(Entity entity, int width, int height){
-		int menu_width = 300;
-		int menu_height = 300;
-		int left_indent = 20;
-		int top_indent = 80;
-		graphics.setColor(Color.black);
-		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .9f));
-		graphics.drawImage(statsView,width-menu_width, height-menu_height,null);
-		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-		graphics.setColor(Color.black);
-		graphics.setFont(new Font("SansSerif", Font.BOLD, 16));
-		StringBuffer stats = new StringBuffer();
-		//Text Formatting Numbers
-		int text_width = width - menu_width + left_indent; 
-		int text_height = height - menu_height + top_indent;
-		//Freaking ugly tedious code
-		int current_line=0;
-		graphics.drawString("Primary Stats", text_width, text_height);
-		current_line+=18;
-		graphics.drawString("Lives Left:"+entity.getStats().getPrimary().getLivesLeft(), text_width, text_height+current_line);
-		current_line+=18;
-		graphics.drawString("Strength:"+entity.getStats().getPrimary().getStrength(), text_width, text_height+current_line);
-		current_line+=18;
-		graphics.drawString("Agility:"+entity.getStats().getPrimary().getAgility(), text_width, text_height+current_line);
-		current_line+=18;
-		graphics.drawString("Experience:"+entity.getStats().getPrimary().getExperience(), text_width, text_height+current_line);
-		current_line+=18;
-		graphics.drawString("Hardiness:"+entity.getStats().getPrimary().getHardiness(), text_width, text_height+current_line);
-		current_line+=18;
-		graphics.drawString("Intellect:"+entity.getStats().getPrimary().getIntellect(), text_width, text_height+current_line);
-		current_line+=18;
-		graphics.drawString("Movement:"+entity.getStats().getMovement(), text_width, text_height+current_line);
-		current_line+=18;
-		graphics.drawString("nanoTime:" + System.nanoTime(), text_width, text_height+current_line);
-		//More Ugly Code for the Second Column of Stats this will show Derived Stats
-		text_width = width - menu_width/2;
-		current_line = 0;
-		graphics.drawString("Derived Stats ", text_width, text_height);
-		current_line+=18;
-		graphics.drawString("Level:"+entity.getStats().getLevel(), text_width, text_height+current_line);
-		current_line+=18;
-		graphics.drawString("HP(Life):"+entity.getStats().getLife(), text_width, text_height+current_line);
-		current_line+=18;
-		graphics.drawString("Mana:"+entity.getStats().getMana(), text_width, text_height+current_line);
-		current_line+=18;
-		graphics.drawString("Offensive:"+entity.getStats().getOffensiveRating(), text_width, text_height+current_line);
-		current_line+=18;
-		graphics.drawString("Defensive:"+entity.getStats().getDefensiveRating(), text_width, text_height+current_line);
-		current_line+=18;
-		graphics.drawString("Armor Rating:"+entity.getStats().getArmorRating(), text_width, text_height+current_line);
-		current_line+=18;
-	}*/
+	
 	public void drawConsoleView(int width, int height){
 		Queue<String> messages  = Console.getInstance().getStringList();//Messages to Show
 		int stats_width=310;//only change this is stats window size is changed
