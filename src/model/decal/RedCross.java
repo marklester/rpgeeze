@@ -1,4 +1,4 @@
-package model;
+package model.decal;
 
 import view.Drawer;
 

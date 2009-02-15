@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import model.item.Item;
+import model.decal.*;
 import util.Iterator;
 import util.ResourceLoader;
 

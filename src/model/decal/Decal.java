@@ -1,4 +1,4 @@
-package model;
+package model.decal;
 
 /*
  * Decals augment the terrain and primarily serve as eye-candy. They do not
