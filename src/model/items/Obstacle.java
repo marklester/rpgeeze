@@ -1,12 +1,10 @@
 package model.items;
 
-import model.Location;
-
-/*
- * 
- * Obstacle - makes tile permanently impassable
- * 
+/**
+ * Makes the Tile that contains it permanently impassable.
  */
+
+import model.Location;
 
 public abstract class Obstacle extends Item {
 	public Obstacle(String name, Location location) {

@@ -1,12 +1,10 @@
 package model.items;
 
-import model.Location;
-
-/*
- * 
- * Take-able Item - added to inventory on touch
- * 
+/**
+ * An Item that is added to an Entity's Inventory on touch.
  */
+
+import model.Location;
 
 public abstract class TakeableItem extends Item {
 

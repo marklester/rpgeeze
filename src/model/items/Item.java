@@ -1,9 +1,7 @@
 package model.items;
 
-/*
- * 
- * An item is an immobile thing which has a specific location.
- *    
+/**
+ * An immobile Map element with a specific location.    
  */
 
 import model.Location;

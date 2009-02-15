@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.LinkedList;
 
-import javax.imageio.ImageIO;
-
 import model.Direction;
 import model.Entity;
 import model.GoldStar;
@@ -30,6 +28,7 @@ import util.ContinuousIterator;
 import util.Iterator;
 import util.Observer;
 import util.Subject;
+import util.ResourceLoader;
 
 public class Drawer implements Observer {
 
@@ -56,34 +55,41 @@ public class Drawer implements Observer {
 	private Location cursor = null;
 
 	private Drawer() {
-		ClassLoader loader = getClass().getClassLoader();
-		try {
-			grassTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/GrassTerrain.png"));
-			mountainTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/MountainTerrain.png"));
-			waterTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/WaterTerrain.png"));
+		grassTerrain = ResourceLoader.getInstance().getImage("img/terrain20px/GrassTerrain.png");
+		mountainTerrain = ResourceLoader.getInstance().getImage("img/terrain20px/MountainTerrain.png");
+		waterTerrain = ResourceLoader.getInstance().getImage("img/terrain20px/WaterTerrain.png");
 
-			goldStar = ImageIO.read(loader.getResourceAsStream("res/img/goldenstar.png"));
-			redCross = ImageIO.read(loader.getResourceAsStream("res/img/redcross.png"));
-			skullAndCrossbones = ImageIO.read(loader.getResourceAsStream("res/img/skullandcrossbones.png"));
+		goldStar = ResourceLoader.getInstance().getImage("img/goldenstar.png");
+		redCross = ResourceLoader.getInstance().getImage("img/redcross.png");
+		skullAndCrossbones = ResourceLoader.getInstance().getImage("img/skullandcrossbones.png");
 
-			sword = ImageIO.read(loader.getResourceAsStream("res/img/sword.png"));
-			boulder = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/Boulder.png"));
-			potionlife = ImageIO.read(loader.getResourceAsStream("res/img/potionlife.png"));
-			crossbow = ImageIO.read(loader.getResourceAsStream("res/img/crossbow.png"));
+		sword = ResourceLoader.getInstance().getImage("img/sword.png");
+		boulder = ResourceLoader.getInstance().getImage("img/terrain20px/Boulder.png");
+		potionlife = ResourceLoader.getInstance().getImage("img/potionlife.png");
+		crossbow = ResourceLoader.getInstance().getImage("img/crossbow.png");
 
-			statsView = new StatView(ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg")));
-			inventoryView = new InventoryView();
+		statsView = new StatView(ResourceLoader.getInstance().getImage("img/statsviewbg.jpg"));
+		inventoryView = new InventoryView();
 
-			avatar.put(Direction.NORTH, new ContinuousIterator<Image>(ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkNorth1.png")), ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkNorth2.png"))));
+		avatar.put(Direction.NORTH, new ContinuousIterator<Image>(
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth2.png")
+		));
 
-			avatar.put(Direction.SOUTH, new ContinuousIterator<Image>(ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkSouth1.png")), ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkSouth2.png"))));
+		avatar.put(Direction.SOUTH, new ContinuousIterator<Image>(
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkSouth1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkSouth2.png")
+		));
+		
+		avatar.put(Direction.EAST, new ContinuousIterator<Image>(
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkEast1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkEast2.png")
+		));
 
-			avatar.put(Direction.EAST, new ContinuousIterator<Image>(ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkEast1.png")), ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkEast2.png"))));
-
-			avatar.put(Direction.WEST, new ContinuousIterator<Image>(ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkWest1.png")), ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkWest2.png"))));
-		}
-		catch(IOException e) {
-		}
+		avatar.put(Direction.WEST, new ContinuousIterator<Image>(
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkWest1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkWest2.png")
+		));
 	}
 
 	public static Drawer getInstance() {
