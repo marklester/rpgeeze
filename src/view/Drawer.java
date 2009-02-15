@@ -41,9 +41,9 @@ public class Drawer implements Observer{
 	private Drawer() {
 			ClassLoader loader = getClass().getClassLoader();
 			try {
-				grassTerrain = ImageIO.read(loader.getResourceAsStream("res/img/grass.png"));
-				mountainTerrain = ImageIO.read(loader.getResourceAsStream("res/img/mountain.png"));
-				waterTerrain = ImageIO.read(loader.getResourceAsStream("res/img/water.png"));
+				grassTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/GrassTerrain.png"));
+				mountainTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/MountainTerrain.png"));
+				waterTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/WaterTerrain.png"));
 
 				goldStar = ImageIO.read(loader.getResourceAsStream("res/img/goldenstar.png"));
 				redCross = ImageIO.read(loader.getResourceAsStream("res/img/redcross.png"));
