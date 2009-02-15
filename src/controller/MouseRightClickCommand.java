@@ -15,7 +15,8 @@ public class MouseRightClickCommand implements Command {
 	}
 
 	public void execute(Model m) {
-		m.mouseRightClickAt(new Point(this.x, this.y));
+		// Why is the Model dealing with mouse clicks?
+		//m.mouseRightClickAt(new Point(this.x, this.y));
 	}
 
 }

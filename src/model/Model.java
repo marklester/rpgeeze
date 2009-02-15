@@ -120,7 +120,7 @@ public class Model implements util.Subject {
 	// //avatar.getInventory().click(x, y);
 	// //System.out.println("clicked inventory space");
 	// }
-	public void mouseRightClickAt(Point p) {
+/*	public void mouseRightClickAt(Point p) {
 		if(this.avatar.getInventory().isVisible() && this.avatar.getInventory().isOnInventory(p))
 			this.avatar.getInventory().rightClick(p);
 	}
@@ -128,7 +128,7 @@ public class Model implements util.Subject {
 	public void mouseLeftClickAt(Point p) {
 		if(this.avatar.getInventory().isVisible() && this.avatar.getInventory().isOnInventory(p))
 			this.avatar.getInventory().leftClick(p);
-	}
+	}*/
 
 	public void equipItem(int index) {
 		this.avatar.equipItem(index);
