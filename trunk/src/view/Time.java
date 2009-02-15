@@ -30,6 +30,7 @@ public class Time extends Thread{
 			long start = System.nanoTime();
 		
 			model.update();
+			
 			synchronized(view)
 			{
 				view.notify();

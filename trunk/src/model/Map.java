@@ -153,11 +153,11 @@ public class Map {
 	
 	public Matrix getMatrix()
 	{
-		Matrix m = null;
-		try{
-			m = (Matrix)matrix.clone();
-		}catch (CloneNotSupportedException e){}
-		return m;
+//		Matrix m = null;
+//		try{
+//			m = (Matrix)matrix.clone();
+//		}catch (CloneNotSupportedException e){}
+		return matrix;
 	}
 	
 	//Not entirely thread safe, but better than before.
