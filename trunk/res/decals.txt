@@ -1,0 +1,25 @@
+<decal><name>Skull and Crossbones</name></decal>
+<decal><name>Red Cross</name></decal>
+<decal><name>Skull and Crossbones</name></decal>
+<decal><name>Skull and Crossbones</name></decal>
+<decal><name>Skull and Crossbones</name></decal>
+<decal><name>Skull and Crossbones</name></decal>
+<decal><name>Skull and Crossbones</name></decal>
+<decal><name>Skull and Crossbones</name></decal>
+<decal><name>Skull and Crossbones</name></decal>
+<decal><name>Skull and Crossbones</name></decal>
+<decal><name>Skull and Crossbones</name></decal>
+<decal><name>Skull and Crossbones</name></decal>
+<decal><name>Gold Star</name></decal>
+<decal><name>Gold Star</name></decal>
+<decal><name>Gold Star</name></decal>
+<decal><name>Red Cross</name></decal>
+<decal><name>Red Cross</name></decal>
+<decal><name>Red Cross</name></decal>
+<decal><name>Red Cross</name></decal>
+<decal><name>Gold Star</name></decal>
+<decal><name>Gold Star</name></decal>
+<decal><name>Red Cross</name></decal>
+<decal><name>Red Cross</name></decal>
+<decal><name>Gold Star</name></decal>
+<decal><name>Gold Star</name></decal>

@@ -112,6 +112,7 @@ public class Map {
 					ter = WaterTerrain.getInstance();
 					break;
 				default:
+					System.err.println(c);
 					throw new RuntimeException("Bad map - Terrain");
 				}
 
@@ -131,29 +132,7 @@ public class Map {
 				default:
 					throw new RuntimeException("Bad map - Decal");
 				}
-
-/*				Item item = null;
-				switch(line.charAt(NUM_OF_CHARS_REPRESENTING_A_TILE * c + 2)) {
-				case 'S':
-					item = new Sword(new Location(c, r));
-					break;
-				case 'B':
-					item = new Boulder(new Location(c, r));
-					break;
-				case 'L':
-					item = new PotionLife(new Location(c, r));
-					break;
-				case 'C':
-					item = new CrossBow(new Location(c, r));
-					break;
-				// case 'm': item = new Mana(); break;
-				// case 'A': item = new Arrows(); break;
-				// case 't': item = new Staff(); break;
-				case ' ':
-					break;
-				default:
-					throw new RuntimeException("Bad map - Item");
-				}*/
+				if(dec != null) System.out.println(dec.toXml());
 
 				AreaEffect ae = null;
 				switch(line.charAt(NUM_OF_CHARS_REPRESENTING_A_TILE * c + 3)) {
@@ -180,7 +159,8 @@ public class Map {
 			list.add(arr);
 		}
 		this.matrix = new Matrix(list.toArray(new Tile[0][]));
-		Scanner scanner = new Scanner(ResourceLoader.getInstance().getStream("items.txt"));
+		Scanner scanner;
+		scanner = new Scanner(ResourceLoader.getInstance().getStream("items.txt"));
 		while(scanner.hasNextLine()) {
 			Item item = Item.fromXml(scanner.nextLine());
 			this.getTile(item.getLocation()).setItem(item);
