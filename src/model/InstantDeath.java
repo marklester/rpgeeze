@@ -12,6 +12,8 @@ public class InstantDeath extends AreaEffect {
 	
 	public void applyEffect(Entity e) {
 		e.getStats().decLife(Stats.MAX_LIFE);
+		System.out.println("Done, bitch");
+		System.out.println(e.getStats().getLife());
 	}
 
 }

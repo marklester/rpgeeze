@@ -1,5 +1,11 @@
 package model;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.lang.Math;
+
+
 public class Stats implements Cloneable {
 
 	// measures how good the entity is at her occupation;based on experience
@@ -102,7 +108,10 @@ public class Stats implements Cloneable {
 	}
 
 	public void decLife(int amount) {
-		this.life -= amount / (this.level + this.primaryStats.hardiness);
+		if (amount == MAX_LIFE)
+			life = 0;
+		else
+			this.life = Math.max( (int)(amount/(this.level + this.primaryStats.hardiness)) , 0);
 		if(this.life < 0)
 			this.life = 0;
 	}
@@ -155,4 +164,6 @@ public class Stats implements Cloneable {
 	public PrimaryStats getPrimary() {
 		return this.primaryStats;
 	}
+	
+	
 }
