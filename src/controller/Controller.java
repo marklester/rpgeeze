@@ -92,7 +92,7 @@ public class Controller extends JComponent implements  MouseListener{
 		
 		//'c' is closer to the awsd pad
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "Stats");
-		//this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_TAB), "Inventory");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_TAB), "Inventory");
 		
 		this.getActionMap().put("North", new ActionCommand(model, new MoveCommand(model, Direction.NORTH)));
 		this.getActionMap().put("South", new ActionCommand(model, new MoveCommand(model, Direction.SOUTH)));
@@ -106,7 +106,7 @@ public class Controller extends JComponent implements  MouseListener{
 		this.getActionMap().put("DropITEM", new ActionCommand(model, new ItemCommand(model,0)));
 		//For Stats;*/
 		this.getActionMap().put("Stats", new ActionCommand(model, new MenuCommand(model, controller,Controller.STAT_VIEW)));
-		//this.getActionMap().put("Inventory", new ActionCommand(model, new MenuCommand(model, controller,Controller.INVENTORY_VIEW)));
+		this.getActionMap().put("Inventory", new ActionCommand(model, new MenuCommand(model, controller,Controller.INVENTORY_VIEW)));
 	}
 	
 	//Keeping one instance of controller
