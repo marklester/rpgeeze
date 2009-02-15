@@ -10,6 +10,7 @@ import model.items.Item;
 import model.items.PotionLife;
 import model.items.Sword;
 import util.Iterator;
+import util.ResourceLoader;
 
 public class Map {
 	public static final int NUM_OF_CHARS_REPRESENTING_A_TILE = 5;
@@ -131,7 +132,7 @@ public class Map {
 					throw new RuntimeException("Bad map - Decal");
 				}
 
-				Item item = null;
+/*				Item item = null;
 				switch(line.charAt(NUM_OF_CHARS_REPRESENTING_A_TILE * c + 2)) {
 				case 'S':
 					item = new Sword(new Location(c, r));
@@ -152,7 +153,7 @@ public class Map {
 					break;
 				default:
 					throw new RuntimeException("Bad map - Item");
-				}
+				}*/
 
 				AreaEffect ae = null;
 				switch(line.charAt(NUM_OF_CHARS_REPRESENTING_A_TILE * c + 3)) {
@@ -174,11 +175,16 @@ public class Map {
 					throw new RuntimeException("Bad map - Area Effect");
 				}
 
-				arr[c] = new Tile(ter, new Location(c, r), dec, item, ae);
+				arr[c] = new Tile(ter, new Location(c, r), dec, null, ae);
 			}
 			list.add(arr);
 		}
 		this.matrix = new Matrix(list.toArray(new Tile[0][]));
+		Scanner scanner = new Scanner(ResourceLoader.getInstance().getStream("items.txt"));
+		while(scanner.hasNextLine()) {
+			Item item = Item.fromXml(scanner.nextLine());
+			this.getTile(item.getLocation()).setItem(item);
+		}
 	}
 
 	public Tile getTile(int x, int y) {
