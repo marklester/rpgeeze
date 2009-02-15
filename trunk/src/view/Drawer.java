@@ -56,10 +56,14 @@ public class Drawer implements Observer{
 				statsView=ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg"));
 				
 					
-				avatar.put(Direction.NORTH, ImageIO.read(loader.getResourceAsStream("res/img/avatar_n.png")));
-				avatar.put(Direction.SOUTH, ImageIO.read(loader.getResourceAsStream("res/img/avatar_s.png")));
-				avatar.put(Direction.EAST, ImageIO.read(loader.getResourceAsStream("res/img/avatar_e.png")));
-				avatar.put(Direction.WEST, ImageIO.read(loader.getResourceAsStream("res/img/avatar_w.png")));
+				avatar.put(Direction.NORTH, ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkNorth1.png")));
+				avatar.put(Direction.SOUTH, ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkSouth1.png")));
+				avatar.put(Direction.EAST, ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkEast1.png")));
+				avatar.put(Direction.WEST, ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkWest1.png")));
+				avatar.put(Direction.NORTH1, ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkNorth2.png")));
+				avatar.put(Direction.SOUTH1, ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkSouth2.png")));
+				avatar.put(Direction.EAST1, ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkEast2.png")));
+				avatar.put(Direction.WEST1, ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkWest2.png")));
 			}
 			catch(IOException e) {}
 	}
