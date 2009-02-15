@@ -45,10 +45,25 @@ public class WelcomeScreen extends JFrame {
 				}
 			}
 		});
+		
+		JButton quitGame = new JButton("Quit Game");
+		quitGame.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				synchronized(WelcomeScreen.this) {
+					if(getAction() != null) {
+						setAction("Quit");
+						WelcomeScreen.this.setVisible(false);
+						WelcomeScreen.this.notifyAll();
+						WelcomeScreen.this.dispose();
+					}
+				}
+			}
+		});
 		JPanel p1 = new JPanel(new GridLayout(1,3));
 		
 		p1.add(newGame);
 		p1.add(loadGame);
+		p1.add(quitGame);
 	
 		
 		panel.add(p1, BorderLayout.SOUTH);
