@@ -14,15 +14,17 @@ public class Entity implements Drawable, Cloneable {
 	private Item headItem;
 	private Item armorItem;
 	private Item feetItem;
-	//private boolean step; //Used for changing between two different steps in the avatar
+
+	private Tile tile = null;
+	
 	private int speed;
-	public static final int ENT_LEFT_H 	= 10;
-	public static final int ENT_RIGHT_H	= 11;
+
+	public static final int ENT_LEFT_H = 10;
+	public static final int ENT_RIGHT_H = 11;
 	public static final int ENT_FEET 	= 12;
 	public static final int ENT_HEAD 	= 13;
-	public static final int ENT_ARMOR 	= 14;
+	public static final int ENT_ARMOR = 14;
 
-	
 	private Direction facing = Direction.EAST;
 	
 //    Location
@@ -31,24 +33,14 @@ public class Entity implements Drawable, Cloneable {
 	
 	public Entity(Occupation occupation) {
 		this.occupation = occupation;
-		inventory = new Inventory();
+		this.inventory = new Inventory();
 		this.stats = new Stats();
-		//this.step=false;
-		speed = stats.getMovement();
+		this.speed = stats.getMovement();
 	}
 	
 	public void draw(Drawer d) {
 		d.drawEntity(this);
 	}
-	
-	/*
-	 * I added a get/set for Tile so I can get the rest of my code to work.
-	 * I don't know if I like the Entity knowing its Tile, but for now it's OK...
-	 * Hopefully we can think of something better though. -- Miorel
-	 * 
-	 */
-	
-	private Tile tile = null;
 	
 	public Tile getTile() {
 		return tile;
@@ -58,18 +50,16 @@ public class Entity implements Drawable, Cloneable {
 		this.tile = tile;
 		//Check if there is an item on this tile. If so, add it to inventory, if not full.
 		//We could eventually prompt to ask if user wants to add to inventory
-		Item temp = tile.getItem();
+		Item item = tile.getItem();
 		speed = stats.getMovement();
-		if (temp != null && !(temp instanceof Obstacle)) {
-			switch (inventory.addItem(temp)) {
-			case Inventory.INV_FULL :
+		if(item != null) {
+			int ret = inventory.addItem(item);
+			if(ret == Inventory.INV_FULL)   
 				Console.getInstance().writeLine("Inventory Full"); 
-				break;
-			case Inventory.INV_SUCCESS : 
-				String message= temp.toString()+" has been added to your Inventory.";
+			else {
+				String message = item + " has been added to your Inventory.";
 				Console.getInstance().writeLine(message);
 				tile.setItem(null);
-				break;			
 			}
 		}
 			
@@ -80,25 +70,8 @@ public class Entity implements Drawable, Cloneable {
 	}
 	
 	void setFacingDirection(Direction d) {
-		/*if(step==true){
-			if(d.equals(Direction.NORTH)){
-				d = Direction.NORTH1;
-			}else if(d.equals(Direction.SOUTH)){
-				d= Direction.SOUTH1;
-			}else if(d.equals(Direction.EAST)){
-				d= Direction.EAST1;
-			}else if(d.equals(Direction.WEST)){
-				d= Direction.WEST1;
-			}
-			step=false;
-		}else{
-			step=true;
-		}*/
 		facing = d;
 	}
-
-	
-
 
 	public void equipItem(int index) {
 		Item i = inventory.removeItemAt(index);
@@ -119,29 +92,24 @@ public class Entity implements Drawable, Cloneable {
 		}
 	}
 	
-	public void dropItem()
-	{ 
-		if(!(inventory.isEmtpy()))
-		{
+	public void dropItem() { 
+		if(!inventory.isEmpty()) {
 			Item i = inventory.removeItemAt(0);
 			i.setLocation(getTile().getLocation());
 			getTile().setItem(i);
-			Console.getInstance().writeLine(i.toString() +" has been dropped");
-			
+			Console.getInstance().writeLine(i + " has been dropped");
 		}
 	}
-	public Stats getStats(){
+	public Stats getStats() {
 		return this.stats;
 	}
-		public void update()
-	{
+	
+	public void update() {
 		if(speed > 0)
-		{
 			--speed;
-		}
 	}
-	public boolean canMove()
-	{				
+	
+	public boolean canMove() {				
 		return speed <= 0;
 	}
 	
@@ -149,12 +117,10 @@ public class Entity implements Drawable, Cloneable {
 		return inventory.getItems();
 	}
 	
-	public Entity clone() throws CloneNotSupportedException 
-	{
-        Entity e = (Entity)super.clone();
-        if(this.stats != null) e.stats = this.stats.clone();
-        if(this.inventory != null)e.inventory = this.inventory.clone();
+	public Entity clone() throws CloneNotSupportedException {
+        Entity e = (Entity) super.clone();
+        e.stats = this.stats.clone();
+        e.inventory = this.inventory.clone();
         return e;
 	}
 }
-

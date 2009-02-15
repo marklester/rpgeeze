@@ -7,25 +7,28 @@ package model;
  *  
  */
  
-import java.util.*;
+//import util.*;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
 
 import model.items.Item;
 
-public class Inventory implements Cloneable{
+public class Inventory implements Cloneable {
 	
 	public static final int INV_SUCCESS = 0;
 	public static final int INV_FULL = -1;
 	public static final int INV_MAX_SIZE = 6;
 	
-	private ArrayList<Item> items;
-	
+	private List<Item> items;
 	
 	public Inventory() {
 		items = new ArrayList<Item>(INV_MAX_SIZE);
 	}
 	
 	public int addItem(Item i) {
-		if (items.size() < INV_MAX_SIZE) {
+		if(items.size() < INV_MAX_SIZE) {
 			items.add(i);
 			return INV_SUCCESS;
 		}
@@ -42,24 +45,14 @@ public class Inventory implements Cloneable{
 	//X, go ahead and drop item i from your inventory"... I think we're going to need a way 
 	//for the Controller to tell the Entity WHICH SPECIFIC item in the inventory needs to 
 	//be dropped
-	public boolean isEmtpy() {
+	public boolean isEmpty() {
 		return items.isEmpty();		
 	}
 	
-	public Inventory clone() throws CloneNotSupportedException 
-	{
-		Inventory i = (Inventory)super.clone();
-        if(items != null)
-        {        
-        	i.items = (ArrayList<Item>)this.items.clone();
-        	Iterator<Item> iter = i.items.iterator();
-        	//System.out.println(Thread.currentThread() + " is cloning inventory.");
-        	while(iter.hasNext())
-        	{
-        		i.addItem(iter.next().clone());
-        	}        	        
-		}
-        return i;
+	public Inventory clone() {
+		Inventory clone = new Inventory();
+        for(Item i: items) clone.addItem(i);
+        return clone;
 	}
 	
 	public Iterator<Item> getItems() {
