@@ -24,5 +24,9 @@ public abstract class AreaEffect implements Cloneable {
 	public AreaEffect clone() throws CloneNotSupportedException {
 		return (AreaEffect) super.clone();
 	}
+	
+	public void applyEffect(Entity e) {
+		
+	}
 
 }
