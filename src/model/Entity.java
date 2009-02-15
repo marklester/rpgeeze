@@ -36,7 +36,7 @@ public class Entity implements Drawable, Cloneable {
 		this.occupation = occupation;
 		inventory = new Inventory();
 		this.stats = new Stats();
-		speed = stats.movement;
+		speed = stats.getMovement();
 	}
 	
 	public void draw(Drawer d) {
@@ -58,10 +58,11 @@ public class Entity implements Drawable, Cloneable {
 	
 	void setTile(Tile tile) {
 		this.tile = tile;
+		speed = stats.getMovement();
 		//Check if there is an item on this tile. If so, add it to inventory, if not full.
 		//We could eventually prompt to ask if user wants to add to inventory
-		Item temp = tile.getItem();
-		speed = stats.movement;
+		Item temp = null; 
+			if(tile != null) tile.getItem();
 		if (temp != null && !(temp instanceof Obstacle)) {
 			switch (inventory.addItem(temp)) {
 			case Inventory.INV_FULL : System.out.println("Inventory Full"); break;
@@ -135,11 +136,12 @@ public class Entity implements Drawable, Cloneable {
 	public void update()
 	{
 		if(speed > 0)
-		--speed;
+		{
+			--speed;
+		}
 	}
 	public boolean canMove()
-	{		
-		System.out.println("Speed: " + speed);
+	{				
 		return speed <= 0;
 	}
 	

@@ -4,8 +4,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class GameFrame extends JFrame {
-	static int PWIDTH = 1000;
-	static int PHEIGHT = 800;
+	static int PWIDTH = 1024;
+	static int PHEIGHT = 768;
 	
 	public GameFrame() {
 		super("Game");	
@@ -23,8 +23,8 @@ public class GameFrame extends JFrame {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension screen = tk.getScreenSize();
 		
-		PWIDTH = screen.width;
-		PHEIGHT = screen.height;
+		//PWIDTH = screen.width;
+		//PHEIGHT = screen.height;
 		
 		setBackground(Color.white);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
