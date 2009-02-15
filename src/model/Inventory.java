@@ -46,17 +46,17 @@ public class Inventory implements Cloneable{
 		return items.isEmpty();		
 	}
 	
-	public Object clone() throws CloneNotSupportedException 
+	public Inventory clone() throws CloneNotSupportedException 
 	{
 		Inventory i = (Inventory)super.clone();
         if(items != null)
         {        
         	i.items = (ArrayList<Item>)this.items.clone();
         	Iterator<Item> iter = i.items.iterator();
-        	System.out.println(Thread.currentThread() + " is cloning inventory.");
+        	//System.out.println(Thread.currentThread() + " is cloning inventory.");
         	while(iter.hasNext())
         	{
-        		i.addItem((Item)iter.next().clone());
+        		i.addItem(iter.next().clone());
         	}        	        
 		}
         return i;

@@ -34,7 +34,7 @@ public abstract class Item implements Drawable, Cloneable {
 		return name;
 	}
 	
-	public Object clone() throws CloneNotSupportedException
+	public Item clone() throws CloneNotSupportedException
 	{
 		Item i = (Item)super.clone();
 		i.location = (Location)i.location.clone();

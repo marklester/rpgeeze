@@ -16,9 +16,9 @@ public abstract class Decal implements Drawable, Cloneable {
 	    this.name = name;
 	}
 	
-	public Object clone() throws CloneNotSupportedException
+	public Decal clone() throws CloneNotSupportedException
 	{
-		return super.clone();
+		return (Decal)super.clone();
 	}
 	
     public String toString() {

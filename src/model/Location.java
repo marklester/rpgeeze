@@ -22,24 +22,10 @@ public class Location implements Cloneable{
 		return y;
 	}
 	
-	public Object clone() throws CloneNotSupportedException
+	public Location clone() throws CloneNotSupportedException
 	{
-		return super.clone();
+		return (Location)super.clone();
 	}
-	
-	/*
-	public void setX(int x) {
-		this.x = x;
-	}
-	
-	public void setY(int y) {
-		this.y = y;
-	}
-	
-	public void setXY(int x, int y) {
-		this.x = x; this.y = y;
-	}
-	/* I think Location should be immutable. -- Miorel */
 	
 	public String toString() {
 		return "(" + x + "," + y + ")";

@@ -67,7 +67,7 @@ public class Map {
 	    	return getTiles(0, 0, map[0].length - 1, map.length - 1);
 	    }	   
 	
-	    public Object clone() throws CloneNotSupportedException
+	    public Matrix clone() throws CloneNotSupportedException
 	    {
 	    	Matrix m = (Matrix)super.clone();
 	    	m.map = this.map.clone();
@@ -153,11 +153,11 @@ public class Map {
 	
 	public Matrix getMatrix()
 	{
-//		Matrix m = null;
-//		try{
-//			m = (Matrix)matrix.clone();
-//		}catch (CloneNotSupportedException e){}
-		return matrix;
+		Matrix m = null;
+		try{
+			m = (Matrix)matrix.clone();
+		}catch (CloneNotSupportedException e){}
+		return m;
 	}
 	
 	//Not entirely thread safe, but better than before.
