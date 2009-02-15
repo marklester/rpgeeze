@@ -29,6 +29,7 @@ public class Drawer implements Observer{
 	private static Image goldStar, redCross, skullAndCrossbones;
 	private static Image boulder,sword,potionlife,crossbow;
 	private static StatView statsView;
+	private static InventoryView inventoryView;
 
 	private static Hashtable<Direction,Iterator<Image>> avatar = new Hashtable<Direction,Iterator<Image>>();
 	private final java.util.Queue<Map.Matrix> mapStateQueue = new LinkedList<Map.Matrix>(); 
@@ -53,6 +54,7 @@ public class Drawer implements Observer{
 			crossbow = ImageIO.read(loader.getResourceAsStream("res/img/crossbow.png"));
 				
 			statsView = new StatView(ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg")));
+			inventoryView = new InventoryView();
 
 			avatar.put(Direction.NORTH, new ContinuousIterator<Image>(
 				ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkNorth1.png")),
@@ -114,13 +116,13 @@ public class Drawer implements Observer{
 		}		
 
 		//Stats Stuff
-		if(model.isStatsUp()){
+		if(model.getAvatar().getInventory().isVisible()){
 			statsView.drawStatsView(graphics, avatar, width, height);
 			Console.getInstance().drawConsoleView(graphics, width, height);
 		}
 		//Inventory Stuff
-		if(model.isInventoryUp()){ 
-			this.drawInventoryView(avatar, width, height);
+		if(model.getAvatar().getInventory().isVisible()){ 
+			inventoryView.drawInventoryView(graphics, model.getAvatar().getInventory(), width, height);
 		}
 	}
 	
@@ -189,89 +191,71 @@ public class Drawer implements Observer{
 		doDrawImage(potionlife);
 	}
 	
-	public void drawConsoleView(int width, int height){
-		Queue<String> messages = Console.getInstance().getStringList();//Messages to Show
-		int stats_width=310;//only change this is stats window size is changed
-		int console_width = 400; 
-		int console_height = 100;
-		int left_indent = 20;
-		int top_indent = 20;
-		int max_messages=4; //the max number of messages the Console can show at One Time;
-		graphics.setColor(Color.black);
-		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f));
-		graphics.fillRoundRect(width-(console_width+stats_width), height-console_height, console_width, console_height, 3, 3);
-		//graphics.drawImage(statsView,width-menu_width, height-menu_height,null);
-		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-		graphics.setColor(Color.white);
-		graphics.setFont(new Font("SansSerif", Font.BOLD, 16));
-		//Text Formatting Numbers
-		int text_width = width-(console_width+stats_width) + left_indent; 
-		int text_height = height - console_height + top_indent;
-		//Draws Messages on Console
-		int current_line = 0;
-		if(messages != null) {
-			while(!messages.isEmpty() && current_line < max_messages){
-				graphics.drawString(messages.remove(), text_width, text_height+current_line*18);
-				++current_line;
-			}
-		}
+	public boolean isOnInventory(int x, int y)
+	{
+		return inventoryView.isOnInventory(x, y);
 	}
-	//Pure Hack Good Luck Understanding
-	public void drawInventoryView(Entity avatar,int width,int height){
-		java.util.Iterator<Item> items = avatar.getInventoryItems();
-		Location mouse_clicked=new Location(35,255);
-		int atHeight = 0;
-		int inventory_width = 300; 
-		int inventory_height = height;
-		graphics.setColor(Color.black);
-		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f));
-		graphics.fillRoundRect(0, 0, inventory_width,inventory_height, 3, 3);
-		
-		
-		graphics.setColor(Color.RED);
-		graphics.fillRect(0, 0, inventory_width, 200);
-		atHeight=200;
-		//graphics.drawImage(statsView,width-menu_width, height-menu_height,null);
-		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-		graphics.setColor(Color.white);
-		graphics.setFont(new Font("SansSerif", Font.BOLD, 24));
-		graphics.drawString("Inventory",75 , atHeight+30);
-		atHeight+=30;
-		atHeight+=20;
-		
-		int ibox_size =30;
-		for(int i=0;i<12;i++){
-			if(i%2==0){
-				graphics.setColor(Color.BLACK);
-			}else{
-				graphics.setColor(Color.GRAY);
-			}
-			for(int j=0;j<6;j++){
-				Image img =null;
-				if(items.hasNext()){
-					Item citem = items.next();
-					if(citem.toString().compareTo("Sword")==0){
-						img = this.sword;
-					}
-					if(citem.toString().compareTo("Potion Life")==0){
-						img = this.potionlife;
-					}
-				}
-				int startx = (j*(ibox_size+10))+30;
-				int starty = (i*(ibox_size+10))+atHeight;
-				Color prev = graphics.getColor();
-				if(mouse_clicked.getX() >= startx && mouse_clicked.getX()<=startx+ibox_size &&
-					mouse_clicked.getY() >= starty && mouse_clicked.getY()<=starty+ibox_size){
-					graphics.setColor(Color.YELLOW);
-					//do Damage to Item
-				}
-				graphics.fillRoundRect(startx,starty , ibox_size,ibox_size, 3, 3);
-				if(img != null){
-					graphics.drawImage(img, startx, starty, null);
-				}
-				graphics.setColor(prev);
-			}
-		}
+	public void clickInventory(int x, int y)
+	{
+		inventoryView.click(x, y);
 	}
+
+//	//Pure Hack Good Luck Understanding
+//	public void drawInventoryView(Entity avatar,int width,int height){
+//		java.util.Iterator<Item> items = avatar.getInventoryItems();
+//		//Location mouse_clicked=new Location(35,255);
+//		int atHeight = 0;
+//		int inventory_width = 300; 
+//		int inventory_height = height;
+//		graphics.setColor(Color.black);
+//		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f));
+//		graphics.fillRoundRect(0, 0, inventory_width,inventory_height, 3, 3);		
+//		
+//		
+//		graphics.setColor(Color.RED);
+//		graphics.fillRect(0, 0, inventory_width, 200);
+//		atHeight=200;
+//		//graphics.drawImage(statsView,width-menu_width, height-menu_height,null);
+//		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+//		graphics.setColor(Color.white);
+//		graphics.setFont(new Font("SansSerif", Font.BOLD, 24));
+//		graphics.drawString("Inventory",75 , atHeight+30);
+//		atHeight+=30;
+//		atHeight+=20;
+//		
+//		int ibox_size =30;
+//		for(int i=0;i<12;i++){
+//			if(i%2==0){
+//				graphics.setColor(Color.BLACK);
+//			}else{
+//				graphics.setColor(Color.GRAY);
+//			}
+//			for(int j=0;j<6;j++){
+//				Image img =null;
+//				if(items.hasNext()){
+//					Item citem = items.next();
+//					if(citem.toString().compareTo("Sword")==0){
+//						img = this.sword;
+//					}
+//					if(citem.toString().compareTo("Potion Life")==0){
+//						img = this.potionlife;
+//					}
+//				}
+//				int startx = (j*(ibox_size+10))+30;
+//				int starty = (i*(ibox_size+10))+atHeight;
+//				Color prev = graphics.getColor();
+//				if(mouse_clicked.getX() >= startx && mouse_clicked.getX()<=startx+ibox_size &&
+//					mouse_clicked.getY() >= starty && mouse_clicked.getY()<=starty+ibox_size){
+//					graphics.setColor(Color.YELLOW);
+//					//do Damage to Item
+//				}
+//				graphics.fillRoundRect(startx,starty , ibox_size,ibox_size, 3, 3);
+//				if(img != null){
+//					graphics.drawImage(img, startx, starty, null);
+//				}
+//				graphics.setColor(prev);
+//			}
+//		}
+//	}
 }
 

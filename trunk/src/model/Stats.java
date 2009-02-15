@@ -31,6 +31,7 @@ public class Stats implements Cloneable {
 	int movement;
 	
 	PrimaryStats primaryStats;
+	private boolean visible = true;
 
 	
 	public Stats() 	{
@@ -83,6 +84,15 @@ public class Stats implements Cloneable {
 	public int getArmorRating()
 	{
 		return armorRating;
+	}
+	
+	public boolean isVisible()
+	{
+		return visible;
+	}
+	public void setVisible(boolean b)
+	{
+		visible = b;
 	}
 	
 	
