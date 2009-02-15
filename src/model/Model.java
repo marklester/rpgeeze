@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import util.Observer;
 import util.ResourceLoader;
+import view.Console;
 
 public class Model implements util.Subject {
 	protected final Queue<Command> commands = new LinkedList<Command>();
@@ -18,6 +19,7 @@ public class Model implements util.Subject {
 
 	private final Entity avatar;
 	private final Map map;
+	private final Location EntityStartLoc;
 
 	public Model(Map map, Entity avatar) {
 		// create map
@@ -31,6 +33,7 @@ public class Model implements util.Subject {
 		Scanner scanner = new Scanner(ResourceLoader.getInstance().getStream("entities.txt"));
 		int x = scanner.nextInt();
 		int y = scanner.nextInt();
+		EntityStartLoc = new Location(x,y);
 		Tile tile = map.getTile(x, y);
 		tile.setEntity(avatar);
 		avatar.setTile(tile);
@@ -55,6 +58,7 @@ public class Model implements util.Subject {
 			tempQ.remove().execute(this);
 
 		this.avatar.update();
+		updateStatusOfAvatar();
 
 		this.snapshot = this.map.getMatrix();
 		updateObservers();
@@ -66,6 +70,21 @@ public class Model implements util.Subject {
 		// update entity
 		// --Jose
 	}
+	
+	public void updateStatusOfAvatar() {
+		//He's dead, so drop a life and respawn
+		if (!avatar.isAlive()) {
+			avatar.decALife();
+			//Now check if there are any lives remaining
+			int numOfLivesLeft = avatar.getStats().getPrimary().livesLeft; 
+			if (numOfLivesLeft == 0)
+				endGame();
+			else
+				respawn(numOfLivesLeft);
+		}
+			
+	}
+	
 
 	// Observer stuff
 	public void register(Observer o) {
@@ -133,5 +152,16 @@ public class Model implements util.Subject {
 
 	public void dropItem() {
 		this.avatar.dropItem();
+	}
+	
+	public void endGame() {
+		System.out.println("Game Over");
+	}
+	
+	public void respawn(int numOfLives) {
+		avatar.getTile().setEntity(null); //Set current tile's entity ref to null
+		avatar.setTile(map.getTile(EntityStartLoc)); // Set avatar's ref to the orig tile
+		map.getTile(EntityStartLoc).setEntity(avatar); // Set orig tile's ref to avatar
+		avatar.resetStats(numOfLives); //reset all stats, except num of lives - that shouldn't be reset!
 	}
 }
