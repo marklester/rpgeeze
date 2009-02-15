@@ -119,7 +119,10 @@ public class Controller extends JComponent implements  MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		model.invoke(new MouseClickedCommand(arg0.getX(), arg0.getY()));
+		if(arg0.getButton() == MouseEvent.BUTTON1)
+			model.invoke(new MouseRightClickCommand(arg0.getX(), arg0.getY()));
+		else if(arg0.getButton() == MouseEvent.BUTTON3);
+			model.invoke(new MouseLeftClickCommand(arg0.getX(), arg0.getY()));
 	}
 
 	@Override

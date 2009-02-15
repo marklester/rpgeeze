@@ -81,7 +81,11 @@ public class Inventory implements Cloneable {
 	{
 		return Drawer.getInstance().isOnInventory(x, y);
 	}
-	public void click(int x, int y)
+	public void leftClick(int x, int y)
+	{
+		Drawer.getInstance().clickInventory(x, y);
+	}
+	public void rightClick(int x, int y)
 	{
 		Drawer.getInstance().clickInventory(x, y);
 	}
