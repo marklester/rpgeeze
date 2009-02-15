@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 public class ResourceLoader {
 	private final ClassLoader loader;
 	private final Hashtable<String, Image> images;
-	
+	private final Hashtable<String, String>items;
 	private static ResourceLoader instance = null;
 	
 	/**
@@ -23,6 +23,12 @@ public class ResourceLoader {
 	private ResourceLoader() {
 		this.loader = getClass().getClassLoader();
 		this.images = new Hashtable<String, Image>();
+		this.items = new Hashtable<String,String>(); //Modify this to set Item Images
+		items.put("Boulder", "img/terrain20px/Boulder.png");
+		items.put("Cross Bow", "img/crossbow.png");
+		items.put("Sword", "img/sword.png");
+		items.put("Potion Life", "img/potionlife.png");
+		
 	}
 	
 	/**
@@ -50,6 +56,9 @@ public class ResourceLoader {
 			images.put(key, ret);
 		}
 		return ret;
+	}
+	public Image getItemImage(String key){
+		return getImage(items.get(key));
 	}
 	
 	/**
