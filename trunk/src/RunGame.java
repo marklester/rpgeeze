@@ -47,13 +47,16 @@ public class RunGame {
 			 break;
 			}
 		}
+		else if(w.equals("Quit"))
+		{
+			break;
 		}
+	}
 		
-		if(w.equals("New"));
+		if(w.equals("New"))
 		{
 			newGame();
 		}
-		
 	}
 
 	/**
