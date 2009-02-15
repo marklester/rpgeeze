@@ -10,6 +10,8 @@ import javax.swing.KeyStroke;
 import model.Direction;
 import model.Entity;
 import model.Model;
+import view.View;
+
 
 /*
  * Controller is going to pass messages in somewhat of a non conventional manner
@@ -70,7 +72,9 @@ public class Controller extends JComponent implements MouseListener {
 	public static final int INVENTORY_VIEW = 1;
 	public static final int MENU_VIEW = 2;
 	public static final int STAT_VIEW = 3;
+	
 	private final Model model;
+	private final View view;
 
 	private static Controller controller;
 
@@ -79,8 +83,9 @@ public class Controller extends JComponent implements MouseListener {
 	// to ensure creation of only one controller
 	// One controller = One set of key bindings
 	// --Jose
-	private Controller(Model model) {
+	private Controller(Model model, View view) {
 		this.model = model;
+		this.view = view;
 
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_W)), "MoveNorth");// Yeah got w to work as a key
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_S)), "MoveSouth");
@@ -114,24 +119,23 @@ public class Controller extends JComponent implements MouseListener {
 
 		this.getActionMap().put("DropITEM", new ActionCommand(model, new ItemCommand(0)));
 		// For Stats;*/
-		this.getActionMap().put("Stats", new ActionCommand(model, new MenuCommand(Controller.STAT_VIEW)));
-		this.getActionMap().put("Inventory", new ActionCommand(model, new MenuCommand(Controller.INVENTORY_VIEW)));
+		this.getActionMap().put("Stats", new ActionCommand(model, new MenuCommand(view, Controller.STAT_VIEW)));
+		this.getActionMap().put("Inventory", new ActionCommand(model, new MenuCommand(view, Controller.INVENTORY_VIEW)));
 	}
 
 	// Keeping one instance of controller
-	public static Controller createController(Model m) {
+	public static Controller createController(Model model, View view) {
 		if(controller == null)
-			controller = new Controller(m);
+			controller = new Controller(model, view);
 		return controller;
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		if(arg0.getButton() == MouseEvent.BUTTON1)
-			this.model.invoke(new MouseRightClickCommand(arg0.getX(), arg0.getY()));
-		else if(arg0.getButton() == MouseEvent.BUTTON3)
-			;
-		this.model.invoke(new MouseLeftClickCommand(arg0.getX(), arg0.getY()));
+	public void mouseClicked(MouseEvent e) {
+		if(e.getButton() == MouseEvent.BUTTON1)
+			this.model.invoke(new MouseRightClickCommand(e.getX(), e.getY()));
+		else if(e.getButton() == MouseEvent.BUTTON3)
+			this.model.invoke(new MouseLeftClickCommand(e.getX(), e.getY()));
 	}
 
 	@Override

@@ -2,13 +2,16 @@ package controller;
 
 import model.Command;
 import model.Model;
+import view.View;
 
 //Used to control Menu Popups
 public class MenuCommand implements Command {
 	private final int viewport;
+	private final View view;
 
-	public MenuCommand(int viewport) {
+	public MenuCommand(View view, int viewport) {
 		this.viewport = viewport;
+		this.view = view;
 	}
 
 	public void execute(Model m) {
@@ -17,7 +20,7 @@ public class MenuCommand implements Command {
 			m.getAvatar().getStats().setVisible(!m.getAvatar().getStats().isVisible());
 			break;
 		case Controller.INVENTORY_VIEW:
-			m.getAvatar().getInventory().setVisible(!m.getAvatar().getInventory().isVisible());
+			view.toggleInventoryVisible();
 			break;
 		default:
 			break;

@@ -52,6 +52,8 @@ public class Drawer implements Observer {
 
 	private Graphics2D graphics;// For Transparency
 	private Location cursor = null;
+	
+	public static View view;
 
 	private Drawer() {
 		grassTerrain = ResourceLoader.getInstance().getImage("img/terrain20px/GrassTerrain.png");
@@ -130,7 +132,7 @@ public class Drawer implements Observer {
 			Console.getInstance().drawConsoleView(this.graphics, width, height);
 		}
 		// Inventory Stuff
-		if(model.getAvatar().getInventory().isVisible())
+		if(view.isInventoryVisible())
 			inventoryView.drawInventoryView(this.graphics, model.getAvatar().getInventory().clone(), width, height);
 	}
 

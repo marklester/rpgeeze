@@ -22,8 +22,6 @@ public class Inventory implements Cloneable {
 	public static final int INV_FULL = -1;
 	public static final int INV_MAX_SIZE = 6;
 
-	private boolean visible = true;
-
 	private List<Item> items;
 
 	public Inventory() {
@@ -57,15 +55,7 @@ public class Inventory implements Cloneable {
 		return this.items.isEmpty();
 	}
 
-	public boolean isVisible() {
-		return this.visible;
-	}
-
-	public void setVisible(boolean b) {
-		this.visible = b;
-	}
-
-	public Inventory clone() {
+	public synchronized Inventory clone() {
 		Inventory clone = new Inventory();
 		for(Item i: items) clone.addItem(i.clone());
 		return clone;

@@ -16,10 +16,13 @@ import controller.Controller;
 
 public class View extends Thread implements Observer {
 	private final Model model;
-	private volatile Image dbImage = null;
-	public final GameFrame frame;
+	private final GameFrame frame;
+	
+	private Image dbImage = null;
 
-	public View(Model model, Controller controller) {
+	private boolean inventoryVisible = false;
+	
+	public View(Model model) {
 		this.model = model;
 
 		GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -31,10 +34,12 @@ public class View extends Thread implements Observer {
 		} else
 			this.frame = new GameFrame();
 
+		// ugly hack that works because Controller is a singleton
+		Controller controller = Controller.createController(null, null);
 		this.frame.add(controller);
 		this.frame.addMouseListener(controller);
+		
 		model.register(this);
-
 	}
 
 	public void run() {
@@ -65,9 +70,6 @@ public class View extends Thread implements Observer {
 			}
 		}
 		Graphics2D g = (Graphics2D) this.dbImage.getGraphics();
-		// g.setColor(Color.white);
-		// g.fillRect (0, 0, PWIDTH, PHEIGHT);
-		// g.setColor(Color.blue);
 		Drawer.getInstance().doDraw(g, this.model, this.frame.getWidth(), this.frame.getHeight());
 		g.dispose();
 	}
@@ -87,5 +89,17 @@ public class View extends Thread implements Observer {
 
 	public void update(Subject s) {
 		Drawer.getInstance().update(s);
+	}
+	
+	public boolean isInventoryVisible() {
+		return inventoryVisible;
+	}
+	
+	public void setInventoryVisible(boolean value) {
+		inventoryVisible = value;
+	}
+	
+	public void toggleInventoryVisible() {
+		setInventoryVisible(!isInventoryVisible());
 	}
 }

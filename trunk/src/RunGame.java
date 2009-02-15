@@ -31,8 +31,8 @@ public class RunGame {
 		Map map = new Map(ResourceLoader.getInstance().getStream("map.txt"));
 		Model model = new Model(map, avatar);
 
-		Controller controller = Controller.createController(model);
-		View view = new View(model, controller);
+		View view = new View(model);
+		Controller controller = Controller.createController(model, view);
 
 		Time time = new Time(model, view);
 		time.start();
