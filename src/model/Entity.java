@@ -111,6 +111,16 @@ public class Entity implements Drawable, Cloneable {
 		if(this.speed > 0)
 			--this.speed;
 	}
+	
+	public boolean isAlive() {
+		if (getStats().life < 1)
+			return false;
+		return true;
+	}
+	
+	public void decALife(){
+		stats.getPrimary().decLivesLeft();
+	}
 
 	public boolean canMove() {
 		return this.speed <= 0;
