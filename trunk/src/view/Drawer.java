@@ -11,12 +11,11 @@ import model.items.*;
 
 import java.util.Hashtable;
 import java.util.Queue;
+import java.util.LinkedList;
 
 public class Drawer implements Observer{
 	
-	
-	public class Constraint
-	{
+	public class Constraint {
 		public int minX;
 		public int minY;
 		public int maxX;
@@ -32,55 +31,50 @@ public class Drawer implements Observer{
 	private static StatView statsView;
 
 	private static Hashtable<Direction,Iterator<Image>> avatar = new Hashtable<Direction,Iterator<Image>>();
-	private final java.util.Queue<Map.Matrix> mapStateQueue = new java.util.LinkedList<Map.Matrix>(); 
-	
-	private static boolean loaded = false;
+	private final java.util.Queue<Map.Matrix> mapStateQueue = new LinkedList<Map.Matrix>(); 
 	
 	private Graphics2D graphics;//For Transparency
 	private Location cursor = null;
 
 	private Drawer() {
-		if(!loaded) {
-			ClassLoader loader = getClass().getClassLoader();
-			try {
-				grassTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/GrassTerrain.png"));
-				mountainTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/MountainTerrain.png"));
-				waterTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/WaterTerrain.png"));
+		ClassLoader loader = getClass().getClassLoader();
+		try {
+			grassTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/GrassTerrain.png"));
+			mountainTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/MountainTerrain.png"));
+			waterTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/WaterTerrain.png"));
 
-				goldStar = ImageIO.read(loader.getResourceAsStream("res/img/goldenstar.png"));
-				redCross = ImageIO.read(loader.getResourceAsStream("res/img/redcross.png"));
-				skullAndCrossbones = ImageIO.read(loader.getResourceAsStream("res/img/skullandcrossbones.png"));
+			goldStar = ImageIO.read(loader.getResourceAsStream("res/img/goldenstar.png"));
+			redCross = ImageIO.read(loader.getResourceAsStream("res/img/redcross.png"));
+			skullAndCrossbones = ImageIO.read(loader.getResourceAsStream("res/img/skullandcrossbones.png"));
 				
-		        sword = ImageIO.read(loader.getResourceAsStream("res/img/sword.png")); 
-				boulder = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/Boulder.png"));
-				potionlife = ImageIO.read(loader.getResourceAsStream("res/img/potionlife.png"));
-				crossbow = ImageIO.read(loader.getResourceAsStream("res/img/crossbow.png"));
+	        sword = ImageIO.read(loader.getResourceAsStream("res/img/sword.png")); 
+			boulder = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/Boulder.png"));
+			potionlife = ImageIO.read(loader.getResourceAsStream("res/img/potionlife.png"));
+			crossbow = ImageIO.read(loader.getResourceAsStream("res/img/crossbow.png"));
 				
-				statsView = new StatView(ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg")));
+			statsView = new StatView(ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg")));
 
-				avatar.put(Direction.NORTH, new ContinuousIterator<Image>(
-					ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkNorth1.png")),
-					ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkNorth2.png"))
-				));
+			avatar.put(Direction.NORTH, new ContinuousIterator<Image>(
+				ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkNorth1.png")),
+				ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkNorth2.png"))
+			));
 				
-				avatar.put(Direction.SOUTH, new ContinuousIterator<Image>(
-					ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkSouth1.png")),
-					ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkSouth2.png"))
-				));
+			avatar.put(Direction.SOUTH, new ContinuousIterator<Image>(
+				ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkSouth1.png")),
+				ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkSouth2.png"))
+			));
 				
-				avatar.put(Direction.EAST, new ContinuousIterator<Image>(
-					ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkEast1.png")),
-					ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkEast2.png"))
-				));
+			avatar.put(Direction.EAST, new ContinuousIterator<Image>(
+				ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkEast1.png")),
+				ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkEast2.png"))
+			));
 				
-				avatar.put(Direction.WEST, new ContinuousIterator<Image>(
-					ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkWest1.png")),
-					ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkWest2.png"))
-				));
-			}
-			catch(IOException e) {}
-			loaded = true;
+			avatar.put(Direction.WEST, new ContinuousIterator<Image>(
+				ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkWest1.png")),
+				ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkWest2.png"))
+			));
 		}
+		catch(IOException e) {}
 	}
 	
 	public static Drawer getInstance() {
@@ -162,8 +156,8 @@ public class Drawer implements Observer{
 	
 	public void drawEntity(Entity entity) {
 		Iterator<Image> iter = avatar.get(entity.getFacingDirection());
-		iter.advance();
 		doDrawImage(iter.current());
+		iter.advance();
 	}
 	
 	public void drawGoldStarDecal(GoldStar decal) {
@@ -172,9 +166,6 @@ public class Drawer implements Observer{
 	
 	public void drawRedCrossDecal(RedCross decal) {
 		doDrawImage(redCross);
-		//graphics.drawImage(redCross, cursor.getX() + 20, cursor.getY() + 20, null );
-		// Please don't hardcode offsets, ideally if somebody changes all the images
-		// all the code automagically works.
 	}
 	
 	public void drawSkullAndCrossbonesDecal(SkullAndCrossbones decal) {	
@@ -190,13 +181,11 @@ public class Drawer implements Observer{
 	}	
 	
 	public void drawCrossBow(CrossBow item) {
-		graphics.drawImage(crossbow, cursor.getX(), cursor.getY(), null);
+		doDrawImage(crossbow);
 	}	
 	
 	public void drawPotionLife(PotionLife item) {
 		doDrawImage(potionlife);
-		
-		
 	}
 	
 	public void drawConsoleView(int width, int height){
