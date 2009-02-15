@@ -50,7 +50,7 @@ public class Drawer implements Observer{
 				skullAndCrossbones = ImageIO.read(loader.getResourceAsStream("res/img/skullandcrossbones.png"));
 				
 		        sword = ImageIO.read(loader.getResourceAsStream("res/img/sword.png")); 
-				boulder = ImageIO.read(loader.getResourceAsStream("res/img/boulder.png"));
+				boulder = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/Boulder.png"));
 				potionlife = ImageIO.read(loader.getResourceAsStream("res/img/potionlife.png"));
 				
 				statsView=ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg"));
