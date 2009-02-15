@@ -28,7 +28,7 @@ public class Drawer implements Observer{
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar, redCross, skullAndCrossbones;
 	private static Image boulder,sword,potionlife;
-	private static Image statsView;
+	private static StatView statView;
 
 
 	private static Hashtable<Direction,Image> avatar = new Hashtable<Direction,Image>();
@@ -53,7 +53,9 @@ public class Drawer implements Observer{
 				boulder = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/Boulder.png"));
 				potionlife = ImageIO.read(loader.getResourceAsStream("res/img/potionlife.png"));
 				
-				statsView=ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg"));
+				statView = new StatView(ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg")));
+				
+				
 				
 					
 				avatar.put(Direction.NORTH, ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkNorth1.png")));
@@ -105,10 +107,10 @@ public class Drawer implements Observer{
 			);
 			tile.draw(this);
 		}		
-
+		
 		//Stats Stuff
 		if(model.isStatsUp()){
-			this.drawStatsView(avatar, width, height);
+			statView.drawStatsView(graphics, avatar, width, height);
 		}
 		//Inventory Stuff
 		if(model.isInventoryUp()){
@@ -175,7 +177,9 @@ public class Drawer implements Observer{
 	public void drawPotionLife(PotionLife item) {
 		graphics.drawImage(potionlife, cursor.getX() + 1, cursor.getY() + 1, null);
 	}
+	
 	//Not visitor like but whatev
+	/*
 	public void drawStatsView(Entity entity, int width, int height){
 		int menu_width = 300;
 		int menu_height = 300;
@@ -228,6 +232,7 @@ public class Drawer implements Observer{
 		graphics.drawString("Armor Rating:"+entity.getStats().getArmorRating(), text_width, text_height+current_line);
 		current_line+=18;
 	}
+	*/
 	public void drawInventoryView(Entity avater,int width,int height){}
 }
 

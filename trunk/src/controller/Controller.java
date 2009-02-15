@@ -56,13 +56,14 @@ If you have any questions about the crap I am typing, feel free to call me
 
 */ 
 
-public class Controller extends JComponent {
+public class Controller extends JComponent implements  MouseListener{
+	
 	public static final int MAP_VIEW =0 ;
 	public static final int INVENTORY_VIEW=1;
 	public static final int MENU_VIEW=2;
 	public static final int STAT_VIEW=3;
 	private int contolled_view = MAP_VIEW;
-//	private final Model model;
+	private final Model model;
 	
 	private static Controller controller;
 	
@@ -72,7 +73,7 @@ public class Controller extends JComponent {
 	//One controller = One set of key bindings
 	//		--Jose
 	private Controller(Model model) {
-//		this.model = model;	
+		this.model = model;	
 		
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_W)), "North");//Yeah got w to work as a key
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "South");
@@ -89,8 +90,9 @@ public class Controller extends JComponent {
 		//** Once that is established, the command object is EquipCommand(model, index_of_item)
 		//** -Jason
 		
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('m'), "Stats");
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('i'), "Inventory");
+		//'c' is closer to the awsd pad
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "Stats");
+		//this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char)KeyEvent.VK_TAB), "Inventory");
 		
 		this.getActionMap().put("North", new ActionCommand(model, new MoveCommand(model, Direction.NORTH)));
 		this.getActionMap().put("South", new ActionCommand(model, new MoveCommand(model, Direction.SOUTH)));
@@ -104,7 +106,7 @@ public class Controller extends JComponent {
 		this.getActionMap().put("DropITEM", new ActionCommand(model, new ItemCommand(model,0)));
 		//For Stats;*/
 		this.getActionMap().put("Stats", new ActionCommand(model, new MenuCommand(model, controller,Controller.STAT_VIEW)));
-		this.getActionMap().put("Inventory", new ActionCommand(model, new MenuCommand(model, controller,Controller.INVENTORY_VIEW)));
+		//this.getActionMap().put("Inventory", new ActionCommand(model, new MenuCommand(model, controller,Controller.INVENTORY_VIEW)));
 	}
 	
 	//Keeping one instance of controller
@@ -113,11 +115,37 @@ public class Controller extends JComponent {
 			controller = new Controller(m);
 		return controller;
 	}
-	public void setView(int view){
-		this.contolled_view=view;
+
+	
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		//model.invoke(new MousePressedCommand(model, arg0.getX(), arg0.getY()));
 	}
-	public int getView(){
-		return this.contolled_view;
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
 
