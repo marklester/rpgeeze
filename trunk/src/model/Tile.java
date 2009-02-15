@@ -113,8 +113,6 @@ public class Tile implements Cloneable {
 	public Tile clone() throws CloneNotSupportedException {
 
 		Tile t = (Tile) super.clone();
-//		if(t.location != null)
-//			t.location = this.location;
 		if(t.item != null)
 			t.item = this.item.clone();
 		if(t.ae != null)
