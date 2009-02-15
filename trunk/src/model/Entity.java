@@ -22,7 +22,7 @@ public class Entity implements Drawable, Cloneable {
 	public static final int ENT_FEET 	= 12;
 	public static final int ENT_HEAD 	= 13;
 	public static final int ENT_ARMOR 	= 14;
-	public static final int DROP_ITEM   = 15;
+
 	
 	private Direction facing = Direction.EAST;
 	
