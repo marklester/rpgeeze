@@ -26,6 +26,7 @@ public abstract class Item implements Drawable, Cloneable {
 			new Boulder(null),
 			new CrossBow(null),
 			new PotionLife(null),
+			new Shield(null),
 		})
 			prototypes.put(i.toString(), i);
 	}
