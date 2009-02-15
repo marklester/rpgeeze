@@ -91,9 +91,13 @@ public class Controller extends JComponent implements MouseListener {
 		this.view = view;
 
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_W)), "MoveNorth");// Yeah got w to work as a key
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_S)), "MoveSouth");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_X)), "MoveSouth");
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_D)), "MoveEast");
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_A)), "MoveWest");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_Q)), "MoveNorthWest");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_R)), "MoveNorthEast");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_Z)), "MoveSouthWest");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_C)), "MoveSouthEast");
 //		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char) KeyEvent.VK_F8), "UnequipLH");
 //		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char) KeyEvent.VK_F9), "UnequipRH");
 //		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char) KeyEvent.VK_F10), "UnequipHEAD");
@@ -115,6 +119,11 @@ public class Controller extends JComponent implements MouseListener {
 		this.getActionMap().put("MoveSouth", new ActionCommand(model, Direction.SOUTH.moveCommand()));
 		this.getActionMap().put("MoveEast", new ActionCommand(model, Direction.EAST.moveCommand()));
 		this.getActionMap().put("MoveWest", new ActionCommand(model, Direction.WEST.moveCommand()));
+		this.getActionMap().put("MoveNorthWest", new ActionCommand(model, Direction.NORTHWEST.moveCommand()));
+		this.getActionMap().put("MoveNorthEast", new ActionCommand(model, Direction.NORTHEAST.moveCommand()));
+		this.getActionMap().put("MoveSouthWest", new ActionCommand(model, Direction.SOUTHWEST.moveCommand()));
+		this.getActionMap().put("MoveSouthEast", new ActionCommand(model, Direction.SOUTHEAST.moveCommand()));
+		
 //		this.getActionMap().put("UnequipLH", new ActionCommand(model, new UnequipCommand(Entity.ENT_LEFT_H)));
 //		this.getActionMap().put("UnequipRH", new ActionCommand(model, new UnequipCommand(Entity.ENT_RIGHT_H)));
 //		this.getActionMap().put("UnequipHEAD", new ActionCommand(model, new UnequipCommand(Entity.ENT_HEAD)));
