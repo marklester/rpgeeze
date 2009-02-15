@@ -184,6 +184,10 @@ public class Map {
 	public Tile getTile(int x, int y) {
 		return this.matrix.getTile(x, y);
 	}
+	
+	public Tile getTile(Location l) {
+		return this.matrix.getTile(l);
+	}
 
 	public Matrix getMatrix() {
 		// Matrix m = null;
