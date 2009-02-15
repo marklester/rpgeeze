@@ -75,5 +75,6 @@ public class StatView implements Drawable {
 		graphics.drawString("Armor Rating:" + entity.getStats().getArmorRating(), text_width, text_height + current_line);
 		current_line += 18;
 	}
+	
 
 }
