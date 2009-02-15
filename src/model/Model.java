@@ -1,7 +1,7 @@
 package model;
 
 import java.awt.Point;
-import java.util.Iterator;
+//import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -77,9 +77,8 @@ public class Model implements util.Subject {
 	}
 
 	public void updateObservers() {
-		Iterator<Observer> iter = this.observers.iterator();
-		while(iter.hasNext())
-			iter.next().update(this);
+		for(Observer obs: this.observers)
+			obs.update(this);
 	}
 
 	public Map.Matrix publishState() {
