@@ -10,3 +10,4 @@
 <item><name>Cross Bow</name><location><x>0</x><y>17</y></location></item>
 <item><name>Boulder</name><location><x>8</x><y>25</y></location></item>
 <item><name>Boulder</name><location><x>9</x><y>25</y></location></item>
+<item><name>Shield</name><location><x>7</x><y>25</y></location></item>
