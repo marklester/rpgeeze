@@ -1,4 +1,4 @@
-package model.items;
+package model.item;
 
 /**
  * An Item that is added to an Entity's Inventory on touch.

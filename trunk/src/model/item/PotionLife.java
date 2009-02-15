@@ -1,4 +1,4 @@
-package model.items;
+package model.item;
 
 /** 
  * I haven't really looked into how this is being used, whoever added this
@@ -8,17 +8,18 @@ package model.items;
 import model.Location;
 import view.Drawer;
 
-public class CrossBow extends InteractiveItem {
-	public CrossBow(Location location) {
-		super("Cross Bow", location);
+public class PotionLife extends OneShotItem {
+
+	public PotionLife(Location location) {
+		super("Potion Life", location);
 	}
 
 	public void draw(Drawer d) {
-		d.drawCrossBow(this);
+		d.drawPotionLife(this);
 	}
 
 	public void activate() {
-
+		// do nothing
 	}
 
 }

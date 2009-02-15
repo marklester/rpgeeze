@@ -4,11 +4,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import model.items.Boulder;
-import model.items.CrossBow;
-import model.items.Item;
-import model.items.PotionLife;
-import model.items.Sword;
+import model.item.Item;
 import util.Iterator;
 import util.ResourceLoader;
 

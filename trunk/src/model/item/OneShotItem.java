@@ -1,4 +1,4 @@
-package model.items;
+package model.item;
 
 /**
  * An Item that is activated and removed from the Map when touched by an
