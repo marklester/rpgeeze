@@ -1,7 +1,6 @@
 package model;
 
-public class Location implements Cloneable {
-
+public class Location {
 	private final int x;
 	private final int y;
 
@@ -21,10 +20,6 @@ public class Location implements Cloneable {
 
 	public int getY() {
 		return this.y;
-	}
-
-	public Location clone() throws CloneNotSupportedException {
-		return (Location) super.clone();
 	}
 
 	public String toString() {

@@ -14,6 +14,7 @@ import java.util.List;
 
 import model.items.Item;
 import view.Drawer;
+import util.Iterator;
 
 public class Inventory implements Cloneable {
 
@@ -65,25 +66,17 @@ public class Inventory implements Cloneable {
 	}
 
 	public Inventory clone() {
-		// shallow copy is already created from clone() on arraylist
 		Inventory clone = new Inventory();
-		clone.items = (List<Item>) ((ArrayList<Item>) this.items).clone();
-		// for(Item i: items) clone.addItem(i);
+		for(Item i: items) clone.addItem(i.clone());
 		return clone;
 	}
 
-// The following is bad because it exposes the fact a List is being used to
-// store the Inventory. -- Miorel
-/*	public List<Item> getItems() {
-		return this.items;
-	}*/
-
-	public util.Iterator<Item> iterator() {
+	public Iterator<Item> iterator() {
 		final List<Item> list;
 		synchronized(this) {
 			list = this.clone().items;
 		}
-		return new util.Iterator<Item>() {
+		return new Iterator<Item>() {
 			private int cursor = 0;
 			
 			public boolean isDone() {

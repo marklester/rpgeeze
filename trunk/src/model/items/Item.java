@@ -8,9 +8,8 @@ import model.Location;
 import view.Drawable;
 
 public abstract class Item implements Drawable, Cloneable {
-
-	public String name;
-	public Location location;
+	protected final String name;
+	protected Location location;
 
 	public Item(String name, Location location) {
 		this.name = name;
@@ -29,9 +28,13 @@ public abstract class Item implements Drawable, Cloneable {
 		return this.name;
 	}
 
-	public Item clone() throws CloneNotSupportedException {
-		Item i = (Item) super.clone();
-		i.location = i.location.clone();
+	public Item clone() {
+		Item i = null;
+		try {
+			i = (Item) super.clone();
+		}
+		catch(CloneNotSupportedException e) {
+		}
 		return i;
 	}
 
