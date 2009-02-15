@@ -80,7 +80,6 @@ public class Entity implements Drawable, Cloneable {
 		if(step==true){
 			if(d.equals(Direction.NORTH)){
 				d = Direction.NORTH1;
-				System.out.println("NORTH1");
 			}else if(d.equals(Direction.SOUTH)){
 				d= Direction.SOUTH1;
 			}else if(d.equals(Direction.EAST)){
