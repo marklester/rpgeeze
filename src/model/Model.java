@@ -1,6 +1,7 @@
 package model;
 
 import java.util.*;
+import java.awt.Point;
 
 import util.Observer;
 
@@ -130,15 +131,15 @@ public class Model implements util.Subject{
 //			//avatar.getInventory().click(x, y);
 //			//System.out.println("clicked inventory space");
 //	}
-	public void mouseRightClickAt(int x, int y)
+	public void mouseRightClickAt(Point p)
 	{
-		if(avatar.getInventory().isVisible() &&  avatar.getInventory().isOnInventory(x, y));
-			//avatar.getInventory().rightClick(x, y);
+		if(avatar.getInventory().isVisible() &&  avatar.getInventory().isOnInventory(p));
+			avatar.getInventory().rightClick(p);
 	}
-	public void mouseLeftClickAt(int x, int y)
+	public void mouseLeftClickAt(Point p)
 	{
-		if(avatar.getInventory().isVisible() &&  avatar.getInventory().isOnInventory(x, y));
-			avatar.getInventory().leftClick(x, y);
+		if(avatar.getInventory().isVisible() &&  avatar.getInventory().isOnInventory(p));
+			avatar.getInventory().leftClick(p);
 	}
 	public void equipItem(int index) {
 		avatar.equipItem(index);

@@ -22,15 +22,18 @@ public class InventoryView{
 	private final int xOffset = spacer * 3;
 	private final int yOffset = atHeight;
 	
+	private Inventory inventory;
+	
 	public InventoryView()
-	{		
+	{
+		//this.inventory = inventory;
 	}
 	
-	public void drawInventoryView(Graphics2D graphics, Inventory inventory,int width,int height){
+	public void drawInventoryView(Graphics2D graphics, Inventory inv, int width,int height){
 		
 		int inventory_height = height;
 		
-		java.util.Iterator<Item> items = inventory.iterator();
+		java.util.Iterator<Item> items = inv.iterator();
 		//Location mouse_clicked=new Location(35,255);
 		
 		graphics.setColor(Color.black);
@@ -76,31 +79,55 @@ public class InventoryView{
 			}
 		}
 	}
-	public boolean isOnInventory(int x, int y)
+	public boolean isOnInventory(Point p)
 	{
 		//Logic to find if clicking was done on the inventory 
 		int startx = (tableWidth  * (ibox_size + spacer)) + xOffset;
-		return x < startx;
+		return p.x < startx;
 	}
-	public void click(int x, int y)
+	private Point click(Point p)
 	{
 		int xIndex = -1;
 		int yIndex = -1;
 		//figuring out the logic here
-		if( x > xOffset && y > yOffset)
+		if( p.x > xOffset && p.y > yOffset)
 		{
-			x -= xOffset;
-			y -= yOffset;
-			xIndex = (x % (ibox_size + spacer)) <= ibox_size ? (int)(x / (ibox_size + spacer)) : -1;
-			yIndex = (y % (ibox_size + spacer)) <= ibox_size ? (int)(y / (ibox_size + spacer)) : -1;
+			p.x -= xOffset;
+			p.y -= yOffset;
+			xIndex = (p.x % (ibox_size + spacer)) <= ibox_size ? (int)(p.x / (ibox_size + spacer)) : -1;
+			yIndex = (p.y % (ibox_size + spacer)) <= ibox_size ? (int)(p.y / (ibox_size + spacer)) : -1;
 		}
 		
 		if(xIndex == -1 || yIndex == -1 || xIndex >= tableWidth || yIndex >= tableHeight) {
 			//check for a different item press
-			return;
+			return null;
 		}
 		
-		System.out.println("Clicked item at " + xIndex + " , " + yIndex);
+		return new Point(xIndex, yIndex);
 	}
 	
+	private Item getItemAt(Point index)
+	{
+		return null;
+	}
+	
+	public void leftClick(Point p)
+	{
+		Point index = click(p);
+		Item i = null;
+		if (index != null)
+			i = getItemAt(p);
+		Console.getInstance().writeLine( (i != null ) ? i.toString() : "No item there to equip");
+	}
+	public void rightClick(Point p) 
+	{
+		Point index = click(p);
+		Item i = null;
+		if (index != null)
+		{
+			i = getItemAt(p);
+			//equip this thang!
+		}
+						
+	}
 }

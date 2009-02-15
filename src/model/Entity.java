@@ -96,7 +96,7 @@ public class Entity implements Drawable, Cloneable {
 	{
 		//shallow copy of inventory held in clone.
 		//a deep copy will be more costly
-		return inventory.clone();
+		return inventory;
 	}
 	
 	public void dropItem() { 

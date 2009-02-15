@@ -12,6 +12,7 @@ package model;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
+import java.awt.*;
 
 import model.items.Item;
 import view.*;
@@ -77,17 +78,17 @@ public class Inventory implements Cloneable {
 		return items.iterator();
 	}
 	
-	public boolean isOnInventory(int x, int y)
+	public boolean isOnInventory(Point p)
 	{
-		return Drawer.getInstance().isOnInventory(x, y);
+		return Drawer.getInstance().isOnInventory(p);
 	}
-	public void leftClick(int x, int y)
+	public void leftClick(Point p)
 	{
-		Drawer.getInstance().clickInventory(x, y);
+		Drawer.getInstance().leftClickInventory(p);
 	}
-	public void rightClick(int x, int y)
+	public void rightClick(Point p)
 	{
-		Drawer.getInstance().clickInventory(x, y);
+		Drawer.getInstance().rightClickInventory(p);
 	}
 }
 

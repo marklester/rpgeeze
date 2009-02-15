@@ -87,7 +87,7 @@ public class Drawer implements Observer{
 	
 	public void doDraw(Graphics g,Model model,int width, int height) {
 		Entity avatar = model.getAvatar();
-		Map map = model.getMap();
+		//Map map = model.getMap();
 		this.graphics = (Graphics2D)g;
 		int tileHeight = grassTerrain.getHeight(null);
 		int tileWidth = grassTerrain.getWidth(null);
@@ -102,7 +102,7 @@ public class Drawer implements Observer{
 		int maxX = avatar.getTile().getLocation().getX() + horizTiles / 2;
 		int maxY = avatar.getTile().getLocation().getY() + vertTiles / 2;
 		
-		Tile entityTile = null;
+		//Tile entityTile = null;
 		
 		Map.Matrix m = getLatestState();
 		Iterator<Tile> iter = m.getTiles(minX, minY, maxX, maxY);
@@ -116,13 +116,13 @@ public class Drawer implements Observer{
 		}		
 
 		//Stats Stuff
-		if(model.getAvatar().getInventory().isVisible()){
+		if(model.getAvatar().getStats().isVisible()){
 			statsView.drawStatsView(graphics, avatar, width, height);
 			Console.getInstance().drawConsoleView(graphics, width, height);
 		}
 		//Inventory Stuff
 		if(model.getAvatar().getInventory().isVisible()){ 
-			inventoryView.drawInventoryView(graphics, model.getAvatar().getInventory(), width, height);
+			inventoryView.drawInventoryView(graphics, model.getAvatar().getInventory().clone(), width, height);
 		}
 	}
 	
@@ -191,71 +191,17 @@ public class Drawer implements Observer{
 		doDrawImage(potionlife);
 	}
 	
-	public boolean isOnInventory(int x, int y)
+	public boolean isOnInventory(Point p)
 	{
-		return inventoryView.isOnInventory(x, y);
+		return inventoryView.isOnInventory(p);
 	}
-	public void clickInventory(int x, int y)
+	public void rightClickInventory(Point p)
 	{
-		inventoryView.click(x, y);
+		inventoryView.rightClick(p);
 	}
-
-//	//Pure Hack Good Luck Understanding
-//	public void drawInventoryView(Entity avatar,int width,int height){
-//		java.util.Iterator<Item> items = avatar.getInventoryItems();
-//		//Location mouse_clicked=new Location(35,255);
-//		int atHeight = 0;
-//		int inventory_width = 300; 
-//		int inventory_height = height;
-//		graphics.setColor(Color.black);
-//		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f));
-//		graphics.fillRoundRect(0, 0, inventory_width,inventory_height, 3, 3);		
-//		
-//		
-//		graphics.setColor(Color.RED);
-//		graphics.fillRect(0, 0, inventory_width, 200);
-//		atHeight=200;
-//		//graphics.drawImage(statsView,width-menu_width, height-menu_height,null);
-//		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-//		graphics.setColor(Color.white);
-//		graphics.setFont(new Font("SansSerif", Font.BOLD, 24));
-//		graphics.drawString("Inventory",75 , atHeight+30);
-//		atHeight+=30;
-//		atHeight+=20;
-//		
-//		int ibox_size =30;
-//		for(int i=0;i<12;i++){
-//			if(i%2==0){
-//				graphics.setColor(Color.BLACK);
-//			}else{
-//				graphics.setColor(Color.GRAY);
-//			}
-//			for(int j=0;j<6;j++){
-//				Image img =null;
-//				if(items.hasNext()){
-//					Item citem = items.next();
-//					if(citem.toString().compareTo("Sword")==0){
-//						img = this.sword;
-//					}
-//					if(citem.toString().compareTo("Potion Life")==0){
-//						img = this.potionlife;
-//					}
-//				}
-//				int startx = (j*(ibox_size+10))+30;
-//				int starty = (i*(ibox_size+10))+atHeight;
-//				Color prev = graphics.getColor();
-//				if(mouse_clicked.getX() >= startx && mouse_clicked.getX()<=startx+ibox_size &&
-//					mouse_clicked.getY() >= starty && mouse_clicked.getY()<=starty+ibox_size){
-//					graphics.setColor(Color.YELLOW);
-//					//do Damage to Item
-//				}
-//				graphics.fillRoundRect(startx,starty , ibox_size,ibox_size, 3, 3);
-//				if(img != null){
-//					graphics.drawImage(img, startx, starty, null);
-//				}
-//				graphics.setColor(prev);
-//			}
-//		}
-//	}
+	public void leftClickInventory(Point p)
+	{
+		inventoryView.leftClick(p);
+	}
 }
 

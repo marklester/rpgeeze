@@ -12,7 +12,7 @@ public class MenuCommand implements Command {
 	public void execute(Model m) {
 		switch(viewport){
 			case Controller.STAT_VIEW:
-				m.getAvatar().getStats().setVisible((!m.getAvatar().getStats().isVisible()));
+				m.getAvatar().getStats().setVisible(!m.getAvatar().getStats().isVisible());
 				break;
 			case Controller.INVENTORY_VIEW:
 				m.getAvatar().getInventory().setVisible(!m.getAvatar().getInventory().isVisible());

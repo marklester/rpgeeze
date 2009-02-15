@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import java.awt.Point;
 
 public class MouseLeftClickCommand implements Command {
 	private final int x;
@@ -12,7 +13,7 @@ public class MouseLeftClickCommand implements Command {
 	}
 
 	public void execute(Model m) {
-		m.mouseLeftClickAt(x, y);
+		m.mouseLeftClickAt(new Point(x, y));
 	}
 	
 }
