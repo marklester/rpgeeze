@@ -28,7 +28,7 @@ public class Inventory implements Cloneable {
 		this.items = new ArrayList<Item>(INV_MAX_SIZE);
 	}
 
-	public synchronized int addItem(Item i) {
+	public int addItem(Item i) {
 		if(this.items.size() < INV_MAX_SIZE) {
 			this.items.add(i);
 			return INV_SUCCESS;
@@ -36,7 +36,7 @@ public class Inventory implements Cloneable {
 		return INV_FULL;
 	}
 
-	public synchronized Item removeItemAt(int i) {
+	public Item removeItemAt(int i) {
 		return this.items.remove(i);
 	}
 
