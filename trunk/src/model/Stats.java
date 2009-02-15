@@ -62,6 +62,11 @@ public class Stats {
 		}
 	}
 	
+	public int getLife()
+	{
+		return life;
+	}
+	
 	public int getLevel()
 	{
 		return level;
