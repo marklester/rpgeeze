@@ -5,7 +5,7 @@ import java.util.*;
 import util.Observer;
 
 public class Model implements util.Subject{
-	protected final Queue<Command> commands = new LinkedList<Command>();
+	protected final LinkedList<Command> commands = new LinkedList<Command>();
 	protected final List<Observer> observers = new LinkedList<Observer>();
 	
 	private Map.Matrix snapshot;
@@ -49,12 +49,17 @@ public class Model implements util.Subject{
 
 	public void update() {
 		//read task queue
-		
+		LinkedList<Command> tempQ = null;
 		synchronized(this)
-		{
-			while(!commands.isEmpty())
-				commands.remove().execute();
+		{			
+			tempQ = (LinkedList<Command>)commands.clone();
+			commands.clear();
 		}
+		while(!tempQ.isEmpty())
+		{
+			tempQ.remove().execute();
+		}
+		
 		avatar.update();
 		
 		snapshot = map.getMatrix();
@@ -70,6 +75,8 @@ public class Model implements util.Subject{
 		//		--Jose
 	}
 	
+	
+	//Observer stuff
 	public void register(Observer o)
 	{
 		observers.add(o);
@@ -89,15 +96,14 @@ public class Model implements util.Subject{
 		return snapshot;
 	}
 	
+	//MoveCommand
 	public Entity getAvatar() {
 		return avatar;
-	}
-	
+	}	
 	public void moveAvatarRequest(Direction d) {
 		if (avatar.canMove())
 			moveAvatar(d);
 	}	
-	
 	private void moveAvatar(Direction d)
 	{
 		Tile from = avatar.getTile();
@@ -109,6 +115,20 @@ public class Model implements util.Subject{
 		to.accept(avatar);
 		avatar.setFacingDirection(d);
 	}
+	
+	
+	//MouseMoveCommand
+	public void mouseOnscreenAt(int x, int y)
+	{
+		//Drawer.getTileFromPosition(x,y) or isOver(someMenu/Inventory) 
+		//Make some high level decision about pressing on screen buttons
+	}
+	public void mousePressAt(int x, int y)
+	{
+		//check what click was on
+		//make high level decision for the click
+	}
+	
 	public void equipItem(int index) {
 		avatar.equipItem(index);
 	}
