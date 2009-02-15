@@ -42,14 +42,11 @@ public class Console {
 		// show
 		// at One Time;
 		graphics.setColor(Color.black);
-		graphics.setComposite(AlphaComposite.getInstance(
-				AlphaComposite.SRC_OVER, .3f));
-		graphics.fillRoundRect(width - (console_width + stats_width), height
-				- console_height, console_width, console_height, 3, 3);
+		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f));
+		graphics.fillRoundRect(width - (console_width + stats_width), height - console_height, console_width, console_height, 3, 3);
 		// graphics.drawImage(statsView,width-menu_width,
 		// height-menu_height,null);
-		graphics.setComposite(AlphaComposite.getInstance(
-				AlphaComposite.SRC_OVER, 1));
+		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 		graphics.setColor(Color.white);
 		graphics.setFont(new Font("SansSerif", Font.BOLD, 16));
 		// Text Formatting Numbers
@@ -59,8 +56,7 @@ public class Console {
 		int current_line = 0;
 		if(messages != null)
 			while(messages.size() > 0 && current_line < max_messages) {
-				graphics.drawString(messages.remove(), text_width, text_height
-						+ current_line * 18);
+				graphics.drawString(messages.remove(), text_width, text_height + current_line * 18);
 				current_line++;
 			}
 	}

@@ -37,8 +37,7 @@ public class PrimaryStats implements Cloneable {
 		this.experience = 1;
 	}
 
-	public PrimaryStats(int livesLeft, int strength, int agility,
-			int intellect, double hardiness, int experience, int movement) {
+	public PrimaryStats(int livesLeft, int strength, int agility, int intellect, double hardiness, int experience, int movement) {
 		this.livesLeft = livesLeft;
 		this.strength = strength;
 		this.agility = agility;

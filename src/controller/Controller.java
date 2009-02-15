@@ -82,30 +82,16 @@ public class Controller extends JComponent implements MouseListener {
 	private Controller(Model model) {
 		this.model = model;
 
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-				KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_W)),
-				"MoveNorth");// Yeah got w to work as a key
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-				KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_S)),
-				"MoveSouth");
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-				KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_D)),
-				"MoveEast");
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-				KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_A)),
-				"MoveWest");
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-				KeyStroke.getKeyStroke((char) KeyEvent.VK_F8), "UnequipLH");
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-				KeyStroke.getKeyStroke((char) KeyEvent.VK_F9), "UnequipRH");
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-				KeyStroke.getKeyStroke((char) KeyEvent.VK_F10), "UnequipHEAD");
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-				KeyStroke.getKeyStroke((char) KeyEvent.VK_F11), "UnequipARMOR");
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-				KeyStroke.getKeyStroke((char) KeyEvent.VK_F12), "UnequipFEET");
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-				KeyStroke.getKeyStroke('l'), "DropITEM");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_W)), "MoveNorth");// Yeah got w to work as a key
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_S)), "MoveSouth");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_D)), "MoveEast");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_A)), "MoveWest");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char) KeyEvent.VK_F8), "UnequipLH");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char) KeyEvent.VK_F9), "UnequipRH");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char) KeyEvent.VK_F10), "UnequipHEAD");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char) KeyEvent.VK_F11), "UnequipARMOR");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char) KeyEvent.VK_F12), "UnequipFEET");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('l'), "DropITEM");
 
 		// ** We need commands for selecting items to equip... May need to be
 		// selected by mouse
@@ -114,48 +100,22 @@ public class Controller extends JComponent implements MouseListener {
 		// ** -Jason
 
 		// 'c' is closer to the awsd pad
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-				KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_C)),
-				"Stats");
-		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-				KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_T)),
-				"Inventory");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_C)), "Stats");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_T)), "Inventory");
 
-		this.getActionMap().put("MoveNorth",
-				new ActionCommand(model, Direction.NORTH.moveCommand()));
-		this.getActionMap().put("MoveSouth",
-				new ActionCommand(model, Direction.SOUTH.moveCommand()));
-		this.getActionMap().put("MoveEast",
-				new ActionCommand(model, Direction.EAST.moveCommand()));
-		this.getActionMap().put("MoveWest",
-				new ActionCommand(model, Direction.WEST.moveCommand()));
-		this.getActionMap()
-				.put(
-						"UnequipLH",
-						new ActionCommand(model, new UnequipCommand(
-								Entity.ENT_LEFT_H)));
-		this.getActionMap()
-				.put(
-						"UnequipRH",
-						new ActionCommand(model, new UnequipCommand(
-								Entity.ENT_RIGHT_H)));
-		this.getActionMap().put("UnequipHEAD",
-				new ActionCommand(model, new UnequipCommand(Entity.ENT_HEAD)));
-		this.getActionMap().put("UnequipFEET",
-				new ActionCommand(model, new UnequipCommand(Entity.ENT_FEET)));
+		this.getActionMap().put("MoveNorth", new ActionCommand(model, Direction.NORTH.moveCommand()));
+		this.getActionMap().put("MoveSouth", new ActionCommand(model, Direction.SOUTH.moveCommand()));
+		this.getActionMap().put("MoveEast", new ActionCommand(model, Direction.EAST.moveCommand()));
+		this.getActionMap().put("MoveWest", new ActionCommand(model, Direction.WEST.moveCommand()));
+		this.getActionMap().put("UnequipLH", new ActionCommand(model, new UnequipCommand(Entity.ENT_LEFT_H)));
+		this.getActionMap().put("UnequipRH", new ActionCommand(model, new UnequipCommand(Entity.ENT_RIGHT_H)));
+		this.getActionMap().put("UnequipHEAD", new ActionCommand(model, new UnequipCommand(Entity.ENT_HEAD)));
+		this.getActionMap().put("UnequipFEET", new ActionCommand(model, new UnequipCommand(Entity.ENT_FEET)));
 
-		this.getActionMap().put("DropITEM",
-				new ActionCommand(model, new ItemCommand(0)));
+		this.getActionMap().put("DropITEM", new ActionCommand(model, new ItemCommand(0)));
 		// For Stats;*/
-		this.getActionMap()
-				.put(
-						"Stats",
-						new ActionCommand(model, new MenuCommand(
-								Controller.STAT_VIEW)));
-		this.getActionMap().put(
-				"Inventory",
-				new ActionCommand(model, new MenuCommand(
-						Controller.INVENTORY_VIEW)));
+		this.getActionMap().put("Stats", new ActionCommand(model, new MenuCommand(Controller.STAT_VIEW)));
+		this.getActionMap().put("Inventory", new ActionCommand(model, new MenuCommand(Controller.INVENTORY_VIEW)));
 	}
 
 	// Keeping one instance of controller
@@ -168,8 +128,7 @@ public class Controller extends JComponent implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		if(arg0.getButton() == MouseEvent.BUTTON1)
-			this.model.invoke(new MouseRightClickCommand(arg0.getX(), arg0
-					.getY()));
+			this.model.invoke(new MouseRightClickCommand(arg0.getX(), arg0.getY()));
 		else if(arg0.getButton() == MouseEvent.BUTTON3)
 			;
 		this.model.invoke(new MouseLeftClickCommand(arg0.getX(), arg0.getY()));

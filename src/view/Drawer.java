@@ -58,79 +58,29 @@ public class Drawer implements Observer {
 	private Drawer() {
 		ClassLoader loader = getClass().getClassLoader();
 		try {
-			grassTerrain = ImageIO
-					.read(loader
-							.getResourceAsStream("res/img/terrain20px/GrassTerrain.png"));
-			mountainTerrain = ImageIO
-					.read(loader
-							.getResourceAsStream("res/img/terrain20px/MountainTerrain.png"));
-			waterTerrain = ImageIO
-					.read(loader
-							.getResourceAsStream("res/img/terrain20px/WaterTerrain.png"));
+			grassTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/GrassTerrain.png"));
+			mountainTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/MountainTerrain.png"));
+			waterTerrain = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/WaterTerrain.png"));
 
-			goldStar = ImageIO.read(loader
-					.getResourceAsStream("res/img/goldenstar.png"));
-			redCross = ImageIO.read(loader
-					.getResourceAsStream("res/img/redcross.png"));
-			skullAndCrossbones = ImageIO.read(loader
-					.getResourceAsStream("res/img/skullandcrossbones.png"));
+			goldStar = ImageIO.read(loader.getResourceAsStream("res/img/goldenstar.png"));
+			redCross = ImageIO.read(loader.getResourceAsStream("res/img/redcross.png"));
+			skullAndCrossbones = ImageIO.read(loader.getResourceAsStream("res/img/skullandcrossbones.png"));
 
-			sword = ImageIO.read(loader
-					.getResourceAsStream("res/img/sword.png"));
-			boulder = ImageIO.read(loader
-					.getResourceAsStream("res/img/terrain20px/Boulder.png"));
-			potionlife = ImageIO.read(loader
-					.getResourceAsStream("res/img/potionlife.png"));
-			crossbow = ImageIO.read(loader
-					.getResourceAsStream("res/img/crossbow.png"));
+			sword = ImageIO.read(loader.getResourceAsStream("res/img/sword.png"));
+			boulder = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/Boulder.png"));
+			potionlife = ImageIO.read(loader.getResourceAsStream("res/img/potionlife.png"));
+			crossbow = ImageIO.read(loader.getResourceAsStream("res/img/crossbow.png"));
 
-			statsView = new StatView(ImageIO.read(loader
-					.getResourceAsStream("res/img/statsviewbg.jpg")));
+			statsView = new StatView(ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg")));
 			inventoryView = new InventoryView();
 
-			avatar
-					.put(
-							Direction.NORTH,
-							new ContinuousIterator<Image>(
-									ImageIO
-											.read(loader
-													.getResourceAsStream("res/img/smasher/smasherWalkNorth1.png")),
-									ImageIO
-											.read(loader
-													.getResourceAsStream("res/img/smasher/smasherWalkNorth2.png"))));
+			avatar.put(Direction.NORTH, new ContinuousIterator<Image>(ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkNorth1.png")), ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkNorth2.png"))));
 
-			avatar
-					.put(
-							Direction.SOUTH,
-							new ContinuousIterator<Image>(
-									ImageIO
-											.read(loader
-													.getResourceAsStream("res/img/smasher/smasherWalkSouth1.png")),
-									ImageIO
-											.read(loader
-													.getResourceAsStream("res/img/smasher/smasherWalkSouth2.png"))));
+			avatar.put(Direction.SOUTH, new ContinuousIterator<Image>(ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkSouth1.png")), ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkSouth2.png"))));
 
-			avatar
-					.put(
-							Direction.EAST,
-							new ContinuousIterator<Image>(
-									ImageIO
-											.read(loader
-													.getResourceAsStream("res/img/smasher/smasherWalkEast1.png")),
-									ImageIO
-											.read(loader
-													.getResourceAsStream("res/img/smasher/smasherWalkEast2.png"))));
+			avatar.put(Direction.EAST, new ContinuousIterator<Image>(ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkEast1.png")), ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkEast2.png"))));
 
-			avatar
-					.put(
-							Direction.WEST,
-							new ContinuousIterator<Image>(
-									ImageIO
-											.read(loader
-													.getResourceAsStream("res/img/smasher/smasherWalkWest1.png")),
-									ImageIO
-											.read(loader
-													.getResourceAsStream("res/img/smasher/smasherWalkWest2.png"))));
+			avatar.put(Direction.WEST, new ContinuousIterator<Image>(ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkWest1.png")), ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkWest2.png"))));
 		}
 		catch(IOException e) {
 		}
@@ -148,10 +98,8 @@ public class Drawer implements Observer {
 		this.graphics = (Graphics2D) g;
 		int tileHeight = grassTerrain.getHeight(null);
 		int tileWidth = grassTerrain.getWidth(null);
-		int horizOffset = (width - tileWidth) / 2
-				- avatar.getTile().getLocation().getX() * tileWidth;
-		int vertOffset = (height - tileHeight) / 2
-				- avatar.getTile().getLocation().getY() * tileHeight;
+		int horizOffset = (width - tileWidth) / 2 - avatar.getTile().getLocation().getX() * tileWidth;
+		int vertOffset = (height - tileHeight) / 2 - avatar.getTile().getLocation().getY() * tileHeight;
 
 		int horizTiles = width / tileWidth + 3;
 		int vertTiles = height / tileHeight + 3;
@@ -167,9 +115,7 @@ public class Drawer implements Observer {
 		Iterator<Tile> iter = m.getTiles(minX, minY, maxX, maxY);
 		for(iter.reset(); !iter.isDone(); iter.advance()) {
 			Tile tile = iter.current();
-			this.cursor = new Location(tile.getLocation().getX() * tileWidth
-					+ horizOffset, tile.getLocation().getY() * tileHeight
-					+ vertOffset);
+			this.cursor = new Location(tile.getLocation().getX() * tileWidth + horizOffset, tile.getLocation().getY() * tileHeight + vertOffset);
 			tile.draw(this);
 		}
 
@@ -180,8 +126,7 @@ public class Drawer implements Observer {
 		}
 		// Inventory Stuff
 		if(model.getAvatar().getInventory().isVisible())
-			inventoryView.drawInventoryView(this.graphics, model.getAvatar()
-					.getInventory().clone(), width, height);
+			inventoryView.drawInventoryView(this.graphics, model.getAvatar().getInventory().clone(), width, height);
 	}
 
 	public void update(Subject s) {
@@ -200,8 +145,7 @@ public class Drawer implements Observer {
 	}
 
 	private void doDrawImage(Image img) {
-		this.graphics.drawImage(img, this.cursor.getX(), this.cursor.getY(),
-				null);
+		this.graphics.drawImage(img, this.cursor.getX(), this.cursor.getY(), null);
 	}
 
 	public void drawGrassTerrain(GrassTerrain terrain) {

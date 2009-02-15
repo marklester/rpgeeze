@@ -22,11 +22,9 @@ public class View extends Thread implements Observer {
 	public View(Model model, Controller controller) {
 		this.model = model;
 
-		GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment()
-				.getDefaultScreenDevice();
+		GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		GraphicsConfiguration gc = dev.getDefaultConfiguration();
-		DisplayMode mode = new DisplayMode(1024, 768, 32,
-				DisplayMode.REFRESH_RATE_UNKNOWN);
+		DisplayMode mode = new DisplayMode(1024, 768, 32, DisplayMode.REFRESH_RATE_UNKNOWN);
 		if(dev.isDisplayChangeSupported()) {
 			this.frame = new GameFrame(gc);
 			dev.setDisplayMode(mode);
@@ -60,8 +58,7 @@ public class View extends Thread implements Observer {
 
 	private void render() {
 		if(this.dbImage == null) {
-			this.dbImage = this.frame.createImage(this.frame.getWidth(),
-					this.frame.getHeight());
+			this.dbImage = this.frame.createImage(this.frame.getWidth(), this.frame.getHeight());
 			if(this.dbImage == null) {
 				System.out.println("dbImage is null");
 				return;
@@ -71,8 +68,7 @@ public class View extends Thread implements Observer {
 		// g.setColor(Color.white);
 		// g.fillRect (0, 0, PWIDTH, PHEIGHT);
 		// g.setColor(Color.blue);
-		Drawer.getInstance().doDraw(g, this.model, this.frame.getWidth(),
-				this.frame.getHeight());
+		Drawer.getInstance().doDraw(g, this.model, this.frame.getWidth(), this.frame.getHeight());
 		g.dispose();
 	}
 
