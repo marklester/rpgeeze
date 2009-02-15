@@ -153,9 +153,12 @@ public class Stats implements Cloneable {
 		return this.movement;
 	}
 
-	public Stats clone() throws CloneNotSupportedException {
-		Stats s = (Stats) super.clone();
-		s.primaryStats = this.primaryStats.clone();
+	public Stats clone()  {
+		Stats s = new Stats();
+		try {
+		s = (Stats) super.clone();
+		s.primaryStats = this.primaryStats.clone();}
+		catch(CloneNotSupportedException e){}
 		return s;
 	}
 
