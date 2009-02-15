@@ -119,7 +119,6 @@ public class Controller extends JComponent implements  MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		System.out.println("mose click");
 		model.invoke(new MousePressedCommand(model, arg0.getX(), arg0.getY()));
 	}
 
