@@ -215,17 +215,17 @@ public class Drawer implements Observer{
 		current_line = 0;
 		graphics.drawString("Derived Stats ", text_width, text_height);
 		current_line+=18;
-		graphics.drawString("Level:"+entity.getStats().getPrimary().getLivesLeft(), text_width, text_height+current_line);
+		graphics.drawString("Level:"+entity.getStats().getLevel(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("HP(Life):"+entity.getStats().getPrimary().getStrength(), text_width, text_height+current_line);
+		graphics.drawString("HP(Life):"+entity.getStats().getLife(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("Mana:"+entity.getStats().getPrimary().getAgility(), text_width, text_height+current_line);
+		graphics.drawString("Mana:"+entity.getStats().getMana(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("Offensive:"+entity.getStats().getPrimary().getExperience(), text_width, text_height+current_line);
+		graphics.drawString("Offensive:"+entity.getStats().getOffensiveRating(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("Defensive:"+entity.getStats().getPrimary().getHardiness(), text_width, text_height+current_line);
+		graphics.drawString("Defensive:"+entity.getStats().getDefensiveRating(), text_width, text_height+current_line);
 		current_line+=18;
-		graphics.drawString("Armor Rating:"+entity.getStats().getPrimary().getIntellect(), text_width, text_height+current_line);
+		graphics.drawString("Armor Rating:"+entity.getStats().getArmorRating(), text_width, text_height+current_line);
 		current_line+=18;
 	}
 	public void drawInventoryView(Entity avater,int width,int height){}
