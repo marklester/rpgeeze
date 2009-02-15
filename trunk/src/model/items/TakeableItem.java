@@ -8,16 +8,14 @@ import model.Location;
  * 
  */
 
-
 public abstract class TakeableItem extends Item {
-	
+
 	public TakeableItem(String name, Location location) {
-		super(name,location);
+		super(name, location);
 	}
-	
+
 	public void activate() {
-		
+
 	}
 
 }
-

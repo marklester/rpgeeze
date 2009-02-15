@@ -1,7 +1,6 @@
 package model.items;
 
 import model.Location;
-import view.Drawer;
 
 /*
  * 
@@ -9,14 +8,12 @@ import view.Drawer;
  * 
  */
 
-
 public abstract class OneShotItem extends Item {
 	public OneShotItem(String name, Location location) {
-		super(name,location);
+		super(name, location);
 	}
-	
+
 	public void activate() {
-		//Do nothing
+		// Do nothing
 	}
 }
-

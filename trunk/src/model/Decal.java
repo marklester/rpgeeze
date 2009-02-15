@@ -6,23 +6,21 @@ package model;
  * indicate an area-effect, &c.
  */
 
-import view.*;
+import view.Drawable;
 
 public abstract class Decal implements Drawable, Cloneable {
-	
-    protected final String name;	
-	
+
+	protected final String name;
+
 	protected Decal(String name) {
-	    this.name = name;
+		this.name = name;
 	}
-	
-	public Decal clone() throws CloneNotSupportedException
-	{
-		return (Decal)super.clone();
+
+	public Decal clone() throws CloneNotSupportedException {
+		return (Decal) super.clone();
 	}
-	
-    public String toString() {
-	    return name;
+
+	public String toString() {
+		return this.name;
 	}
 }
-

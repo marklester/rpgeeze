@@ -1,25 +1,26 @@
 package util;
 
 public class ContinuousIterator<T> implements Iterator<T> {
-	private T[] elements;
+	private final T[] elements;
 	private int cursor = 0;
-	
+
 	public ContinuousIterator(T... elements) {
 		this.elements = elements;
 	}
-	
+
 	public void advance() {
-		cursor = (cursor + 1) % elements.length;
+		this.cursor = (this.cursor + 1) % this.elements.length;
 	}
 
 	public T current() {
-		return elements[cursor];
+		return this.elements[this.cursor];
 	}
 
 	public boolean isDone() {
 		return false;
 	}
 
-	public void reset() {}
+	public void reset() {
+	}
 
 }

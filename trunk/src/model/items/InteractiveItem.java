@@ -1,7 +1,6 @@
 package model.items;
 
 import model.Location;
-import view.Drawer;
 
 /*
  * 
@@ -11,15 +10,13 @@ import view.Drawer;
  * 
  */
 
-
 public abstract class InteractiveItem extends Item {
-	public InteractiveItem(String name,Location location) {
+	public InteractiveItem(String name, Location location) {
 		super(name, location);
 	}
-	
-	public void activate() {
-		
-	}
-	
-}
 
+	public void activate() {
+
+	}
+
+}

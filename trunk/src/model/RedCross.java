@@ -4,6 +4,7 @@ import view.Drawer;
 
 public class RedCross extends Decal {
 	private static RedCross instance = null;
+
 	public RedCross() {
 		super("Red Cross");
 	}
@@ -13,8 +14,8 @@ public class RedCross extends Decal {
 			instance = new RedCross();
 		return instance;
 	}
+
 	public void draw(Drawer d) {
 		d.drawRedCrossDecal(this);
 	}
 }
-

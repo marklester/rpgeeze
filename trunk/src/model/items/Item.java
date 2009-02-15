@@ -7,39 +7,34 @@ package model.items;
  */
 
 import model.Location;
-import view.*;
+import view.Drawable;
 
 public abstract class Item implements Drawable, Cloneable {
 
 	public String name;
 	public Location location;
-		
-	public Item(String name, Location location)
-	{
+
+	public Item(String name, Location location) {
 		this.name = name;
 		this.location = location;
 	}
-	
-	public void setLocation(Location location)
-	{
+
+	public void setLocation(Location location) {
 		this.location = location;
 	}
-	
-	public boolean isPassable()
-	{
+
+	public boolean isPassable() {
 		return true;
 	}
-		
+
 	public String toString() {
-		return name;
+		return this.name;
 	}
-	
-	public Item clone() throws CloneNotSupportedException
-	{
-		Item i = (Item)super.clone();
-		i.location = (Location)i.location.clone();
+
+	public Item clone() throws CloneNotSupportedException {
+		Item i = (Item) super.clone();
+		i.location = i.location.clone();
 		return i;
 	}
 
 }
-

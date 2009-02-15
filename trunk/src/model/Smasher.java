@@ -5,4 +5,3 @@ public class Smasher extends Occupation {
 		super("Smasher"); // <-- haha
 	}
 }
-

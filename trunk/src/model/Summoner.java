@@ -5,4 +5,3 @@ public class Summoner extends Occupation {
 		super("Summoner");
 	}
 }
-
