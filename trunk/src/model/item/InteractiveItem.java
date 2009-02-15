@@ -13,8 +13,4 @@ public abstract class InteractiveItem extends Item {
 		super(name, location);
 	}
 
-	public void activate() {
-
-	}
-
 }

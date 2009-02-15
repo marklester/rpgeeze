@@ -18,7 +18,7 @@ public class PotionLife extends OneShotItem {
 		d.drawPotionLife(this);
 	}
 
-	public void activate() {
+	public void activate(model.Entity e) {
 		// do nothing
 	}
 
