@@ -58,7 +58,7 @@ public abstract class Item implements Drawable, Cloneable {
 		}
 		return i;
 	}
-
+	
 	public String toXml() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<item>");
