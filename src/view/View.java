@@ -68,7 +68,7 @@ public class View extends Thread implements Observer {
 				return;
 			}
 		}
-		Graphics g = dbImage.getGraphics();
+		Graphics2D g = (Graphics2D) dbImage.getGraphics();
 		//g.setColor(Color.white);
 		//g.fillRect (0, 0, PWIDTH, PHEIGHT);
 		//g.setColor(Color.blue);

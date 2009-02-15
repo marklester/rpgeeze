@@ -14,7 +14,7 @@ public class Entity implements Drawable, Cloneable {
 	private Item headItem;
 	private Item armorItem;
 	private Item feetItem;
-	private boolean step; //Used for changing between two different steps in the avatar
+	//private boolean step; //Used for changing between two different steps in the avatar
 	private int speed;
 	public static final int ENT_LEFT_H 	= 10;
 	public static final int ENT_RIGHT_H	= 11;
@@ -33,7 +33,7 @@ public class Entity implements Drawable, Cloneable {
 		this.occupation = occupation;
 		inventory = new Inventory();
 		this.stats = new Stats();
-		this.step=false;
+		//this.step=false;
 		speed = stats.getMovement();
 	}
 	
@@ -80,7 +80,7 @@ public class Entity implements Drawable, Cloneable {
 	}
 	
 	void setFacingDirection(Direction d) {
-		if(step==true){
+		/*if(step==true){
 			if(d.equals(Direction.NORTH)){
 				d = Direction.NORTH1;
 			}else if(d.equals(Direction.SOUTH)){
@@ -93,7 +93,7 @@ public class Entity implements Drawable, Cloneable {
 			step=false;
 		}else{
 			step=true;
-		}
+		}*/
 		facing = d;
 	}
 
