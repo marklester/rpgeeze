@@ -55,7 +55,7 @@ public class Drawer implements Observer {
 	
 	public static View view;
 
-	private Drawer() {
+	protected Drawer() {
 		grassTerrain = ResourceLoader.getInstance().getImage("img/terrain20px/GrassTerrain.png");
 		mountainTerrain = ResourceLoader.getInstance().getImage("img/terrain20px/MountainTerrain.png");
 		waterTerrain = ResourceLoader.getInstance().getImage("img/terrain20px/WaterTerrain.png");
