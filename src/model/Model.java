@@ -57,7 +57,7 @@ public class Model implements util.Subject{
 		}
 		while(!tempQ.isEmpty())
 		{
-			tempQ.remove().execute();
+			tempQ.remove().execute(this);
 		}
 		
 		avatar.update();

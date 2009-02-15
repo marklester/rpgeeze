@@ -4,14 +4,12 @@ import model.*;
 
 public class EquipCommand implements Command {
 	private final int index;
-	private final Model m;
 	
-	public EquipCommand(Model m, int i) {
-		this.m = m;
+	public EquipCommand(int i) {
 		this.index = i;
 	}
 	
-	public void execute() {
+	public void execute(Model m) {
 		m.equipItem(index);
 	}
 }
