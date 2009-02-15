@@ -9,9 +9,8 @@ public class MouseLeftClickCommand implements Command {
 	private final int x;
 	private final int y;
 
-	MouseLeftClickCommand(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public MouseLeftClickCommand(int x, int y) {
+		throw new RuntimeException("Why are you creating me? I'm deprecated.");
 	}
 
 	public void execute(Model m) {

@@ -8,6 +8,7 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.Point;
 
 import model.Model;
 import util.Observer;
@@ -24,7 +25,8 @@ public class View extends Thread implements Observer {
 	
 	public View(Model model) {
 		this.model = model;
-
+		Drawer.view = this;
+		
 		GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		GraphicsConfiguration gc = dev.getDefaultConfiguration();
 		DisplayMode mode = new DisplayMode(1024, 768, 32, DisplayMode.REFRESH_RATE_UNKNOWN);
@@ -101,5 +103,15 @@ public class View extends Thread implements Observer {
 	
 	public void toggleInventoryVisible() {
 		setInventoryVisible(!isInventoryVisible());
+	}
+	
+	public void mouseRightClickAt(Point p) {
+		if(isInventoryVisible() && model.getAvatar().getInventory().isOnInventory(p))
+			model.getAvatar().getInventory().rightClick(p);
+	}
+
+	public void mouseLeftClickAt(Point p) {
+		if(isInventoryVisible() && model.getAvatar().getInventory().isOnInventory(p))
+			model.getAvatar().getInventory().leftClick(p);
 	}
 }
