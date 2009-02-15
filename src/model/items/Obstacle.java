@@ -1,7 +1,6 @@
 package model.items;
 
 import model.Location;
-import view.Drawer;
 
 /*
  * 
@@ -9,20 +8,16 @@ import view.Drawer;
  * 
  */
 
-
 public abstract class Obstacle extends Item {
 	public Obstacle(String name, Location location) {
-		super(name,location);
+		super(name, location);
 	}
-	
-	public boolean isPassable()
-	{
+
+	public boolean isPassable() {
 		return false;
 	}
-	
-	public void activate()
-	{
-		//do nothing
+
+	public void activate() {
+		// do nothing
 	}
 }
-

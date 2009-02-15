@@ -1,34 +1,34 @@
 package model;
 
-public class Location implements Cloneable{
-	
-	private int x;
-	private int y;
-	
+public class Location implements Cloneable {
+
+	private final int x;
+	private final int y;
+
 	public Location() {
-		x = 0;
-		y = 0;
+		this.x = 0;
+		this.y = 0;
 	}
-	
+
 	public Location(int x, int y) {
-		this.x = x; this.y = y;
+		this.x = x;
+		this.y = y;
 	}
-	
+
 	public int getX() {
-		return x;
+		return this.x;
 	}
-	
+
 	public int getY() {
-		return y;
+		return this.y;
 	}
-	
-	public Location clone() throws CloneNotSupportedException
-	{
-		return (Location)super.clone();
+
+	public Location clone() throws CloneNotSupportedException {
+		return (Location) super.clone();
 	}
-	
+
 	public String toString() {
-		return "(" + x + "," + y + ")";
+		return "(" + this.x + "," + this.y + ")";
 	}
-	
+
 }

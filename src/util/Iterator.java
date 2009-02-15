@@ -8,12 +8,14 @@ package util;
  *     iter.current().doSomething();
  * }
  * 
- */ 
-
+ */
 
 public interface Iterator<T> {
 	public void reset();
+
 	public void advance();
+
 	public boolean isDone();
+
 	public T current();
 }
