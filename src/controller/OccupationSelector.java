@@ -67,8 +67,8 @@ public class OccupationSelector extends JFrame {
 
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		setContentPane(panel);
-		setLocationRelativeTo(null);
 		pack();
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 
