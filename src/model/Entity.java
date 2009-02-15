@@ -29,8 +29,7 @@ public class Entity implements Drawable, Cloneable {
 
 	public Entity(Occupation occupation) {
 		this.inventory = new Inventory();
-		this.stats = new Stats();
-		this.speed = this.stats.getMovement();
+		this.stats = (Stats) occupation.stats.clone();
 	}
 
 	public void draw(Drawer d) {
