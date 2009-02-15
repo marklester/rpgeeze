@@ -59,7 +59,7 @@ public class Model implements util.Subject {
 
 		this.avatar.update();
 		updateStatusOfAvatar();
-
+		
 		this.snapshot = this.map.getMatrix();
 		updateObservers();
 
@@ -82,6 +82,9 @@ public class Model implements util.Subject {
 			else
 				respawn(numOfLivesLeft);
 		}
+		//Is the avatar now on a AE? If so, apply it!
+		else if (avatar.getTile().hasAE())
+			avatar.getTile().getAE().applyEffect(avatar);
 			
 	}
 	

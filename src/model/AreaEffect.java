@@ -2,8 +2,11 @@ package model;
 
 public abstract class AreaEffect implements Cloneable {
 
+	public static final int UPDATE_RATE = 80;
 	protected final String name;
 	protected float rate;
+	protected int counter = UPDATE_RATE;
+	protected boolean f_msg_was_sent = false;
 
 	// This will typically be used by LevelUp and InstantDeath - since their
 	// rates are irrelevant
@@ -26,7 +29,7 @@ public abstract class AreaEffect implements Cloneable {
 	}
 	
 	public void applyEffect(Entity e) {
-		
+			
 	}
 
 }
