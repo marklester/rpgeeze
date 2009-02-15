@@ -28,7 +28,7 @@ public class Drawer implements Observer{
 	
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar, redCross, skullAndCrossbones;
-	private static Image boulder,sword,potionlife;
+	private static Image boulder,sword,potionlife,crossbow;
 	private static StatView statsView;
 
 
@@ -53,6 +53,7 @@ public class Drawer implements Observer{
 		        sword = ImageIO.read(loader.getResourceAsStream("res/img/sword.png")); 
 				boulder = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/Boulder.png"));
 				potionlife = ImageIO.read(loader.getResourceAsStream("res/img/potionlife.png"));
+				crossbow = ImageIO.read(loader.getResourceAsStream("res/img/crossbow.png"));
 				
 				statsView= new StatView(ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg")));
 				
@@ -179,9 +180,15 @@ public class Drawer implements Observer{
 		graphics.drawImage(boulder, cursor.getX(), cursor.getY(), null);
 	}	
 	
+	public void drawCrossBow(CrossBow item) {
+		graphics.drawImage(crossbow, cursor.getX(), cursor.getY(), null);
+	}	
+	
 	public void drawPotionLife(PotionLife item) {
 		//graphics.drawImage(potionlife, cursor.getX() + 1, cursor.getY() + 1, null);
 		graphics.drawImage(potionlife, cursor.getX(), cursor.getY(), null);
+		
+		
 	}
 	
 	public void drawConsoleView(int width, int height){
