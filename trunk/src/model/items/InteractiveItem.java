@@ -1,14 +1,12 @@
 package model.items;
 
-import model.Location;
-
-/*
- * 
- * Interactive Item - (potentially) activated on touch; 
- * activation may require possession of a specific item 
- * or completion of a sequence of actions (e.g., puzzle)
- * 
+/**
+ * An Item that is (potentially) activated on touch. Activation may require
+ * possession of a specific Item or completion of a sequence of actions
+ * (e.g., puzzle).
  */
+
+import model.Location;
 
 public abstract class InteractiveItem extends Item {
 	public InteractiveItem(String name, Location location) {

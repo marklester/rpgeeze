@@ -6,6 +6,7 @@ import view.Time;
 import view.View;
 import controller.Controller;
 import controller.OccupationSelector;
+import util.ResourceLoader;
 
 /**
  * Entry point to the entire game!
@@ -25,11 +26,9 @@ public class RunGame {
 	 * Starts a new game. See the description above for what happens.
 	 */
 	public static void main(String[] arg) {
-		ClassLoader loader = RunGame.class.getClassLoader();
-
 		Occupation occ = getOccupation();
 		Entity avatar = new Entity(occ);
-		Map map = new Map(loader.getResourceAsStream("res/map.txt"));
+		Map map = new Map(ResourceLoader.getInstance().getStream("map.txt"));
 		Model model = new Model(map, avatar);
 
 		Controller controller = Controller.createController(model);

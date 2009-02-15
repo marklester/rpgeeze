@@ -1,12 +1,11 @@
 package model.items;
 
-import model.Location;
-
-/*
- * 
- * One-shot Item - activated and removed from map when touched by an Entity
- * 
+/**
+ * An Item that is activated and removed from the Map when touched by an
+ * Entity.
  */
+
+import model.Location;
 
 public abstract class OneShotItem extends Item {
 	public OneShotItem(String name, Location location) {

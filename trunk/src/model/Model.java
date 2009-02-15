@@ -8,6 +8,7 @@ import java.util.Queue;
 import java.util.Scanner;
 
 import util.Observer;
+import util.ResourceLoader;
 
 public class Model implements util.Subject {
 	protected final Queue<Command> commands = new LinkedList<Command>();
@@ -27,8 +28,7 @@ public class Model implements util.Subject {
 		this.map = map;
 		this.avatar = avatar;
 		// The following code should probably be moved elsewhere. -- Miorel
-		ClassLoader loader = getClass().getClassLoader();
-		Scanner scanner = new Scanner(loader.getResourceAsStream("res/entities.txt"));
+		Scanner scanner = new Scanner(ResourceLoader.getInstance().getStream("entities.txt"));
 		int x = scanner.nextInt();
 		int y = scanner.nextInt();
 		Tile tile = map.getTile(x, y);
