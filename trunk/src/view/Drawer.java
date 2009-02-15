@@ -111,7 +111,7 @@ public class Drawer implements Observer{
 		//Stats Stuff
 		if(model.isStatsUp()){
 			statsView.drawStatsView(graphics, avatar, width, height);
-			this.drawConsoleView(width, height);
+			Console.getInstance().drawConsoleView(graphics, width, height);
 		}
 		//Inventory Stuff
 		if(model.isInventoryUp()){
@@ -191,6 +191,8 @@ public class Drawer implements Observer{
 		
 	}
 	
+<<<<<<< .mine
+=======
 	public void drawConsoleView(int width, int height){
 		Queue<String> messages  = Console.getInstance().getStringList();//Messages to Show
 		int stats_width=310;//only change this is stats window size is changed
@@ -218,6 +220,7 @@ public class Drawer implements Observer{
 			}
 		}
 	}
+>>>>>>> .r288
 	public void drawInventoryView(Entity avater, int width, int height) {
 		
 	}
