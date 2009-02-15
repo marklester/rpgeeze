@@ -10,6 +10,7 @@ import model.*;
 import model.items.*;
 
 import java.util.Hashtable;
+import java.util.Queue;
 
 public class Drawer implements Observer{
 	
@@ -28,7 +29,7 @@ public class Drawer implements Observer{
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar, redCross, skullAndCrossbones;
 	private static Image boulder,sword,potionlife;
-	private static StatView statView;
+	private static Image statsView;
 
 
 	private static Hashtable<Direction,Image> avatar = new Hashtable<Direction,Image>();
@@ -53,9 +54,7 @@ public class Drawer implements Observer{
 				boulder = ImageIO.read(loader.getResourceAsStream("res/img/terrain20px/Boulder.png"));
 				potionlife = ImageIO.read(loader.getResourceAsStream("res/img/potionlife.png"));
 				
-				statView = new StatView(ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg")));
-				
-				
+				statsView=ImageIO.read(loader.getResourceAsStream("res/img/statsviewbg.jpg"));
 				
 					
 				avatar.put(Direction.NORTH, ImageIO.read(loader.getResourceAsStream("res/img/smasher/smasherWalkNorth1.png")));
@@ -107,10 +106,11 @@ public class Drawer implements Observer{
 			);
 			tile.draw(this);
 		}		
-		
+
 		//Stats Stuff
 		if(model.isStatsUp()){
 			statView.drawStatsView(graphics, avatar, width, height);
+			this.drawConsoleView(width, height);
 		}
 		//Inventory Stuff
 		if(model.isInventoryUp()){
@@ -177,9 +177,7 @@ public class Drawer implements Observer{
 	public void drawPotionLife(PotionLife item) {
 		graphics.drawImage(potionlife, cursor.getX() + 1, cursor.getY() + 1, null);
 	}
-	
-	//Not visitor like but whatev
-	/*
+	/*//Not visitor like but whatev
 	public void drawStatsView(Entity entity, int width, int height){
 		int menu_width = 300;
 		int menu_height = 300;
@@ -231,8 +229,34 @@ public class Drawer implements Observer{
 		current_line+=18;
 		graphics.drawString("Armor Rating:"+entity.getStats().getArmorRating(), text_width, text_height+current_line);
 		current_line+=18;
+	}*/
+	public void drawConsoleView(int width, int height){
+		Queue<String> messages  = Console.getInstance().getStringList();//Messages to Show
+		int stats_width=310;//only change this is stats window size is changed
+		int console_width = 400; 
+		int console_height = 100;
+		int left_indent = 20;
+		int top_indent = 20;
+		int max_messages=4; //the max number of messages the Console can show at One Time;
+		graphics.setColor(Color.black);
+		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f));
+		graphics.fillRoundRect(width-(console_width+stats_width), height-console_height, console_width, console_height, 3, 3);
+		//graphics.drawImage(statsView,width-menu_width, height-menu_height,null);
+		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+		graphics.setColor(Color.white);
+		graphics.setFont(new Font("SansSerif", Font.BOLD, 16));
+		//Text Formatting Numbers
+		int text_width = width-(console_width+stats_width) + left_indent; 
+		int text_height = height - console_height + top_indent;
+		//Draws Messages on Console
+		int current_line=0;
+		if(messages!=null){
+			while(messages.size()>0&&current_line<max_messages){
+				graphics.drawString(messages.remove(), text_width, text_height+current_line*18);
+				current_line++;
+			}
+		}
 	}
-	*/
 	public void drawInventoryView(Entity avater,int width,int height){}
 }
 
