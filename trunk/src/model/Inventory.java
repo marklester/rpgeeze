@@ -17,7 +17,9 @@ import model.item.Item;
 import util.Iterator;
 
 public class Inventory implements Cloneable {
-
+	private static final Pattern inventoryPattern = Pattern.compile("<inventory>(.*)</inventory>");
+	private static final Pattern itemPattern = Pattern.compile("(<item>.*?</item>)");
+	
 	public static final int INV_SUCCESS = 0;
 	public static final int INV_FULL = -1;
 	public static final int INV_MAX_SIZE = 100;
@@ -115,6 +117,15 @@ public class Inventory implements Cloneable {
 	}
 
 	public static Inventory fromXml(String xml) {
-		return null;
+		Matcher invMatcher = inventoryPattern.matcher(xml);
+		if(!invMatcher.matches())
+			throw new RuntimeException("Bad XML for Inventory");
+		Matcher itemMatcher = itemPattern.matcher(invMatcher.group(1));
+		Inventory ret = new Inventory();
+		while(itemMatcher.find()) {
+			Item item = Item.fromXml(itemMatcher.group());
+			ret.addItem(item);
+		}
+		return ret;
 	}
 }
