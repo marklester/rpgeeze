@@ -46,12 +46,14 @@ public abstract class Decal implements Drawable, Cloneable {
 	}
 	
 	public String toXml() {
+		return toXml("");
+	}
+	
+	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<decal>");
-		sb.append("<name>");
-		sb.append(name);
-		sb.append("</name>");
-		sb.append("</decal>");
+		sb.append(indent + "<decal>\n");
+		sb.append(indent + "<name>" + name + "</name>\n");
+		sb.append(indent + "</decal>");
 		return sb.toString();
 	}
 	

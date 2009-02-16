@@ -45,10 +45,12 @@ public abstract class Terrain implements Drawable, Cloneable {
 	}
 
 	public String toXml() {
+		return toXml("");
+	}
+	
+	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<terrain>");
-		sb.append(name);
-		sb.append("</terrain>");
+		sb.append(indent + "<terrain>" + name + "</terrain>");
 		return sb.toString();
 	}
 	

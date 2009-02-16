@@ -7,24 +7,11 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import model.item.Item;
-import model.decal.Decal;
-import model.decal.GoldStar;
-import model.decal.RedCross;
-import model.decal.SkullAndCrossbones;
-import model.ae.AreaEffect;
-import model.ae.HealDamage;
-import model.ae.InstantDeath;
-import model.ae.LevelUp;
-import model.ae.TakeDamage;
 import util.Iterator;
-import util.ResourceLoader;
 
 public class Map {
 	protected static final Pattern mapPattern = Pattern.compile("<map>(.*?)</map>");
 	protected static final Pattern tilePattern = Pattern.compile("(<tile>.*?</tile>)");
-	
-	public static final int NUM_OF_CHARS_REPRESENTING_A_TILE = 5;
 	
 	private final Matrix matrix;
 
@@ -155,16 +142,24 @@ public class Map {
 	}
 	
 	public String toXml() {
+		return toXml("");
+	}
+	
+	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<map>");
+		sb.append(indent + "<map>\n");
 		Iterator<Tile> iter = getTiles();
-		for(iter.reset(); !iter.isDone(); iter.advance())
-			sb.append(iter.current().toXml());
-		sb.append("</map>");
+		String innerIndent = indent + "\t";
+		for(iter.reset(); !iter.isDone(); iter.advance()) {
+			sb.append(iter.current().toXml(innerIndent));
+			sb.append("\n");
+		}
+		sb.append(indent + "</map>");
 		return sb.toString();
 	}
 	
 	public static Map fromXml(String xml) {
+		xml = xml.replaceAll("[\\t\\n]", "");
 		Matcher mapMatcher = mapPattern.matcher(xml);
 		if(!mapMatcher.matches())
 			throw new RuntimeException("Bad XML for Map");

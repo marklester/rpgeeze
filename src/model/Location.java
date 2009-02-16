@@ -32,15 +32,15 @@ public class Location {
 	}
 
 	public String toXml() {
+		return toXml("");
+	}
+		
+	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<location>");
-		sb.append("<x>");
-		sb.append(x);
-		sb.append("</x>");
-		sb.append("<y>");
-		sb.append(y);
-		sb.append("</y>");
-		sb.append("</location>");
+		sb.append(indent + "<location>\n");
+		sb.append(indent + "\t<x>" + x + "</x>\n");
+		sb.append(indent + "\t<y>" + y + "</y>\n");
+		sb.append(indent + "</location>");
 		return sb.toString();
 	}
 	

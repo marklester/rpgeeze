@@ -59,15 +59,15 @@ public abstract class AreaEffect implements Cloneable {
 	}
 	
 	public String toXml() {
+		return toXml("");
+	}
+	
+	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<ae>");
-		sb.append("<name>");
-		sb.append(name);
-		sb.append("</name>");
-		sb.append("<rate>");
-		sb.append(rate);
-		sb.append("</rate>");
-		sb.append("</ae>");
+		sb.append(indent + "<ae>\n");
+		sb.append(indent + "\t<name>" + name + "</name>\n");
+		sb.append(indent + "\t<rate>" + rate + "</rate>\n");
+		sb.append(indent + "</ae>");
 		return sb.toString();
 	}
 	

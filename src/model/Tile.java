@@ -131,14 +131,18 @@ public class Tile implements Cloneable {
 	}
 	
 	public String toXml() {
+		return toXml("");
+	}
+	
+	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();		
-		sb.append("<tile>");
-		sb.append(terrain.toXml());
-		sb.append(location.toXml());
-		sb.append(decal == null ? "" : decal.toXml());
-		sb.append(item == null ? "" : item.toXml());
-		sb.append(ae == null ? "" : ae.toXml());
-		sb.append("</tile>");
+		sb.append(indent + "<tile>\n");
+		sb.append(terrain.toXml(indent + "\t") + "\n");
+		sb.append(location.toXml(indent + "\t") + "\n");
+		sb.append(decal == null ? "" : (decal.toXml(indent + "\t") + "\n"));
+		sb.append(item == null ? "" : (item.toXml(indent + "\t") + "\n"));
+		sb.append(ae == null ? "" : (ae.toXml(indent + "\t") + "\n"));
+		sb.append(indent + "</tile>");
 		return sb.toString();
 	}
 	
