@@ -6,15 +6,22 @@ package util;
 
 import java.util.Hashtable;
 import java.awt.Image;
-import java.io.IOException;
-import java.io.InputStream;
 import javax.imageio.ImageIO;
+import sun.audio.*;
+import java.io.*;
 
 public class ResourceLoader {
 	private final ClassLoader loader;
 	private final Hashtable<String, Image> images;
 	private final Hashtable<String, String>items;
+	private final Hashtable<String, String>audios;
 	private static ResourceLoader instance = null;
+	
+	/*
+	static {
+		getInstance().getAudioClip("");		
+	}
+	*/
 	
 	/**
 	 * Constructs a new ResourceLoader. Since this is a singleton, this is
@@ -24,10 +31,13 @@ public class ResourceLoader {
 		this.loader = getClass().getClassLoader();
 		this.images = new Hashtable<String, Image>();
 		this.items = new Hashtable<String,String>(); //Modify this to set Item Images
+		this.audios = new Hashtable<String,String>();
 		items.put("Boulder", "img/terrain20px/Boulder.png");
 		items.put("Cross Bow", "img/crossbow.png");
 		items.put("Sword", "img/sword.png");
 		items.put("Potion Life", "img/potionlife.png");
+		
+		audios.put("Instant Death", "audio/evilLaugh.wav");
 		
 	}
 	
@@ -59,6 +69,16 @@ public class ResourceLoader {
 	}
 	public Image getItemImage(String key){
 		return getImage(items.get(key));
+	}
+	
+	//Plays an audio clip, derrr
+	public void playAudioClip(String key) {
+		try {
+			InputStream in = getStream(audios.get(key)); 
+			AudioStream as = new AudioStream(in);
+			AudioPlayer.player.start(as);
+		}
+		catch (Exception e) { System.out.println(e); }
 	}
 	
 	/**
