@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import model.item.Item;
 import model.decal.Decal;
@@ -19,8 +21,11 @@ import util.Iterator;
 import util.ResourceLoader;
 
 public class Map {
+	protected static final Pattern mapPattern = Pattern.compile("<map>(.*?)</map>");
+	protected static final Pattern tilePattern = Pattern.compile("(<tile>.*?</tile>)");
+	
 	public static final int NUM_OF_CHARS_REPRESENTING_A_TILE = 5;
-
+	
 	private final Matrix matrix;
 
 	public class Matrix implements Cloneable {
@@ -98,6 +103,10 @@ public class Map {
 
 	}
 
+	private Map(Tile[][] matrix) {
+		this.matrix = new Matrix(matrix);
+	}
+	
 	public Map(InputStream stream) {
 		Scanner s = new Scanner(stream);
 		List<Tile[]> list = new ArrayList<Tile[]>();
@@ -159,7 +168,7 @@ public class Map {
 				default:
 					throw new RuntimeException("Bad map - Area Effect");
 				}
-				if(ae != null) System.out.println(ae.toXml());
+				//if(ae != null) System.out.println(ae.toXml());
 
 				arr[c] = new Tile(ter, new Location(c, r), dec, null, ae);
 			}
@@ -172,17 +181,10 @@ public class Map {
 		scanner = new Scanner(ResourceLoader.getInstance().getStream("items.txt"));
 		while(scanner.hasNextLine()) {
 			Item item = Item.fromXml(scanner.nextLine());
-			this.getTile(item.getLocation()).setItem(item);
+//			this.getTile(item.getLocation()).setItem(item);
 		}
 		
-		Iterator<Tile> iter = getTiles();
-		for(iter.reset(); !iter.isDone(); iter.advance()) {
-			Tile cur = iter.current();
-			String xml = cur.toXml();
-			cur = Tile.fromXml(xml);
-			String nxml = cur.toXml();
-			if(!nxml.equals(xml)) throw new RuntimeException("crap");
-		}
+		System.out.println(this.toXml());
 	}
 
 	public Tile getTile(int x, int y) {
@@ -227,12 +229,32 @@ public class Map {
 	public String toXml() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<map>");
-		sb.append("<tiles>");
 		Iterator<Tile> iter = getTiles();
 		for(iter.reset(); !iter.isDone(); iter.advance())
 			sb.append(iter.current().toXml());
-		sb.append("</tiles>");
 		sb.append("</map>");
 		return sb.toString();
+	}
+	
+	public static Map fromXml(String xml) {
+		Matcher mapMatcher = mapPattern.matcher(xml);
+		if(!mapMatcher.matches())
+			throw new RuntimeException("Bad XML for Map");
+		Matcher tileMatcher = tilePattern.matcher(mapMatcher.group(1));		
+		List<Tile> tiles = new ArrayList<Tile>();
+		int maxX = 0;
+		int maxY = 0;
+		while(tileMatcher.find()) {
+			Tile tile = Tile.fromXml(tileMatcher.group());
+			tiles.add(tile);
+			maxX = Math.max(maxX, tile.getLocation().getX());
+			maxY = Math.max(maxY, tile.getLocation().getY());
+		}
+		Tile[][] matrix = new Tile[maxY + 1][maxX + 1];
+		for(Tile tile: tiles) {
+			Location loc = tile.getLocation();
+			matrix[loc.getY()][loc.getX()] = tile;
+		}
+		return new Map(matrix);
 	}
 }
