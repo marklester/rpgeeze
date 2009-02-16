@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import view.Drawable;
 
 public abstract class Decal implements Drawable, Cloneable {
-	private static Pattern pattern = Pattern.compile("<decal><name>(.*)</name></decal>");
+	private static Pattern pattern = Pattern.compile("<decal>(.*)</decal>");
 	private static Hashtable<String, Decal> prototypes = new Hashtable<String, Decal>();
 	
 	static {
@@ -51,9 +51,7 @@ public abstract class Decal implements Drawable, Cloneable {
 	
 	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(indent + "<decal>\n");
-		sb.append(indent + "<name>" + name + "</name>\n");
-		sb.append(indent + "</decal>");
+		sb.append(indent + "<decal>" + name + "</decal>");
 		return sb.toString();
 	}
 	
