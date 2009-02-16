@@ -92,7 +92,15 @@ public class PrimaryStats implements Cloneable {
 	}
 
 	public void setExperience(int experience) {
-		this.experience = experience;
+		if(experience > 100)
+		{
+			this.experience = 100;
+		}
+		else
+		{
+			this.experience = experience;	
+		}
+		
 	}
 
 	public int getExperience() {
