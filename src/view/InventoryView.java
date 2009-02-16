@@ -26,7 +26,7 @@ public class InventoryView {
 	private final int yOffset = this.atHeight;
 	
 	final private int chest_x = 125;
-	final private int chest_y=60;
+	final private int chest_y = 60;
 	final private int width = 40;
 	final private int height = 40;
 	
