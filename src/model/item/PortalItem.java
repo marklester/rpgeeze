@@ -9,15 +9,10 @@ public class PortalItem extends InteractiveItem {
 	Location where;
 	
 	
-	public PortalItem()
-	{
-		super("Portal");
+	public PortalItem() {
+		super("Portal Item");
+		this.where = new Location(10,26);
 	}
-	
-//	public PortalItem(Location loc, Location where) {
-//		//super("Portal Item", loc);
-//		this.where = where;
-//	}
 	
 	
 	public void activate(Entity e) {
