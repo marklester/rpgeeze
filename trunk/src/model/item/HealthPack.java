@@ -14,9 +14,9 @@ import view.Drawer;
 
 public class HealthPack extends OneShotItem {
 	private int amount;
-	public HealthPack(int amount) {
+	public HealthPack() {
 		super("Health Pack");
-		this.amount= amount;
+		this.amount= 10;
 	}
 	public void activate(Entity e){
 		int prev = e.getStats().getLife();
