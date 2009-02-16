@@ -38,7 +38,7 @@ public class Drawer implements Observer {
 	private static Drawer drawerInstance;
 
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
-	private static Image goldStar, redCross, skullAndCrossbones;
+	private static Image goldStar, redCross, skullAndCrossbones, fireDecal;
 	private static Image boulder, sword, potionlife, crossbow, shield, redArmor, boots, arrows, mana;
 	private static Image portal, healthPack, helmet;
 
@@ -62,6 +62,7 @@ public class Drawer implements Observer {
 		goldStar = ResourceLoader.getInstance().getImage("img/goldenstar.png");
 		redCross = ResourceLoader.getInstance().getImage("img/redcross.png");
 		skullAndCrossbones = ResourceLoader.getInstance().getImage("img/skullandcrossbones.png");
+		fireDecal = ResourceLoader.getInstance().getImage("img/fire.png");
 
 		sword = ResourceLoader.getInstance().getImage("img/sword.png");
 		boulder = ResourceLoader.getInstance().getImage("img/terrain20px/Boulder.png");
@@ -202,6 +203,10 @@ public class Drawer implements Observer {
 	public void drawRedCross(RedCross decal) {
 		doDrawImage(redCross);
 	}
+	
+	public void drawFireDecal(FireDecal fire) {
+		doDrawImage(fireDecal);
+	}
 
 	public void drawSkullAndCrossbones(SkullAndCrossbones decal) {
 		doDrawImage(skullAndCrossbones);
@@ -242,6 +247,7 @@ public class Drawer implements Observer {
 	public void drawMana(Mana item) {
 		doDrawImage(mana);
 	}
+	
 	
 	public void drawPortal(PortalItem item) {
 		doDrawImage(portal);
