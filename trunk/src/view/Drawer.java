@@ -246,8 +246,11 @@ public class Drawer implements Observer {
 	public void drawMana(Mana item) {
 		doDrawImage(mana);
 	}
-	public void drawPortal(PortalItem item) {
+	/*public void drawPortal(PortalItem item) {
 		doDrawImage(portal);
+	}*/
+	public void drawHealthPack(HealthPack item) {
+		doDrawImage(healthPack);
 	}
 	public void drawHelmet(Helmet item) {
 		doDrawImage(helmet);
