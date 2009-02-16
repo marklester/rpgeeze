@@ -9,6 +9,7 @@ import java.awt.Point;
 import util.Iterator;
 import util.ResourceLoader;
 
+import model.Entity;
 import model.Inventory;
 import model.item.Item;
 
@@ -23,36 +24,36 @@ public class InventoryView {
 	private final int tableWidth = 6;
 	private final int xOffset = this.spacer * 3;
 	private final int yOffset = this.atHeight;
+	
+	final private int chest_x = 125;
+	final private int chest_y=60;
+	final private int width = 40;
+	final private int height = 40;
+	
+	final private Point chest = new Point(chest_x, chest_y);
+	final private Point head = new Point(chest_x, chest_y - height - spacer);
+	final private Point feet = new Point(chest_x, chest_y + height + spacer + spacer + spacer);
+	final private Point aux = new Point(chest_x - width - spacer/2, chest_y);
+	final private Point weapon = new Point(chest_x + width + spacer/2, chest_y);
 
 	public InventoryView() {
 		// this.inventory = inventory;
 	}
 
-	public void drawInventoryView(Graphics2D graphics, Inventory inv, int width, int height) {
+	public void drawInventoryView(Graphics2D graphics, Entity e, int width, int height) {
 
 		int inventory_height = height;
 
-		Iterator<Item> items = inv.iterator();
+		Iterator<Item> items = e.getInventory().iterator();
 		items.reset();
 		// Location mouse_clicked=new Location(35,255);
 
+		drawEquippedItems(graphics, e);
+		
 		graphics.setColor(Color.black);
 		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f));
 		graphics.fillRect(0, 0, this.inventory_width, inventory_height);
-		//Equip Area
-		graphics.setColor(Color.RED);
-		graphics.fillRect(0, 0, this.inventory_width, 200);
-		graphics.setColor(Color.BLACK);
-		//CHEST
-		int chest_x=125;
-		int chest_y=60;
-		graphics.fillRect(chest_x,chest_y, 50, 75);
-		//HEAD FEET
-		graphics.fillRect(chest_x,chest_y-40-10, 50, 40);//HEAD
-		graphics.fillRect(chest_x,chest_y+75+10, 50, 40);//FEET
-		//WEAPONS
-		graphics.fillRect(chest_x-40-5,chest_y, 40, 40);//LEFT
-		graphics.fillRect(chest_x+40+15,chest_y, 40, 40);//RIGHT
+		
 		
 		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 		graphics.setColor(Color.white);
@@ -73,13 +74,7 @@ public class InventoryView {
 				int startx = j * (this.ibox_size + this.spacer) + this.xOffset;
 				int starty = i * (this.ibox_size + this.spacer) + this.yOffset;
 				Color prev = graphics.getColor();
-				// if(mouse_clicked.getX() >= startx &&
-				// mouse_clicked.getX()<=startx+ibox_size &&
-				// mouse_clicked.getY() >= starty &&
-				// mouse_clicked.getY()<=starty+ibox_size){
-				// graphics.setColor(Color.YELLOW);
-				// do Damage to Item
-				// }
+
 				graphics.fillRoundRect(startx, starty, this.ibox_size, this.ibox_size, 3, 3);
 				if(img != null)
 					graphics.drawImage(img, startx, starty, null);
@@ -88,15 +83,73 @@ public class InventoryView {
 		}
 	}
 
+	public void drawEquippedItems(Graphics2D graphics, model.Entity e)
+	{
+		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f));
+		//Equip Area
+		graphics.setColor(Color.RED);
+		graphics.fillRect(0, 0, this.inventory_width, 200);
+		graphics.setColor(Color.BLACK);
+		
+		//CHEST
+		graphics.fillRect(chest.x, chest.y, width, height + spacer + spacer);
+		//HEAD
+		graphics.fillRect( head.x, head.y, width, height);
+		//FEET
+		graphics.fillRect(feet.x, feet.y, width, height);		
+		//WEAPON
+		graphics.fillRect(weapon.x, weapon.y,  width, height);
+		//AUXILARY
+		graphics.fillRect(aux.x, aux.y,  width, height);
+		
+		
+		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+		
+		Image img;
+		
+		model.Entity.Equipment eq = e.getEquipment();
+		try {
+			eq = e.getEquipment().clone();
+		}catch (CloneNotSupportedException ce) 
+		{ System.err.println("Equip clone failed.");};
+			
+		//HEAD
+		if(eq.head != null)
+		{
+			img = ResourceLoader.getInstance().getItemImage(eq.head.toString());
+			graphics.drawImage(img, head.x, head.y, null);
+		}
+		if(eq.armor != null)
+		{
+			img = ResourceLoader.getInstance().getItemImage(eq.armor.toString());
+			graphics.drawImage(img, chest.x, chest.y, null);
+		}
+		if(eq.boots != null)
+		{
+			img = ResourceLoader.getInstance().getItemImage(eq.boots.toString());
+			graphics.drawImage(img, feet.x, feet.y, null);
+		}
+		if(eq.weapon != null)
+		{
+			img = ResourceLoader.getInstance().getItemImage(eq.weapon.toString());
+			graphics.drawImage(img, weapon.x, weapon.y, null);
+		}
+		if(eq.auxilary != null)
+		{
+			img = ResourceLoader.getInstance().getItemImage(eq.auxilary.toString());
+			graphics.drawImage(img, aux.x, aux.y, null);
+		}
+	}
+	
 	public boolean isOnInventory(Point p) {
 		// Logic to find if clicking was done on the inventory
 		int startx = this.tableWidth * (this.ibox_size + this.spacer) + this.xOffset;
 		return p.x < startx;
 	}
-	
 	public boolean isOnEquipedItems(Point p)
 	{
-		return false;
+		//int starty = this.tableHeight * (this.ibox_size + this.spacer);
+		return (isOnInventory(p) && p.y < atHeight);
 	}
 
 	public Point click(Point p) {
@@ -113,29 +166,56 @@ public class InventoryView {
 		if(xIndex == -1 || yIndex == -1 || xIndex >= this.tableWidth || yIndex >= this.tableHeight)
 			// check for a different item press
 			return null;
-		Console.getInstance().writeLine(new Point(xIndex,yIndex).toString());
 		return new Point(xIndex, yIndex);
 	}
 
-	private Item getItemAt(Point index) {
-		
+	public model.Command clickEquipment(Point p)
+	{
+		if(p.x > chest.x && p.x < chest.x + width && p.y > chest.y && p.y < chest.y + height + spacer + spacer)
+		{
+			return new model.Command() {
+				public void execute(model.Model m)
+				{
+					m.getAvatar().unequipArmor();
+				}
+			};
+		}
+		if(p.x > head.x && p.x < head.x + width && p.y > head.y && p.y < head.y + height)
+		{
+			return new model.Command() {
+				public void execute(model.Model m)
+				{
+					m.getAvatar().unequipHead();
+				}
+			};
+		}
+		if(p.x > feet.x && p.x < feet.x + width && p.y > feet.y && p.y < feet.y + height)
+		{
+			return new model.Command() {
+				public void execute(model.Model m)
+				{
+					m.getAvatar().unequipBoots();
+				}
+			};
+		}
+		if(p.x > weapon.x && p.x < weapon.x + width && p.y > weapon.y && p.y < weapon.y + height)
+		{
+			return new model.Command() {
+				public void execute(model.Model m)
+				{
+					m.getAvatar().unequipWeapon();
+				}
+			};
+		}
+		if(p.x > aux.x && p.x < aux.x + width && p.y > aux.y && p.y < aux.y + height)
+		{
+			return new model.Command() {
+				public void execute(model.Model m)
+				{
+					m.getAvatar().unequipAuxilary();
+				}
+			};
+		}
 		return null;
-	}
-
-	public void leftClick(Point p) {
-		Point index = click(p);
-		Item i = null;
-		if(index != null)
-			i = getItemAt(p);
-		Console.getInstance().writeLine(i != null ? i.toString() : "No item there to equip");
-	}
-
-	public void rightClick(Point p) {
-		Point index = click(p);
-		Item i = null;
-		if(index != null)
-			i = getItemAt(p);
-		// equip this thang!
-
 	}
 }

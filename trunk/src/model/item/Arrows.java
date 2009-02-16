@@ -5,6 +5,7 @@ package model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
+import model.Entity;
 import model.Location;
 import view.Drawer;
 
@@ -17,4 +18,10 @@ public class Arrows extends TakeableItem {
 	public void draw(Drawer d) {
 		d.drawArrows(this);
 	}
+
+	@Override
+	public void activate(Entity e) {
+		
+	}
+	
 }

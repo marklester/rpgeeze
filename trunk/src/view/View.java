@@ -113,20 +113,24 @@ public class View extends Thread implements Observer {
 	
 	public void mouseRightClickAt(Point p) {
 		
-		if(isInventoryVisible() && inventoryView.isOnInventory(p))
-		{
-			final Point index = inventoryView.click(p);
-			if(index == null) return;
-			model.invoke( new Command(){
-				public void execute(Model m)
-				{
-					m.getAvatar().actionAtIndex(index);
-				}
-			});
-		}
 		if(isInventoryVisible() && inventoryView.isOnEquipedItems(p))
-		{		
-			
+		{
+			Command c = inventoryView.clickEquipment(p);
+			if(c == null) return;
+			model.invoke(c);
+		}else
+		{
+			if(isInventoryVisible() && inventoryView.isOnInventory(p))
+			{
+				final Point index = inventoryView.click(p);
+				if(index == null) return;
+				model.invoke( new Command(){
+					public void execute(Model m)
+					{
+						m.getAvatar().actionAtIndex(index);
+					}
+				});
+			}
 		}
 	}
 

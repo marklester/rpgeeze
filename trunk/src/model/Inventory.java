@@ -21,7 +21,7 @@ public class Inventory implements Cloneable {
 
 	public static final int INV_SUCCESS = 0;
 	public static final int INV_FULL = -1;
-	public static final int INV_MAX_SIZE = 6;
+	public static final int INV_MAX_SIZE = 100;
 
 	private List<Item> items;
 

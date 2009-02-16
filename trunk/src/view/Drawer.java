@@ -142,8 +142,8 @@ public class Drawer implements Observer {
 			Console.getInstance().drawConsoleView(this.graphics, width, height);
 		}
 		// Inventory Stuff
-		//if(view.isInventoryVisible())
-		//	inventoryView.drawInventoryView(this.graphics, model.getAvatar().getInventory().clone(), width, height);
+		if(view.isInventoryVisible())
+			inventoryView.drawInventoryView(this.graphics, model.getAvatar(), width, height);
 	}
 
 	public void update(Subject s) {

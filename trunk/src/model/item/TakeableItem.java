@@ -11,7 +11,4 @@ public abstract class TakeableItem extends Item {
 	public TakeableItem(String name, Location location) {
 		super(name, location);
 	}
-
-	public final void activate(Entity e) {
-	}
 }

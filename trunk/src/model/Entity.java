@@ -11,12 +11,8 @@ public class Entity implements Drawable, Cloneable {
 	private Occupation occupation;
 	private Inventory inventory;
 	private Tile tile = null;
-		
-	private Item head;
-	private Item armor;
-	private Item boots;
-	private Item weapon;
-	private Item auxilary;	
+			
+	private Equipment equipment;
 
 	private int speed;
 
@@ -26,10 +22,33 @@ public class Entity implements Drawable, Cloneable {
 	// Name
 	// EquippedItems
 	
+	public class Equipment implements Cloneable{
+		public Item head;
+		public Item armor;
+		public Item boots;
+		public Item weapon;
+		public Item auxilary;
+		
+		public Equipment()
+		{
+			head = null;
+			armor = null;
+			boots = null;
+			weapon = null;
+			auxilary = null;
+		}
+		
+		public Equipment clone() throws CloneNotSupportedException
+		{
+			return (Equipment)super.clone();
+		}
+	}
+	
 	public Entity(Occupation occupation) {
 		this.inventory = new Inventory();
 		this.stats = (Stats) occupation.stats.clone();
 		this.occupation = occupation;
+		this.equipment = new Equipment();
 	}
 
 	public void draw(Drawer d) {
@@ -57,7 +76,6 @@ public class Entity implements Drawable, Cloneable {
 				tile.setItem(null);
 			}
 		}
-
 	}
 
 	public Direction getFacingDirection() {
@@ -68,63 +86,80 @@ public class Entity implements Drawable, Cloneable {
 		this.facing = d;
 	}
 
-	public void equipItem(Item  i) {
-		//Item i = this.inventory.removeItemAt(index);
-		//inventory.removeItemAt
-//		if(this.rightHandItem == null)
-//			this.rightHandItem = i;
-//		else if(this.leftHandItem == null)
-//			this.leftHandItem = i;
-	}
-
 	public void equipHead(Item i)
 	{
-		inventory.removeItem(i);		
-		if(head != null)
-			inventory.addItem(i);
-		head = i;
+		if(equipment.head != null && equipment.head != i)
+			inventory.addItem(equipment.head);
+		equipment.head = i;
+		Console.getInstance().writeLine("Equiped  " + i.toString());
 	}
 	public void equipBoots(Item i)
 	{
-		inventory.removeItem(i);		
-		if(boots != null)
-			inventory.addItem(i);
-		boots = i;
+		if(equipment.boots != null && equipment.boots != i)
+			inventory.addItem(equipment.boots);
+		equipment.boots = i;
+		Console.getInstance().writeLine("Equiped  " + i.toString());
 	}
 	public void equipArmor(Item i)
-	{
-		inventory.removeItem(i);		
-		if(armor != null)
-			inventory.addItem(i);
-		armor = i;
+	{	
+		if(equipment.armor != null && equipment.armor != i)
+			inventory.addItem(equipment.armor);
+		equipment.armor = i;
+		Console.getInstance().writeLine("Equiped  " + i.toString());
 	}
 	public void equipWeapon(Item i)
 	{
-		inventory.removeItem(i);		
-		if(weapon != null)
-			inventory.addItem(i);
-		weapon = i;
+		if(equipment.weapon != null && equipment.weapon != i)
+			inventory.addItem(equipment.weapon);
+		equipment.weapon = i;
+		Console.getInstance().writeLine("Equiped  " + i.toString());
 	}
 	public void equipAuxilary(Item i)
+	{		
+		if(equipment.auxilary != null && equipment.auxilary != i)
+			inventory.addItem(equipment.auxilary);
+		equipment.auxilary = i;
+		if(equipment.weapon != null)
+			equipment.weapon.activate(this);
+		Console.getInstance().writeLine("Equiped  " + i.toString());
+	}
+
+	public void unequipHead()
 	{
-		inventory.removeItem(i);		
-		if(auxilary != null)
-			inventory.addItem(i);
-		auxilary = i;
+		if(equipment.head != null)
+			inventory.addItem(equipment.head);
+		equipment.head = null;
+	}
+	public void unequipBoots()
+	{
+		if(equipment.boots != null)
+			inventory.addItem(equipment.boots);
+		equipment.boots = null;
+	}
+	public void unequipArmor()
+	{
+		if(equipment.armor != null)
+			inventory.addItem(equipment.armor);
+		equipment.armor = null;
+	}
+	public void unequipWeapon()
+	{
+		if(equipment.weapon != null)
+			inventory.addItem(equipment.weapon);
+		equipment.weapon = null;
+	}
+	public void unequipAuxilary()
+	{
+		if(equipment.auxilary != null)
+			inventory.addItem(equipment.auxilary);
+		equipment.auxilary = null;
 	}
 	
+	public Equipment getEquipment()
+	{
+		return equipment;
+	}
 	
-//	public void unequipItem(int where) {
-//		// Item i = inventory.removeItemAt(index);
-//		switch(where) {
-//		case ENT_LEFT_H: // inventory.dropItem(leftHandItem);
-//		case ENT_RIGHT_H: // inventory.dropItem(rightHandItem);
-//		case ENT_HEAD: // inventory.dropItem(feetItem);
-//		case ENT_FEET: // inventory.dropItem(headItem);
-//		case ENT_ARMOR: // inventory.dropItem(armorItem);
-//		}
-//	}
-
 	public Inventory getInventory() {
 		// shallow copy of inventory held in clone.
 		// a deep copy will be more costly
@@ -136,7 +171,7 @@ public class Entity implements Drawable, Cloneable {
 			Item i = this.inventory.removeItemAt(0);
 			i.setLocation(getTile().getLocation());
 			getTile().setItem(i);
-			Console.getInstance().writeLine(i + " has been dropped");
+			Console.getInstance().writeLine(i + " has been dropped ");
 		}
 	}
 
@@ -149,11 +184,8 @@ public class Entity implements Drawable, Cloneable {
 		int index = ((x + 1) * (y + 1)) - 1;
 		if(index >= inventory.count())
 			return;
-		
-		Iterator<Item> iter = inventory.iterator();
-		for( int i = 0; i < index; i++)
-			iter.advance();
-		iter.current().activate(this);
+				
+		inventory.removeItemAt(index).activate(this);
 	}
 	
 	public Stats getStats() {
