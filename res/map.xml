@@ -995,7 +995,7 @@
 		<decal>Skull and Crossbones</decal>
 		<ae>
 			<name>Take Damage</name>
-			<rate>1</rate>
+			<rate>10</rate>
 		</ae>
 	</tile>
 	<tile>
@@ -7471,7 +7471,7 @@
 		<decal>Red Cross</decal>
 		<ae>
 			<name>Heal Damage</name>
-			<rate>1</rate>
+			<rate>10</rate>
 		</ae>
 	</tile>
 	<tile>
