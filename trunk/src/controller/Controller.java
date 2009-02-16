@@ -135,19 +135,29 @@ public class Controller extends JComponent implements MouseListener {
 //		this.getActionMap().put("UnequipFEET", new ActionCommand(model, new UnequipCommand(Entity.ENT_FEET)));
 
 		//this.getActionMap().put("DropITEM", new ActionCommand(model, new ItemCommand(0)));
-		// For Stats;*/
-		this.getActionMap().put("Stats", new ActionCommand(model, new MenuCommand(view, Controller.STAT_VIEW)));
-		this.getActionMap().put("Inventory", new ActionCommand(model, new MenuCommand(view, Controller.INVENTORY_VIEW)));
+
+		// For Stats
+		this.getActionMap().put("Stats", new ActionCommand(model, new Command() {
+			public void execute(Model model) {
+				model.getAvatar().getStats().setVisible(!model.getAvatar().getStats().isVisible());
+			}
+		}));
+		
+		// For Inventory
+		this.getActionMap().put("Inventory", new ActionCommand(model, new Command() {
+			public void execute(Model model) {
+				Controller.this.view.toggleInventoryVisible();
+			}
+		}));
 	}
 
-	// Keeping one instance of controller
 	public static Controller createController(Model model, View view) {
+		// what kind of screwed up Singleton is this?
 		//if(controller == null)
 			controller = new Controller(model, view);
 		return controller;
 	}
 
-	@Override
 	public void mouseClicked(final MouseEvent e) {
 		if(e.getButton() == MouseEvent.BUTTON1)
 			this.model.invoke(new Command() {
@@ -174,5 +184,4 @@ public class Controller extends JComponent implements MouseListener {
 
 	public void mouseReleased(MouseEvent e) {
 	}
-
 }
