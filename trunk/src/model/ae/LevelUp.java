@@ -14,7 +14,7 @@ public class LevelUp extends AreaEffect {
 		super(rate, "Level Up");
 	}
 
-	public void appyEffect(Entity e) {
+	public void applyEffect(Entity e) {
 		if (!f_msg_was_sent) {
 			e.getStats().incLevel();
 			Console.getInstance().writeLine("Woohoo! You leveled up!");

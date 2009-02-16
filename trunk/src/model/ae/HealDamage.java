@@ -14,7 +14,7 @@ public class HealDamage extends AreaEffect {
 	}
 	
 	public void applyEffect(Entity e) {
-		if (--counter == 0) {
+		if(--counter == 0) {
 			e.getStats().incLife(rate);
 			counter = UPDATE_RATE; //reset
 			if (!f_msg_was_sent) {

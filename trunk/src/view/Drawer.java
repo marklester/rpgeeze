@@ -91,6 +91,11 @@ public class Drawer implements Observer {
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkWest1.png"),
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkWest2.png")
 		));
+
+		avatar.put(Direction.NORTHEAST, avatar.get(Direction.NORTH));
+		avatar.put(Direction.NORTHWEST, avatar.get(Direction.NORTH));
+		avatar.put(Direction.SOUTHEAST, avatar.get(Direction.SOUTH));
+		avatar.put(Direction.SOUTHWEST, avatar.get(Direction.SOUTH));
 	}
 
 	public static Drawer getInstance() {

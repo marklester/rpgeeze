@@ -132,20 +132,20 @@ public class Map {
 				default:
 					throw new RuntimeException("Bad map - Decal");
 				}
-				if(dec != null) System.out.println(dec.toXml());
+				//if(dec != null) System.out.println(dec.toXml());
 
 				AreaEffect ae = null;
 				switch(line.charAt(NUM_OF_CHARS_REPRESENTING_A_TILE * c + 3)) {
 				case 'H':
 					ae = new HealDamage();
 					break;
-				case 'l':
+				case 'L':
 					ae = new LevelUp();
 					break;
-				case 'd':
+				case 'D':
 					ae = new TakeDamage();
 					break;
-				case 'x':
+				case 'X':
 					ae = new InstantDeath();
 					break;
 				case ' ':
@@ -153,6 +153,7 @@ public class Map {
 				default:
 					throw new RuntimeException("Bad map - Area Effect");
 				}
+				if(ae != null) System.out.println(ae.toXml());
 
 				arr[c] = new Tile(ter, new Location(c, r), dec, null, ae);
 			}
