@@ -46,6 +46,7 @@ public class ResourceLoader {
 		items.put("Mana", "img/mana.png");
 		
 		audios.put("Instant Death", "audio/evilLaugh.wav");
+		audios.put("Portal Item", "audio/elevator.wav");
 		
 		images.put("Intro Image",getImage("img/IntroOccupationTypes.png"));
 		images.put("New Game Button",getImage("img/buttons/NewGame.png"));
