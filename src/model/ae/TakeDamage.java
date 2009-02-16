@@ -19,7 +19,7 @@ public class TakeDamage extends AreaEffect {
 			e.getStats().decLife(rate);
 			counter = UPDATE_RATE; //reset
 			if (!f_msg_was_sent) {
-				Console.getInstance().writeLine("Yo dog, you're dieing");
+				Console.getInstance().writeLine("Yo dog, you're dying");
 				f_msg_was_sent = true;
 			}
 		}
