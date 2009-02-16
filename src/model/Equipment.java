@@ -39,10 +39,10 @@ public class Equipment implements Cloneable {
 			throw new RuntimeException("Bad XML for Equipment");
 		Equipment ret = new Equipment();
 		String head = mat.group(1); if(head.length() != 0) ret.head = Item.fromXml(head);
-		String armor = mat.group(2); if(head.length() != 0) ret.armor = Item.fromXml(armor);
-		String boots = mat.group(3); if(head.length() != 0) ret.boots = Item.fromXml(boots);
-		String weapon = mat.group(4); if(head.length() != 0) ret.weapon = Item.fromXml(weapon);
-		String auxiliary = mat.group(5); if(head.length() != 0) ret.auxiliary = Item.fromXml(auxiliary);
+		String armor = mat.group(2); if(armor.length() != 0) ret.armor = Item.fromXml(armor);
+		String boots = mat.group(3); if(boots.length() != 0) ret.boots = Item.fromXml(boots);
+		String weapon = mat.group(4); if(weapon.length() != 0) ret.weapon = Item.fromXml(weapon);
+		String auxiliary = mat.group(5); if(auxiliary.length() != 0) ret.auxiliary = Item.fromXml(auxiliary);
 		return ret;
 	}
 	
