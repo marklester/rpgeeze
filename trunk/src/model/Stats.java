@@ -41,7 +41,8 @@ public class Stats implements Cloneable {
 	PrimaryStats primaryStats;
 	private boolean visible = true;
 	
-	public static final int MAX_LIFE = 100;
+	public static final int MAX_LIFE 	= 100;
+	public static final int MAX_LEVEL 	= 5;
 
 	public Stats() {
 		this.level = 1;
@@ -62,8 +63,11 @@ public class Stats implements Cloneable {
 		this.primaryStats = stats;
 	}
 
+	//Once NPC's and puzzles are introduced, this function will be called during update of avatar 
+	//A entity's experience will be increased as they play the game
+	//Once it hits a certain point, this will trigger a "level up"
 	public void calculateLevel() {
-		if(this.primaryStats.experience >= this.level * this.level * 5 && this.level < 5)
+		if(this.primaryStats.experience >= this.level * this.level * 5 && this.level < MAX_LEVEL)
 			++this.level;
 	}
 
@@ -75,8 +79,9 @@ public class Stats implements Cloneable {
 		return this.level;
 	}
 	
+	//This is basically used by the "Level Up" AE's to increment the entity's level up by 1
 	public void incLevel() {
-		if (level < 5)
+		if (level < MAX_LEVEL)
 			level++;
 	}
 

@@ -59,7 +59,7 @@ public class Tile implements Cloneable {
 		return this.ae;
 	}
 
-	void setAreaEffect(AreaEffect ae) {
+	public void setAreaEffect(AreaEffect ae) {
 		this.ae = ae;
 	}
 
@@ -67,7 +67,7 @@ public class Tile implements Cloneable {
 		return this.decal;
 	}
 
-	void setDecal(Decal decal) {
+	public void setDecal(Decal decal) {
 		this.decal = decal;
 	}
 
