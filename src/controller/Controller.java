@@ -138,7 +138,8 @@ public class Controller extends JComponent implements MouseListener {
 		this.getActionMap().put("SaveGame", new ActionCommand(model, new Command() {
 			public void execute(Model model) {
 				JFileChooser chooser = new JFileChooser(); 
-				
+				chooser.setApproveButtonText("Save");
+				chooser.setDialogTitle("Save");
 				int status = chooser.showOpenDialog(null);
 				    
 				if(status == JFileChooser.APPROVE_OPTION) {
