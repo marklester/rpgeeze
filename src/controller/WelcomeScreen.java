@@ -19,6 +19,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import model.Occupation;
 import model.Smasher;
@@ -27,6 +29,8 @@ import model.Sneak;
 import util.ResourceLoader;
 
 public class WelcomeScreen extends JFrame {
+	public Scanner scanner = null;
+	
 	private String action = new String("");
 	private JPanel panel = new JPanel(new BorderLayout());
 	private JPanel p1 = new JPanel(new FlowLayout());
@@ -81,6 +85,14 @@ public class WelcomeScreen extends JFrame {
 							WelcomeScreen.this.setVisible(false);
 							WelcomeScreen.this.notifyAll();
 							WelcomeScreen.this.dispose();
+							try {
+								scanner = new Scanner(selectedFile);
+							}
+							catch(FileNotFoundException ex) {
+							}
+							if(scanner != null) {
+								WelcomeScreen.this.notifyAll();
+							}
 					    }
 					} 
 					else if(status == JFileChooser.CANCEL_OPTION) {
