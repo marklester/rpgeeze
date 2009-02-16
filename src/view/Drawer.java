@@ -20,12 +20,14 @@ import model.WaterTerrain;
 import model.item.*;
 import util.ContinuousIterator;
 import util.Iterator;
+import util.MultiplyIterator;
 import util.Observer;
 import util.Subject;
 import util.ResourceLoader;
 
 public class Drawer implements Observer {
-
+	private final static int SLOW_DOWN_FACTOR = 2;
+	
 	public class Constraint {
 		public int minX;
 		public int minY;
@@ -71,34 +73,26 @@ public class Drawer implements Observer {
 		
 		statsView = new StatView(ResourceLoader.getInstance().getImage("img/statsviewbg.jpg"));
 		//inventoryView = new InventoryView();
-
-		avatar.put(Direction.NORTH, new ContinuousIterator<Image>(
+	
+		avatar.put(Direction.NORTH, new MultiplyIterator<Image>(new ContinuousIterator<Image>(
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth1.png"),
-			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth1.png"),
-			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth2.png"),
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth2.png")
-		));
+		), SLOW_DOWN_FACTOR));
 
-		avatar.put(Direction.SOUTH, new ContinuousIterator<Image>(
+		avatar.put(Direction.SOUTH, new MultiplyIterator<Image>(new ContinuousIterator<Image>(
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkSouth1.png"),
-			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkSouth1.png"),
-			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkSouth2.png"),
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkSouth2.png")
-		));
+		), SLOW_DOWN_FACTOR));
 		
-		avatar.put(Direction.EAST, new ContinuousIterator<Image>(
+		avatar.put(Direction.EAST, new MultiplyIterator<Image>(new ContinuousIterator<Image>(
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkEast1.png"),
-			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkEast1.png"),
-			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkEast2.png"),
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkEast2.png")
-		));
+		), SLOW_DOWN_FACTOR));
 
-		avatar.put(Direction.WEST, new ContinuousIterator<Image>(
+		avatar.put(Direction.WEST, new MultiplyIterator<Image>(new ContinuousIterator<Image>(
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkWest1.png"),
-			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkWest1.png"),
-			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkWest2.png"),
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkWest2.png")
-		));
+		), SLOW_DOWN_FACTOR));
 
 		avatar.put(Direction.NORTHEAST, avatar.get(Direction.NORTH));
 		avatar.put(Direction.NORTHWEST, avatar.get(Direction.NORTH));
