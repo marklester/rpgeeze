@@ -30,7 +30,7 @@ public class AudioThread extends Thread {
 		                    try {
 		                        Thread.sleep(1000); // Check every second
 		                    } catch(InterruptedException ignore) {
-		                        break;
+		                        this.interrupt();
 		                    }
 		                } else {
 		                    break;
