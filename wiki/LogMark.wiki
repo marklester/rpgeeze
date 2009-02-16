@@ -24,5 +24,5 @@
  * Inventory, Console
 2/15/09 11:00-17:00
  * Working on Console, Inventory
-2/15/09 20-tilfinish
- * Working on Console, Graphics
+2/15/09 20-27
+ * Working on Console, Graphics, One Shot Item
