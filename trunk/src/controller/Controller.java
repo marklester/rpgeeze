@@ -143,7 +143,7 @@ public class Controller extends JComponent implements MouseListener {
 
 	// Keeping one instance of controller
 	public static Controller createController(Model model, View view) {
-		if(controller == null)
+		//if(controller == null)
 			controller = new Controller(model, view);
 		return controller;
 	}

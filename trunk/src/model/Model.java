@@ -120,44 +120,10 @@ public class Model implements util.Subject {
 			avatar.moveAvatar(d.toLocation());
 	}
 
-//	private void moveAvatar(Direction d) {
-//		Tile from = this.avatar.getTile();
-//		if (from.hasAE())
-//			from.getAE().setMessageFlag(false);
-//		int newX = from.getLocation().getX() + d.getX();
-//		int newY = from.getLocation().getY() + d.getY();
-//		Tile to = this.map.getTile(newX, newY);
-//
-//		// watch out for race conditions here
-//		to.accept(this.avatar);
-//		this.avatar.setFacingDirection(d);
-//	}
-
-	// MouseMoveCommand
 	public void mouseOnscreenAt(int x, int y) {
 		// Drawer.getTileFromPosition(x,y) or isOver(someMenu/Inventory)
 		// Make some high level decision about pressing on screen buttons
 	}
-
-	// MouseClickedCommand
-	// public void mouseClickedAt(int x, int y)
-	// {
-	// if(avatar.getInventory().isVisible() &&
-	// avatar.getInventory().isOnInventory(x, y)) {}
-	// //avatar.getInventory().click(x, y);
-	// //System.out.println("clicked inventory space");
-	// }
-	
-	// Why is Model dealing with mouse clicks?
-
-	
-//	public void equipItem(int index) {
-//		this.avatar.equipItem(index);
-//	}
-
-//	public void uneqipItem(int where) {
-//		this.avatar.unequipItem(where);
-//	}
 
 	public void dropItem() {
 		this.avatar.dropItem();
@@ -167,24 +133,9 @@ public class Model implements util.Subject {
 		return isPaused;
 	}
 	
-	public void endGame() {
-		isPaused = true;
-		WelcomeScreen welcome = new WelcomeScreen();
-		
-		synchronized(welcome) {
-			try {
-				welcome.wait();
-			}
-			catch(InterruptedException e) {}
-		}
-		avatar.getTile().releaseEntity();
-		
-		if(welcome.getAction().equals("New")) {
-			restartGame();
-			this.update();
-		}
-		else if(welcome.getAction().equals("Quit"))
-			System.exit(0);
+	public void endGame()
+	{
+		Thread.currentThread().interrupt();
 	}
 	
 	private void restartGame() {
