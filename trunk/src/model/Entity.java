@@ -169,13 +169,13 @@ public class Entity implements Drawable, Cloneable {
 			inventory.addItem(equipment.armor);
 		equipment.armor = null;
 	}
-	public void unequipWeapon()
-	{
+	public void unequipWeapon() {
 		if(equipment.weapon != null)
 			inventory.addItem(equipment.weapon);
 		equipment.weapon = null;
 	}
-	public void unequipAuxiliary() 	{
+	
+	public void unequipAuxiliary() {
 		if(equipment.auxiliary != null)
 			inventory.addItem(equipment.auxiliary);
 		equipment.auxiliary = null;
