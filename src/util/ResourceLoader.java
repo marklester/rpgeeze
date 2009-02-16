@@ -48,7 +48,12 @@ public class ResourceLoader {
 		audios.put("Instant Death", "audio/evilLaugh.wav");
 		
 		images.put("Intro Image",getImage("img/IntroOccupationTypes.png"));
-		
+		images.put("New Game Button",getImage("img/buttons/NewGame.png"));
+		images.put("Load Game Button",getImage("img/buttons/LoadGame.png"));
+		images.put("Quit Game Button",getImage("img/buttons/QuitGame.png"));
+		images.put("Smasher Button",getImage("img/buttons/Smasher.png"));
+		images.put("Summoner Button",getImage("img/buttons/Summoner.png"));
+		images.put("Sneak Button",getImage("img/buttons/Sneak.png"));
 	}
 	
 	
