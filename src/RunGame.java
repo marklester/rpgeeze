@@ -2,6 +2,7 @@ import model.Entity;
 import model.Map;
 import model.Model;
 import model.Occupation;
+import view.AudioThread;
 import view.Time;
 import view.View;
 import controller.WelcomeScreen;
@@ -35,6 +36,10 @@ public class RunGame {
 	public static WelcomeScreen welcome = null;
 	
 	public static void main(String[] arg) {
+		
+		AudioThread at = new AudioThread();
+		at.start();
+		
 		String w = new String("");
 		
 		while(!Thread.interrupted()) {
