@@ -45,6 +45,8 @@ public class ResourceLoader {
 		
 		audios.put("Instant Death", "audio/evilLaugh.wav");
 		
+		images.put("Intro Image",getImage("img/IntroOccupationTypes.png"));
+		
 	}
 	
 	
