@@ -8,13 +8,10 @@ package model;
  */
 
 //import util.*;
-import java.awt.Point;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import model.item.Item;
-import view.Drawer;
 import util.Iterator;
 
 public class Inventory implements Cloneable {
@@ -67,7 +64,7 @@ public class Inventory implements Cloneable {
 	
 	public synchronized Inventory clone() {
 		Inventory clone = new Inventory();
-		for(Item i: items) clone.addItem(i.clone());
+		for(Item i: items) clone.addItem(i);
 		return clone;
 	}
 

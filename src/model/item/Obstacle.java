@@ -8,8 +8,8 @@ import model.Location;
 import model.Entity;
 
 public abstract class Obstacle extends Item {
-	public Obstacle(String name, Location location) {
-		super(name, location);
+	public Obstacle(String name) {//, Location location) {
+		super(name);//, location);
 	}
 
 	public boolean isPassable() {
