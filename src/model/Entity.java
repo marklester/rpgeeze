@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Color;
+
 import model.item.Item;
 import view.Console;
 import view.Drawable;
@@ -72,7 +74,7 @@ public class Entity implements Drawable, Cloneable {
 				Console.getInstance().writeLine("Inventory Full");
 			else {
 				String message = item + " has been added to your Inventory.";
-				Console.getInstance().writeLine(message);
+				Console.getInstance().writeLine(message,Color.YELLOW);
 				tile.setItem(null);
 			}
 		}
