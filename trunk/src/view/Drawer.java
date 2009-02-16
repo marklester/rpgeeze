@@ -46,7 +46,7 @@ public class Drawer implements Observer {
 
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar, redCross, skullAndCrossbones;
-	private static Image boulder, sword, potionlife, crossbow, shield, redArmor, boots, arrows, mana;
+	private static Image boulder, sword, potionlife, crossbow, shield, redArmor, boots, arrows, mana,helmet;
 	private static StatView statsView;
 	private static InventoryView inventoryView;
 
@@ -77,6 +77,7 @@ public class Drawer implements Observer {
 		boots = ResourceLoader.getInstance().getImage("img/boots.png");
 		arrows = ResourceLoader.getInstance().getImage("img/arrows.png");
 		mana = ResourceLoader.getInstance().getImage("img/mana.png");
+		helmet = ResourceLoader.getInstance().getImage("img/helmet.png");
 		
 		statsView = new StatView(ResourceLoader.getInstance().getImage("img/statsviewbg.jpg"));
 		//inventoryView = new InventoryView();
@@ -241,6 +242,10 @@ public class Drawer implements Observer {
 
 	public void drawMana(Mana item) {
 		doDrawImage(mana);
+	}
+	
+	public void drawHelmet(Helmet item) {
+		doDrawImage(helmet);
 	}
 	public boolean isOnInventory(Point p) {
 		return inventoryView.isOnInventory(p);
