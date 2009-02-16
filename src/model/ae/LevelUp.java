@@ -16,9 +16,14 @@ public class LevelUp extends AreaEffect {
 
 	public void applyEffect(Entity e) {
 		if (!f_msg_was_sent) {
-			e.getStats().incLevel();
-			Console.getInstance().writeLine("Woohoo! You leveled up!");
-			f_msg_was_sent = true;			
+			e.getStats().getPrimary().setExperience(e.getStats().getLevel() * e.getStats().getLevel() * 5);
+			e.getStats().calculateLevel();
+		
+			if(e.getStats().getLevel() < 5 )
+			{
+			 Console.getInstance().writeLine("Woohoo! You leveled up!");
+			 f_msg_was_sent = true;
+			}
 		}
 	}
 
