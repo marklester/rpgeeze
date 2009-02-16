@@ -2,16 +2,16 @@ import model.Entity;
 import model.Map;
 import model.Model;
 import model.Occupation;
-import model.PrimaryStats;
-import model.Smasher;
-import model.Sneak;
-import model.Summoner;
-import model.Stats;
 import view.Time;
 import view.View;
 import controller.WelcomeScreen;
 import util.ResourceLoader;
 import javax.swing.JFileChooser;
+
+import java.awt.DisplayMode;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.io.File;
 
 
@@ -32,43 +32,58 @@ public class RunGame {
 	/**
 	 * Starts a new game. See the description above for what happens.
 	 */
-
+	public static WelcomeScreen welcome = null;
 	public static void main(String[] arg) {
-		Occupation o = null;
 		String w = new String("");
+		
 		while(true)
 		{
 			 w = getWelcome();
-			if(w.equals("Load Game"))
+			if(w.equals("Load"))
 			{
 				String message = loadGame();
 				if(message.equals("Open"))
 				{
 				 break;
 				}
+				
 			}
-			else if(w.equals("Quit Game"))
+			else if(w.equals("Quit"))
 			{
 				break;
 			}
-			else if(w.equals("Smasher") || w.equals("Summoner")  || w.equals("Sneak"))
+			else if(w.equals("New"))
 			{
-				if (w.equals("Smasher")) o = new Smasher(new Stats(1,100,20,15,(new PrimaryStats(3,20,5,5,2,1))));
-				else if (w.equals("Summoner")) o = new Summoner(new Stats(1,100,20,15,new PrimaryStats(3,5,5,20,2,1)));
-				else if (w.equals("Sneak")) o = new Sneak(new Stats(1,100,20,15,new PrimaryStats(3,5,20,5,2,1)));
 				break;
 			}
 		}
 		
-		if(w.equals("Smasher") || w.equals("Summoner")  || w.equals("Sneak"))
+		if(w.equals("New"))
 		{
-			newGame(o);
+			welcome.initOcc();
+			synchronized(welcome) {
+				try {
+					welcome.wait();
+				}
+				catch(InterruptedException e) {
+					
+				}
+			}
+			newGame(welcome.getOccupation());
 		}
 	}
 
 	
 	public static String getWelcome() {
-		WelcomeScreen welcome = new WelcomeScreen();
+
+		GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		GraphicsConfiguration gc = dev.getDefaultConfiguration();
+		DisplayMode mode = new DisplayMode(1024, 768, 32, DisplayMode.REFRESH_RATE_UNKNOWN);
+		if(dev.isDisplayChangeSupported()) {
+			welcome = new WelcomeScreen(gc);
+			dev.setDisplayMode(mode);
+		} else
+			welcome = new WelcomeScreen();
 		synchronized(welcome) {
 			try {
 				welcome.wait();
@@ -80,9 +95,9 @@ public class RunGame {
 		return welcome.getAction();
 	}
 	
-	public static void newGame(Occupation o)
+	public static void newGame(Occupation occ)
 	{
-		 Entity avatar = new Entity(o);
+		 Entity avatar = new Entity(occ);
 		 Map map = Map.fromStream(ResourceLoader.getInstance().getStream("map.xml"));
 		 Model model = new Model(map, avatar);
 
@@ -107,8 +122,7 @@ public class RunGame {
 		     message = "Open";
 		    } else if (status == JFileChooser.CANCEL_OPTION) {
                 message = "Cancel";
-                
-
+              
 		    }
 		    return message;
 	}
