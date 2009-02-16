@@ -139,49 +139,23 @@ public class WelcomeScreen extends JFrame {
 	
 	public void initOcc() {
 		JPanel p2 = new JPanel(new FlowLayout());
-		JButton smasher = new JButton(new ImageIcon(ResourceLoader.getInstance().getImage("img/buttons/Smasher.png")));
-		smasher.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				synchronized(WelcomeScreen.this) {
-					setOccupation(new Smasher());
-					WelcomeScreen.this.notifyAll();
-				}
-			}
-		});
-		smasher.setBackground(mainScreenColor);
-		smasher.setBorderPainted(false);
-		smasher.setBorder(buttonBorder);
-
-		JButton summoner = new JButton(new ImageIcon(ResourceLoader.getInstance().getImage("img/buttons/Summoner.png")));
-		summoner.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				synchronized(WelcomeScreen.this) {
-					setOccupation(new Summoner());
-					WelcomeScreen.this.notifyAll();
-				}
-			}
-		});
-		summoner.setBackground(mainScreenColor);
-		summoner.setBorderPainted(false);
-		summoner.setBorder(buttonBorder);
 		
-		JButton sneak = new JButton(new ImageIcon(ResourceLoader.getInstance().getImage("img/buttons/Sneak.png")));
-		sneak.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				synchronized(WelcomeScreen.this) {
-					setOccupation(new Sneak());
-					WelcomeScreen.this.notifyAll();
+		for(final Occupation occ: new Occupation[] {new Smasher(), new Summoner(), new Sneak()}) {
+			JButton button = new JButton(new ImageIcon(ResourceLoader.getInstance().getImage("img/buttons/" + occ.toString() + ".png")));
+			button.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					synchronized(WelcomeScreen.this) {
+						setOccupation(occ);
+						WelcomeScreen.this.notifyAll();
+					}
 				}
-			}
-		});
-
-		sneak.setBackground(mainScreenColor);
-		sneak.setBorderPainted(false);
-		sneak.setBorder(buttonBorder);
+			});
+			button.setBackground(mainScreenColor);
+			button.setBorderPainted(false);
+			button.setBorder(buttonBorder);
+			p2.add(button);
+		}
 		
-		p2.add(smasher);
-		p2.add(summoner);
-		p2.add(sneak);
 		p2.setBackground(new Color(254, 72, 72));
 		 
 		panel.remove(p1);
