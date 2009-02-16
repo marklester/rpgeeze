@@ -28,11 +28,12 @@ import util.ResourceLoader;
 
 public class WelcomeScreen extends JFrame {
 	private String action = new String("");
-	JPanel panel = new JPanel(new BorderLayout());
-    JPanel p1 = new JPanel(new FlowLayout());
-    Occupation occ = null;
-    Color mainScreenColor = new Color(254,72,72);
-    Border buttonBorder = new LineBorder(mainScreenColor, 0);
+	private JPanel panel = new JPanel(new BorderLayout());
+	private JPanel p1 = new JPanel(new FlowLayout());
+
+	private Occupation occ = null;
+    private Color mainScreenColor = new Color(254,72,72);
+    private Border buttonBorder = new LineBorder(mainScreenColor, 0);
     
 	public WelcomeScreen(GraphicsConfiguration gc) {
 		super("rpgeeze",gc);
@@ -110,13 +111,11 @@ public class WelcomeScreen extends JFrame {
 		quitGame.setContentAreaFilled(false);
 		quitGame.setBorderPainted(false);
 		quitGame.setBorder(buttonBorder);
-		
-	
+			
 		p1.add(newGame);
 		p1.add(loadGame);
 		p1.add(quitGame);
 
-		
 		p1.setBackground(mainScreenColor);
 		panel.setBackground(mainScreenColor);
 		panel.add(p1, BorderLayout.SOUTH);
@@ -132,9 +131,7 @@ public class WelcomeScreen extends JFrame {
 		pack();
 		setSize(new Dimension(screen.width, screen.height));
 		
-		setVisible(true);
-		
-		
+		setVisible(true);		
 	}
 	
 	public void initOcc() {
