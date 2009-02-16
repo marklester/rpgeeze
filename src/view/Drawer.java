@@ -46,12 +46,13 @@ public class Drawer implements Observer {
 
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar, redCross, skullAndCrossbones;
-	private static Image boulder, sword, potionlife, crossbow, shield, redArmor, boots, arrows, mana,helmet;
+	private static Image boulder, sword, potionlife, crossbow, shield, redArmor, boots, arrows, mana;
+	private static Image portal, healthPack,helmet;
 	private static StatView statsView;
 	private static InventoryView inventoryView;
 
-	private static Hashtable<Pair<Occupation, Direction>, Iterator<Image>> avatar = new Hashtable<Pair<Occupation, Direction>, Iterator<Image>>();
-//	private static Hashtable<Direction, Iterator<Image>> avatar = new Hashtable<Direction, Iterator<Image>>();
+//	private static Hashtable<Pair<Occupation, Direction>, Iterator<Image>> avatar = new Hashtable<Pair<Occupation, Direction>, Iterator<Image>>();
+	private static Hashtable<Direction, Iterator<Image>> avatar = new Hashtable<Direction, Iterator<Image>>();
 	private final Queue<Map.Matrix> mapStateQueue = new LinkedList<Map.Matrix>();
 
 	private Graphics2D graphics;// For Transparency
@@ -77,39 +78,40 @@ public class Drawer implements Observer {
 		boots = ResourceLoader.getInstance().getImage("img/boots.png");
 		arrows = ResourceLoader.getInstance().getImage("img/arrows.png");
 		mana = ResourceLoader.getInstance().getImage("img/mana.png");
-		helmet = ResourceLoader.getInstance().getImage("img/helmet.png");
+		
+		portal = ResourceLoader.getInstance().getImage("img/portal20px.png");
+		healthPack = ResourceLoader.getInstance().getImage("img/healthpack20px.png");
+		
 		
 		statsView = new StatView(ResourceLoader.getInstance().getImage("img/statsviewbg.jpg"));
 		//inventoryView = new InventoryView();
 	
-		for(Occupation occ: new Occupation[] {new Smasher(), new Summoner(), new Sneak()}) {
-			String s = occ.toString().toLowerCase();
+//		for(Occupation occ: new Occupation[] {new Summoner() } )
 			
-			avatar.put(new Pair<Occupation, Direction>(occ, Direction.NORTH), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
-				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkNorth1.png"),
-				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkNorth2.png")
-			), SLOW_DOWN_FACTOR));
-	
-			avatar.put(new Pair<Occupation, Direction>(occ, Direction.SOUTH), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
-				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkSouth1.png"),
-				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkSouth2.png")
-			), SLOW_DOWN_FACTOR));
-			
-			avatar.put(new Pair<Occupation, Direction>(occ, Direction.EAST), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
-				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkEast1.png"),
-				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkEast2.png")
-			), SLOW_DOWN_FACTOR));
-	
-			avatar.put(new Pair<Occupation, Direction>(occ, Direction.WEST), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
-					ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkWest1.png"),
-					ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkWest2.png")
-			), SLOW_DOWN_FACTOR));
-	
-			avatar.put(new Pair<Occupation, Direction>(occ, Direction.NORTHEAST), avatar.get(new Pair<Occupation, Direction>(occ, Direction.NORTH)));
-			avatar.put(new Pair<Occupation, Direction>(occ, Direction.NORTHWEST), avatar.get(new Pair<Occupation, Direction>(occ, Direction.NORTH)));
-			avatar.put(new Pair<Occupation, Direction>(occ, Direction.SOUTHEAST), avatar.get(new Pair<Occupation, Direction>(occ, Direction.SOUTH)));
-			avatar.put(new Pair<Occupation, Direction>(occ, Direction.SOUTHWEST), avatar.get(new Pair<Occupation, Direction>(occ, Direction.SOUTH)));
-		}
+		avatar.put(Direction.NORTH, new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth2.png")
+		), SLOW_DOWN_FACTOR));
+
+		avatar.put(Direction.SOUTH, new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkSouth1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkSouth2.png")
+		), SLOW_DOWN_FACTOR));
+		
+		avatar.put(Direction.EAST, new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkEast1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkEast2.png")
+		), SLOW_DOWN_FACTOR));
+
+		avatar.put(Direction.WEST, new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkWest1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkWest2.png")
+		), SLOW_DOWN_FACTOR));
+
+		avatar.put(Direction.NORTHEAST, avatar.get(Direction.NORTH));
+		avatar.put(Direction.NORTHWEST, avatar.get(Direction.NORTH));
+		avatar.put(Direction.SOUTHEAST, avatar.get(Direction.SOUTH));
+		avatar.put(Direction.SOUTHWEST, avatar.get(Direction.SOUTH));
 	}
 
 	public static Drawer getInstance() {
@@ -118,7 +120,8 @@ public class Drawer implements Observer {
 		return drawerInstance;
 	}
 
-	public void setInventoryView(InventoryView iv) {
+	public void setInventoryView(InventoryView iv)
+	{
 		inventoryView = iv;
 	}
 	
@@ -191,7 +194,7 @@ public class Drawer implements Observer {
 	}
 
 	public void drawEntity(Entity entity) {
-		Iterator<Image> iter = avatar.get(new Pair<Occupation, Direction>(entity.getOccupation(), entity.getFacingDirection()));
+		Iterator<Image> iter = avatar.get(entity.getFacingDirection());
 		doDrawImage(iter.current());
 		iter.advance();
 	}
@@ -243,7 +246,9 @@ public class Drawer implements Observer {
 	public void drawMana(Mana item) {
 		doDrawImage(mana);
 	}
-	
+	public void drawPortal(PortalItem item) {
+		doDrawImage(portal);
+	}
 	public void drawHelmet(Helmet item) {
 		doDrawImage(helmet);
 	}
