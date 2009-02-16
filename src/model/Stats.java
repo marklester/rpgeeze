@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Stats implements Cloneable {
-	private static final Pattern pattern = Pattern.compile("<stats><level>(.*)</level><life>(.*)<life><mana>(.*)</mana><offensiveRating>(.*)</offensiveRating><defensiveRating>(.*)</defensiveRating><armorRating>(.*)</armorRating><movement>(.*)</movement>(<primaryStats>.*</primaryStats>)</stats>");
+	private static final Pattern pattern = Pattern.compile("<stats><level>(.*)</level><life>(.*)</life><mana>(.*)</mana><offensiveRating>(.*)</offensiveRating><defensiveRating>(.*)</defensiveRating><armorRating>(.*)</armorRating><movement>(.*)</movement>(<primaryStats>.*</primaryStats>)</stats>");
 	
 	// measures how good the entity is at her occupation;based on experience
 	// between 1-5

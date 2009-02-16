@@ -8,8 +8,13 @@ import view.Drawable;
 import view.Drawer;
 import util.Iterator;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Entity implements Drawable, Cloneable {
-	private Map map;
+	private static final Pattern pattern = Pattern.compile("<entity>(<stats>.*</stats>)(<occupation>.*</occupation>)(<inventory>.*</inventory>)(<equipment>.*</equipment>)(<tile>.*</tile>)<facing>(.*)</facing></entity>");
+	
+	Map map;
 	private Stats stats;
 	private Occupation occupation;
 	private Inventory inventory;
@@ -25,11 +30,14 @@ public class Entity implements Drawable, Cloneable {
 	// Name
 	// EquippedItems
 	
+	private Entity() {
+	}
+	
 	public Entity(Occupation occupation, Map map) {
 		this.map = map;
 		this.inventory = new Inventory();
-		this.stats = (Stats) occupation.stats.clone();
 		this.occupation = occupation;
+		this.stats = (Stats) occupation.stats.clone();
 		this.equipment = new Equipment();
 	}
 
@@ -268,8 +276,24 @@ public class Entity implements Drawable, Cloneable {
 		sb.append(inventory.toXml(indent + "\t") + "\n");
 		sb.append(equipment.toXml(indent + "\t") + "\n");
 		sb.append(tile.toXml(indent + "\t") + "\n");
+		sb.append(indent + "\t<facing>\n");
+		sb.append(facing.toLocation().toXml(indent + "\t\t") + "\n");
+		sb.append(indent + "\t</facing>\n");
 		sb.append(indent + "</entity>");
 		return sb.toString();
 	}
-
+	
+	public static Entity fromXml(String xml) {
+		Matcher mat = pattern.matcher(xml);
+		if(!mat.matches())
+			throw new RuntimeException("Bad XML for Entity");
+		Entity ret = new Entity();
+		ret.stats = Stats.fromXml(mat.group(1));
+		ret.occupation = Occupation.fromXml(mat.group(2));
+		ret.inventory = Inventory.fromXml(mat.group(3));
+		ret.equipment = Equipment.fromXml(mat.group(4));
+		ret.tile = Tile.fromXml(mat.group(5));
+		ret.facing = Location.fromXml(mat.group(6)).closestDirection();
+		return ret;
+	}
 }
