@@ -171,5 +171,33 @@ public class Stats implements Cloneable {
 		return this.primaryStats;
 	}
 	
+	public String toXml() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<stats>");
+		sb.append("<level>");
+		sb.append(level);
+		sb.append("</level>");
+		sb.append("<life>");
+		sb.append(life);
+		sb.append("</life>");
+		sb.append("<manna>");
+		sb.append(mana);
+		sb.append("</mana>");
+		sb.append("<offensiveRating>");
+		sb.append(offensiveRating);
+		sb.append("</offensiveRating>");
+		sb.append("<defensiveRating>");
+		sb.append(defensiveRating);
+		sb.append("</defensiveRating>");
+		sb.append("<armorRating>");
+		sb.append(armorRating);
+		sb.append("</armorRating>");
+		sb.append("<movement>");
+		sb.append(movement);
+		sb.append("</movement>");
+		sb.append(primaryStats.toXml());
+		sb.append("</stats>");
+		return sb.toString();
+	}
 	
 }
