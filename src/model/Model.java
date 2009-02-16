@@ -3,18 +3,20 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import util.Observer;
-import util.ResourceLoader;
 
 public class Model implements util.Subject {
+	private final static Pattern pattern = Pattern.compile("<model>(<map>.*</map>)(<entity>.*</entity>)</model>");
+
 	protected final Queue<Command> commands = new LinkedList<Command>();
 	protected final List<Observer> observers = new LinkedList<Observer>();
 
 	private Map.Matrix snapshot;
 
-	private Entity avatar;
+	private final Entity avatar;
 	private Map map;
 	private final Location avatarStart;
 	private boolean paused;
@@ -98,7 +100,6 @@ public class Model implements util.Subject {
 		return this.snapshot;
 	}
 
-	// MoveCommand
 	public Entity getAvatar() {
 		return this.avatar;
 	}
@@ -111,12 +112,12 @@ public class Model implements util.Subject {
 	public boolean isPaused() {
 		return paused;
 	}
-	public void pause()
-	{
+	
+	public void pause() {
 		paused = true;
 	}
-	public void unPause()
-	{
+	
+	public void unPause() {
 		paused = false;
 	}
 	
@@ -130,5 +131,27 @@ public class Model implements util.Subject {
 		avatar.resetStats(numOfLives); //reset all stats, except num of lives - that shouldn't be reset!
 		avatar.unequipAll();
 		avatar.move(to.subtract(from));
+	}
+	
+	public String toXml() {
+		return toXml("");
+	}
+	
+	public String toXml(String indent) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(indent + "<model>\n");
+		sb.append(map.toXml(indent + "\t") + "\n");
+		sb.append(avatar.toXml(indent + "\t") + "\n");
+		sb.append(indent + "</model>");
+		return sb.toString();
+	}
+	
+	public static Model fromXml(Occupation occ, String xml) {
+		Matcher mat = pattern.matcher(xml);
+		if(!mat.matches())
+			throw new RuntimeException("Bad XML for Model");
+		Map map = Map.fromXml(mat.group(1));
+		Entity avatar = Entity.fromXml(occ, map, mat.group(2));
+		return new Model(map, avatar);
 	}
 }
