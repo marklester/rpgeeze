@@ -28,14 +28,13 @@ public class Model implements util.Subject {
 		this.map = map;
 		this.avatar = avatar;
 		isPaused = false;
-		// The following code should probably be moved elsewhere. -- Miorel
+
 		Scanner scanner = ResourceLoader.getInstance().getScanner("entities.txt");
 		int x = scanner.nextInt();
 		int y = scanner.nextInt();
-		avatarStart = new Location(x,y);
+		avatarStart = new Location(x, y);
 		Tile tile = map.getTile(x, y);
-		tile.setEntity(avatar);
-		avatar.setTile(tile);
+		tile.accept(avatar);
 	}
 
 	public Map getMap() {

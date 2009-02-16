@@ -5,24 +5,24 @@ package model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
-import model.Location;
 import view.Drawer;
+import model.Entity;
 
 public class Mana extends TakeableItem {
 
-	public Mana() {//Location location) {
-		super("Mana");//, location);
+	public Mana() {
+		super("Mana");
 	}
 
 	public void draw(Drawer d) {
 		d.drawMana(this);
 	}
-	public void activate(model.Entity e)
-	{
+	
+	public void activate(Entity e) {
 		use(e);
 	}
-	private void use(model.Entity e)
-	{
+
+	private void use(Entity e) {
 		
 	}
 }

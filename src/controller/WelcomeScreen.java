@@ -12,8 +12,10 @@ import javax.swing.ImageIcon;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import view.Console;
-import model.*;
+import model.Occupation;
+import model.Smasher;
+import model.Summoner;
+import model.Sneak;
 import java.awt.Color;
 
 import java.awt.BorderLayout;

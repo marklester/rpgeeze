@@ -4,12 +4,11 @@ package model.item;
  * Makes the Tile that contains it permanently impassable.
  */
 
-import model.Location;
 import model.Entity;
 
 public abstract class Obstacle extends Item {
-	public Obstacle(String name) {//, Location location) {
-		super(name);//, location);
+	public Obstacle(String name) {
+		super(name);
 	}
 
 	public boolean isPassable() {
@@ -19,8 +18,7 @@ public abstract class Obstacle extends Item {
 	public final void activate(Entity e) {
 		use(e);
 	}
-	public void use(Entity e)
-	{
-		
+	
+	public void use(Entity e) {
 	}
 }

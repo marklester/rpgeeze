@@ -36,7 +36,7 @@ public class ResourceLoader {
 		this.items = new Hashtable<String,String>(); //Modify this to set Item Images
 		this.audios = new Hashtable<String,String>();
 		items.put("Boulder", "img/terrain20px/Boulder.png");
-		items.put("Cross Bow", "img/crossbow.png");
+		items.put("Crossbow", "img/crossbow.png");
 		items.put("Sword", "img/sword.png");
 		items.put("Potion Life", "img/potionlife.png");
 		items.put("Red Armor", "img/redarmor.png");
@@ -51,17 +51,17 @@ public class ResourceLoader {
 		audios.put("Instant Death", "audio/evilLaugh.wav");
 		audios.put("Portal Item", "audio/elevator.wav");
 		
-		images.put("Intro Image",getImage("img/IntroOccupationTypes.png"));
-		images.put("New Image",getImage("img/buttons/NewGame.png"));
-		images.put("Load Image",getImage("img/buttons/LoadGame.png"));
-		images.put("Quit Image",getImage("img/buttons/QuitGame.png"));
-		images.put("Smasher",getImage("img/buttons/Smasher.png"));
-		images.put("Summoner",getImage("img/buttons/Summoner.png"));
-		images.put("Sneak",getImage("img/buttons/Sneak.png"));
+		images.put("Intro Image", getImage("img/IntroOccupationTypes.png"));
+		images.put("New Image", getImage("img/buttons/NewGame.png"));
+		images.put("Load Image", getImage("img/buttons/LoadGame.png"));
+		images.put("Quit Image", getImage("img/buttons/QuitGame.png"));
+		
+		images.put("Smasher", getImage("img/buttons/Smasher.png"));
+		images.put("Summoner", getImage("img/buttons/Summoner.png"));
+		images.put("Sneak", getImage("img/buttons/Sneak.png"));
 		
 	}
-	
-	
+		
 	/**
 	 * Returns the singleton instance of this class.
 	 */
@@ -88,6 +88,7 @@ public class ResourceLoader {
 		}
 		return ret;
 	}
+
 	public Image getItemImage(String key){
 		return getImage(items.get(key));
 	}
@@ -109,6 +110,7 @@ public class ResourceLoader {
 	 */
 	public InputStream getStream(String key) {
 		InputStream ret = loader.getResourceAsStream("res/" + key);
+//		if(key.contains("smasher")) System.out.println(key + ": " + ret);
 		return ret;
 	}
 

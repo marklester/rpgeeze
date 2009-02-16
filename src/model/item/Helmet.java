@@ -6,25 +6,22 @@ package model.item;
  */
 
 import model.Entity;
-import model.Location;
 import view.Drawer;
 
 public class Helmet extends TakeableItem {
-
-	public Helmet() { //Location location) {
-		super("Helmet");//, location);
+	public Helmet() {
+		super("Helmet");
 	}
 
 	public void draw(Drawer d) {
 		d.drawHelmet(this);
 	}
 	
-	@Override
 	public void activate(Entity e) {
 		use(e);
 	}
-	public void use(Entity e)
-	{
+
+	public void use(Entity e) {
 		e.equipHead(this);
 	}
 }

@@ -34,20 +34,14 @@ import util.ResourceLoader;
 public class Drawer implements Observer {
 	private final static int SLOW_DOWN_FACTOR = 2;
 	
-	public class Constraint {
-		public int minX;
-		public int minY;
-		public int maxX;
-		public int maxY;
-	}
-
 	// Drawer Singleton
 	private static Drawer drawerInstance;
 
 	private static Image grassTerrain, mountainTerrain, waterTerrain;
 	private static Image goldStar, redCross, skullAndCrossbones;
 	private static Image boulder, sword, potionlife, crossbow, shield, redArmor, boots, arrows, mana;
-	private static Image portal, healthPack,helmet;
+	private static Image portal, healthPack, helmet;
+
 	private static StatView statsView;
 	private static InventoryView inventoryView;
 
@@ -120,8 +114,7 @@ public class Drawer implements Observer {
 		return drawerInstance;
 	}
 
-	public void setInventoryView(InventoryView iv)
-	{
+	public void setInventoryView(InventoryView iv) {
 		inventoryView = iv;
 	}
 	
@@ -157,6 +150,7 @@ public class Drawer implements Observer {
 			statsView.drawStatsView(this.graphics, avatar, width, height);
 			Console.getInstance().drawConsoleView(this.graphics, width, height);
 		}
+
 		// Inventory Stuff
 		if(view.isInventoryVisible())
 			inventoryView.drawInventoryView(this.graphics, model.getAvatar(), width, height);
@@ -199,15 +193,15 @@ public class Drawer implements Observer {
 		iter.advance();
 	}
 
-	public void drawGoldStarDecal(GoldStar decal) {
+	public void drawGoldStar(GoldStar decal) {
 		doDrawImage(goldStar);
 	}
 
-	public void drawRedCrossDecal(RedCross decal) {
+	public void drawRedCross(RedCross decal) {
 		doDrawImage(redCross);
 	}
 
-	public void drawSkullAndCrossbonesDecal(SkullAndCrossbones decal) {
+	public void drawSkullAndCrossbones(SkullAndCrossbones decal) {
 		doDrawImage(skullAndCrossbones);
 	}
 
@@ -246,15 +240,19 @@ public class Drawer implements Observer {
 	public void drawMana(Mana item) {
 		doDrawImage(mana);
 	}
+	
 	public void drawPortal(PortalItem item) {
 		doDrawImage(portal);
 	}
+	
 	public void drawHealthPack(HealthPack item) {
 		doDrawImage(healthPack);
 	}
+	
 	public void drawHelmet(Helmet item) {
 		doDrawImage(helmet);
 	}
+	
 	public boolean isOnInventory(Point p) {
 		return inventoryView.isOnInventory(p);
 	}

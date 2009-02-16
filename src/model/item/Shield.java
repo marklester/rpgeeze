@@ -6,7 +6,6 @@ package model.item;
  */
 
 import model.Entity;
-import model.Location;
 import view.Drawer;
 
 public class Shield extends TakeableItem {
@@ -17,7 +16,6 @@ public class Shield extends TakeableItem {
 	public void draw(Drawer d) {
 		d.drawShield(this);
 	}
-
 	
 	public void activate(Entity e) {
 		use(e);

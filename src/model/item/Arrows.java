@@ -6,26 +6,23 @@ package model.item;
  */
 
 import model.Entity;
-import model.Location;
 import view.Drawer;
 
 public class Arrows extends TakeableItem {
 
-	public Arrows() {//Location location) {
-		super("Arrows");//, location);
+	public Arrows() {
+		super("Arrows");
 	}
 
 	public void draw(Drawer d) {
 		d.drawArrows(this);
 	}
 
-	@Override
 	public void activate(Entity e) {
 		use(e);
 	}
-	public void use(Entity e)
-	{
+
+	public void use(Entity e) {
 		
 	}
-	
 }
