@@ -73,17 +73,15 @@ public class Map {
 
 		public Matrix clone() {
 			Matrix m = this;
-			try
-			{
+			try {
 				m = (Matrix) super.clone();
-			}catch(CloneNotSupportedException ce) { }
+			}
+			catch(CloneNotSupportedException ce) { }
 				
 			m.map = this.map.clone();
-			for(int i = 0; i < m.map.length; i++)
-			{
+			for(int i = 0; i < m.map.length; ++i) {
 				m.map[i] = this.map[i].clone();
-				for(int j = 0; j < m.map[i].length; j++)
-				{
+				for(int j = 0; j < m.map[i].length; ++j) {
 					if(this.map[i][j] != null)
 						m.map[i][j] = this.map[i][j].clone();
 					else
@@ -174,7 +172,6 @@ public class Map {
 			Location loc = tile.getLocation();
 			matrix[loc.getY()][loc.getX()] = tile;
 		}
-//		System.out.println(new Map(matrix).toXml());
 		return new Map(matrix);
 	}
 }

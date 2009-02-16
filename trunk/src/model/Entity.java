@@ -16,9 +16,9 @@ import java.util.regex.Pattern;
 public class Entity implements Drawable, Cloneable {
 	private static final Pattern pattern = Pattern.compile("<entity>(<stats>.*</stats>)(<occupation>.*</occupation>)(<inventory>.*</inventory>)(<equipment>.*</equipment>)(<tile>.*</tile>)<facing>(.*)</facing></entity>");
 	
-	public Map map;
+	private Map map;
 	private Stats stats;
-	public Occupation occupation;
+	private Occupation occupation;
 	private Inventory inventory;
 	private Tile tile = null;
 			
@@ -314,6 +314,13 @@ public class Entity implements Drawable, Cloneable {
 		ret.equipment = Equipment.fromXml(mat.group(4));
 		ret.tile = Tile.fromXml(mat.group(5));
 		ret.facing = Location.fromXml(mat.group(6)).closestDirection();
+		return ret;
+	}
+
+	public static Entity fromXml(Occupation occ, Map map, String xml) {
+		Entity ret = fromXml(xml);
+		ret.occupation = occ;
+		ret.map = map;
 		return ret;
 	}
 }
