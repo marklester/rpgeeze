@@ -91,9 +91,9 @@ public class RunGame {
 	}
 	
 	public static void newGame(Occupation occ)
-	{
-		 Entity avatar = new Entity(occ);
+	{		 
 		 Map map = Map.fromStream(ResourceLoader.getInstance().getStream("map.xml"));
+		 Entity avatar = new Entity(occ, map);
 		 Model model = new Model(map, avatar);
 
 		 View view = new View(model);

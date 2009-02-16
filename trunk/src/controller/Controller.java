@@ -153,13 +153,13 @@ public class Controller extends JComponent implements MouseListener {
 		if(e.getButton() == MouseEvent.BUTTON1)
 			this.model.invoke(new Command() {
 				public void execute(Model m) {
-					view.mouseRightClickAt(new Point(e.getX(), e.getY()));
+					view.mouseLeftClickAt(new Point(e.getX(), e.getY()));
 				}
 			});
 		else if(e.getButton() == MouseEvent.BUTTON3)
 			this.model.invoke(new Command() {
 				public void execute(Model m) {
-					view.mouseLeftClickAt(new Point(e.getX(), e.getY()));
+					view.mouseRightClickAt(new Point(e.getX(), e.getY()));
 				}
 			});
 	}

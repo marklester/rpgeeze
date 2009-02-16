@@ -111,7 +111,7 @@ public class View extends Thread implements Observer {
 		setInventoryVisible(!isInventoryVisible());
 	}
 	
-	public void mouseRightClickAt(Point p) {
+	public void mouseLeftClickAt(Point p) {
 		
 		if(isInventoryVisible() && inventoryView.isOnEquipedItems(p))
 		{
@@ -122,20 +122,32 @@ public class View extends Thread implements Observer {
 		{
 			if(isInventoryVisible() && inventoryView.isOnInventory(p))
 			{
-				final Point index = inventoryView.click(p);
-				if(index == null) return;
+				
+				final Point point = inventoryView.click(p);			
+				if(point == null) return;
+				final int index = point.x + point.y * 6;
 				model.invoke( new Command(){
 					public void execute(Model m)
 					{
-						m.getAvatar().actionAtIndex(index);
+						m.getAvatar().equipActionAtIndex(index);
 					}
 				});
 			}
 		}
 	}
 
-	public void mouseLeftClickAt(Point p) {
-		//if(isInventoryVisible() && model.getAvatar().getInventory().isOnInventory(p))
-			//model.getAvatar().getInventory().leftClick(p);
+	public void mouseRightClickAt(Point p) {		
+		if(isInventoryVisible() && inventoryView.isOnInventory(p))
+		{
+			final Point point = inventoryView.click(p);			
+			if(point == null) return;
+			final int index = point.x + point.y * 6;
+			model.invoke( new Command(){
+				public void execute(Model m)
+				{
+					m.getAvatar().dropActionAtIndex(index);
+				}
+			});
+		}
 	}
 }
