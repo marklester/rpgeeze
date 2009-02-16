@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import util.ConsoleMessage;
+import util.ResourceLoader;
 
 public class Console {
 	private static Console instance;
@@ -48,7 +49,8 @@ public class Console {
 				ypos =ypos +55;
 				graphics.setColor(Color.black);
 				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, message_box_decay));
-				graphics.fillRoundRect(xpos, ypos, 400, 50, 5, 5);
+				graphics.drawImage(ResourceLoader.getInstance().getImage("/img/messagebg.png"), xpos, ypos, null);
+				graphics.drawRect(xpos, ypos, 400, 50);
 				
 				graphics.setColor(message.getColor());
 				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,message_decay));				
