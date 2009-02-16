@@ -338,6 +338,10 @@
 				<y>0</y>
 			</location>
 			<decal>Skull and Crossbones</decal>
+			<ae>
+				<name>Instant Death</name>
+				<rate>10</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -826,6 +830,10 @@
 				<y>1</y>
 			</location>
 			<decal>Skull and Crossbones</decal>
+			<ae>
+				<name>Instant Death</name>
+				<rate>10</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -841,6 +849,10 @@
 				<y>1</y>
 			</location>
 			<decal>Skull and Crossbones</decal>
+			<ae>
+				<name>Instant Death</name>
+				<rate>10</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -856,6 +868,10 @@
 				<y>1</y>
 			</location>
 			<decal>Skull and Crossbones</decal>
+			<ae>
+				<name>Instant Death</name>
+				<rate>10</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Water Terrain</terrain>
@@ -1005,7 +1021,7 @@
 			</location>
 			<decal>Skull and Crossbones</decal>
 			<ae>
-				<name>Take Damage</name>
+				<name>Instant Death</name>
 				<rate>10</rate>
 			</ae>
 		</tile>
@@ -1324,6 +1340,10 @@
 				<y>2</y>
 			</location>
 			<decal>Skull and Crossbones</decal>
+			<ae>
+				<name>Instant Death</name>
+				<rate>10</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -1332,6 +1352,10 @@
 				<y>2</y>
 			</location>
 			<decal>Skull and Crossbones</decal>
+			<ae>
+				<name>Instant Death</name>
+				<rate>10</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -1833,6 +1857,10 @@
 				<y>3</y>
 			</location>
 			<decal>Skull and Crossbones</decal>
+			<ae>
+				<name>Instant Death</name>
+				<rate>10</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -1841,6 +1869,10 @@
 				<y>3</y>
 			</location>
 			<decal>Skull and Crossbones</decal>
+			<ae>
+				<name>Instant Death</name>
+				<rate>10</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -1856,6 +1888,10 @@
 				<y>3</y>
 			</location>
 			<decal>Skull and Crossbones</decal>
+			<ae>
+				<name>Instant Death</name>
+				<rate>10</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -2325,6 +2361,10 @@
 				<y>4</y>
 			</location>
 			<decal>Skull and Crossbones</decal>
+			<ae>
+				<name>Instant Death</name>
+				<rate>10</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -2561,6 +2601,10 @@
 				<y>5</y>
 			</location>
 			<decal>Gold Star</decal>
+			<ae>
+				<name>Level Up</name>
+				<rate>10</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -6025,10 +6069,10 @@
 				<x>11</x>
 				<y>12</y>
 			</location>
-			<decal>Skull and Crossbones</decal>
+			<decal>Fire Decal</decal>
 			<ae>
 				<name>Take Damage</name>
-				<rate>80</rate>
+				<rate>20</rate>
 			</ae>
 		</tile>
 		<tile>
@@ -6058,6 +6102,11 @@
 				<x>15</x>
 				<y>12</y>
 			</location>
+			<decal>Fire Decal</decal>
+			<ae>
+				<name>Take Damage</name>
+				<rate>25</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -6100,6 +6149,11 @@
 				<x>21</x>
 				<y>12</y>
 			</location>
+			<decal>Fire Decal</decal>
+			<ae>
+				<name>Take Damage</name>
+				<rate>25</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -6170,6 +6224,11 @@
 				<x>31</x>
 				<y>12</y>
 			</location>
+			<decal>Fire Decal</decal>
+			<ae>
+				<name>Take Damage</name>
+				<rate>30</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
