@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.Queue;
 
 import model.Direction;
 import model.Entity;
@@ -18,11 +19,16 @@ import model.MountainTerrain;
 import model.Tile;
 import model.WaterTerrain;
 import model.item.*;
+import model.Occupation;
+import model.Smasher;
+import model.Sneak;
+import model.Summoner;
 import util.ContinuousIterator;
 import util.Iterator;
 import util.MultiplyIterator;
 import util.Observer;
 import util.Subject;
+import util.Pair;
 import util.ResourceLoader;
 
 public class Drawer implements Observer {
@@ -44,8 +50,9 @@ public class Drawer implements Observer {
 	private static StatView statsView;
 	private static InventoryView inventoryView;
 
+//	private static Hashtable<Pair<Occupation, Direction>, Iterator<Image>> avatar = new Hashtable<Pair<Occupation, Direction>, Iterator<Image>>();
 	private static Hashtable<Direction, Iterator<Image>> avatar = new Hashtable<Direction, Iterator<Image>>();
-	private final java.util.Queue<Map.Matrix> mapStateQueue = new LinkedList<Map.Matrix>();
+	private final Queue<Map.Matrix> mapStateQueue = new LinkedList<Map.Matrix>();
 
 	private Graphics2D graphics;// For Transparency
 	private Location cursor = null;
@@ -74,6 +81,8 @@ public class Drawer implements Observer {
 		statsView = new StatView(ResourceLoader.getInstance().getImage("img/statsviewbg.jpg"));
 		//inventoryView = new InventoryView();
 	
+//		for(Occupation occ: new Occupation[] {new Summoner() } )
+			
 		avatar.put(Direction.NORTH, new MultiplyIterator<Image>(new ContinuousIterator<Image>(
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth1.png"),
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth2.png")
