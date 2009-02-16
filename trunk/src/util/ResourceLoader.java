@@ -14,8 +14,8 @@ import java.io.*;
 public class ResourceLoader {
 	private final ClassLoader loader;
 	private final Hashtable<String, Image> images;
-	private final Hashtable<String, String>items;
-	private final Hashtable<String, String>audios;
+	private final Hashtable<String, String> items;
+	private final Hashtable<String, String> audios;
 	private static ResourceLoader instance = null;
 	
 	/*
@@ -40,6 +40,7 @@ public class ResourceLoader {
 		items.put("Red Armor", "img/redarmor.png");
 		items.put("Boots", "img/boots.png");
 		items.put("Arrows", "img/arrows.png");
+		items.put("Manna", "img/manna.png");
 		
 		audios.put("Instant Death", "audio/evilLaugh.wav");
 		
