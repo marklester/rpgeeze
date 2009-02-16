@@ -7,7 +7,8 @@ package util;
 import java.util.Hashtable;
 import java.awt.Image;
 import javax.imageio.ImageIO;
-import sun.audio.*;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 import java.io.*;
 
 public class ResourceLoader {
@@ -43,6 +44,7 @@ public class ResourceLoader {
 		audios.put("Instant Death", "audio/evilLaugh.wav");
 		
 	}
+	
 	
 	/**
 	 * Returns the singleton instance of this class.
@@ -93,4 +95,5 @@ public class ResourceLoader {
 		InputStream ret = loader.getResourceAsStream("res/" + key);
 		return ret;
 	}
+
 }
