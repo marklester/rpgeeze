@@ -74,6 +74,10 @@ public class WelcomeScreen extends JFrame {
 					      File selectedFile = chooser.getSelectedFile();
 					      if(getAction() != null) {
 								setAction("Open");
+								WelcomeScreen.this.setVisible(false);
+								WelcomeScreen.this.notifyAll();
+								WelcomeScreen.this.dispose();
+								
 					      }
 					    } 
 					    else if (status == JFileChooser.CANCEL_OPTION) {
