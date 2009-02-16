@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.KeyStroke;
 
 import model.Command;
@@ -13,6 +14,9 @@ import model.Model;
 import view.View;
 
 import java.awt.Point;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 
 /*
@@ -103,6 +107,8 @@ public class Controller extends JComponent implements MouseListener {
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_8)), "MoveNorth");
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_9)), "MoveNorthEast");
 		
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_F12)), "SaveGame");
+		
 //		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char) KeyEvent.VK_F8), "UnequipLH");
 //		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char) KeyEvent.VK_F9), "UnequipRH");
 //		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke((char) KeyEvent.VK_F10), "UnequipHEAD");
@@ -128,6 +134,32 @@ public class Controller extends JComponent implements MouseListener {
 		this.getActionMap().put("MoveNorthEast", new ActionCommand(model, Direction.NORTHEAST.moveCommand()));
 		this.getActionMap().put("MoveSouthWest", new ActionCommand(model, Direction.SOUTHWEST.moveCommand()));
 		this.getActionMap().put("MoveSouthEast", new ActionCommand(model, Direction.SOUTHEAST.moveCommand()));
+
+		this.getActionMap().put("SaveGame", new ActionCommand(model, new Command() {
+			public void execute(Model model) {
+				JFileChooser chooser = new JFileChooser(); 
+				
+				int status = chooser.showOpenDialog(null);
+				    
+				if(status == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = chooser.getSelectedFile();
+					java.io.PrintWriter writer = null;
+					try {
+						writer = new java.io.PrintWriter(selectedFile); 
+					}
+					catch(FileNotFoundException e) {
+					}
+					if(writer != null) {
+						writer.println(model.toXml());
+						writer.flush();
+						writer.close();
+					}
+				} 
+				else if(status == JFileChooser.CANCEL_OPTION) {
+					//message = "Cancel";					    	
+				}
+			}
+		}));
 		
 //		this.getActionMap().put("UnequipLH", new ActionCommand(model, new UnequipCommand(Entity.ENT_LEFT_H)));
 //		this.getActionMap().put("UnequipRH", new ActionCommand(model, new UnequipCommand(Entity.ENT_RIGHT_H)));
