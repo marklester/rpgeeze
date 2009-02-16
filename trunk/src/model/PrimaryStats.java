@@ -33,7 +33,7 @@ public class PrimaryStats implements Cloneable {
 		this.strength = 20;
 		this.agility = 20;
 		this.intellect = 20;
-		this.hardiness = 2;
+		this.hardiness = .2;
 		this.experience = 1;
 	}
 
