@@ -106,4 +106,29 @@ public class PrimaryStats implements Cloneable {
 		return s;
 	}
 
+	public String toXml()
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append("<primaryStats>");
+		sb.append("<livesLeft>");
+		sb.append(livesLeft);
+		sb.append("</livesLeft>");
+		sb.append("<strength>");
+		sb.append(strength);
+		sb.append("</strenght>");
+		sb.append("<agility>");
+		sb.append(agility);
+		sb.append("</agility>");
+		sb.append("<intellect>");
+		sb.append(intellect);
+		sb.append("</intellect>");
+		sb.append("<hardiness>");
+		sb.append(hardiness);
+		sb.append("</hardiness>");
+		sb.append("<experience>");
+		sb.append(experience);
+		sb.append("</experience>");
+		sb.append("</primaryStats>");
+		return sb.toString();
+	}
 }
