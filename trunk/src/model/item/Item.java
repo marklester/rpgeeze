@@ -14,7 +14,7 @@ import model.Entity;
 public abstract class Item implements Drawable, Cloneable {
 	protected final String name;
 	
-	private static Pattern pattern = Pattern.compile("<item>(.*)</item>");
+	private static Pattern pattern = Pattern.compile("<item><type>(.*)</type>(.*)</item>");
 	private static Hashtable<String, Item> prototypes = new Hashtable<String, Item>();
 	
 	static {
@@ -72,6 +72,13 @@ public abstract class Item implements Drawable, Cloneable {
 		Matcher mat = pattern.matcher(xml);
 		if(!mat.matches())
 			throw new RuntimeException("Bad XML for Item");
-		return prototypes.get(mat.group(1)).clone();
+		Item ret = prototypes.get(mat.group(1)).clone();
+		ret.setAttributesFromXml(mat.group(2));
+		return ret;
+	}
+	
+	protected void setAttributesFromXml(String xml) {
+		if(xml.length() > 0)
+			throw new RuntimeException("Bad XML for Item");
 	}
 }

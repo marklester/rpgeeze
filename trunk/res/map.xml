@@ -33,7 +33,7 @@
 			<x>4</x>
 			<y>0</y>
 		</location>
-		<item>Helmet</item>
+		<item><type>Helmet</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -498,7 +498,7 @@
 			<x>0</x>
 			<y>1</y>
 		</location>
-		<item>Sword</item>
+		<item><type>Sword</type></item>
 	</tile>
 	<tile>
 		<terrain>Mountain Terrain</terrain>
@@ -1496,7 +1496,7 @@
 			<x>1</x>
 			<y>3</y>
 		</location>
-		<item>Potion Life</item>
+		<item><type>Potion Life</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -1983,7 +1983,7 @@
 			<x>0</x>
 			<y>4</y>
 		</location>
-		<item>Boulder</item>
+		<item><type>Boulder</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -1991,7 +1991,7 @@
 			<x>1</x>
 			<y>4</y>
 		</location>
-		<item>Boulder</item>
+		<item><type>Boulder</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -2484,7 +2484,7 @@
 			<x>1</x>
 			<y>5</y>
 		</location>
-		<item>Sword</item>
+		<item><type>Sword</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -2752,7 +2752,7 @@
 			<x>39</x>
 			<y>5</y>
 		</location>
-		<item>Health Pack</item>
+		<item><type>Health Pack</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -4013,7 +4013,7 @@
 			<x>9</x>
 			<y>8</y>
 		</location>
-		<item>Boulder</item>
+		<item><type>Boulder</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -4504,7 +4504,7 @@
 			<x>9</x>
 			<y>9</y>
 		</location>
-		<item>Boulder</item>
+		<item><type>Boulder</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -4988,7 +4988,7 @@
 			<x>8</x>
 			<y>10</y>
 		</location>
-		<item>Boulder</item>
+		<item><type>Boulder</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -4996,7 +4996,7 @@
 			<x>9</x>
 			<y>10</y>
 		</location>
-		<item>Boulder</item>
+		<item><type>Boulder</type></item>
 	</tile>
 	<tile>
 		<terrain>Water Terrain</terrain>
@@ -8383,7 +8383,7 @@
 			<x>0</x>
 			<y>17</y>
 		</location>
-		<item>Crossbow</item>
+		<item><type>Crossbow</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -11361,7 +11361,7 @@
 			<x>5</x>
 			<y>23</y>
 		</location>
-		<item>Mana</item>
+		<item><type>Mana</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -12315,7 +12315,7 @@
 			<x>1</x>
 			<y>25</y>
 		</location>
-		<item>Red Armor</item>
+		<item><type>Red Armor</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -12330,7 +12330,7 @@
 			<x>3</x>
 			<y>25</y>
 		</location>
-		<item>Boots</item>
+		<item><type>Boots</type></item>
 	</tile>
 	<tile>
 		<terrain>Mountain Terrain</terrain>
@@ -12345,7 +12345,7 @@
 			<x>5</x>
 			<y>25</y>
 		</location>
-		<item>Arrows</item>
+		<item><type>Arrows</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -12360,7 +12360,7 @@
 			<x>7</x>
 			<y>25</y>
 		</location>
-		<item>Shield</item>
+		<item><type>Shield</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -12368,7 +12368,7 @@
 			<x>8</x>
 			<y>25</y>
 		</location>
-		<item>Boulder</item>
+		<item><type>Boulder</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -12376,7 +12376,7 @@
 			<x>9</x>
 			<y>25</y>
 		</location>
-		<item>Boulder</item>
+		<item><type>Boulder</type></item>
 	</tile>
 	<tile>
 		<terrain>Water Terrain</terrain>
