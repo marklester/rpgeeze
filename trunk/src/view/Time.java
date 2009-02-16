@@ -22,7 +22,7 @@ public class Time extends Thread {
 	public void run() {
 		this.view.start();
 
-		while(!Thread.interrupted()) {
+		while(!Thread.interrupted() && !model.isPaused()) {
 			long start = System.nanoTime();
 
 			this.model.update();
