@@ -122,21 +122,21 @@ public class Model implements util.Subject {
 
 	public void moveAvatarRequest(Direction d) {
 		if(this.avatar.canMove())
-			moveAvatar(d);
+			avatar.moveAvatar(d.toLocation());
 	}
 
-	private void moveAvatar(Direction d) {
-		Tile from = this.avatar.getTile();
-		if (from.hasAE())
-			from.getAE().setMessageFlag(false);
-		int newX = from.getLocation().getX() + d.getX();
-		int newY = from.getLocation().getY() + d.getY();
-		Tile to = this.map.getTile(newX, newY);
-
-		// watch out for race conditions here
-		to.accept(this.avatar);
-		this.avatar.setFacingDirection(d);
-	}
+//	private void moveAvatar(Direction d) {
+//		Tile from = this.avatar.getTile();
+//		if (from.hasAE())
+//			from.getAE().setMessageFlag(false);
+//		int newX = from.getLocation().getX() + d.getX();
+//		int newY = from.getLocation().getY() + d.getY();
+//		Tile to = this.map.getTile(newX, newY);
+//
+//		// watch out for race conditions here
+//		to.accept(this.avatar);
+//		this.avatar.setFacingDirection(d);
+//	}
 
 	// MouseMoveCommand
 	public void mouseOnscreenAt(int x, int y) {
@@ -194,9 +194,9 @@ public class Model implements util.Subject {
 	
 	private void restartGame() {
 		//ASSUMPTION: this.isPaused == true
-		Entity avatar = new Entity(this.avatar.getOccupation());
-		avatar.setTile((map.getTile(this.EntityStartLoc)));
 		//Map map = Map.fromStream(ResourceLoader.getInstance().getStream("map.xml"));
+		Entity avatar = new Entity(this.avatar.getOccupation(), map);
+		avatar.setTile((map.getTile(this.EntityStartLoc)));
 		this.avatar = avatar;
 		this.map = map;
 		isPaused = false; 
