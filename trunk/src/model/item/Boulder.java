@@ -16,4 +16,5 @@ public class Boulder extends Obstacle {
 	public void draw(Drawer d) {
 		d.drawBoulder(this);
 	}
+	
 }

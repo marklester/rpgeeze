@@ -21,6 +21,10 @@ public class Arrows extends TakeableItem {
 
 	@Override
 	public void activate(Entity e) {
+		use(e);
+	}
+	public void use(Entity e)
+	{
 		
 	}
 	

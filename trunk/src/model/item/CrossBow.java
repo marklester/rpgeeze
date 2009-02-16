@@ -5,6 +5,7 @@ package model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
+import model.Entity;
 import model.Location;
 import view.Drawer;
 
@@ -17,6 +18,10 @@ public class CrossBow extends InteractiveItem {
 		d.drawCrossBow(this);
 	}
 	public void activate(model.Entity e) {
+		use(e);
+	}
+	public void use(Entity e)
+	{
 		e.equipWeapon(this);
 		e.unequipAuxilary();
 	}
