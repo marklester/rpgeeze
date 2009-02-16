@@ -5033,6 +5033,10 @@
 			<y>10</y>
 		</location>
 		<decal>Gold Star</decal>
+		<ae>
+			<name>Level Up</name>
+			<rate>10</rate>
+		</ae>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
