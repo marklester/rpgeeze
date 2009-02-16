@@ -106,29 +106,20 @@ public class PrimaryStats implements Cloneable {
 		return s;
 	}
 
-	public String toXml()
-	{
+	public String toXml() {
+		return toXml("");
+	}
+	
+	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<primaryStats>");
-		sb.append("<livesLeft>");
-		sb.append(livesLeft);
-		sb.append("</livesLeft>");
-		sb.append("<strength>");
-		sb.append(strength);
-		sb.append("</strenght>");
-		sb.append("<agility>");
-		sb.append(agility);
-		sb.append("</agility>");
-		sb.append("<intellect>");
-		sb.append(intellect);
-		sb.append("</intellect>");
-		sb.append("<hardiness>");
-		sb.append(hardiness);
-		sb.append("</hardiness>");
-		sb.append("<experience>");
-		sb.append(experience);
-		sb.append("</experience>");
-		sb.append("</primaryStats>");
+		sb.append(indent + "<primaryStats>\n");
+		sb.append(indent + "\t<livesLeft>" + livesLeft + "</livesLeft>\n");
+		sb.append(indent + "\t<strength>" + strength + "</strength>\n");
+		sb.append(indent + "\t<agility>" + agility + "</agility>\n");
+		sb.append(indent + "\t<intellect>" + intellect + "</intellect>\n");
+		sb.append(indent + "\t<hardiness>" + hardiness + "</hardiness>\n");
+		sb.append(indent + "\t<experience>" + experience + "</experience>\n");
+		sb.append(indent + "</primaryStats>");
 		return sb.toString();
 	}
 }

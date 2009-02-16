@@ -40,9 +40,14 @@ public class Entity implements Drawable, Cloneable {
 			auxilary = null;
 		}
 		
-		public Equipment clone() throws CloneNotSupportedException
-		{
-			return (Equipment)super.clone();
+		public Equipment clone() {
+			Equipment ret = null;
+			try {
+				ret = (Equipment) super.clone();
+			}
+			catch(CloneNotSupportedException e) {
+			}
+			return ret;
 		}
 	}
 	
@@ -235,15 +240,18 @@ public class Entity implements Drawable, Cloneable {
 	}
 	
 	public String toXml() {
+		return toXml("");
+	}
+	
+	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<entity>");
-		sb.append(stats.toXml());
-		sb.append(occupation.toXml());
-		sb.append(inventory == null ? "" : inventory.toXml());
-		sb.append(tile.toXml());
-		sb.append("</entity>");
+		sb.append(indent + "<entity>\n");
+		sb.append(stats.toXml(indent + "\t") + "\n");
+		sb.append(occupation.toXml(indent + "\t") + "\n");
+		sb.append(inventory.toXml(indent + "\t") + "\n");
+		sb.append(tile.toXml(indent + "\t") + "\n");
+		sb.append(indent + "</entity>");
 		return sb.toString();
-		
 	}
 
 }

@@ -28,12 +28,12 @@ public abstract class Occupation implements Cloneable {
 	}
 	
 	public String toXml() {
+		return toXml("");
+	}
+	
+	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<occupation>");
-		sb.append("<name>");
-		sb.append(name);
-		sb.append("</name>");
-		sb.append("</occupation>");
+		sb.append(indent + "<occupation>" + name + "</occupation>");
 		return sb.toString();
 	}
 }
