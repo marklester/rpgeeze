@@ -37,6 +37,8 @@ public class ResourceLoader {
 		items.put("Sword", "img/sword.png");
 		items.put("Potion Life", "img/potionlife.png");
 		items.put("Red Armor", "img/redarmor.png");
+		items.put("Boots", "img/boots.png");
+		items.put("Arrows", "img/arrows.png");
 		
 		audios.put("Instant Death", "audio/evilLaugh.wav");
 		
