@@ -20,28 +20,13 @@ public class Model implements util.Subject {
 	private boolean paused;
 
 	public Model(Map map, Entity avatar) {
-		// create map
-		// create tiles and encompassing stuff
-		// create entity
-		// create task queue
-		// --Jose
 		this.map = map;
 		this.avatar = avatar;
-		paused = false;
-
-		Scanner scanner = ResourceLoader.getInstance().getScanner("entities.txt");
-		int x = scanner.nextInt();
-		int y = scanner.nextInt();
-		avatarStart = new Location(x, y);
-		Tile tile = map.getTile(x, y);
+		this.paused = false;
+		
+		avatarStart = avatar.getTile().getLocation();
+		Tile tile = map.getTile(avatarStart);
 		tile.accept(avatar);
-		
-//		avatarStart = avatar.getTile().getLocation();
-//		Tile tile = map.getTile(avatarStart);
-//		tile.accept(avatar);
-		
-		String xml = avatar.toXml();
-		System.out.println(xml);	
 	}
 
 	public Map getMap() {

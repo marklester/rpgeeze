@@ -3,23 +3,18 @@ import sun.audio.*;
 import java.io.*;
 import javax.sound.sampled.*;
 import javax.sound.midi.*;
-import java.net.*;
 
 public class AudioThread extends Thread {
 
 	private volatile boolean muted = false;
 	
-	public AudioThread()
-	{
+	public AudioThread() {
 		super();
 	}
 	
-	@Override
 	public void run() {
-		while(!interrupted())
-		{
-			if(!muted)
-			{
+		while(!interrupted()) {
+			if(!muted) {
 				try {
 					File file = new File("res/audio/zelda1.mp3");
 				    AudioInputStream in= AudioSystem.getAudioInputStream(file);
@@ -66,23 +61,19 @@ public class AudioThread extends Thread {
 	  }
 	}
 		
-	private SourceDataLine getLine(AudioFormat audioFormat) throws LineUnavailableException
-	{
-	  SourceDataLine res = null;
-	  DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
-	  res = (SourceDataLine) AudioSystem.getLine(info);
-	  res.open(audioFormat);
-	  return res;
+	private SourceDataLine getLine(AudioFormat audioFormat) throws LineUnavailableException {
+		SourceDataLine res = null;
+		DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
+		res = (SourceDataLine) AudioSystem.getLine(info);
+		res.open(audioFormat);
+		return res;
 	}
-
-		
 	
-	public void setMute(boolean b)
-	{
+	public void setMute(boolean b) {
 		muted = b;
 	}
-	public boolean isMuted()
-	{
+	
+	public boolean isMuted() {
 		return muted;
 	}
 	

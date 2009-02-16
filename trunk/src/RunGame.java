@@ -6,13 +6,13 @@ import view.Time;
 import view.View;
 import controller.WelcomeScreen;
 import util.ResourceLoader;
-import javax.swing.JFileChooser;
 
 import java.awt.DisplayMode;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.io.File;
+import java.util.Scanner;
+
 
 
 /**
@@ -100,17 +100,23 @@ public class RunGame {
 		return welcome.getAction();
 	}
 	
-	public static Thread newGame(Occupation occ)
-	{		
-		 Map map = Map.fromStream(ResourceLoader.getInstance().getStream("map.xml"));
-		 Entity avatar = new Entity(occ, map);
-		 Model model = new Model(map, avatar);
-		 View view = new View(model);
-		 //Controller controller = Controller.createController(model, view);
+	public static Thread newGame(Occupation occ) {		
+		Map map = Map.fromStream(ResourceLoader.getInstance().getStream("map.xml"));
+		 
+		Scanner scanner = ResourceLoader.getInstance().getScanner("avatar.xml");
+		String xml = "";
+		while(scanner.hasNextLine())
+			xml += scanner.nextLine();
+		Entity avatar = Entity.fromXml(xml.replaceAll("[\\n\\t]", ""));
+		avatar.occupation = occ;
+		avatar.map = map;
+		
+		Model model = new Model(map, avatar);
+		View view = new View(model);
+		//Controller controller = Controller.createController(model, view);
 
-		 Time time = new Time(model, view);
-		 time.start();
-		 return time;
+		Time time = new Time(model, view);
+		time.start();
+		return time;
 	}
-	
 }
