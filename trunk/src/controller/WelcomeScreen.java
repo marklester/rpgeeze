@@ -86,12 +86,12 @@ public class WelcomeScreen extends JFrame {
 				}
 			}
 		});
-		JButton selectSeak = new JButton("Seak");
-		selectSeak.addActionListener(new ActionListener(){
+		JButton selectSneak = new JButton("Sneak");
+		selectSneak.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				synchronized(WelcomeScreen.this) {
 					if(getAction() != null) {
-						setAction("Seak");
+						setAction("Sneak");
 						WelcomeScreen.this.setVisible(false);
 						WelcomeScreen.this.notifyAll();
 						WelcomeScreen.this.dispose();
@@ -104,7 +104,7 @@ public class WelcomeScreen extends JFrame {
 		//p1.add(newGame);
 		p1.add(selectSmasher);
 		p1.add(selectSummoner);
-		p1.add(selectSeak);
+		p1.add(selectSneak);
 		p1.add(loadGame);
 		p1.add(quitGame);
 	
