@@ -48,7 +48,10 @@
 			<x>6</x>
 			<y>0</y>
 		</location>
-		<item><type>Portal Item</type></item>
+		<item>
+			<type>Portal Item</type>
+			<location><x>5</x><y>5</y></location>
+		</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -16286,7 +16289,13 @@
 			<x>7</x>
 			<y>33</y>
 		</location>
-		<item><type>Portal Item</type></item>
+		<item>
+			<type>Portal Item</type>
+			<location>
+				<x>-3</x>
+				<y>3</y>
+			</location>
+		</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -16742,6 +16751,7 @@
 			<x>2</x>
 			<y>34</y>
 		</location>
+		<item><type>Health Pack</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -20161,6 +20171,7 @@
 			<x>0</x>
 			<y>41</y>
 		</location>
+		<item><type>Portal Item</type><location><x>9</x><y>-9</y></location></item>
 	</tile>
 	<tile>
 		<terrain>Water Terrain</terrain>

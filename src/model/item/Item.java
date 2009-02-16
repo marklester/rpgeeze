@@ -64,7 +64,9 @@ public abstract class Item implements Drawable, Cloneable {
 		
 	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(indent + "<item>" + name + "</item>");
+		sb.append(indent + "<item>\n");
+		sb.append(indent + "\t<type>" + name + "</type>\n");
+		sb.append(indent + "</item>");
 		return sb.toString();
 	}
 	

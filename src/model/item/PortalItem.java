@@ -9,8 +9,12 @@ public class PortalItem extends InteractiveItem {
 	private Location where;
 	
 	public PortalItem() {
+		this(null);
+	}
+	
+	public PortalItem(Location loc) {
 		super("Portal Item");
-		this.where = new Location(10, 10);
+		this.where = loc;
 	}
 	
 	public void activate(Entity e) {
@@ -20,11 +24,24 @@ public class PortalItem extends InteractiveItem {
 	public void use(Entity e) {
 		e.getTile().releaseEntity();
 		ResourceLoader.getInstance().playAudioClip(this.name);
-		e.move(where);
+		if(where != null) e.move(where);
 	}
 	
 	public void draw(Drawer d) {
 		d.drawPortal(this);
 	}
 	
+	protected void setAttributesFromXml(String xml) {
+		if(xml.length() != 0)
+			this.where = Location.fromXml(xml);
+	}
+	
+	public String toXml(String indent) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(indent + "<item>\n");
+		sb.append(indent + "\t<type>" + name + "</type>\n");
+		sb.append(where == null ? "" : where.toXml("\t" + indent));
+		sb.append(indent + "</item>");
+		return sb.toString();
+	}
 }
