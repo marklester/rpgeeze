@@ -10,9 +10,8 @@ import model.Location;
 import view.Drawer;
 
 public class Shield extends TakeableItem {
-
-	public Shield() {//Location location) {
-		super("Shield");//, location);
+	public Shield() {
+		super("Shield");
 	}
 
 	public void draw(Drawer d) {
@@ -20,12 +19,11 @@ public class Shield extends TakeableItem {
 	}
 
 	
-	public void activate(model.Entity e)
-	{
+	public void activate(Entity e) {
 		use(e);
 	}
-	public void use(Entity e)
-	{
-		e.equipAuxilary(this);
+
+	public void use(Entity e) {
+		e.equipAuxiliary(this);
 	}
 }

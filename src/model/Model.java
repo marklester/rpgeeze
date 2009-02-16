@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 
-import controller.WelcomeScreen;
-
 import util.Observer;
 import util.ResourceLoader;
 

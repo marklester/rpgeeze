@@ -17,12 +17,13 @@ public class CrossBow extends TakeableItem {
 	public void draw(Drawer d) {
 		d.drawCrossBow(this);
 	}
-	public void activate(model.Entity e) {
+
+	public void activate(Entity e) {
 		use(e);
 	}
-	public void use(Entity e)
-	{
+
+	public void use(Entity e) {
 		e.equipWeapon(this);
-		e.unequipAuxilary();
+		e.unequipAuxiliary();
 	}
 }
