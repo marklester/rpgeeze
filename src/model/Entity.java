@@ -193,8 +193,11 @@ public class Entity implements Drawable, Cloneable {
 	public Stats resetStats(int numOfLives) {
 		stats = (Stats) occupation.stats.clone();
 		stats.getPrimary().setLivesLeft(numOfLives);
-		return stats;
-			
+		return stats;		
+	}
+	
+	public Occupation getOccupation() {
+		return this.occupation;
 	}
 
 }
