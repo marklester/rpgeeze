@@ -11,8 +11,8 @@ import view.Drawer;
 
 public class RedArmor extends TakeableItem {
 
-	public RedArmor(Location location) {
-		super("Red Armor", location);
+	public RedArmor() {//Location location) {
+		super("Red Armor"); //, location);
 	}
 
 	public void draw(Drawer d) {

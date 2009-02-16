@@ -9,8 +9,8 @@ import model.Location;
 import model.Entity;
 
 public abstract class OneShotItem extends Item {
-	public OneShotItem(String name, Location location) {
-		super(name, location);
+	public OneShotItem(String name) {////, Location location) {
+		super(name);//, location);
 	}
 	
 	public final void activate(Entity e) {

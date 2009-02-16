@@ -8,50 +8,43 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Hashtable;
 
-
-import model.Location;
 import view.Drawable;
 import model.Entity;
 
 public abstract class Item implements Drawable, Cloneable {
 	protected final String name;
-	protected Location location;
 	
 	private static Pattern pattern = Pattern.compile("<item>(.*)</item>");
 	private static Hashtable<String, Item> prototypes = new Hashtable<String, Item>();
 	
 	static {
 		for(Item i: new Item[] {
-			new Sword(null),
-			new Boulder(null),
-			new CrossBow(null),
-			new PotionLife(null),
-			new Shield(null),
-			new RedArmor(null),
-			new Boots(null),
-			new Arrows(null),
-			new Mana(null),
+			new Sword(),
+			new Boulder(),
+			new CrossBow(),
+			new PotionLife(),
+			new Shield(),
+			new RedArmor(),
+			new Boots(),
+			new Arrows(),
+			new Mana(),
 		})
 			prototypes.put(i.toString(), i);
 	}
 	
-	public Item(String name, Location location) {
-		this.name = name;
-		this.location = location;
-	}
-	
 	public Item(String name) {
-		this(name, null);
+		this.name = name;
 	}
 
-	public Location getLocation() {
-		return this.location;
+	public Item clone() {
+		Item ret = null;
+		try {
+			ret = (Item) super.clone();
+		}
+		catch(CloneNotSupportedException e) {}
+		return ret;
 	}
 	
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-
 	public boolean isPassable() {
 		return true;
 	}
@@ -62,16 +55,6 @@ public abstract class Item implements Drawable, Cloneable {
 	
 	public abstract void activate(Entity e);
 
-	public Item clone() {
-		Item i = null;
-		try {
-			i = (Item) super.clone();
-		}
-		catch(CloneNotSupportedException e) {
-		}
-		return i;
-	}
-	
 	public String toXml() {
 		return toXml("");
 	}

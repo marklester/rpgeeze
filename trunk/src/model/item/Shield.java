@@ -10,8 +10,8 @@ import view.Drawer;
 
 public class Shield extends TakeableItem {
 
-	public Shield(Location location) {
-		super("Shield", location);
+	public Shield() {//Location location) {
+		super("Shield");//, location);
 	}
 
 	public void draw(Drawer d) {

@@ -11,8 +11,8 @@ import view.Drawer;
 
 public class Arrows extends TakeableItem {
 
-	public Arrows(Location location) {
-		super("Arrows", location);
+	public Arrows() {//Location location) {
+		super("Arrows");//, location);
 	}
 
 	public void draw(Drawer d) {

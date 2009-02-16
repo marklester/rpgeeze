@@ -10,8 +10,8 @@ import view.Drawer;
 
 public class Mana extends OneShotItem {
 
-	public Mana(Location location) {
-		super("Mana", location);
+	public Mana() {//Location location) {
+		super("Mana");//, location);
 	}
 
 	public void draw(Drawer d) {

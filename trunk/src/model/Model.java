@@ -1,7 +1,5 @@
 package model;
 
-import java.awt.Point;
-//import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -11,9 +9,6 @@ import controller.WelcomeScreen;
 
 import util.Observer;
 import util.ResourceLoader;
-import view.Console;
-import view.Time;
-import view.View;
 
 public class Model implements util.Subject {
 	protected final Queue<Command> commands = new LinkedList<Command>();

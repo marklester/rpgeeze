@@ -52,7 +52,7 @@ public class Tile implements Cloneable {
 
 	// package level so that nobody outside Model can mess with this
 	void setItem(Item item) {
-		if(item != null) item.setLocation(getLocation());
+		//if(item != null) item.setLocation(getLocation());
 		this.item = item;
 	}
 
@@ -115,9 +115,6 @@ public class Tile implements Cloneable {
 	public Tile clone() throws CloneNotSupportedException {
 		
 		Tile t = (Tile) super.clone();
-		
-		if(t.item != null)
-			t.item = this.item.clone();
 		if(t.ae != null)
 			t.ae = this.ae.clone();
 		if(t.decal != null)

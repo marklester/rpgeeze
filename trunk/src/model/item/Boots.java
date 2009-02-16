@@ -11,8 +11,8 @@ import view.Drawer;
 
 public class Boots extends TakeableItem {
 
-	public Boots(Location location) {
-		super("Boots", location);
+	public Boots() { //Location location) {
+		super("Boots");//, location);
 	}
 
 	public void draw(Drawer d) {

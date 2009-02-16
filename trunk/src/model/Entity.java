@@ -176,7 +176,7 @@ public class Entity implements Drawable, Cloneable {
 	public void dropItem() {
 		if(!this.inventory.isEmpty()) {
 			Item i = this.inventory.removeItemAt(0);
-			i.setLocation(getTile().getLocation());
+			//i.setLocation(getTile().getLocation());
 			getTile().setItem(i);
 			Console.getInstance().writeLine(i + " has been dropped ");
 		}
