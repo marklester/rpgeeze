@@ -1,6 +1,7 @@
 package controller;
 
 import javax.swing.Icon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -8,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.ImageIcon;
+
+import view.Console;
 import model.*;
 import java.awt.Color;
 
@@ -18,6 +21,7 @@ import java.awt.GraphicsConfiguration;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 
 public class WelcomeScreen extends JFrame {
@@ -25,6 +29,8 @@ public class WelcomeScreen extends JFrame {
 	JPanel panel = new JPanel(new BorderLayout());
     JPanel p1 = new JPanel(new FlowLayout());
     Occupation occ = null;
+    
+    
 	public WelcomeScreen(GraphicsConfiguration gc) {
 		super("rpgeeze",gc);
 		initFrame();
@@ -48,10 +54,7 @@ public class WelcomeScreen extends JFrame {
 			synchronized(WelcomeScreen.this) {
 				if(getAction() != null) {
 					setAction("New");
-					//WelcomeScreen.this.setVisible(false);
 					WelcomeScreen.this.notifyAll();
-					//WelcomeScreen.this.dispose();
-					
 					}
 				}
 		}
@@ -62,15 +65,26 @@ public class WelcomeScreen extends JFrame {
 		loadGame.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				synchronized(WelcomeScreen.this) {
-					if(getAction() != null) {
-						setAction("Load");
-						///WelcomeScreen.this.setVisible(false);
-						WelcomeScreen.this.notifyAll();
-						//WelcomeScreen.this.dispose();
-					}
+				
+					JFileChooser chooser = new JFileChooser(); 
+					
+					    int status = chooser.showOpenDialog(null);
+					    
+					    if (status == JFileChooser.APPROVE_OPTION) {
+					      File selectedFile = chooser.getSelectedFile();
+					      if(getAction() != null) {
+								setAction("Open");
+					      }
+					    } 
+					    else if (status == JFileChooser.CANCEL_OPTION) {
+			                //message = "Cancel";
+					    	
+					    }
+					
 				}
 			}
-		});
+		  }
+		);
 		
 		JButton quitGame = new JButton(new ImageIcon("res/img/buttons/QuitGame.png"));
 		quitGame.addActionListener(new ActionListener(){
@@ -108,6 +122,8 @@ public class WelcomeScreen extends JFrame {
 		setSize(new Dimension(screen.width, screen.height));
 		
 		setVisible(true);
+		
+		
 	}
 	
 	public void initOcc()
