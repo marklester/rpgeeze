@@ -27,6 +27,6 @@ public class HealthPack extends OneShotItem {
 		//might not want to kill it if it doesn't gain health from pack
 	}
 	public void draw(Drawer d) {
-		//d.drawHealthPack(this);
+		d.drawHealthPack(this);
 	}
 }
