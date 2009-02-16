@@ -30,7 +30,7 @@ public abstract class AreaEffect implements Cloneable {
 	// This will typically be used by LevelUp and InstantDeath - since their
 	// rates are irrelevant
 	public AreaEffect(String name) {
-		this(1, name);
+		this(10, name);
 	}
 
 	public AreaEffect(int rate, String name) {
