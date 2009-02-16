@@ -138,9 +138,7 @@ public class WelcomeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				synchronized(WelcomeScreen.this) {
 					setOccupation(new Smasher());
-					WelcomeScreen.this.setVisible(false);
 					WelcomeScreen.this.notifyAll();
-					WelcomeScreen.this.dispose();
 					}
 				}
 			}
@@ -151,9 +149,7 @@ public class WelcomeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				synchronized(WelcomeScreen.this) {
 					setOccupation(new Summoner());
-					WelcomeScreen.this.setVisible(false);
 					WelcomeScreen.this.notifyAll();
-					WelcomeScreen.this.dispose();
 					}
 				}
 			}
@@ -164,9 +160,7 @@ public class WelcomeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				synchronized(WelcomeScreen.this) {
 					setOccupation(new Sneak());
-					WelcomeScreen.this.setVisible(false);
 					WelcomeScreen.this.notifyAll();
-					WelcomeScreen.this.dispose();
 					}
 				}
 			}
