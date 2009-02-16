@@ -74,21 +74,29 @@ public class Drawer implements Observer {
 
 		avatar.put(Direction.NORTH, new ContinuousIterator<Image>(
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth2.png"),
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkNorth2.png")
 		));
 
 		avatar.put(Direction.SOUTH, new ContinuousIterator<Image>(
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkSouth1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkSouth1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkSouth2.png"),
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkSouth2.png")
 		));
 		
 		avatar.put(Direction.EAST, new ContinuousIterator<Image>(
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkEast1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkEast1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkEast2.png"),
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkEast2.png")
 		));
 
 		avatar.put(Direction.WEST, new ContinuousIterator<Image>(
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkWest1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkWest1.png"),
+			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkWest2.png"),
 			ResourceLoader.getInstance().getImage("img/smasher/smasherWalkWest2.png")
 		));
 
