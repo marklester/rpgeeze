@@ -2,6 +2,7 @@ package model.item;
 
 import util.ResourceLoader;
 import view.Drawer;
+import view.Console;
 import model.Entity;
 import model.Location;
 
@@ -24,7 +25,10 @@ public class PortalItem extends InteractiveItem {
 	public void use(Entity e) {
 		e.getTile().releaseEntity();
 		ResourceLoader.getInstance().playAudioClip(this.name);
-		if(where != null) e.move(where);
+		if(where != null) {
+			e.move(where);
+			Console.getInstance().writeLine("A strange force sweeps you off your feet.");
+		}
 	}
 	
 	public void draw(Drawer d) {
