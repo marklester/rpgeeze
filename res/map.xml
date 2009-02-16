@@ -2751,6 +2751,7 @@
 			<x>39</x>
 			<y>5</y>
 		</location>
+		<item>Health Pack</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
