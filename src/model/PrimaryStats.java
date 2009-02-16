@@ -105,6 +105,10 @@ public class PrimaryStats implements Cloneable {
 		}
 		
 	}
+	
+	public void incExperience(int amount) {
+		setExperience(this.experience + amount);
+	}
 
 	public int getExperience() {
 		return this.experience;

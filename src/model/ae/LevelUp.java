@@ -1,5 +1,7 @@
 package model.ae;
 import model.Entity;
+import model.Stats;
+import model.Tile;
 
 import view.Console;
 
@@ -15,13 +17,15 @@ public class LevelUp extends AreaEffect {
 
 	public void applyEffect(Entity e) {
 		if(!messageSent) {
-			e.getStats().getPrimary().setExperience(e.getStats().getLevel() * e.getStats().getLevel() * 5);
-			e.getStats().calculateLevel();
+			e.getStats().incLevel();
+			//e.getStats().getPrimary().setExperience(e.getStats().getLevel() * e.getStats().getLevel() * 5);
+			//e.getStats().calculateLevel();
 		
-			// shouldn't hard code maximum level...
-			if(e.getStats().getLevel() < 5) {
+			if(e.getStats().getLevel() < Stats.MAX_LEVEL) {
 				Console.getInstance().writeLine("Woohoo! You leveled up!");
 				messageSent = true;
+				e.getTile().setAreaEffect(null);
+				e.getTile().setDecal(null);
 			}
 		}
 	}
