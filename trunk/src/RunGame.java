@@ -53,9 +53,9 @@ public class RunGame {
 			}
 			else if(w.equals("Smasher") || w.equals("Summoner")  || w.equals("Sneak"))
 			{
-				if (w.equals("Smasher")) o = new Smasher(new Stats(1,100,20,15,(new PrimaryStats(3,20,5,5,2,1))));
-				else if (w.equals("Summoner")) o = new Summoner(new Stats(1,100,20,15,new PrimaryStats(3,5,5,20,2,1)));
-				else if (w.equals("Sneak")) o = new Sneak(new Stats(1,100,20,15,new PrimaryStats(3,5,20,5,2,1)));
+				if (w.equals("Smasher")) o = new Smasher();
+				else if (w.equals("Summoner")) o = new Summoner();
+				else if (w.equals("Sneak")) o = new Sneak();
 				break;
 			}
 		}
