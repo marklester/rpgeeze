@@ -188,7 +188,7 @@ public class Entity implements Drawable, Cloneable {
 		int x = p.x;
 		int y = p.y;
 		
-		int index = ((x + 1) * (y + 1)) - 1;
+		int index = x + y * 6;
 		if(index >= inventory.count())
 			return;
 				

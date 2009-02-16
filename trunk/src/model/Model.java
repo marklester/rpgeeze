@@ -66,8 +66,12 @@ public class Model implements util.Subject {
 	
 			this.avatar.update();
 			updateStatusOfAvatar();
-			
-			this.snapshot = this.map.getMatrix();
+			try {
+				this.snapshot = this.map.getMatrix().clone();
+			}catch(CloneNotSupportedException ce)
+			{
+				this.snapshot = this.map.getMatrix();
+			}
 			updateObservers();
 	
 			// update map

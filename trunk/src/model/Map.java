@@ -75,7 +75,10 @@ public class Map {
 			Matrix m = (Matrix) super.clone();
 			m.map = this.map.clone();
 			for(int i = 0; i < m.map.length; i++)
+			{
+				m.map[i] = this.map[i].clone();
 				for(int j = 0; j < m.map[i].length; j++)
+				{
 					if(this.map[i][j] != null)
 						try {
 							m.map[i][j] = this.map[i][j].clone();
@@ -85,6 +88,8 @@ public class Map {
 						}
 					else
 						System.out.println("No Good.");
+				}
+			}
 			return m;
 		}
 
@@ -111,10 +116,6 @@ public class Map {
 	}
 
 	public Matrix getMatrix() {
-		// Matrix m = null;
-		// try{
-		// m = (Matrix)matrix.clone();
-		// }catch (CloneNotSupportedException e){}
 		return this.matrix;
 	}
 
