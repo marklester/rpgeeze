@@ -2,7 +2,9 @@ package model;
 
 import java.awt.Color;
 
-import model.item.*;
+import model.item.Item;
+import model.item.OneShotItem;
+import model.item.InteractiveItem;
 import view.Console;
 import view.Drawable;
 import view.Drawer;
