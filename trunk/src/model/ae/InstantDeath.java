@@ -1,4 +1,5 @@
 package model.ae;
+import util.ResourceLoader;
 import model.Entity;
 import model.Stats;
 
@@ -13,9 +14,10 @@ public class InstantDeath extends AreaEffect {
 	}
 	
 	public void applyEffect(Entity e) {
+		ResourceLoader.getInstance().playAudioClip(this.name);
 		e.getStats().decLife(Stats.MAX_LIFE);
-		System.out.println("Done, bitch");
-		System.out.println(e.getStats().getLife());
+		
+		
 	}
 
 }
