@@ -133,16 +133,20 @@ public class Stats implements Cloneable {
 
 	public void calculateOffensiveRating(int effectiveness) {
 		this.offensiveRating = (this.primaryStats.strength / 2 + effectiveness) * this.level;
-		if(this.offensiveRating > 100)
+		if(this.offensiveRating > 110)
 			this.offensiveRating = 110;
 	}
 
 	public void calculateDefensiveRating() {
 		this.defensiveRating = this.primaryStats.agility * this.level + 10;
+		if(this.defensiveRating > 110)
+			this.defensiveRating = 110;
 	}
 
 	public void calculateArmorRating(int effectiveness) {
 		this.armorRating = effectiveness + (int) (effectiveness * this.primaryStats.hardiness);
+		if(this.armorRating > 110)
+			this.armorRating = 110;
 		// hardiness is a dec between 1 & 0
 	}
 
