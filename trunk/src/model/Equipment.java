@@ -2,19 +2,19 @@ package model;
 
 import model.item.Item;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 public class Equipment implements Cloneable {
-	public Item head;
-	public Item armor;
-	public Item boots;
-	public Item weapon;
-	public Item auxiliary;
+	private static final Pattern pattern = Pattern.compile("<equipment><head>(.*)</head><armor>(.*)</armor><boots>(.*)</boots><weapon>(.*)</weapon><auxiliary>(.*)</auxiliary></equipment>");
+	
+	public Item head = null;
+	public Item armor = null;
+	public Item boots = null;
+	public Item weapon = null;
+	public Item auxiliary = null;
 	
 	public Equipment() 	{
-		head = null;
-		armor = null;
-		boots = null;
-		weapon = null;
-		auxiliary = null;
 	}
 		
 	public String toXml() {
@@ -34,7 +34,16 @@ public class Equipment implements Cloneable {
 	}
 
 	public static Equipment fromXml(String xml) {
-		return null;
+		Matcher mat = pattern.matcher(xml);
+		if(!mat.matches())
+			throw new RuntimeException("Bad XML for Equipment");
+		Equipment ret = new Equipment();
+		String head = mat.group(1); if(head.length() != 0) ret.head = Item.fromXml(head);
+		String armor = mat.group(2); if(head.length() != 0) ret.armor = Item.fromXml(armor);
+		String boots = mat.group(3); if(head.length() != 0) ret.boots = Item.fromXml(boots);
+		String weapon = mat.group(4); if(head.length() != 0) ret.weapon = Item.fromXml(weapon);
+		String auxiliary = mat.group(5); if(head.length() != 0) ret.auxiliary = Item.fromXml(auxiliary);
+		return ret;
 	}
 	
 	public synchronized Equipment clone() {

@@ -36,7 +36,12 @@ public class Model implements util.Subject {
 		Tile tile = map.getTile(x, y);
 		tile.accept(avatar);
 		
-		System.out.println(avatar.toXml());
+//		avatarStart = avatar.getTile().getLocation();
+//		Tile tile = map.getTile(avatarStart);
+//		tile.accept(avatar);
+		
+		String xml = avatar.toXml();
+		System.out.println(xml);	
 	}
 
 	public Map getMap() {
