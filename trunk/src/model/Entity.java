@@ -25,29 +25,28 @@ public class Entity implements Drawable, Cloneable {
 	// Name
 	// EquippedItems
 	
-	public class Equipment implements Cloneable{
+	public class Equipment implements Cloneable {
 		public Item head;
 		public Item armor;
 		public Item boots;
 		public Item weapon;
-		public Item auxilary;
+		public Item auxiliary;
 		
-		public Equipment()
-		{
+		public Equipment() 	{
 			head = null;
 			armor = null;
 			boots = null;
 			weapon = null;
-			auxilary = null;
+			auxiliary = null;
 		}
 		
-		public Equipment clone() {
-			Equipment ret = null;
-			try {
-				ret = (Equipment) super.clone();
-			}
-			catch(CloneNotSupportedException e) {
-			}
+		public synchronized Equipment clone() {
+			Equipment ret = new Equipment();
+			ret.head = head.clone();
+			ret.armor = armor.clone();
+			ret.boots = boots.clone();
+			ret.weapon = weapon.clone();
+			ret.auxiliary = auxiliary.clone();
 			return ret;
 		}
 	}
@@ -159,13 +158,13 @@ public class Entity implements Drawable, Cloneable {
 		Console.getInstance().writeLine("Equipped " + i);
 	}
 
-	public void equipAuxilary(Item i) {		
-		if(equipment.auxilary == i)
+	public void equipAuxiliary(Item i) {		
+		if(equipment.auxiliary == i)
 			return;
 		inventory.removeItem(i);
-		if(equipment.auxilary != null)
-			inventory.addItem(equipment.auxilary);
-		equipment.auxilary = i;
+		if(equipment.auxiliary != null)
+			inventory.addItem(equipment.auxiliary);
+		equipment.auxiliary = i;
 		if(equipment.weapon != null)
 			equipment.weapon.activate(this);
 		Console.getInstance().writeLine("Equipped " + i);
@@ -194,11 +193,10 @@ public class Entity implements Drawable, Cloneable {
 			inventory.addItem(equipment.weapon);
 		equipment.weapon = null;
 	}
-	public void unequipAuxilary()
-	{
-		if(equipment.auxilary != null)
-			inventory.addItem(equipment.auxilary);
-		equipment.auxilary = null;
+	public void unequipAuxiliary() 	{
+		if(equipment.auxiliary != null)
+			inventory.addItem(equipment.auxiliary);
+		equipment.auxiliary = null;
 	}
 	
 	public Equipment getEquipment() {

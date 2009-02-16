@@ -10,7 +10,6 @@ import util.Iterator;
 import util.ResourceLoader;
 
 import model.Entity;
-import model.Inventory;
 import model.item.Item;
 import model.Model;
 import model.Command;
@@ -101,7 +100,7 @@ public class InventoryView {
 		graphics.fillRect(feet.x, feet.y, width, height);		
 		//WEAPON
 		graphics.fillRect(weapon.x, weapon.y,  width, height);
-		//AUXILARY
+		//AUXILIARY
 		graphics.fillRect(aux.x, aux.y,  width, height);
 		
 		
@@ -133,9 +132,8 @@ public class InventoryView {
 			img = ResourceLoader.getInstance().getItemImage(eq.weapon.toString());
 			graphics.drawImage(img, weapon.x, weapon.y, null);
 		}
-		if(eq.auxilary != null)
-		{
-			img = ResourceLoader.getInstance().getItemImage(eq.auxilary.toString());
+		if(eq.auxiliary != null) {
+			img = ResourceLoader.getInstance().getItemImage(eq.auxiliary.toString());
 			graphics.drawImage(img, aux.x, aux.y, null);
 		}
 	}
@@ -200,7 +198,7 @@ public class InventoryView {
 		else if(p.x > aux.x && p.x < aux.x + width && p.y > aux.y && p.y < aux.y + height) {
 			ret = new Command() {
 				public void execute(Model m) {
-					m.getAvatar().unequipAuxilary();
+					m.getAvatar().unequipAuxiliary();
 				}
 			};
 		}
