@@ -60,8 +60,7 @@ public class RunGame {
 			}
 		}
 		
-		if(w.equals("Smasher") || w.equals("Summoner")  || w.equals("Sneak"))
-		{
+		if(w.equals("Smasher") || w.equals("Summoner")  || w.equals("Sneak")) {
 			newGame(o);
 		}
 	}

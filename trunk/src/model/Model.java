@@ -36,7 +36,7 @@ public class Model implements util.Subject {
 		this.avatar = avatar;
 		isPaused = false;
 		// The following code should probably be moved elsewhere. -- Miorel
-		Scanner scanner = new Scanner(ResourceLoader.getInstance().getStream("entities.txt"));
+		Scanner scanner = ResourceLoader.getInstance().getScanner("entities.txt");
 		int x = scanner.nextInt();
 		int y = scanner.nextInt();
 		EntityStartLoc = new Location(x,y);
