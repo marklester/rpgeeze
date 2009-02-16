@@ -5990,6 +5990,13 @@
 			<x>11</x>
 			<y>12</y>
 		</location>
+		<decal>
+		Skull and Crossbones
+		</decal>
+		<ae>
+			<name>Take Damage</name>
+			<rate>10</rate>
+		</ae>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -7455,6 +7462,11 @@
 			<x>10</x>
 			<y>15</y>
 		</location>
+		<decal>Red Cross</decal>
+		<ae>
+			<name>Heal Damage</name>
+			<rate>1</rate>
+		</ae>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
