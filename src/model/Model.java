@@ -128,6 +128,8 @@ public class Model implements util.Subject {
 
 	private void moveAvatar(Direction d) {
 		Tile from = this.avatar.getTile();
+		if (from.hasAE())
+			from.getAE().setMessageFlag(false);
 		int newX = from.getLocation().getX() + d.getX();
 		int newY = from.getLocation().getY() + d.getY();
 		Tile to = this.map.getTile(newX, newY);
@@ -187,6 +189,8 @@ public class Model implements util.Subject {
 			restartGame();
 			this.update();
 		}
+		else if(welcome.getAction().equals("Quit"))
+			System.exit(0);
 	}
 	
 	private void restartGame() {

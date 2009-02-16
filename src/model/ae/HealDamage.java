@@ -1,4 +1,6 @@
 package model.ae;
+import java.awt.Color;
+
 import model.Entity;
 
 import view.Console;
@@ -18,7 +20,7 @@ public class HealDamage extends AreaEffect {
 			e.getStats().incLife(rate);
 			counter = UPDATE_RATE; //reset
 			if (!f_msg_was_sent) {
-				Console.getInstance().writeLine("Congrats. Enjoy some life");
+				Console.getInstance().writeLine("Congrats. Enjoy some life", Color.GREEN);
 				f_msg_was_sent = true;
 			}
 		}
