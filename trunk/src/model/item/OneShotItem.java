@@ -13,6 +13,6 @@ public abstract class OneShotItem extends Item {
 		super(name);//, location);
 	}
 	
-	public final void activate(Entity e) {
+	public void activate(Entity e) {
 	}
 }
