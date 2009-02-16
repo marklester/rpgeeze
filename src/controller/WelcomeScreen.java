@@ -162,6 +162,7 @@ public class WelcomeScreen extends JFrame {
 			button.setBackground(mainScreenColor);
 			button.setBorderPainted(false);
 			button.setBorder(buttonBorder);
+			button.setContentAreaFilled(false);
 			p2.add(button);
 		}
 		
