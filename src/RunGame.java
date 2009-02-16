@@ -87,11 +87,10 @@ public class RunGame {
 		return welcome.getAction();
 	}
 	
-	public static void newGame()
-	{
+	public static void newGame() {
 		Occupation occ = getOccupation();
 		 Entity avatar = new Entity(occ);
-		 Map map = new Map(ResourceLoader.getInstance().getStream("map.txt"));
+		 Map map = Map.fromStream(ResourceLoader.getInstance().getStream("map.xml"));//new Map(ResourceLoader.getInstance().getStream("map.txt"));
 		 Model model = new Model(map, avatar);
 
 		 View view = new View(model);
@@ -101,8 +100,7 @@ public class RunGame {
 		 time.start();
 	}
 	
-	public static String loadGame()
-	{
+	public static String loadGame() {
 		String message = new String("");
         JFileChooser chooser = new JFileChooser(); 
 		

@@ -107,9 +107,17 @@ public class Map {
 		this.matrix = new Matrix(matrix);
 	}
 	
-	public Map(InputStream stream) {
-		Scanner s = new Scanner(stream);
-		List<Tile[]> list = new ArrayList<Tile[]>();
+	public static Map fromStream(InputStream stream) {
+		Scanner scan = new Scanner(stream);
+		StringBuilder sb = new StringBuilder();
+		while(scan.hasNextLine())
+			sb.append(scan.nextLine());
+		return fromXml(sb.toString());
+	}
+	
+//	public Map(InputStream stream) {
+//		Scanner s = new Scanner(stream);
+/*		List<Tile[]> list = new ArrayList<Tile[]>();
 		for(int r = 0; s.hasNextLine(); ++r) {
 			String line = s.nextLine();
 			Tile[] arr = new Tile[line.length() / NUM_OF_CHARS_REPRESENTING_A_TILE];
@@ -184,8 +192,8 @@ public class Map {
 //			this.getTile(item.getLocation()).setItem(item);
 		}
 		
-		System.out.println(this.toXml());
-	}
+		System.out.println(this.toXml());*/
+//	}
 
 	public Tile getTile(int x, int y) {
 		return this.matrix.getTile(x, y);
