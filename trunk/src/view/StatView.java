@@ -53,7 +53,7 @@ public class StatView implements Drawable {
 		current_line += 18;
 		graphics.drawString("Intellect:" + entity.getStats().getPrimary().getIntellect(), text_width, text_height + current_line);
 		current_line += 18;
-		graphics.drawString("Movement:" + entity.getStats().getMovement(), text_width, text_height + current_line);
+		graphics.drawString("Movement:" + (30 - entity.getStats().getMovement()), text_width, text_height + current_line);
 		current_line += 18;
 		//graphics.drawString("nanoTime:" + System.nanoTime(), text_width, text_height + current_line);
 		// More Ugly Code for the Second Column of Stats this will show Derived
