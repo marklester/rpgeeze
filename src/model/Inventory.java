@@ -37,6 +37,10 @@ public class Inventory implements Cloneable {
 	public Item removeItemAt(int i) {
 		return this.items.remove(i);
 	}
+	public Item getItemAt(int i)
+	{
+		return this.items.get(i);
+	}
 	public void removeItem(Item i)
 	{
 		items.remove(i);

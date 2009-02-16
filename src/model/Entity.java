@@ -117,35 +117,50 @@ public class Entity implements Drawable, Cloneable {
 
 	public void equipHead(Item i)
 	{
-		if(equipment.head != null && equipment.head != i)
+		if(equipment.head == i)
+			return;
+		inventory.removeItem(i);
+		if(equipment.head != null)
 			inventory.addItem(equipment.head);
 		equipment.head = i;
 		Console.getInstance().writeLine("Equiped  " + i.toString());
 	}
 	public void equipBoots(Item i)
 	{
-		if(equipment.boots != null && equipment.boots != i)
+		if(equipment.boots == i)
+			return;
+		inventory.removeItem(i);
+		if(equipment.boots != null)
 			inventory.addItem(equipment.boots);
 		equipment.boots = i;
 		Console.getInstance().writeLine("Equiped  " + i.toString());
 	}
 	public void equipArmor(Item i)
-	{	
-		if(equipment.armor != null && equipment.armor != i)
+	{
+		if(equipment.armor == i)
+			return;
+		inventory.removeItem(i);
+		if(equipment.armor != null)
 			inventory.addItem(equipment.armor);
 		equipment.armor = i;
 		Console.getInstance().writeLine("Equiped  " + i.toString());
 	}
 	public void equipWeapon(Item i)
 	{
-		if(equipment.weapon != null && equipment.weapon != i)
+		if(equipment.weapon == i)
+			return;
+		inventory.removeItem(i);
+		if(equipment.weapon != null )
 			inventory.addItem(equipment.weapon);
 		equipment.weapon = i;
 		Console.getInstance().writeLine("Equiped  " + i.toString());
 	}
 	public void equipAuxilary(Item i)
 	{		
-		if(equipment.auxilary != null && equipment.auxilary != i)
+		if(equipment.auxilary == i)
+			return;
+		inventory.removeItem(i);
+		if(equipment.auxilary != null)
 			inventory.addItem(equipment.auxilary);
 		equipment.auxilary = i;
 		if(equipment.weapon != null)
@@ -195,26 +210,45 @@ public class Entity implements Drawable, Cloneable {
 		return this.inventory;
 	}
 
+	/*
+	 * dropItem is depricated
+	 * 
+	 */
 	public void dropItem() {
 		if(!this.inventory.isEmpty()) {
 			Item i = this.inventory.removeItemAt(0);
-			i.setLocation(getTile().getLocation());
+			//i.setLocation(getTile().getLocation());
+			getTile().setItem(i);
+			Console.getInstance().writeLine(i + " has been dropped ");
+		}
+	}
+	public void dropItem(int index)
+	{
+		if(!getTile().hasItem())
+		{
+			Item i = this.inventory.removeItemAt(index);
+			//i.setLocation(getTile().getLocation());
 			getTile().setItem(i);
 			Console.getInstance().writeLine(i + " has been dropped ");
 		}
 	}
 
-	public void actionAtIndex(java.awt.Point p)
+	public void equipActionAtIndex(int index)
 	{
 		//from action listener in viewer
-		int x = p.x;
-		int y = p.y;
-		
-		int index = x + y * 6;
 		if(index >= inventory.count())
 			return;
-				
-		inventory.removeItemAt(index).activate(this);
+		
+		inventory.getItemAt(index).activate(this);	
+	}
+	public void dropActionAtIndex(int index)
+	{
+		//from action listener in viewer
+		if(index >= inventory.count())
+			return;
+
+		//Drop item here
+		dropItem(index);
 	}
 	
 	public Stats getStats() {
