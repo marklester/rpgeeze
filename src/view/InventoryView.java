@@ -12,6 +12,8 @@ import util.ResourceLoader;
 import model.Entity;
 import model.Inventory;
 import model.item.Item;
+import model.Model;
+import model.Command;
 
 public class InventoryView {
 
@@ -143,8 +145,7 @@ public class InventoryView {
 		int startx = this.tableWidth * (this.ibox_size + this.spacer) + this.xOffset;
 		return p.x < startx;
 	}
-	public boolean isOnEquipedItems(Point p)
-	{
+	public boolean isOnEquippedItems(Point p) 	{
 		//int starty = this.tableHeight * (this.ibox_size + this.spacer);
 		return (isOnInventory(p) && p.y < atHeight);
 	}
@@ -166,53 +167,43 @@ public class InventoryView {
 		return new Point(xIndex, yIndex);
 	}
 
-	public model.Command clickEquipment(Point p)
-	{
-		if(p.x > chest.x && p.x < chest.x + width && p.y > chest.y && p.y < chest.y + height + spacer + spacer)
-		{
-			return new model.Command() {
-				public void execute(model.Model m)
-				{
+	public Command clickEquipment(Point p) {
+		Command ret = null;
+		if(p.x > chest.x && p.x < chest.x + width && p.y > chest.y && p.y < chest.y + height + spacer + spacer) {
+			ret = new Command() {
+				public void execute(Model m) {
 					m.getAvatar().unequipArmor();
 				}
 			};
 		}
-		if(p.x > head.x && p.x < head.x + width && p.y > head.y && p.y < head.y + height)
-		{
-			return new model.Command() {
-				public void execute(model.Model m)
-				{
+		else if(p.x > head.x && p.x < head.x + width && p.y > head.y && p.y < head.y + height) {
+			ret = new Command() {
+				public void execute(Model m) {
 					m.getAvatar().unequipHead();
 				}
 			};
 		}
-		if(p.x > feet.x && p.x < feet.x + width && p.y > feet.y && p.y < feet.y + height)
-		{
-			return new model.Command() {
-				public void execute(model.Model m)
-				{
+		else if(p.x > feet.x && p.x < feet.x + width && p.y > feet.y && p.y < feet.y + height) {
+			ret = new Command() {
+				public void execute(Model m) {
 					m.getAvatar().unequipBoots();
 				}
 			};
 		}
-		if(p.x > weapon.x && p.x < weapon.x + width && p.y > weapon.y && p.y < weapon.y + height)
-		{
-			return new model.Command() {
-				public void execute(model.Model m)
-				{
+		else if(p.x > weapon.x && p.x < weapon.x + width && p.y > weapon.y && p.y < weapon.y + height) {
+			ret = new Command() {
+				public void execute(Model m) {
 					m.getAvatar().unequipWeapon();
 				}
 			};
 		}
-		if(p.x > aux.x && p.x < aux.x + width && p.y > aux.y && p.y < aux.y + height)
-		{
-			return new model.Command() {
-				public void execute(model.Model m)
-				{
+		else if(p.x > aux.x && p.x < aux.x + width && p.y > aux.y && p.y < aux.y + height) {
+			ret = new Command() {
+				public void execute(Model m) {
 					m.getAvatar().unequipAuxilary();
 				}
 			};
 		}
-		return null;
+		return ret;
 	}
 }

@@ -38,13 +38,13 @@ public enum Direction {
 	}
 
 	public Location toLocation() {
-		return new Location(x,y);
+		return new Location(x, y);
 	}
 	
 	public Command moveCommand() {
 		return new Command() {
 			public void execute(Model m) {
-				m.moveAvatarRequest(Direction.this);
+				m.moveAvatarRequest(Direction.this.toLocation());
 			}
 		};
 	}
