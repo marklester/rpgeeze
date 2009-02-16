@@ -9,7 +9,7 @@ import model.Entity;
 import model.Location;
 import view.Drawer;
 
-public class CrossBow extends InteractiveItem {
+public class CrossBow extends TakeableItem {
 	public CrossBow() {
 		super("Cross Bow");//, location);
 	}

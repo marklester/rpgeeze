@@ -8,7 +8,7 @@ package model.item;
 import model.Location;
 import view.Drawer;
 
-public class PotionLife extends OneShotItem {
+public class PotionLife extends TakeableItem {
 
 	public PotionLife() {//Location location) {
 		super("Potion Life"); //, location);
@@ -16,5 +16,13 @@ public class PotionLife extends OneShotItem {
 
 	public void draw(Drawer d) {
 		d.drawPotionLife(this);
+	}
+	public void activate(model.Entity e)
+	{
+		use(e);
+	}
+	private void use(model.Entity e)
+	{
+		
 	}
 }

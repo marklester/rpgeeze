@@ -71,8 +71,13 @@ public class Map {
 			return getTiles(0, 0, this.map[0].length - 1, this.map.length - 1);
 		}
 
-		public Matrix clone() throws CloneNotSupportedException {
-			Matrix m = (Matrix) super.clone();
+		public Matrix clone() {
+			Matrix m = this;
+			try
+			{
+				m = (Matrix) super.clone();
+			}catch(CloneNotSupportedException ce) { }
+				
 			m.map = this.map.clone();
 			for(int i = 0; i < m.map.length; i++)
 			{
@@ -121,12 +126,7 @@ public class Map {
 
 	// Not entirely thread safe, but better than before.
 	public Iterator<Tile> getTiles(final int minX, final int minY, final int maxX, final int maxY) {
-		Matrix m = null;
-		try {
-			m = this.matrix.clone();
-		}
-		catch(CloneNotSupportedException e) {/* Should never occur */
-		}
+		Matrix m = this.matrix.clone();
 		return m.getTiles(minX, minY, maxX, maxY);
 		// return matrix.getTiles(minX, minY, maxX, maxY);
 	}
