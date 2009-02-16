@@ -2,18 +2,17 @@ package model.item;
 
 import util.ResourceLoader;
 import view.Drawer;
-import model.*;
+import model.Entity;
+import model.Location;
 
 public class PortalItem extends InteractiveItem {
 	
-	Location where;
-	
+	private Location where;
 	
 	public PortalItem() {
 		super("Portal Item");
-		this.where = new Location(10,26);
+		this.where = new Location(10, 26);
 	}
-	
 	
 	public void activate(Entity e) {
 		use(e);
@@ -23,7 +22,6 @@ public class PortalItem extends InteractiveItem {
 		e.getTile().releaseEntity();
 		ResourceLoader.getInstance().playAudioClip(this.name);
 		e.moveAvatar(where);
-		
 	}
 	
 	public void draw(Drawer d) {

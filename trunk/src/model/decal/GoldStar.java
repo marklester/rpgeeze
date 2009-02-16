@@ -16,6 +16,6 @@ public class GoldStar extends Decal {
 	}
 
 	public void draw(Drawer d) {
-		d.drawGoldStarDecal(this);
+		d.drawGoldStar(this);
 	}
 }

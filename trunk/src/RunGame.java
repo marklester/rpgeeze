@@ -37,13 +37,10 @@ public class RunGame {
 	public static void main(String[] arg) {
 		String w = new String("");
 		
-		while(!Thread.currentThread().interrupted())
-		{
-			while(true)
-			{
-				 w = getWelcome();
-				if(w.equals("Open") || w.equals("Quit") || w.equals("New"))
-				{
+		while(!Thread.interrupted()) {
+			while(true) {
+				w = getWelcome();
+				if(w.equals("Open") || w.equals("Quit") || w.equals("New")) {
 					break;
 				}
 			}
@@ -63,9 +60,12 @@ public class RunGame {
 				welcome.setVisible(false);		
 				welcome.dispose();
 				try {
-					t.join(); }
-				catch(InterruptedException e) { Thread.currentThread().interrupt();}
-			}			
+					t.join();
+				}
+				catch(InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+			}		
 			else if(w.equals("Open"))
 			{
 				

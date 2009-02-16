@@ -6,25 +6,22 @@ package model.item;
  */
 
 import model.Entity;
-import model.Location;
 import view.Drawer;
 
 public class Boots extends TakeableItem {
-
-	public Boots() { //Location location) {
-		super("Boots");//, location);
+	public Boots() {
+		super("Boots");
 	}
 
 	public void draw(Drawer d) {
 		d.drawBoots(this);
 	}
 	
-	@Override
 	public void activate(Entity e) {
 		use(e);
 	}
-	public void use(Entity e)
-	{
+	
+	public void use(Entity e) {
 		e.equipBoots(this);
 	}
 }

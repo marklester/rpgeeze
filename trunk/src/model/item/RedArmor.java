@@ -6,25 +6,22 @@ package model.item;
  */
 
 import model.Entity;
-import model.Location;
 import view.Drawer;
 
 public class RedArmor extends TakeableItem {
-
-	public RedArmor() {//Location location) {
-		super("Red Armor"); //, location);
+	public RedArmor() {
+		super("Red Armor");
 	}
 
 	public void draw(Drawer d) {
 		d.drawRedArmor(this);
 	}
 
-	@Override
 	public void activate(Entity e) {
 		use(e);
 	}
-	public void use(Entity e)
-	{
+
+	public void use(Entity e) {
 		e.equipArmor(this);
 	}
 }

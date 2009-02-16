@@ -42,11 +42,11 @@ public class Entity implements Drawable, Cloneable {
 		
 		public synchronized Equipment clone() {
 			Equipment ret = new Equipment();
-			ret.head = head.clone();
-			ret.armor = armor.clone();
-			ret.boots = boots.clone();
-			ret.weapon = weapon.clone();
-			ret.auxiliary = auxiliary.clone();
+			ret.head = head == null ? null : head.clone();
+			ret.armor = armor == null ? null : armor.clone();
+			ret.boots = boots == null ? null : boots.clone();
+			ret.weapon = weapon == null ? null : weapon.clone();
+			ret.auxiliary = auxiliary == null ? null : auxiliary.clone();
 			return ret;
 		}
 	}
@@ -260,11 +260,16 @@ public class Entity implements Drawable, Cloneable {
 		return this.inventory.iterator();
 	}
 
-	public Entity clone() throws CloneNotSupportedException {
-		Entity e = (Entity) super.clone();
-		e.stats = this.stats.clone();
-		e.inventory = this.inventory.clone();
-		return e;
+	public Entity clone() {
+		Entity ret = null;
+		try {
+			ret = (Entity) super.clone();
+		}
+		catch(CloneNotSupportedException e) {
+		}
+		ret.stats = this.stats.clone();
+		ret.inventory = this.inventory.clone();
+		return ret;
 	}
 	
 	public Stats resetStats(int numOfLives) {

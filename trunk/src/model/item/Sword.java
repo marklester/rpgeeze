@@ -6,24 +6,22 @@ package model.item;
  */
 
 import model.Entity;
-import model.Location;
 import view.Drawer;
 
 public class Sword extends TakeableItem {
-
-	public Sword() {//Location location) {
-		super("Sword");//, location);
+	public Sword() {
+		super("Sword");
 	}
 
 	public void draw(Drawer d) {
 		d.drawSword(this);
 	}
-	public void activate(model.Entity e)
-	{
+
+	public void activate(Entity e) {
 		use(e);
 	}
-	public void use(Entity e)
-	{
+
+	public void use(Entity e) {
 		e.equipWeapon(this);
 	}
 }

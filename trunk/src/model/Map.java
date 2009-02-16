@@ -85,12 +85,7 @@ public class Map {
 				for(int j = 0; j < m.map[i].length; j++)
 				{
 					if(this.map[i][j] != null)
-						try {
-							m.map[i][j] = this.map[i][j].clone();
-						}
-						catch(CloneNotSupportedException e) {
-							System.err.println("This should never occur.");
-						}
+						m.map[i][j] = this.map[i][j].clone();
 					else
 						System.out.println("No Good.");
 				}

@@ -6,12 +6,11 @@ package model.item;
  */
 
 import model.Entity;
-import model.Location;
 import view.Drawer;
 
 public class CrossBow extends TakeableItem {
 	public CrossBow() {
-		super("Cross Bow");//, location);
+		super("Crossbow");
 	}
 
 	public void draw(Drawer d) {

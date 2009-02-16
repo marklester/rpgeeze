@@ -52,7 +52,6 @@ public class Tile implements Cloneable {
 
 	// package level so that nobody outside Model can mess with this
 	void setItem(Item item) {
-		//if(item != null) item.setLocation(getLocation());
 		this.item = item;
 	}
 
@@ -100,8 +99,9 @@ public class Tile implements Cloneable {
 
 	public void accept(Entity e) {
 		if(getTerrain().isPassable(e)) {
-			if(hasItem() && getItem().isPassable() || !hasItem()) {
-				e.getTile().setEntity(null);
+			if((hasItem() && getItem().isPassable()) || !hasItem()) {
+				if(e.getTile() != null)
+					e.getTile().releaseEntity();
 				setEntity(e);
 				e.setTile(this);
 			}
@@ -109,20 +109,19 @@ public class Tile implements Cloneable {
 	}
 
 	public void releaseEntity() {
-		this.entity = null;
+		setEntity(null);
 	}
 
-	public Tile clone() throws CloneNotSupportedException {
-		
-		Tile t = (Tile) super.clone();
-		if(t.ae != null)
-			t.ae = this.ae.clone();
-		if(t.decal != null)
-			t.decal = this.decal.clone();
-		if(t.entity != null)
-			t.entity = this.entity.clone();
-		return t;
-
+	public Tile clone() {
+		Tile tile = new Tile(
+			terrain,
+			location,
+			decal == null ? null: decal.clone(),
+			item == null ? null : item.clone(),
+			ae == null ? null : ae.clone()
+		);
+		tile.entity = entity == null ? null : entity.clone();
+		return tile;
 	}
 
 	public String toString() {
