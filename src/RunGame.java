@@ -71,7 +71,10 @@ public class RunGame {
 				
 			}
 			else if(w.equals("Quit"))
+			{
 				Thread.currentThread().interrupt();
+				System.exit(0);
+			}
 		}
 	}
 
