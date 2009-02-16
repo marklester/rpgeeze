@@ -21,6 +21,7 @@ public abstract class Decal implements Drawable, Cloneable {
 			new GoldStar(),
 			new RedCross(),
 			new SkullAndCrossbones(),
+			new FireDecal()
 		})
 			prototypes.put(d.toString(), d);
 	}
