@@ -19,6 +19,16 @@ public enum Direction {
 		this.y = y;
 	}
 	
+	public static Direction forXY(int x, int y) {
+		Direction ret = null;
+		for(Direction d: Direction.values())
+			if(d.x == x && d.y == y) {
+				ret = d;
+				break;
+			}
+		return ret;
+	}
+	
 	public int getX() {
 		return this.x;
 	}
@@ -27,6 +37,10 @@ public enum Direction {
 		return this.y;
 	}
 
+	public Location toLocation() {
+		return new Location(x,y);
+	}
+	
 	public Command moveCommand() {
 		return new Command() {
 			public void execute(Model m) {
