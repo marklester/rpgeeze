@@ -31,10 +31,11 @@ public class Location {
 		return "(" + this.x + "," + this.y + ")";
 	}
 
+	
 	public String toXml() {
 		return toXml("");
 	}
-		
+	
 	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(indent + "<location>\n");
@@ -42,6 +43,12 @@ public class Location {
 		sb.append(indent + "\t<y>" + y + "</y>\n");
 		sb.append(indent + "</location>");
 		return sb.toString();
+	}
+	
+	public Direction closestDirection() {
+		Direction ret = Direction.forXY(getX(), getY());
+		if(ret == null) ret = Direction.NORTH;
+		return ret;
 	}
 	
 	public static Location fromXml(String xml) {
