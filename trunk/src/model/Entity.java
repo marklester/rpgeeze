@@ -231,5 +231,17 @@ public class Entity implements Drawable, Cloneable {
 	public Occupation getOccupation() {
 		return this.occupation;
 	}
+	
+	public String toXml() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<entity>");
+		sb.append(stats.toXml());
+		sb.append(occupation.toXml());
+		sb.append(inventory == null ? "" : inventory.toXml());
+		sb.append(tile.toXml());
+		sb.append("</entity>");
+		return sb.toString();
+		
+	}
 
 }
