@@ -17,7 +17,7 @@ public abstract class Item implements Drawable, Cloneable {
 	protected final String name;
 	protected Location location;
 	
-	private static Pattern pattern = Pattern.compile("<item><name>(.*)</name></item>");
+	private static Pattern pattern = Pattern.compile("<item>(.*)</item>");
 	private static Hashtable<String, Item> prototypes = new Hashtable<String, Item>();
 	
 	static {
@@ -78,9 +78,7 @@ public abstract class Item implements Drawable, Cloneable {
 		
 	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(indent + "<item>\n");
-		sb.append(indent + "\t<name>" + name + "</name>\n");
-		sb.append(indent + "</item>");
+		sb.append(indent + "<item>" + name + "</item>");
 		return sb.toString();
 	}
 	

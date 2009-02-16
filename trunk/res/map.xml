@@ -327,9 +327,7 @@
 			<x>46</x>
 			<y>0</y>
 		</location>
-		<decal>
-		<name>Skull and Crossbones</name>
-		</decal>
+		<decal>Skull and Crossbones</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -442,9 +440,7 @@
 			<x>62</x>
 			<y>0</y>
 		</location>
-		<decal>
-		<name>Red Cross</name>
-		</decal>
+		<decal>Red Cross</decal>
 	</tile>
 	<tile>
 		<terrain>Water Terrain</terrain>
@@ -501,9 +497,7 @@
 			<x>0</x>
 			<y>1</y>
 		</location>
-		<item>
-			<name>Sword</name>
-		</item>
+		<item>Sword</item>
 	</tile>
 	<tile>
 		<terrain>Mountain Terrain</terrain>
@@ -819,9 +813,7 @@
 			<x>45</x>
 			<y>1</y>
 		</location>
-		<decal>
-		<name>Skull and Crossbones</name>
-		</decal>
+		<decal>Skull and Crossbones</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -836,9 +828,7 @@
 			<x>47</x>
 			<y>1</y>
 		</location>
-		<decal>
-		<name>Skull and Crossbones</name>
-		</decal>
+		<decal>Skull and Crossbones</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -853,9 +843,7 @@
 			<x>49</x>
 			<y>1</y>
 		</location>
-		<decal>
-		<name>Skull and Crossbones</name>
-		</decal>
+		<decal>Skull and Crossbones</decal>
 	</tile>
 	<tile>
 		<terrain>Water Terrain</terrain>
@@ -1003,9 +991,7 @@
 			<x>0</x>
 			<y>2</y>
 		</location>
-		<decal>
-		<name>Skull and Crossbones</name>
-		</decal>
+		<decal>Skull and Crossbones</decal>
 		<ae>
 			<name>Take Damage</name>
 			<rate>1</rate>
@@ -1325,9 +1311,7 @@
 			<x>45</x>
 			<y>2</y>
 		</location>
-		<decal>
-		<name>Skull and Crossbones</name>
-		</decal>
+		<decal>Skull and Crossbones</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -1335,9 +1319,7 @@
 			<x>46</x>
 			<y>2</y>
 		</location>
-		<decal>
-		<name>Skull and Crossbones</name>
-		</decal>
+		<decal>Skull and Crossbones</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -1513,9 +1495,7 @@
 			<x>1</x>
 			<y>3</y>
 		</location>
-		<item>
-			<name>Potion Life</name>
-		</item>
+		<item>Potion Life</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -1838,9 +1818,7 @@
 			<x>47</x>
 			<y>3</y>
 		</location>
-		<decal>
-		<name>Skull and Crossbones</name>
-		</decal>
+		<decal>Skull and Crossbones</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -1848,9 +1826,7 @@
 			<x>48</x>
 			<y>3</y>
 		</location>
-		<decal>
-		<name>Skull and Crossbones</name>
-		</decal>
+		<decal>Skull and Crossbones</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -1865,9 +1841,7 @@
 			<x>50</x>
 			<y>3</y>
 		</location>
-		<decal>
-		<name>Skull and Crossbones</name>
-		</decal>
+		<decal>Skull and Crossbones</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -2008,9 +1982,7 @@
 			<x>0</x>
 			<y>4</y>
 		</location>
-		<item>
-			<name>Boulder</name>
-		</item>
+		<item>Boulder</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -2018,9 +1990,7 @@
 			<x>1</x>
 			<y>4</y>
 		</location>
-		<item>
-			<name>Boulder</name>
-		</item>
+		<item>Boulder</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -2336,9 +2306,7 @@
 			<x>46</x>
 			<y>4</y>
 		</location>
-		<decal>
-		<name>Skull and Crossbones</name>
-		</decal>
+		<decal>Skull and Crossbones</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -2437,9 +2405,7 @@
 			<x>60</x>
 			<y>4</y>
 		</location>
-		<decal>
-		<name>Gold Star</name>
-		</decal>
+		<decal>Gold Star</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -2517,9 +2483,7 @@
 			<x>1</x>
 			<y>5</y>
 		</location>
-		<item>
-			<name>Sword</name>
-		</item>
+		<item>Sword</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -2576,9 +2540,7 @@
 			<x>9</x>
 			<y>5</y>
 		</location>
-		<decal>
-		<name>Gold Star</name>
-		</decal>
+		<decal>Gold Star</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -4049,9 +4011,7 @@
 			<x>9</x>
 			<y>8</y>
 		</location>
-		<item>
-			<name>Boulder</name>
-		</item>
+		<item>Boulder</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -4542,9 +4502,7 @@
 			<x>9</x>
 			<y>9</y>
 		</location>
-		<item>
-			<name>Boulder</name>
-		</item>
+		<item>Boulder</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -5028,9 +4986,7 @@
 			<x>8</x>
 			<y>10</y>
 		</location>
-		<item>
-			<name>Boulder</name>
-		</item>
+		<item>Boulder</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -5038,9 +4994,7 @@
 			<x>9</x>
 			<y>10</y>
 		</location>
-		<item>
-			<name>Boulder</name>
-		</item>
+		<item>Boulder</item>
 	</tile>
 	<tile>
 		<terrain>Water Terrain</terrain>
@@ -5076,9 +5030,7 @@
 			<x>14</x>
 			<y>10</y>
 		</location>
-		<decal>
-		<name>Gold Star</name>
-		</decal>
+		<decal>Gold Star</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -6885,9 +6837,7 @@
 			<x>62</x>
 			<y>13</y>
 		</location>
-		<decal>
-		<name>Red Cross</name>
-		</decal>
+		<decal>Red Cross</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -7147,9 +7097,7 @@
 			<x>29</x>
 			<y>14</y>
 		</location>
-		<decal>
-		<name>Red Cross</name>
-		</decal>
+		<decal>Red Cross</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -8417,9 +8365,7 @@
 			<x>0</x>
 			<y>17</y>
 		</location>
-		<item>
-			<name>Cross Bow</name>
-		</item>
+		<item>Cross Bow</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -8441,9 +8387,7 @@
 			<x>3</x>
 			<y>17</y>
 		</location>
-		<decal>
-		<name>Red Cross</name>
-		</decal>
+		<decal>Red Cross</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -11370,9 +11314,7 @@
 			<x>1</x>
 			<y>23</y>
 		</location>
-		<decal>
-		<name>Red Cross</name>
-		</decal>
+		<decal>Red Cross</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -11401,9 +11343,7 @@
 			<x>5</x>
 			<y>23</y>
 		</location>
-		<item>
-			<name>Manna</name>
-		</item>
+		<item>Manna</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -11796,9 +11736,7 @@
 			<x>61</x>
 			<y>23</y>
 		</location>
-		<decal>
-		<name>Gold Star</name>
-		</decal>
+		<decal>Gold Star</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -12359,9 +12297,7 @@
 			<x>1</x>
 			<y>25</y>
 		</location>
-		<item>
-			<name>Red Armor</name>
-		</item>
+		<item>Red Armor</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -12376,9 +12312,7 @@
 			<x>3</x>
 			<y>25</y>
 		</location>
-		<item>
-			<name>Boots</name>
-		</item>
+		<item>Boots</item>
 	</tile>
 	<tile>
 		<terrain>Mountain Terrain</terrain>
@@ -12393,9 +12327,7 @@
 			<x>5</x>
 			<y>25</y>
 		</location>
-		<item>
-			<name>Arrows</name>
-		</item>
+		<item>Arrows</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -12410,9 +12342,7 @@
 			<x>7</x>
 			<y>25</y>
 		</location>
-		<item>
-			<name>Shield</name>
-		</item>
+		<item>Shield</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -12420,9 +12350,7 @@
 			<x>8</x>
 			<y>25</y>
 		</location>
-		<item>
-			<name>Boulder</name>
-		</item>
+		<item>Boulder</item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -12430,9 +12358,7 @@
 			<x>9</x>
 			<y>25</y>
 		</location>
-		<item>
-			<name>Boulder</name>
-		</item>
+		<item>Boulder</item>
 	</tile>
 	<tile>
 		<terrain>Water Terrain</terrain>
@@ -12468,9 +12394,7 @@
 			<x>14</x>
 			<y>25</y>
 		</location>
-		<decal>
-		<name>Gold Star</name>
-		</decal>
+		<decal>Gold Star</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -12779,9 +12703,7 @@
 			<x>58</x>
 			<y>25</y>
 		</location>
-		<decal>
-		<name>Red Cross</name>
-		</decal>
+		<decal>Red Cross</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -17171,9 +17093,7 @@
 			<x>55</x>
 			<y>34</y>
 		</location>
-		<decal>
-		<name>Red Cross</name>
-		</decal>
+		<decal>Red Cross</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -17944,9 +17864,7 @@
 			<x>25</x>
 			<y>36</y>
 		</location>
-		<decal>
-		<name>Gold Star</name>
-		</decal>
+		<decal>Gold Star</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -18808,9 +18726,7 @@
 			<x>8</x>
 			<y>38</y>
 		</location>
-		<decal>
-		<name>Gold Star</name>
-		</decal>
+		<decal>Gold Star</decal>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>

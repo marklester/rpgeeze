@@ -178,6 +178,7 @@ public class Map {
 			Location loc = tile.getLocation();
 			matrix[loc.getY()][loc.getX()] = tile;
 		}
+		System.out.println(new Map(matrix).toXml());
 		return new Map(matrix);
 	}
 }
