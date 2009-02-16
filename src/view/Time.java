@@ -21,8 +21,6 @@ public class Time extends Thread {
 
 	public void run() {
 		this.view.start();
-		AudioThread at = new AudioThread();
-		at.start();
 		
 
 		while(!Thread.interrupted() && !model.isPaused()) {
@@ -44,7 +42,6 @@ public class Time extends Thread {
 				}
 		}
 		this.view.interrupt();
-		at.interrupt();
 
 	}
 }
