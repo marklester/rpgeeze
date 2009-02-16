@@ -59,9 +59,52 @@ public class WelcomeScreen extends JFrame {
 				}
 			}
 		});
-		JPanel p1 = new JPanel(new GridLayout(1,3));
 		
-		p1.add(newGame);
+		JButton selectSmasher = new JButton("Smasher");
+		selectSmasher.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				synchronized(WelcomeScreen.this) {
+					if(getAction() != null) {
+						setAction("Smasher");
+						WelcomeScreen.this.setVisible(false);
+						WelcomeScreen.this.notifyAll();
+						WelcomeScreen.this.dispose();
+					}
+				}
+			}
+		});
+		JButton selectSummoner = new JButton("Summoner");
+		selectSummoner.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				synchronized(WelcomeScreen.this) {
+					if(getAction() != null) {
+						setAction("Summoner");
+						WelcomeScreen.this.setVisible(false);
+						WelcomeScreen.this.notifyAll();
+						WelcomeScreen.this.dispose();
+					}
+				}
+			}
+		});
+		JButton selectSeak = new JButton("Seak");
+		selectSeak.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				synchronized(WelcomeScreen.this) {
+					if(getAction() != null) {
+						setAction("Seak");
+						WelcomeScreen.this.setVisible(false);
+						WelcomeScreen.this.notifyAll();
+						WelcomeScreen.this.dispose();
+					}
+				}
+			}
+		});
+		JPanel p1 = new JPanel(new GridLayout(2,3));
+		
+		//p1.add(newGame);
+		p1.add(selectSmasher);
+		p1.add(selectSummoner);
+		p1.add(selectSeak);
 		p1.add(loadGame);
 		p1.add(quitGame);
 	
