@@ -108,10 +108,7 @@ public class InventoryView {
 		Image img;
 		
 		model.Entity.Equipment eq = e.getEquipment();
-		try {
-			eq = e.getEquipment().clone();
-		}catch (CloneNotSupportedException ce) 
-		{ System.err.println("Equip clone failed.");};
+		eq = e.getEquipment().clone();
 			
 		//HEAD
 		if(eq.head != null)

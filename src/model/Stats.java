@@ -1,9 +1,5 @@
 package model;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
 public class Stats implements Cloneable {
 
 	// measures how good the entity is at her occupation;based on experience
@@ -173,30 +169,20 @@ public class Stats implements Cloneable {
 	}
 	
 	public String toXml() {
+		return toXml("");
+	}
+	
+	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<stats>");
-		sb.append("<level>");
-		sb.append(level);
-		sb.append("</level>");
-		sb.append("<life>");
-		sb.append(life);
-		sb.append("</life>");
-		sb.append("<manna>");
-		sb.append(mana);
-		sb.append("</mana>");
-		sb.append("<offensiveRating>");
-		sb.append(offensiveRating);
-		sb.append("</offensiveRating>");
-		sb.append("<defensiveRating>");
-		sb.append(defensiveRating);
-		sb.append("</defensiveRating>");
-		sb.append("<armorRating>");
-		sb.append(armorRating);
-		sb.append("</armorRating>");
-		sb.append("<movement>");
-		sb.append(movement);
-		sb.append("</movement>");
-		sb.append(primaryStats.toXml());
+		sb.append(indent + "<stats>\n");
+		sb.append(indent + "\t<level>" + level + "</level>\n");
+		sb.append(indent + "\t<life>" + life + "</life>\n");
+		sb.append(indent + "\t<mana>" + mana + "</mana>\n");
+		sb.append(indent + "\t<offensiveRating>" + offensiveRating + "</offensiveRating>\n");
+		sb.append(indent + "\t<defensiveRating>" + defensiveRating + "</defensiveRating>\n");
+		sb.append(indent + "\t<armorRating>" + armorRating + "</armorRating>\n");
+		sb.append(indent + "\t<movement>" + movement + "</movement>\n");
+		sb.append(primaryStats.toXml(indent + "\t") + "\n");
 		sb.append("</stats>");
 		return sb.toString();
 	}

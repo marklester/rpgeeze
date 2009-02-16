@@ -98,21 +98,16 @@ public class Inventory implements Cloneable {
 	}
 	
 	public String toXml() {
+		return toXml("");
+	}
+	
+	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<inventory>");
-		if(!(items.isEmpty()))
-		{
-		 for(int i = 0; i < items.size(); i++)
-		 {
-		  Item item = items.get(i);
-		  sb.append(item.toXml());
-		 }
-		}
-		else
-		{
-		 sb.append("");
-		}
-		sb.append("</inventory>");
+		sb.append(indent + "<inventory>\n");
+		Iterator<Item> iterator = iterator();
+		for(iterator.reset(); !iterator.isDone(); iterator.advance())
+			sb.append(iterator.current().toXml(indent + "\t") + "\n");
+		sb.append(indent + "</inventory>");
 		return sb.toString();
 	}
 }
