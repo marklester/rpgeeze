@@ -24,5 +24,6 @@ public class CrossBow extends TakeableItem {
 	public void use(Entity e) {
 		e.equipWeapon(this);
 		e.unequipAuxiliary();
+		view.Console.getInstance().writeLine("Cross Bow has been equipped.");
 	}
 }

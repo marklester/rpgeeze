@@ -20,8 +20,8 @@ public class Helmet extends TakeableItem {
 	public void activate(Entity e) {
 		use(e);
 	}
-
 	public void use(Entity e) {
 		e.equipHead(this);
+		view.Console.getInstance().writeLine("Helmet has been equipped.");
 	}
 }

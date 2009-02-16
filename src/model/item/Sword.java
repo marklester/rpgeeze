@@ -23,5 +23,6 @@ public class Sword extends TakeableItem {
 
 	public void use(Entity e) {
 		e.equipWeapon(this);
+		view.Console.getInstance().writeLine("Sword has been equipped.");
 	}
 }

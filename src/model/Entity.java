@@ -104,40 +104,32 @@ public class Entity implements Drawable, Cloneable {
 		if(equipment.head == i)
 			return;
 		inventory.removeItem(i);
-		if(equipment.head != null)
-			inventory.addItem(equipment.head);
+		unequipHead();
 		equipment.head = i;
-		Console.getInstance().writeLine("Equipped " + i);
 	}
 
 	public void equipBoots(Item i) {
 		if(equipment.boots == i)
 			return;
 		inventory.removeItem(i);
-		if(equipment.boots != null)
-			inventory.addItem(equipment.boots);
+		unequipBoots();
 		equipment.boots = i;
-		Console.getInstance().writeLine("Equipped " + i);
 	}
 	
 	public void equipArmor(Item i) {
 		if(equipment.armor == i)
 			return;
 		inventory.removeItem(i);
-		if(equipment.armor != null)
-			inventory.addItem(equipment.armor);
+		unequipArmor();
 		equipment.armor = i;
-		Console.getInstance().writeLine("Equipped " + i);
 	}
 
 	public void equipWeapon(Item i) {
 		if(equipment.weapon == i)
 			return;
 		inventory.removeItem(i);
-		if(equipment.weapon != null )
-			inventory.addItem(equipment.weapon);
+		unequipWeapon();
 		equipment.weapon = i;
-		Console.getInstance().writeLine("Equipped " + i);
 	}
 
 	public void equipAuxiliary(Item i) {		
@@ -149,35 +141,51 @@ public class Entity implements Drawable, Cloneable {
 		equipment.auxiliary = i;
 		if(equipment.weapon != null)
 			equipment.weapon.activate(this);
-		Console.getInstance().writeLine("Equipped " + i);
 	}
 
 	public void unequipHead() {
 		if(equipment.head != null)
+		{
 			inventory.addItem(equipment.head);
+			equipment.head.deActivate(this);
+		}
 		equipment.head = null;
 	}
 
 	public void unequipBoots() {
 		if(equipment.boots != null)
+		{
 			inventory.addItem(equipment.boots);
+			equipment.boots.deActivate(this);
+		}
+			
 		equipment.boots = null;
 	}
 
 	public void unequipArmor() {
 		if(equipment.armor != null)
+		{
 			inventory.addItem(equipment.armor);
+			equipment.armor.deActivate(this);
+		}
 		equipment.armor = null;
 	}
+	
 	public void unequipWeapon() {
 		if(equipment.weapon != null)
+		{
 			inventory.addItem(equipment.weapon);
+			equipment.weapon.deActivate(this);
+		}
 		equipment.weapon = null;
 	}
 	
 	public void unequipAuxiliary() {
 		if(equipment.auxiliary != null)
+		{
 			inventory.addItem(equipment.auxiliary);
+			equipment.auxiliary.deActivate(this);
+		}
 		equipment.auxiliary = null;
 	}
 	
