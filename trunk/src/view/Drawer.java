@@ -78,7 +78,7 @@ public class Drawer implements Observer {
 		boots = ResourceLoader.getInstance().getImage("img/boots.png");
 		arrows = ResourceLoader.getInstance().getImage("img/arrows.png");
 		mana = ResourceLoader.getInstance().getImage("img/mana.png");
-		
+		helmet = ResourceLoader.getInstance().getImage("img/helmet.png");
 		portal = ResourceLoader.getInstance().getImage("img/portal20px.png");
 		healthPack = ResourceLoader.getInstance().getImage("img/healthpack20px.png");
 		
