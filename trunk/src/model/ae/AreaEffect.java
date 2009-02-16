@@ -25,7 +25,7 @@ public abstract class AreaEffect implements Cloneable {
 	protected final String name;
 	protected int rate;
 	protected int counter = UPDATE_RATE;
-	protected boolean f_msg_was_sent = false;
+	protected boolean f_msg_was_sent;
 	
 	// This will typically be used by LevelUp and InstantDeath - since their
 	// rates are irrelevant
@@ -36,6 +36,7 @@ public abstract class AreaEffect implements Cloneable {
 	public AreaEffect(int rate, String name) {
 		this.name = name;
 		this.rate = rate;
+		f_msg_was_sent = false;
 	}
 
 	public void setRate(int rate) {
@@ -56,6 +57,10 @@ public abstract class AreaEffect implements Cloneable {
 
 	public String toString() {
 		return name;
+	}
+	
+	public void setMessageFlag(boolean f){
+		f_msg_was_sent = f;
 	}
 	
 	public String toXml() {
