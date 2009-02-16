@@ -189,6 +189,16 @@ public class Entity implements Drawable, Cloneable {
 		equipment.auxiliary = null;
 	}
 	
+	public void unequipAll()
+	{
+		unequipHead();
+		unequipBoots();
+		unequipArmor();
+		unequipWeapon();
+		unequipAuxiliary();
+	}
+	
+	
 	public Equipment getEquipment() {
 		return equipment;
 	}

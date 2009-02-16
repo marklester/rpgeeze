@@ -128,6 +128,7 @@ public class Model implements util.Subject {
 		Location from = avatar.getTile().getLocation();
 		Location to = avatarStart;
 		avatar.resetStats(numOfLives); //reset all stats, except num of lives - that shouldn't be reset!
+		avatar.unequipAll();
 		avatar.move(to.subtract(from));
 	}
 }
