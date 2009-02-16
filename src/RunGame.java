@@ -33,26 +33,14 @@ public class RunGame {
 	 * Starts a new game. See the description above for what happens.
 	 */
 	public static WelcomeScreen welcome = null;
+	
 	public static void main(String[] arg) {
 		String w = new String("");
 		
 		while(true)
 		{
 			 w = getWelcome();
-			if(w.equals("Load"))
-			{
-				String message = loadGame();
-				if(message.equals("Open"))
-				{
-				 break;
-				}
-				
-			}
-			else if(w.equals("Quit"))
-			{
-				break;
-			}
-			else if(w.equals("New"))
+			if(w.equals("Open") || w.equals("Quit") || w.equals("New"))
 			{
 				break;
 			}
@@ -70,6 +58,11 @@ public class RunGame {
 				}
 			}
 			newGame(welcome.getOccupation());
+		}
+		
+		else if(w.equals("Open"))
+		{
+			
 		}
 	}
 
@@ -107,26 +100,5 @@ public class RunGame {
 		 Time time = new Time(model, view);
 		 time.start();
 	}
-	
-	public static String loadGame()
-	{
-		String message = new String("");
-        JFileChooser chooser = new JFileChooser(); 
-		
-		//chooser.setFileFilter(new JFileChooser.FileFilter(new String[] { "rpg" }, "rpeeze_Files")); //creates file filter
-		    
-		    int status = chooser.showOpenDialog(null);
-		    
-		    if (status == JFileChooser.APPROVE_OPTION) {
-		      File selectedFile = chooser.getSelectedFile();
-		     message = "Open";
-		    } else if (status == JFileChooser.CANCEL_OPTION) {
-                message = "Cancel";
-              
-		    }
-		    return message;
-	}
-   
-	
 	
 }
