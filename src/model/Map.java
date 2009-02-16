@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import util.Iterator;
-
+ 
 public class Map {
 	protected static final Pattern mapPattern = Pattern.compile("<map>(.*?)</map>");
 	protected static final Pattern tilePattern = Pattern.compile("(<tile>.*?</tile>)");
