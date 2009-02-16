@@ -9,7 +9,9 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
-import java.io.*;
+import java.io.InputStream;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class ResourceLoader {
 	private final ClassLoader loader;
@@ -100,4 +102,7 @@ public class ResourceLoader {
 		return ret;
 	}
 
+	public Scanner getScanner(String key) {
+		return new Scanner(getStream(key));
+	}
 }
