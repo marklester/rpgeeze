@@ -23,5 +23,7 @@ public class Shield extends TakeableItem {
 
 	public void use(Entity e) {
 		e.equipAuxiliary(this);
+		if(e.getEquipment().auxiliary == this)
+			view.Console.getInstance().writeLine("Shield has been equipped.");
 	}
 }

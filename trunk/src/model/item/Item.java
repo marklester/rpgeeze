@@ -57,6 +57,9 @@ public abstract class Item implements Drawable, Cloneable {
 	}
 	
 	public abstract void activate(Entity e);
+	public void deActivate(Entity e)
+	{
+	}
 
 	public String toXml() {
 		return toXml("");

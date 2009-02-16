@@ -17,7 +17,7 @@ public class Model implements util.Subject {
 	private Entity avatar;
 	private Map map;
 	private final Location avatarStart;
-	private boolean isPaused;
+	private boolean paused;
 
 	public Model(Map map, Entity avatar) {
 		// create map
@@ -27,7 +27,7 @@ public class Model implements util.Subject {
 		// --Jose
 		this.map = map;
 		this.avatar = avatar;
-		isPaused = false;
+		paused = false;
 
 		Scanner scanner = ResourceLoader.getInstance().getScanner("entities.txt");
 		int x = scanner.nextInt();
@@ -53,11 +53,11 @@ public class Model implements util.Subject {
 	}
 
 	public void update() {
-		if(!isPaused ) {
+		if(!paused ) {
 			// read task queue
 			Queue<Command> tempQ = null;
 			synchronized(this) {
-				tempQ = (Queue<Command>) ((LinkedList) this.commands).clone();
+				tempQ = (Queue<Command>) ((LinkedList<Command>) this.commands).clone();
 				this.commands.clear();
 			}
 			while(!tempQ.isEmpty())
@@ -124,7 +124,15 @@ public class Model implements util.Subject {
 	}
 	
 	public boolean isPaused() {
-		return isPaused;
+		return paused;
+	}
+	public void pause()
+	{
+		paused = true;
+	}
+	public void unPause()
+	{
+		paused = false;
 	}
 	
 	public void endGame() {

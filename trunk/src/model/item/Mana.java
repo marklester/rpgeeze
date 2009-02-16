@@ -23,6 +23,8 @@ public class Mana extends TakeableItem {
 	}
 
 	private void use(Entity e) {
-		
+		e.getStats().incMana(100);
+		e.getInventory().removeItem(this);
+		view.Console.getInstance().writeLine("Used Mana Potion.");
 	}
 }

@@ -23,6 +23,6 @@ public class Arrows extends TakeableItem {
 	}
 
 	public void use(Entity e) {
-		
+		//view.Console.getInstance().writeLine("You have picked up Arrows.");
 	}
 }

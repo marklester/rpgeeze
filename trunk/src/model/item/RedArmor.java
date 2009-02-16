@@ -23,5 +23,6 @@ public class RedArmor extends TakeableItem {
 
 	public void use(Entity e) {
 		e.equipArmor(this);
+		view.Console.getInstance().writeLine("Armor has been equipped");
 	}
 }

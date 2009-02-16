@@ -23,5 +23,8 @@ public class PotionLife extends TakeableItem {
 	}
 
 	private void use(Entity e) {
+		e.getStats().incLife(100);
+		e.getInventory().removeItem(this);
+		view.Console.getInstance().writeLine("Used Heath Potion.");
 	}
 }
