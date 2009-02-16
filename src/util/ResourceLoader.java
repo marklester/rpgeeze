@@ -59,7 +59,6 @@ public class ResourceLoader {
 		images.put("Smasher", getImage("img/buttons/Smasher.png"));
 		images.put("Summoner", getImage("img/buttons/Summoner.png"));
 		images.put("Sneak", getImage("img/buttons/Sneak.png"));
-		
 	}
 		
 	/**
@@ -110,7 +109,6 @@ public class ResourceLoader {
 	 */
 	public InputStream getStream(String key) {
 		InputStream ret = loader.getResourceAsStream("res/" + key);
-//		if(key.contains("smasher")) System.out.println(key + ": " + ret);
 		return ret;
 	}
 

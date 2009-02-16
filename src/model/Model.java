@@ -41,7 +41,7 @@ public class Model implements util.Subject {
 //		tile.accept(avatar);
 		
 		String xml = avatar.toXml();
-		System.out.println(xml);	
+//		System.out.println(xml);	
 	}
 
 	public Map getMap() {
