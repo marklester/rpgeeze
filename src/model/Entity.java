@@ -25,32 +25,6 @@ public class Entity implements Drawable, Cloneable {
 	// Name
 	// EquippedItems
 	
-	public class Equipment implements Cloneable {
-		public Item head;
-		public Item armor;
-		public Item boots;
-		public Item weapon;
-		public Item auxiliary;
-		
-		public Equipment() 	{
-			head = null;
-			armor = null;
-			boots = null;
-			weapon = null;
-			auxiliary = null;
-		}
-		
-		public synchronized Equipment clone() {
-			Equipment ret = new Equipment();
-			ret.head = head == null ? null : head.clone();
-			ret.armor = armor == null ? null : armor.clone();
-			ret.boots = boots == null ? null : boots.clone();
-			ret.weapon = weapon == null ? null : weapon.clone();
-			ret.auxiliary = auxiliary == null ? null : auxiliary.clone();
-			return ret;
-		}
-	}
-	
 	public Entity(Occupation occupation, Map map) {
 		this.map = map;
 		this.inventory = new Inventory();
@@ -292,6 +266,7 @@ public class Entity implements Drawable, Cloneable {
 		sb.append(stats.toXml(indent + "\t") + "\n");
 		sb.append(occupation.toXml(indent + "\t") + "\n");
 		sb.append(inventory.toXml(indent + "\t") + "\n");
+		sb.append(equipment.toXml(indent + "\t") + "\n");
 		sb.append(tile.toXml(indent + "\t") + "\n");
 		sb.append(indent + "</entity>");
 		return sb.toString();
