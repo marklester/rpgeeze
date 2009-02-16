@@ -5,6 +5,7 @@ package model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
+import model.Entity;
 import model.Location;
 import view.Drawer;
 
@@ -16,5 +17,10 @@ public class RedArmor extends TakeableItem {
 
 	public void draw(Drawer d) {
 		d.drawRedArmor(this);
+	}
+
+	@Override
+	public void activate(Entity e) {
+		e.equipArmor(this);
 	}
 }
