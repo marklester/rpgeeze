@@ -17,8 +17,4 @@ public class Sword extends TakeableItem {
 	public void draw(Drawer d) {
 		d.drawSword(this);
 	}
-	public void activate(model.Entity e)
-	{
-		
-	}
 }

@@ -17,9 +17,4 @@ public class Shield extends TakeableItem {
 	public void draw(Drawer d) {
 		d.drawShield(this);
 	}
-	
-	public void activate(model.Entity e)
-	{
-		
-	}
 }

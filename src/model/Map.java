@@ -2,10 +2,12 @@ package model;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import model.item.Item;
 import model.decal.*;
+import model.ae.*;
 import util.Iterator;
 import util.ResourceLoader;
 import model.ae.*;
@@ -92,7 +94,7 @@ public class Map {
 
 	public Map(InputStream stream) {
 		Scanner s = new Scanner(stream);
-		ArrayList<Tile[]> list = new ArrayList<Tile[]>();
+		List<Tile[]> list = new ArrayList<Tile[]>();
 		for(int r = 0; s.hasNextLine(); ++r) {
 			String line = s.nextLine();
 			Tile[] arr = new Tile[line.length() / NUM_OF_CHARS_REPRESENTING_A_TILE];
@@ -157,7 +159,9 @@ public class Map {
 			list.add(arr);
 		}
 		this.matrix = new Matrix(list.toArray(new Tile[0][]));
+		
 		Scanner scanner;
+		
 		scanner = new Scanner(ResourceLoader.getInstance().getStream("items.txt"));
 		while(scanner.hasNextLine()) {
 			Item item = Item.fromXml(scanner.nextLine());

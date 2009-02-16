@@ -5,15 +5,13 @@ package model.item;
  */
 
 import model.Location;
+import model.Entity;
 
 public abstract class TakeableItem extends Item {
-
 	public TakeableItem(String name, Location location) {
 		super(name, location);
 	}
 
-	public void activate() {
-
+	public final void activate(Entity e) {
 	}
-
 }
