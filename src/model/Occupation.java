@@ -21,4 +21,14 @@ public abstract class Occupation implements Cloneable {
 	public String toString() {
 		return this.name;
 	}
+	
+	public String toXml() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<occupation>");
+		sb.append("<name>");
+		sb.append(name);
+		sb.append("</name>");
+		sb.append("</occupation>");
+		return sb.toString();
+	}
 }
