@@ -9,7 +9,7 @@ import model.ae.AreaEffect;
 import view.Drawer;
 
 public class Tile implements Cloneable {
-	private static final Pattern pattern = Pattern.compile("<tile>(<terrain>.*</terrain>)(<location>.*</location>)(<decal>.*</decal>)(<item>.*</item>|)(<ae>.*</ae>|)</tile>");
+	private static final Pattern pattern = Pattern.compile("<tile>(<terrain>.*</terrain>)(<location>.*</location>)(<decal>.*</decal>|)(<item>.*</item>|)(<ae>.*</ae>|)</tile>");
 	
 	private final Terrain terrain;
 	private Location location;
@@ -52,6 +52,7 @@ public class Tile implements Cloneable {
 
 	// package level so that nobody outside Model can mess with this
 	void setItem(Item item) {
+		if(item != null) item.setLocation(getLocation());
 		this.item = item;
 	}
 

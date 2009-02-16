@@ -17,7 +17,6 @@ import model.ae.LevelUp;
 import model.ae.TakeDamage;
 import util.Iterator;
 import util.ResourceLoader;
-import model.ae.*;
 
 public class Map {
 	public static final int NUM_OF_CHARS_REPRESENTING_A_TILE = 5;
@@ -175,6 +174,15 @@ public class Map {
 			Item item = Item.fromXml(scanner.nextLine());
 			this.getTile(item.getLocation()).setItem(item);
 		}
+		
+		Iterator<Tile> iter = getTiles();
+		for(iter.reset(); !iter.isDone(); iter.advance()) {
+			Tile cur = iter.current();
+			String xml = cur.toXml();
+			cur = Tile.fromXml(xml);
+			String nxml = cur.toXml();
+			if(!nxml.equals(xml)) throw new RuntimeException("crap");
+		}
 	}
 
 	public Tile getTile(int x, int y) {
@@ -214,5 +222,17 @@ public class Map {
 		// {/* Should never occur*/}
 		// return matrix.getTiles();
 		return this.matrix.getTiles();
+	}
+	
+	public String toXml() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<map>");
+		sb.append("<tiles>");
+		Iterator<Tile> iter = getTiles();
+		for(iter.reset(); !iter.isDone(); iter.advance())
+			sb.append(iter.current().toXml());
+		sb.append("</tiles>");
+		sb.append("</map>");
+		return sb.toString();
 	}
 }

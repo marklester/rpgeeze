@@ -17,7 +17,7 @@ public abstract class Item implements Drawable, Cloneable {
 	protected final String name;
 	protected Location location;
 	
-	private static Pattern pattern = Pattern.compile("<item><name>(.*)</name>(<location>.*</location>)</item>");
+	private static Pattern pattern = Pattern.compile("<item><name>(.*)</name></item>");
 	private static Hashtable<String, Item> prototypes = new Hashtable<String, Item>();
 	
 	static {
@@ -34,6 +34,10 @@ public abstract class Item implements Drawable, Cloneable {
 	public Item(String name, Location location) {
 		this.name = name;
 		this.location = location;
+	}
+	
+	public Item(String name) {
+		this(name, null);
 	}
 
 	public Location getLocation() {
@@ -70,7 +74,6 @@ public abstract class Item implements Drawable, Cloneable {
 		sb.append("<name>");
 		sb.append(name);
 		sb.append("</name>");
-		sb.append(location.toXml());
 		sb.append("</item>");
 		return sb.toString();
 	}
@@ -79,9 +82,6 @@ public abstract class Item implements Drawable, Cloneable {
 		Matcher mat = pattern.matcher(xml);
 		if(!mat.matches())
 			throw new RuntimeException("Bad XML for Item");
-		Item ret = prototypes.get(mat.group(1)).clone();
-		Location location = Location.fromXml(mat.group(2));
-		ret.setLocation(location);
-		return ret;
+		return prototypes.get(mat.group(1)).clone();
 	}
 }

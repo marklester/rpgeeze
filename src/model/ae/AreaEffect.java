@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class AreaEffect implements Cloneable {
-	private final static Pattern pattern = Pattern.compile("<ae><name>(.*)</name></ae>");
+	private final static Pattern pattern = Pattern.compile("<ae><name>(.*)</name><rate>(.*)</rate></ae>");
 	private final static Hashtable<String, AreaEffect> prototypes = new Hashtable<String, AreaEffect>();
 	
 	static {
@@ -54,6 +54,10 @@ public abstract class AreaEffect implements Cloneable {
 	
 	public abstract void applyEffect(Entity e);
 
+	public String toString() {
+		return name;
+	}
+	
 	public String toXml() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<ae>");
