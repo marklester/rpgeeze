@@ -48,6 +48,7 @@
 			<x>6</x>
 			<y>0</y>
 		</location>
+		<item><type>Portal Item</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>
@@ -16285,6 +16286,7 @@
 			<x>7</x>
 			<y>33</y>
 		</location>
+		<item><type>Portal Item</type></item>
 	</tile>
 	<tile>
 		<terrain>Grass Terrain</terrain>

@@ -68,6 +68,7 @@ public class Entity implements Drawable, Cloneable {
 	}
 
 	void setTile(Tile tile) {
+		// UUUUUUUUUUUUUUUGGGGGGGGGGGGGLLLLLLLLYYYYYYYYYY
 		this.tile = tile;
 		// Check if there is an item on this tile. If so, add it to inventory,
 		// if not full.
@@ -80,11 +81,10 @@ public class Entity implements Drawable, Cloneable {
 				item.activate(this);
 				tile.setItem(null);
 			}
-			else if (item instanceof InteractiveItem) {
+			else if(item instanceof InteractiveItem) {
 				item.activate(this);
-				tile.setItem(null);
 			}
-			else{
+			else {
 				int ret = this.inventory.addItem(item);
 				if(ret == Inventory.INV_FULL)
 					Console.getInstance().writeLine("Inventory Full");
@@ -97,10 +97,10 @@ public class Entity implements Drawable, Cloneable {
 		}
 	}
 
-	public void moveAvatar(Location l) {
+	public void move(Location l) {
 		Tile from = this.getTile();
-		if (from.hasAE())
-			from.getAE().setMessageFlag(false);
+		if(from.hasAE())
+			from.getAE().setMessageSentFlag(false);
 		int newX = from.getLocation().getX() + l.getX();
 		int newY = from.getLocation().getY() + l.getY();
 		Tile to = map.getTile(newX, newY);

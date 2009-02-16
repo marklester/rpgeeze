@@ -17,12 +17,12 @@ public class TakeDamage extends AreaEffect {
 	}
 
 	public void applyEffect(Entity e) {
-		if (--counter == 0) {
+		if(--counter == 0) {
 			e.getStats().decLife(rate);
 			counter = UPDATE_RATE; //reset
-			if (!f_msg_was_sent) {
+			if(!messageSent) {
 				Console.getInstance().writeLine("Yo dog, you're dying", Color.red);
-				f_msg_was_sent = true;
+				messageSent = true;
 			}
 		}
 	}

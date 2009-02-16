@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public abstract class AreaEffect implements Cloneable {
 	private final static Pattern pattern = Pattern.compile("<ae><name>(.*)</name><rate>(.*)</rate></ae>");
-	private final static Hashtable<String, AreaEffect> prototypes = new Hashtable<String, AreaEffect>();
+	protected final static Hashtable<String, AreaEffect> prototypes = new Hashtable<String, AreaEffect>();
 	
 	static {
 		for(AreaEffect ae: new AreaEffect[] {
@@ -25,10 +25,8 @@ public abstract class AreaEffect implements Cloneable {
 	protected final String name;
 	protected int rate;
 	protected int counter = UPDATE_RATE;
-	protected boolean f_msg_was_sent;
+	protected boolean messageSent;
 	
-	// This will typically be used by LevelUp and InstantDeath - since their
-	// rates are irrelevant
 	public AreaEffect(String name) {
 		this(10, name);
 	}
@@ -36,7 +34,7 @@ public abstract class AreaEffect implements Cloneable {
 	public AreaEffect(int rate, String name) {
 		this.name = name;
 		this.rate = rate;
-		f_msg_was_sent = false;
+		messageSent = false;
 	}
 
 	public void setRate(int rate) {
@@ -59,8 +57,8 @@ public abstract class AreaEffect implements Cloneable {
 		return name;
 	}
 	
-	public void setMessageFlag(boolean f){
-		f_msg_was_sent = f;
+	public void setMessageSentFlag(boolean flag){
+		messageSent = flag;
 	}
 	
 	public String toXml() {
