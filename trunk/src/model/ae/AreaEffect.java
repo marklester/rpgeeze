@@ -24,7 +24,7 @@ public abstract class AreaEffect implements Cloneable {
 
 	protected final String name;
 	protected int rate;
-	protected int counter = 1;
+	protected int counter = UPDATE_RATE;
 	protected boolean f_msg_was_sent = false;
 	
 	// This will typically be used by LevelUp and InstantDeath - since their
