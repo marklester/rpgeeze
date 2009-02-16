@@ -56,7 +56,7 @@ public class RunGame {
 						
 					}
 				}
-				Thread t = newGame(welcome.getOccupation());
+				Thread t = newGame(welcome.getOccupation(), ResourceLoader.getInstance().getScanner("model.xml"));
 				welcome.setVisible(false);		
 				welcome.dispose();
 				try {
@@ -66,9 +66,16 @@ public class RunGame {
 					Thread.currentThread().interrupt();
 				}
 			}		
-			else if(w.equals("Open"))
-			{
-				
+			else if(w.equals("Open")) {
+				Thread t = newGame(null, welcome.scanner);
+				welcome.setVisible(false);		
+				welcome.dispose();
+				try {
+					t.join();
+				}
+				catch(InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
 			}
 			else if(w.equals("Quit"))
 			{
@@ -100,8 +107,7 @@ public class RunGame {
 		return welcome.getAction();
 	}
 	
-	public static Thread newGame(Occupation occ) {
-		Scanner scanner = ResourceLoader.getInstance().getScanner("model.xml");
+	public static Thread newGame(Occupation occ, Scanner scanner) {
 		StringBuilder xml = new StringBuilder();
 		while(scanner.hasNextLine()) 
 			xml.append(scanner.nextLine().replaceAll("\\t", ""));
