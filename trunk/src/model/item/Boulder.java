@@ -17,9 +17,4 @@ public class Boulder extends Obstacle {
 	public void draw(Drawer d) {
 		d.drawBoulder(this);
 	}
-
-	public void activate(model.Entity e) {
-		// do nothing
-	}
-
 }

@@ -5,6 +5,7 @@ package model.item;
  */
 
 import model.Location;
+import model.Entity;
 
 public abstract class Obstacle extends Item {
 	public Obstacle(String name, Location location) {
@@ -13,5 +14,9 @@ public abstract class Obstacle extends Item {
 
 	public boolean isPassable() {
 		return false;
+	}
+
+	public final void activate(Entity e) {
+		
 	}
 }

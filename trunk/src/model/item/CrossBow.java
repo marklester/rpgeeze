@@ -16,9 +16,4 @@ public class CrossBow extends InteractiveItem {
 	public void draw(Drawer d) {
 		d.drawCrossBow(this);
 	}
-
-	public void activate(model.Entity e) {
-
-	}
-
 }
