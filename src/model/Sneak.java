@@ -1,8 +1,7 @@
 package model;
 
 public class Sneak extends Occupation {
-	private Stats stats;
-	public Sneak(Stats stats) {
-		super("Sneak", stats);
+	public Sneak() {
+		super("Sneak", new Stats(1,100,20,15,new PrimaryStats(3,5,20,5,2,1)));
 	}
 }
