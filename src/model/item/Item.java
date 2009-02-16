@@ -28,6 +28,7 @@ public abstract class Item implements Drawable, Cloneable {
 			new Boots(),
 			new Arrows(),
 			new Mana(),
+			new HealthPack()
 		})
 			prototypes.put(i.toString(), i);
 	}
