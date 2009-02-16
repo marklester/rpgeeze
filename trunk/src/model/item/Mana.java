@@ -8,7 +8,7 @@ package model.item;
 import model.Location;
 import view.Drawer;
 
-public class Mana extends OneShotItem {
+public class Mana extends TakeableItem {
 
 	public Mana() {//Location location) {
 		super("Mana");//, location);
@@ -16,5 +16,13 @@ public class Mana extends OneShotItem {
 
 	public void draw(Drawer d) {
 		d.drawMana(this);
+	}
+	public void activate(model.Entity e)
+	{
+		use(e);
+	}
+	private void use(model.Entity e)
+	{
+		
 	}
 }
