@@ -10,6 +10,8 @@ package model;
 //import util.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import model.item.Item;
 import util.Iterator;
@@ -110,5 +112,9 @@ public class Inventory implements Cloneable {
 			sb.append(iterator.current().toXml(indent + "\t") + "\n");
 		sb.append(indent + "</inventory>");
 		return sb.toString();
+	}
+
+	public static Inventory fromXml(String xml) {
+		return null;
 	}
 }

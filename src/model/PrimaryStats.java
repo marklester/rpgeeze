@@ -1,7 +1,11 @@
 package model;
 
-public class PrimaryStats implements Cloneable {
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+public class PrimaryStats implements Cloneable {
+	private static final Pattern pattern = Pattern.compile("<primaryStats><livesLeft>(.*)</livesLeft><strength>(.*)</strength><agility>(.*)</agility><intellect>(.*)</intellect><hardiness>(.*)</hardiness><experience>(.*)</experience></primaryStats>");
+	
 	// how many more times the entity can die before the game is over.
 	// Start the game with 3 lives
 	int livesLeft;
@@ -44,7 +48,6 @@ public class PrimaryStats implements Cloneable {
 		this.intellect = intellect;
 		this.hardiness = hardiness;
 		this.experience = experience;
-	
 	}
 	
 	public void decLivesLeft() {
@@ -129,5 +132,18 @@ public class PrimaryStats implements Cloneable {
 		sb.append(indent + "\t<experience>" + experience + "</experience>\n");
 		sb.append(indent + "</primaryStats>");
 		return sb.toString();
+	}
+
+	public static PrimaryStats fromXml(String xml) {
+		Matcher mat = pattern.matcher(xml);
+		if(!mat.matches())
+			throw new RuntimeException("Bad XML for PrimaryStats");
+		int livesLeft = Integer.parseInt(mat.group(1));
+		int strength = Integer.parseInt(mat.group(2));
+		int agility = Integer.parseInt(mat.group(3));
+		int intellect = Integer.parseInt(mat.group(4));
+		double hardiness = Double.parseDouble(mat.group(5));
+		int experience = Integer.parseInt(mat.group(6));
+		return new PrimaryStats(livesLeft, strength, agility, intellect, hardiness, experience);
 	}
 }

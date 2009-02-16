@@ -1,7 +1,11 @@
 package model;
 
-public class Stats implements Cloneable {
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+public class Stats implements Cloneable {
+	private static final Pattern pattern = Pattern.compile("<stats><level>(.*)</level><life>(.*)<life><mana>(.*)</mana><offensiveRating>(.*)</offensiveRating><defensiveRating>(.*)</defensiveRating><armorRating>(.*)</armorRating><movement>(.*)</movement>(<primaryStats>.*</primaryStats>)</stats>");
+	
 	// measures how good the entity is at her occupation;based on experience
 	// between 1-5
 	public int level;
@@ -186,8 +190,26 @@ public class Stats implements Cloneable {
 		sb.append(indent + "\t<armorRating>" + armorRating + "</armorRating>\n");
 		sb.append(indent + "\t<movement>" + movement + "</movement>\n");
 		sb.append(primaryStats.toXml(indent + "\t") + "\n");
-		sb.append("</stats>");
+		sb.append(indent + "</stats>");
 		return sb.toString();
 	}
-	
+
+	public static Stats fromXml(String xml) {
+		Matcher mat = pattern.matcher(xml);
+		if(!mat.matches())
+			throw new RuntimeException("Bad XML for Stats");
+		int level = Integer.parseInt(mat.group(1));
+		int life = Integer.parseInt(mat.group(2));
+		int mana = Integer.parseInt(mat.group(3));
+		int offensiveRating = Integer.parseInt(mat.group(4));
+		int defensiveRating = Integer.parseInt(mat.group(5));
+		int armorRating = Integer.parseInt(mat.group(6));
+		int movement = Integer.parseInt(mat.group(7));
+		PrimaryStats primaryStats = PrimaryStats.fromXml(mat.group(8));
+		Stats ret = new Stats(level, life, mana, movement, primaryStats);
+		ret.offensiveRating = offensiveRating;
+		ret.defensiveRating = defensiveRating;
+		ret.armorRating = armorRating;
+		return ret;
+	}
 }
