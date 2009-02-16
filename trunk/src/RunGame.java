@@ -58,6 +58,8 @@ public class RunGame {
 				}
 			}
 			newGame(welcome.getOccupation());
+			welcome.setVisible(false);
+			welcome.dispose();
 		}
 		
 		else if(w.equals("Open"))
