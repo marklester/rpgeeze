@@ -90,7 +90,7 @@ public class RunGame {
 	public static void newGame() {
 		Occupation occ = getOccupation();
 		 Entity avatar = new Entity(occ);
-		 Map map = Map.fromStream(ResourceLoader.getInstance().getStream("map.xml"));//new Map(ResourceLoader.getInstance().getStream("map.txt"));
+		 Map map = Map.fromStream(ResourceLoader.getInstance().getStream("map.xml"));
 		 Model model = new Model(map, avatar);
 
 		 View view = new View(model);
