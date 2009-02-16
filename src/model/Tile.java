@@ -1,17 +1,21 @@
 package model;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import model.item.Item;
 import model.decal.Decal;
 import model.ae.AreaEffect;
 import view.Drawer;
 
 public class Tile implements Cloneable {
-
-	private Location location;
-	private Item item;
+	private static final Pattern pattern = Pattern.compile("<tile>(<terrain>.*</terrain>)(<location>.*</location>)(<decal>.*</decal>)(<item>.*</item>|)(<ae>.*</ae>|)</tile>");
+	
 	private final Terrain terrain;
-	private AreaEffect ae;
+	private Location location;
 	private Decal decal;
+	private Item item;
+	private AreaEffect ae;
 	private Entity entity;
 
 	public Tile(Terrain terrain, Location location, Decal decal, Item item, AreaEffect ae) {
@@ -23,14 +27,11 @@ public class Tile implements Cloneable {
 	}
 
 	public Tile(Terrain terrain, Location location, Item item) {
-		this.terrain = terrain;
-		this.location = location;
-		this.item = item;
+		this(terrain, location, null, item, null);
 	}
-
+	
 	public Tile(Terrain terrain, Location location) {
-		this.terrain = terrain;
-		this.location = location;
+		this(terrain, location, null, null, null);
 	}
 
 	public Location getLocation() {
@@ -42,11 +43,11 @@ public class Tile implements Cloneable {
 	}
 
 	public boolean hasItem() {
-		return this.item != null;
+		return getItem() != null;
 	}
 	
 	public boolean hasAE() {
-		return this.ae != null;
+		return getAE() != null;
 	}
 
 	// package level so that nobody outside Model can mess with this
@@ -111,7 +112,6 @@ public class Tile implements Cloneable {
 	}
 
 	public Tile clone() throws CloneNotSupportedException {
-
 		Tile t = (Tile) super.clone();
 		if(t.item != null)
 			t.item = this.item.clone();
@@ -127,5 +127,29 @@ public class Tile implements Cloneable {
 
 	public String toString() {
 		return "Tile at " + this.location;
+	}
+	
+	public String toXml() {
+		StringBuilder sb = new StringBuilder();		
+		sb.append("<tile>");
+		sb.append(terrain.toXml());
+		sb.append(location.toXml());
+		sb.append(decal == null ? "" : decal.toXml());
+		sb.append(item == null ? "" : item.toXml());
+		sb.append(ae == null ? "" : ae.toXml());
+		sb.append("</tile>");
+		return sb.toString();
+	}
+	
+	public static Tile fromXml(String xml) {
+		Matcher mat = pattern.matcher(xml);
+		if(!mat.matches())
+			throw new RuntimeException("Bad XML for Tile");
+		Terrain terrain = Terrain.fromXml(mat.group(1));
+		Location location = Location.fromXml(mat.group(2));
+		Decal decal = mat.group(3).length() == 0 ? null : Decal.fromXml(mat.group(3));
+		Item item = mat.group(4).length() == 0 ? null : Item.fromXml(mat.group(4));
+		AreaEffect ae = mat.group(5).length() == 0 ? null : AreaEffect.fromXml(mat.group(5));
+		return new Tile(terrain, location, decal, item, ae);
 	}
 }
