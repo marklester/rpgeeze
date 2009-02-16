@@ -113,7 +113,7 @@ public class WelcomeScreen extends JFrame {
 	public void initOcc()
 	{
 		JPanel p2 = new JPanel(new FlowLayout());
-		JButton smasher = new JButton("Smasher");
+		JButton smasher = new JButton(new ImageIcon("res/img/buttons/Smasher.png"));
 		smasher.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				synchronized(WelcomeScreen.this) {
@@ -126,7 +126,7 @@ public class WelcomeScreen extends JFrame {
 			}
 		);
 		
-		JButton summoner = new JButton("Summoner");
+		JButton summoner = new JButton(new ImageIcon("res/img/buttons/Summoner.png"));
 		summoner.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				synchronized(WelcomeScreen.this) {
@@ -139,7 +139,7 @@ public class WelcomeScreen extends JFrame {
 			}
 		);
 		
-		JButton sneak = new JButton("Sneak");
+		JButton sneak = new JButton(new ImageIcon("res/img/buttons/Sneak.png"));
 		sneak.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				synchronized(WelcomeScreen.this) {
