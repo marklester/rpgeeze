@@ -3,6 +3,7 @@ package model;
 import java.awt.Color;
 
 import model.item.Item;
+import model.item.OneShotItem;
 import view.Console;
 import view.Drawable;
 import view.Drawer;
@@ -74,13 +75,19 @@ public class Entity implements Drawable, Cloneable {
 		Item item = tile.getItem();
 		this.speed = this.stats.getMovement();
 		if(item != null) {
-			int ret = this.inventory.addItem(item);
-			if(ret == Inventory.INV_FULL)
-				Console.getInstance().writeLine("Inventory Full");
-			else {
-				String message = item + " has been added to your Inventory.";
-				Console.getInstance().writeLine(message,Color.YELLOW);
+			//One Shot Item Code
+			if(item instanceof OneShotItem){
+				item.activate(this);
 				tile.setItem(null);
+			}else{
+				int ret = this.inventory.addItem(item);
+				if(ret == Inventory.INV_FULL)
+					Console.getInstance().writeLine("Inventory Full");
+				else {
+					String message = item + " has been added to your Inventory.";
+					Console.getInstance().writeLine(message,Color.YELLOW);
+					tile.setItem(null);
+				}
 			}
 		}
 	}
