@@ -25,12 +25,14 @@ public class AudioThread extends Thread {
 		            sequencer.setSequence(MidiSystem.getSequence(midiFile));
 		            sequencer.open();
 		            sequencer.start();
-		            while(true) {
+		            boolean loop = true;
+		            while(loop) {
 		                if(sequencer.isRunning()) {
 		                    try {
 		                        Thread.sleep(1000); // Check every second
 		                    } catch(InterruptedException ignore) {
 		                        this.interrupt();
+		                        loop = true;
 		                    }
 		                } else {
 		                    break;
