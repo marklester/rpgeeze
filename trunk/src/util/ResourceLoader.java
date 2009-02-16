@@ -44,17 +44,12 @@ public class ResourceLoader {
 		items.put("Arrows", "img/arrows.png");
 		items.put("Shield", "img/shield.png");
 		items.put("Mana", "img/mana.png");
-		
+		items.put("Health Pack","img/healthpack20px.png");
+		items.put("Portal Item","img/portal20px.png");
 		audios.put("Instant Death", "audio/evilLaugh.wav");
-		audios.put("Portal Item", "audio/elevator.wav");
 		
 		images.put("Intro Image",getImage("img/IntroOccupationTypes.png"));
-		images.put("New Game Button",getImage("img/buttons/NewGame.png"));
-		images.put("Load Game Button",getImage("img/buttons/LoadGame.png"));
-		images.put("Quit Game Button",getImage("img/buttons/QuitGame.png"));
-		images.put("Smasher Button",getImage("img/buttons/Smasher.png"));
-		images.put("Summoner Button",getImage("img/buttons/Summoner.png"));
-		images.put("Sneak Button",getImage("img/buttons/Sneak.png"));
+		
 	}
 	
 	
