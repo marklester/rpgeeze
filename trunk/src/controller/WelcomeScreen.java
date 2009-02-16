@@ -32,7 +32,7 @@ public class WelcomeScreen extends JFrame {
 	}
 	
 	public WelcomeScreen(){
-		super("RPGEEZE");
+		super("rpgeeze");
 		initFrame();
 	}
 	
@@ -127,7 +127,7 @@ public class WelcomeScreen extends JFrame {
 		);
 		
 		JButton summoner = new JButton("Summoner");
-		smasher.addActionListener(new ActionListener(){
+		summoner.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				synchronized(WelcomeScreen.this) {
 					setOccupation(new Summoner());
@@ -140,7 +140,7 @@ public class WelcomeScreen extends JFrame {
 		);
 		
 		JButton sneak = new JButton("Sneak");
-		smasher.addActionListener(new ActionListener(){
+		sneak.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				synchronized(WelcomeScreen.this) {
 					setOccupation(new Sneak());
