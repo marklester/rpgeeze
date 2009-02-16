@@ -21,9 +21,9 @@ public class HealDamage extends AreaEffect {
 			e.getStats().incLife(rate);
 			if(life != e.getStats().getLife()) { 
 				counter = UPDATE_RATE; //reset
-				if(!f_msg_was_sent) {
+				if(!messageSent) {
 					Console.getInstance().writeLine("Congrats. Enjoy some life.", Color.GREEN);
-					f_msg_was_sent = true;
+					messageSent = true;
 				}
 			}
 		}

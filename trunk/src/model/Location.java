@@ -27,10 +27,17 @@ public class Location {
 		return this.y;
 	}
 
+	public Location add(Location l) {
+		return new Location(x + l.x, y + l.y);
+	}
+
+	public Location subtract(Location l) {
+		return new Location(x - l.x, y - l.y);
+	}
+	
 	public String toString() {
 		return "(" + this.x + "," + this.y + ")";
 	}
-
 	
 	public String toXml() {
 		return toXml("");

@@ -19,7 +19,7 @@ public class InstantDeath extends AreaEffect {
 	public void applyEffect(Entity e) {
 		ResourceLoader.getInstance().playAudioClip(this.name);
 		e.getStats().decLife(Stats.MAX_LIFE);
-		Console.getInstance().writeLine("You just got Knocked The Hack Out",Color.RED);
+		Console.getInstance().writeLine("You just got Knocked The Hack Out", Color.RED);
 	}
 
 }

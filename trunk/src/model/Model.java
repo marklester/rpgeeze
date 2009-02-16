@@ -113,7 +113,7 @@ public class Model implements util.Subject {
 
 	public void moveAvatarRequest(Location l) {
 		if(this.avatar.canMove())
-			avatar.moveAvatar(l);
+			avatar.move(l);
 	}
 	
 	public boolean isPaused() {
@@ -124,10 +124,10 @@ public class Model implements util.Subject {
 		Thread.currentThread().interrupt();
 	}
 	
-	public void respawn(int numOfLives) {
-		avatar.getTile().setEntity(null); //Set current tile's entity ref to null
-		avatar.setTile(map.getTile(avatarStart)); // Set avatar's ref to the orig tile
-		map.getTile(avatarStart).setEntity(avatar); // Set orig tile's ref to avatar
+	private void respawn(int numOfLives) {
+		Location from = avatar.getTile().getLocation();
+		Location to = avatarStart;
 		avatar.resetStats(numOfLives); //reset all stats, except num of lives - that shouldn't be reset!
+		avatar.move(to.subtract(from));
 	}
 }

@@ -6,12 +6,11 @@ import model.Entity;
 import model.Location;
 
 public class PortalItem extends InteractiveItem {
-	
 	private Location where;
 	
 	public PortalItem() {
 		super("Portal Item");
-		this.where = new Location(10, 26);
+		this.where = new Location(10, 10);
 	}
 	
 	public void activate(Entity e) {
@@ -21,7 +20,7 @@ public class PortalItem extends InteractiveItem {
 	public void use(Entity e) {
 		e.getTile().releaseEntity();
 		ResourceLoader.getInstance().playAudioClip(this.name);
-		e.moveAvatar(where);
+		e.move(where);
 	}
 	
 	public void draw(Drawer d) {
