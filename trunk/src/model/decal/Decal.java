@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import view.Drawable;
 
 public abstract class Decal implements Drawable, Cloneable {
-	private static Pattern pattern = Pattern.compile("<decal>(.*)</decal>");
+	private static Pattern pattern = Pattern.compile("<decal><name>(.*)</name></decal>");
 	private static Hashtable<String, Decal> prototypes = new Hashtable<String, Decal>();
 	
 	static {
