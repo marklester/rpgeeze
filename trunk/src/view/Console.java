@@ -7,9 +7,12 @@ import java.awt.Graphics2D;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import util.ConsoleMessage;
+
 public class Console {
 	private static Console instance;
-	private final LinkedList<String> list = new LinkedList<String>();
+	private final LinkedList<ConsoleMessage> list = new LinkedList<ConsoleMessage>();
+	public final int timer_default=40;
 	private Console() {
 	}
 
@@ -19,16 +22,18 @@ public class Console {
 		return instance;
 	}
 
-	public synchronized void writeLine(String s) {
-		this.list.addFirst(s);
+	public synchronized void writeLine(String s,Color c) {
+		this.list.addFirst(new ConsoleMessage(s,c,timer_default));
 	}
-
-	public synchronized Queue<String> getStringList() {
-		return (LinkedList<String>) this.list.clone();
+	public synchronized void writeLine(String s) {
+		this.list.addFirst(new ConsoleMessage(s,Color.WHITE,timer_default));
+	}
+	public synchronized Queue<ConsoleMessage> getStringList() {
+		return (LinkedList<ConsoleMessage>) this.list.clone();
 	}
 
 	public void drawConsoleView(Graphics2D graphics, int width, int height) {
-		Queue<String> messages = Console.getInstance().getStringList();// Messages
+		Queue<ConsoleMessage> messages = Console.getInstance().getStringList();// Messages
 		// to Show
 		int stats_width = 310;// only change this is stats window size is
 		// changed
@@ -36,7 +41,7 @@ public class Console {
 		int console_height = 100;
 		int left_indent = 20;
 		int top_indent = 20;
-		int max_messages = 4; // the max number of messages the Console can
+		int max_messages = 5; // the max number of messages the Console can
 		// show
 		// at One Time;
 		graphics.setColor(Color.black);
@@ -54,12 +59,13 @@ public class Console {
 		int current_line = 0;
 		if(messages != null)
 			while(messages.size() > 0 && current_line < max_messages) {
-				float v = max_messages-1;
-				v= current_line*1/v; 
-				v = 1-v;
-				//transparency =Math.abs(1-transparency);
-				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,v));
-				graphics.drawString(messages.remove(), text_width, text_height + current_line * 18);
+				ConsoleMessage message = messages.remove();
+				float v = message.getTimer() / (float)timer_default;
+				graphics.setColor(message.getColor());
+				graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,v));				
+				if(message.isValid()){
+					graphics.drawString(message.toString(), text_width, text_height + current_line * 18);
+				}
 				current_line++;
 			}
 	}
