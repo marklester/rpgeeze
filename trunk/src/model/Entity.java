@@ -2,8 +2,7 @@ package model;
 
 import java.awt.Color;
 
-import model.item.Item;
-import model.item.OneShotItem;
+import model.item.*;
 import view.Console;
 import view.Drawable;
 import view.Drawer;
@@ -81,7 +80,12 @@ public class Entity implements Drawable, Cloneable {
 			if(item instanceof OneShotItem){
 				item.activate(this);
 				tile.setItem(null);
-			}else{
+			}
+			else if (item instanceof InteractiveItem) {
+				item.activate(this);
+				tile.setItem(null);
+			}
+			else{
 				int ret = this.inventory.addItem(item);
 				if(ret == Inventory.INV_FULL)
 					Console.getInstance().writeLine("Inventory Full");
