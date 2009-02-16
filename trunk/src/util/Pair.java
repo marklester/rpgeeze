@@ -25,6 +25,7 @@ public class Pair<T, U> {
 		boolean ret = false;
 		if(o instanceof Pair) {
 			Pair p = (Pair) o;
+			//ugly!!!!!
 			if(first.equals(p.first) && second.equals(p.second)) 
 				ret = true;
 		}

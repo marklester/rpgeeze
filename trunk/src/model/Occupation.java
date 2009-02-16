@@ -57,4 +57,15 @@ public abstract class Occupation implements Cloneable {
 			throw new RuntimeException("Bad XML for Occupation");
 		return prototypes.get(mat.group(1)).clone();
 	}
+	
+	public int hashCode() {
+		return toString().hashCode();
+	}
+	
+	public boolean equals(Object o) {
+		boolean ret = false;
+		if(o instanceof Occupation)
+			ret = o.toString().equals(toString());
+		return ret;
+	}
 }
