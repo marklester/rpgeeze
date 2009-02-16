@@ -8,13 +8,13 @@ package model.item;
 import model.Location;
 import view.Drawer;
 
-public class Manna extends OneShotItem {
+public class Mana extends OneShotItem {
 
-	public Manna(Location location) {
-		super("Manna", location);
+	public Mana(Location location) {
+		super("Mana", location);
 	}
 
 	public void draw(Drawer d) {
-		d.drawManna(this);
+		d.drawMana(this);
 	}
 }
