@@ -14,5 +14,10 @@ public abstract class OneShotItem extends Item {
 	}
 	
 	public void activate(Entity e) {
+		use(e);
+	}
+	public void use(Entity e)
+	{
+		
 	}
 }

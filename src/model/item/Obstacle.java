@@ -17,6 +17,10 @@ public abstract class Obstacle extends Item {
 	}
 
 	public final void activate(Entity e) {
+		use(e);
+	}
+	public void use(Entity e)
+	{
 		
 	}
 }
