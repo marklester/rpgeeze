@@ -10,6 +10,7 @@ import view.Drawer;
 import util.Iterator;
 
 public class Entity implements Drawable, Cloneable {
+	private Map map;
 	private Stats stats;
 	private Occupation occupation;
 	private Inventory inventory;
@@ -52,7 +53,8 @@ public class Entity implements Drawable, Cloneable {
 		}
 	}
 	
-	public Entity(Occupation occupation) {
+	public Entity(Occupation occupation, Map map) {
+		this.map = map;
 		this.inventory = new Inventory();
 		this.stats = (Stats) occupation.stats.clone();
 		this.occupation = occupation;
@@ -92,6 +94,19 @@ public class Entity implements Drawable, Cloneable {
 		}
 	}
 
+	public void moveAvatar(Location l) {
+		Tile from = this.getTile();
+		if (from.hasAE())
+			from.getAE().setMessageFlag(false);
+		int newX = from.getLocation().getX() + l.getX();
+		int newY = from.getLocation().getY() + l.getY();
+		Tile to = map.getTile(newX, newY);
+
+		// watch out for race conditions here
+		to.accept(this);
+		this.setFacingDirection(l.closestDirection());
+	}
+	
 	public Direction getFacingDirection() {
 		return this.facing;
 	}
@@ -183,7 +198,7 @@ public class Entity implements Drawable, Cloneable {
 	public void dropItem() {
 		if(!this.inventory.isEmpty()) {
 			Item i = this.inventory.removeItemAt(0);
-			//i.setLocation(getTile().getLocation());
+			i.setLocation(getTile().getLocation());
 			getTile().setItem(i);
 			Console.getInstance().writeLine(i + " has been dropped ");
 		}
