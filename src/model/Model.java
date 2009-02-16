@@ -7,9 +7,13 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 
+import controller.WelcomeScreen;
+
 import util.Observer;
 import util.ResourceLoader;
 import view.Console;
+import view.Time;
+import view.View;
 
 public class Model implements util.Subject {
 	protected final Queue<Command> commands = new LinkedList<Command>();
@@ -17,9 +21,10 @@ public class Model implements util.Subject {
 
 	private Map.Matrix snapshot;
 
-	private final Entity avatar;
-	private final Map map;
+	private Entity avatar;
+	private Map map;
 	private final Location EntityStartLoc;
+	private boolean isPaused;
 
 	public Model(Map map, Entity avatar) {
 		// create map
@@ -29,6 +34,7 @@ public class Model implements util.Subject {
 		// --Jose
 		this.map = map;
 		this.avatar = avatar;
+		isPaused = false;
 		// The following code should probably be moved elsewhere. -- Miorel
 		Scanner scanner = new Scanner(ResourceLoader.getInstance().getStream("entities.txt"));
 		int x = scanner.nextInt();
@@ -48,27 +54,30 @@ public class Model implements util.Subject {
 	}
 
 	public void update() {
-		// read task queue
-		Queue<Command> tempQ = null;
-		synchronized(this) {
-			tempQ = (Queue<Command>) ((LinkedList) this.commands).clone();
-			this.commands.clear();
-		}
-		while(!tempQ.isEmpty())
-			tempQ.remove().execute(this);
-
-		this.avatar.update();
-		updateStatusOfAvatar();
-		
-		this.snapshot = this.map.getMatrix();
-		updateObservers();
-
-		// update map
-		// update items
-		// apply AoE's
-		// update NPC's
-		// update entity
-		// --Jose
+		if (!isPaused ){
+			// read task queue
+			Queue<Command> tempQ = null;
+			synchronized(this) {
+				tempQ = (Queue<Command>) ((LinkedList) this.commands).clone();
+				this.commands.clear();
+			}
+			while(!tempQ.isEmpty())
+				tempQ.remove().execute(this);
+	
+			this.avatar.update();
+			updateStatusOfAvatar();
+			
+			this.snapshot = this.map.getMatrix();
+			updateObservers();
+	
+			// update map
+			// update items
+			// apply AoE's
+			// update NPC's
+			// update entity
+			// --Jose
+		}else
+			commands.clear();
 	}
 	
 	public void updateStatusOfAvatar() {
@@ -158,8 +167,37 @@ public class Model implements util.Subject {
 		this.avatar.dropItem();
 	}
 	
+	public boolean isPaused(){
+		return isPaused;
+	}
+	
 	public void endGame() {
-		System.out.println("Game Over");
+		isPaused = true;
+		WelcomeScreen welcome = new WelcomeScreen();
+		
+		synchronized(welcome) {
+			try {
+				welcome.wait();
+			}
+			catch(InterruptedException e) {}
+		}
+		avatar.getTile().releaseEntity();
+		
+		if(welcome.getAction().equals("New")) {
+			restartGame();
+			this.update();
+		}
+	}
+	
+	private void restartGame() {
+		//ASSUMPTION: this.isPaused == true
+		Entity avatar = new Entity(this.avatar.getOccupation());
+		avatar.setTile((map.getTile(this.EntityStartLoc)));
+		//Map map = Map.fromStream(ResourceLoader.getInstance().getStream("map.xml"));
+		this.avatar = avatar;
+		this.map = map;
+		isPaused = false; 
+
 	}
 	
 	public void respawn(int numOfLives) {
