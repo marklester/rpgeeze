@@ -1,0 +1,47 @@
+<entity>
+	<stats>
+		<level>1</level>
+		<life>100</life>
+		<mana>20</mana>
+		<offensiveRating>0</offensiveRating>
+		<defensiveRating>0</defensiveRating>
+		<armorRating>0</armorRating>
+		<movement>15</movement>
+		<primaryStats>
+			<livesLeft>3</livesLeft>
+			<strength>20</strength>
+			<agility>5</agility>
+			<intellect>5</intellect>
+			<hardiness>2.0</hardiness>
+			<experience>1</experience>
+		</primaryStats>
+	</stats>
+	<occupation>Smasher</occupation>
+	<inventory>
+	</inventory>
+	<equipment>
+		<head>
+		</head>
+		<armor>
+		</armor>
+		<boots>
+		</boots>
+		<weapon>
+		</weapon>
+		<auxiliary>
+		</auxiliary>
+	</equipment>
+	<tile>
+		<terrain>Grass Terrain</terrain>
+		<location>
+			<x>10</x>
+			<y>12</y>
+		</location>
+	</tile>
+	<facing>
+		<location>
+			<x>1</x>
+			<y>0</y>
+		</location>
+	</facing>
+</entity>

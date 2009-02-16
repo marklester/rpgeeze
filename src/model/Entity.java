@@ -14,9 +14,9 @@ import java.util.regex.Pattern;
 public class Entity implements Drawable, Cloneable {
 	private static final Pattern pattern = Pattern.compile("<entity>(<stats>.*</stats>)(<occupation>.*</occupation>)(<inventory>.*</inventory>)(<equipment>.*</equipment>)(<tile>.*</tile>)<facing>(.*)</facing></entity>");
 	
-	Map map;
+	public Map map;
 	private Stats stats;
-	private Occupation occupation;
+	public Occupation occupation;
 	private Inventory inventory;
 	private Tile tile = null;
 			
