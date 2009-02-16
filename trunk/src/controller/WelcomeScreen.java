@@ -17,97 +17,27 @@ public class WelcomeScreen extends JFrame {
 	public WelcomeScreen() {
 		super("RPGEEZE");
 		JPanel panel = new JPanel(new BorderLayout());
-		
-		JButton newGame = new JButton("New Game");
-		newGame.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e){
-			synchronized(WelcomeScreen.this) {
-				if(getAction() != null) {
-					setAction("New");
-					WelcomeScreen.this.setVisible(false);
-					WelcomeScreen.this.notifyAll();
-					WelcomeScreen.this.dispose();
-				}
-		}
-		}
-		});
-		
-		JButton loadGame = new JButton("Load Game");
-		loadGame.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				synchronized(WelcomeScreen.this) {
-					if(getAction() != null) {
-						setAction("Load");
-						WelcomeScreen.this.setVisible(false);
-						WelcomeScreen.this.notifyAll();
-						WelcomeScreen.this.dispose();
-					}
-				}
-			}
-		});
-		
-		JButton quitGame = new JButton("Quit Game");
-		quitGame.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				synchronized(WelcomeScreen.this) {
-					if(getAction() != null) {
-						setAction("Quit");
-						WelcomeScreen.this.setVisible(false);
-						WelcomeScreen.this.notifyAll();
-						WelcomeScreen.this.dispose();
-					}
-				}
-			}
-		});
-		
-		JButton selectSmasher = new JButton("Smasher");
-		selectSmasher.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				synchronized(WelcomeScreen.this) {
-					if(getAction() != null) {
-						setAction("Smasher");
-						WelcomeScreen.this.setVisible(false);
-						WelcomeScreen.this.notifyAll();
-						WelcomeScreen.this.dispose();
-					}
-				}
-			}
-		});
-		JButton selectSummoner = new JButton("Summoner");
-		selectSummoner.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				synchronized(WelcomeScreen.this) {
-					if(getAction() != null) {
-						setAction("Summoner");
-						WelcomeScreen.this.setVisible(false);
-						WelcomeScreen.this.notifyAll();
-						WelcomeScreen.this.dispose();
-					}
-				}
-			}
-		});
-		JButton selectSneak = new JButton("Sneak");
-		selectSneak.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				synchronized(WelcomeScreen.this) {
-					if(getAction() != null) {
-						setAction("Sneak");
-						WelcomeScreen.this.setVisible(false);
-						WelcomeScreen.this.notifyAll();
-						WelcomeScreen.this.dispose();
-					}
-				}
-			}
-		});
+		String[] buttons = {"Smasher", "Summoner", "Sneak", "Load Game", "Quit Game"};
 		JPanel p1 = new JPanel(new GridLayout(2,3));
 		
-		//p1.add(newGame);
-		p1.add(selectSmasher);
-		p1.add(selectSummoner);
-		p1.add(selectSneak);
-		p1.add(loadGame);
-		p1.add(quitGame);
-	
+		
+		for(final String s : buttons){
+			
+			JButton button = new JButton(s);
+			button.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					synchronized(WelcomeScreen.this) {
+						if(getAction() != null) {
+							setAction(s);
+							WelcomeScreen.this.setVisible(false);
+							WelcomeScreen.this.notifyAll();
+							WelcomeScreen.this.dispose();
+						}
+					}
+				}
+			});
+			p1.add(button);
+		}
 		
 		panel.add(p1, BorderLayout.SOUTH);
 		
