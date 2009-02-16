@@ -14,3 +14,4 @@
 <item><name>Red Armor</name><location><x>1</x><y>25</y></location></item>
 <item><name>Boots</name><location><x>3</x><y>25</y></location></item>
 <item><name>Arrows</name><location><x>5</x><y>25</y></location></item>
+<item><name>Manna</name><location><x>5</x><y>23</y></location></item>
