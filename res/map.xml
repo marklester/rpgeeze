@@ -6001,7 +6001,7 @@
 		</decal>
 		<ae>
 			<name>Take Damage</name>
-			<rate>10</rate>
+			<rate>80</rate>
 		</ae>
 	</tile>
 	<tile>

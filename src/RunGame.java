@@ -37,34 +37,41 @@ public class RunGame {
 	public static void main(String[] arg) {
 		String w = new String("");
 		
-		while(true)
+		while(!Thread.currentThread().interrupted())
 		{
-			 w = getWelcome();
-			if(w.equals("Open") || w.equals("Quit") || w.equals("New"))
+			while(true)
 			{
-				break;
-			}
-		}
-		
-		if(w.equals("New"))
-		{
-			welcome.initOcc();
-			synchronized(welcome) {
-				try {
-					welcome.wait();
-				}
-				catch(InterruptedException e) {
-					
+				 w = getWelcome();
+				if(w.equals("Open") || w.equals("Quit") || w.equals("New"))
+				{
+					break;
 				}
 			}
-			newGame(welcome.getOccupation());
-			welcome.setVisible(false);
-			welcome.dispose();
-		}
-		
-		else if(w.equals("Open"))
-		{
 			
+			if(w.equals("New"))
+			{
+				welcome.initOcc();
+				synchronized(welcome) {
+					try {
+						welcome.wait();
+					}
+					catch(InterruptedException e) {
+						
+					}
+				}
+				Thread t = newGame(welcome.getOccupation());
+				welcome.setVisible(false);		
+				welcome.dispose();
+				try {
+					t.join(); }
+				catch(InterruptedException e) { Thread.currentThread().interrupt();}
+			}			
+			else if(w.equals("Open"))
+			{
+				
+			}
+			else if(w.equals("Quit"))
+				Thread.currentThread().interrupt();
 		}
 	}
 
@@ -90,17 +97,17 @@ public class RunGame {
 		return welcome.getAction();
 	}
 	
-	public static void newGame(Occupation occ)
+	public static Thread newGame(Occupation occ)
 	{		
 		 Map map = Map.fromStream(ResourceLoader.getInstance().getStream("map.xml"));
 		 Entity avatar = new Entity(occ, map);
 		 Model model = new Model(map, avatar);
-
 		 View view = new View(model);
 		 //Controller controller = Controller.createController(model, view);
 
 		 Time time = new Time(model, view);
 		 time.start();
+		 return time;
 	}
 	
 }

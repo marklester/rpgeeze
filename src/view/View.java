@@ -67,6 +67,7 @@ public class View extends Thread implements Observer {
 			render();
 			paint();
 		}
+		frame.dispose();
 	}
 
 	private void render() {
