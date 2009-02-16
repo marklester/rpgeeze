@@ -13,6 +13,7 @@ import model.Entity;
 import model.item.Item;
 import model.Model;
 import model.Command;
+import model.Equipment;
 
 public class InventoryView {
 
@@ -108,7 +109,7 @@ public class InventoryView {
 		
 		Image img;
 		
-		model.Entity.Equipment eq = e.getEquipment();
+		Equipment eq = e.getEquipment();
 		eq = e.getEquipment().clone();
 			
 		//HEAD
