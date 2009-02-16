@@ -2,9 +2,13 @@ import model.Entity;
 import model.Map;
 import model.Model;
 import model.Occupation;
+import model.PrimaryStats;
+import model.Smasher;
+import model.Sneak;
+import model.Summoner;
+import model.Stats;
 import view.Time;
 import view.View;
-import controller.OccupationSelector;
 import controller.WelcomeScreen;
 import util.ResourceLoader;
 import javax.swing.JFileChooser;
@@ -28,51 +32,40 @@ public class RunGame {
 	/**
 	 * Starts a new game. See the description above for what happens.
 	 */
+
 	public static void main(String[] arg) {
+		Occupation o = null;
 		String w = new String("");
 		while(true)
 		{
-		 w = getWelcome();
-		if(w.equals("New"))
-		{
-		 break;
-		}
-		else if(w.equals("Load"))
-		{
-			String message = loadGame();
-			if(message.equals("Open"))
+			 w = getWelcome();
+			if(w.equals("Load"))
 			{
-			 break;
+				String message = loadGame();
+				if(message.equals("Open"))
+				{
+				 break;
+				}
+			}
+			else if(w.equals("Quit"))
+			{
+				break;
+			}
+			else if(w.equals("Smasher") || w.equals("Summoner")  || w.equals("Sneak"))
+			{
+				if (w.equals("Smasher")) o = new Smasher(new Stats(1,100,20,15,(new PrimaryStats(3,20,5,5,2,1))));
+				else if (w.equals("Summoner")) o = new Summoner(new Stats(1,100,20,15,new PrimaryStats(3,5,5,20,2,1)));
+				else if (w.equals("Sneak")) o = new Sneak(new Stats(1,100,20,15,new PrimaryStats(3,5,20,5,2,1)));
+				break;
 			}
 		}
-		else if(w.equals("Quit"))
-		{
-			break;
-		}
-	}
 		
-		if(w.equals("New"))
+		if(w.equals("Smasher") || w.equals("Summoner")  || w.equals("Sneak"))
 		{
-			newGame();
+			newGame(o);
 		}
 	}
 
-	/**
-	 * Presents the user with a dialog, waits for the user to select an
-	 * Occupation, then returns the user's selection.
-	 */
-	public static Occupation getOccupation() {
-		OccupationSelector os = new OccupationSelector();
-		os.setVisible(true);
-		synchronized(os) {
-			try {
-				os.wait();
-			}
-			catch(InterruptedException e) {
-			}
-		}
-		return os.getOccupation();
-	}
 	
 	public static String getWelcome() {
 		WelcomeScreen welcome = new WelcomeScreen();
@@ -87,9 +80,9 @@ public class RunGame {
 		return welcome.getAction();
 	}
 	
-	public static void newGame() {
-		Occupation occ = getOccupation();
-		 Entity avatar = new Entity(occ);
+	public static void newGame(Occupation o)
+	{
+		 Entity avatar = new Entity(o);
 		 Map map = Map.fromStream(ResourceLoader.getInstance().getStream("map.xml"));
 		 Model model = new Model(map, avatar);
 
@@ -100,7 +93,8 @@ public class RunGame {
 		 time.start();
 	}
 	
-	public static String loadGame() {
+	public static String loadGame()
+	{
 		String message = new String("");
         JFileChooser chooser = new JFileChooser(); 
 		
