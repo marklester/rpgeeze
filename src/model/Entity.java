@@ -320,6 +320,7 @@ public class Entity implements Drawable, Cloneable {
 	public static Entity fromXml(Occupation occ, Map map, String xml) {
 		Entity ret = fromXml(xml);
 		if(occ != null) ret.occupation = occ;
+		ret.stats = (Stats) ret.occupation.stats.clone();
 		ret.map = map;
 		return ret;
 	}
