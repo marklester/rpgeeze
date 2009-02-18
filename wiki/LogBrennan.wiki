@@ -40,5 +40,24 @@
 2/13/09 12:30-2:00
   * Continued working on things above.
 
-2/14/09 8:00-11:00
+2/14/09 8:00-13:00
   * Added Potion Life item, modified adding item to inventory, made Obstacle impassable, created Item package
+
+2/15/09 1:00-2:00
+  * Added more items
+
+2/15/09 13:00-19:00
+  * Worked on welcome screen, to XML functions, making stats entity specific, added more items
+
+2/15/09 21:30-24:00
+  * Finished up welcome screen,worked on showing dialog box for loading a saving game
+
+2/16/09 0:01-6:30
+  * Worked on whatever needed to get done. Don't remember b/c so early in the morning.
+
+2/16/09 15:30-16:00
+  * Added helmet, fixed bugs with welcome screen and area effects, created jar file for presentation.
+
+2/16/09 21:00-21:30
+  * Fixed stats bug from presentation.
+
