@@ -21,3 +21,6 @@
 
 2/13/09 18:30-24:30 
   * Designing/Coding StatView Menu Commands 
+
+2/15/09 19:00-5:00 
+  * Helped with the main/splash page. Helped with some uml stuff. Helped with a little bug testing.
