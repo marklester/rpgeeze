@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.KeyStroke;
 
 import model.Command;
@@ -140,10 +141,11 @@ public class Controller extends JComponent implements MouseListener {
 				JFileChooser chooser = new JFileChooser(); 
 				chooser.setApproveButtonText("Save");
 				chooser.setDialogTitle("Save");
+				chooser.addChoosableFileFilter(new GameFilter());
 				int status = chooser.showOpenDialog(null);
 				    
 				if(status == JFileChooser.APPROVE_OPTION) {
-					File selectedFile = chooser.getSelectedFile();
+					File selectedFile = new File(chooser.getSelectedFile().getAbsolutePath());
 					java.io.PrintWriter writer = null;
 					try {
 						writer = new java.io.PrintWriter(selectedFile); 
