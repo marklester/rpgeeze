@@ -75,7 +75,7 @@ public class WelcomeScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				synchronized(WelcomeScreen.this) {
 					JFileChooser chooser = new JFileChooser(); 
-					
+					chooser.addChoosableFileFilter(new GameFilter());
 					int status = chooser.showOpenDialog(null);
 					    
 					if(status == JFileChooser.APPROVE_OPTION) {
