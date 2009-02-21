@@ -11,3 +11,4 @@
    * add the repository location
    * input your Google Code credentials when prompted
    * you probably just want the trunk
+  * set up [http://timelessname.com/jogl/lesson01/ JOGL in Eclipse]
