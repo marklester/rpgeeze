@@ -61,3 +61,11 @@
 2/16/09 21:00-21:30
   * Fixed stats bug from presentation.
 
+2/23/09 14:00-16:00
+  * Worked on Iteration 1 critique.
+
+2/24/09 0:00-3:00
+  * Worked on Iteration 1 critique.
+
+2/24/09 12:00-2:00
+  * Finished Iteration 1 critique.
