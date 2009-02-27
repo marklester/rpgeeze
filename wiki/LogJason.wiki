@@ -49,3 +49,7 @@
     * Worked on avatar picking up items and putting them in inventory
     * Created commands for equipping and unequipping items from inventory
     * Created several issue-tickets for additional tasks that need to be completed
+
+2/26/09 21:00-24:00
+    * Worked on modifying Resource Loader
+    * Worked on audio stuff
