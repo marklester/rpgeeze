@@ -13,8 +13,5 @@ public class Boulder extends Obstacle {
 		super("Boulder");//, location);
 	}
 
-	public void draw(Drawer d) {
-		d.drawBoulder(this);
-	}
 	
 }

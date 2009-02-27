@@ -13,10 +13,6 @@ public class Shield extends TakeableItem {
 		super("Shield");
 	}
 
-	public void draw(Drawer d) {
-		d.drawShield(this);
-	}
-	
 	public void activate(Entity e) {
 		use(e);
 	}

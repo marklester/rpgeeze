@@ -16,37 +16,47 @@ import java.util.Scanner;
 public class ResourceLoader {
 	private final ClassLoader loader;
 	private final Hashtable<String, Image> images;
-	private final Hashtable<String, String> items;
+	private final Hashtable<String, String> files;
 	private final Hashtable<String, String> audios;
 	private static ResourceLoader instance = null;
 	
-	/*
-	static {
-		getInstance().getAudioClip("");		
-	}
-	*/
+	
 	
 	/**
 	 * Constructs a new ResourceLoader. Since this is a singleton, this is
 	 * only called once, from within a static method.
+	 * 
+	 * To add a new "thing" to the game, such as a decal, item, or terrain follow these steps:
+	 * 1. Create the images and store in res/img/.../foo.png folder
+	 * 2. Create a new class called Foo, and be sure to set it's name in its constructor 
+	 * 		-(e.g. Super("Foo Name") for an item, decal, or terrain)
+	 * 3. Add to the files hashtable below - e.g. files.put("Foo Name", "img/foo.png")
+	 * 
 	 */
 	private ResourceLoader() {
 		this.loader = getClass().getClassLoader();
 		this.images = new Hashtable<String, Image>();
-		this.items = new Hashtable<String,String>(); //Modify this to set Item Images
+		this.files = new Hashtable<String,String>(); //Modify this to set Item Images
 		this.audios = new Hashtable<String,String>();
-		items.put("Boulder", "img/terrain20px/Boulder.png");
-		items.put("Crossbow", "img/crossbow.png");
-		items.put("Sword", "img/sword.png");
-		items.put("Potion Life", "img/potionlife.png");
-		items.put("Red Armor", "img/redarmor.png");
-		items.put("Boots", "img/boots.png");
-		items.put("Arrows", "img/arrows.png");
-		items.put("Shield", "img/shield.png");
-		items.put("Mana", "img/mana.png");
-		items.put("Health Pack","img/healthpack20px.png");
-		items.put("Portal Item","img/portal20px.png");
-		items.put("Helmet","img/helmet.png");
+		files.put("Boulder", "img/terrain20px/Boulder.png");
+		files.put("Crossbow", "img/crossbow.png");
+		files.put("Sword", "img/sword.png");
+		files.put("Potion Life", "img/potionlife.png");
+		files.put("Red Armor", "img/redarmor.png");
+		files.put("Boots", "img/boots.png");
+		files.put("Skull and Crossbones","img/skullandcrossbones.png");
+		files.put("Arrows", "img/arrows.png");
+		files.put("Shield", "img/shield.png");
+		files.put("Mana", "img/mana.png");
+		files.put("Health Pack","img/healthpack20px.png");
+		files.put("Portal Item","img/portal20px.png");
+		files.put("Helmet","img/helmet.png");
+		files.put("Gold Star","img/goldenstar.png");
+		files.put("Red Cross","img/redcross.png");
+		files.put("Fire Decal","img/fire.png");
+		files.put("Grass Terrain","img/terrain20px/GrassTerrain.png");
+		files.put("Mountain Terrain","img/terrain20px/MountainTerrain.png");
+		files.put("Water Terrain","img/terrain20px/WaterTerrain.png");
 		
 		audios.put("Instant Death", "audio/evilLaugh.wav");
 		audios.put("Portal Item", "audio/elevator.wav");
@@ -55,7 +65,6 @@ public class ResourceLoader {
 		images.put("New Image", getImage("img/buttons/NewGame.png"));
 		images.put("Load Image", getImage("img/buttons/LoadGame.png"));
 		images.put("Quit Image", getImage("img/buttons/QuitGame.png"));
-		
 		images.put("Smasher", getImage("img/buttons/Smasher.png"));
 		images.put("Summoner", getImage("img/buttons/Summoner.png"));
 		images.put("Sneak", getImage("img/buttons/Sneak.png"));
@@ -70,11 +79,7 @@ public class ResourceLoader {
 		return instance;
 	}
 	
-	/**
-	 * Gives you the Image corresponding to the specified key. Currently the
-	 * path is used as the key. When I think of a nicer way to do this, I'll do
-	 * it. 
-	 */
+
 	public Image getImage(String key) {
 		Image ret = images.get(key);
 		if(ret == null) {
@@ -89,10 +94,10 @@ public class ResourceLoader {
 	}
 
 	public Image getItemImage(String key){
-		return getImage(items.get(key));
+		return getImage(files.get(key));
 	}
 	
-	//Plays an audio clip, derrr
+
 	public void playAudioClip(String key) {
 		try {
 			InputStream in = getStream(audios.get(key)); 
@@ -108,11 +113,32 @@ public class ResourceLoader {
 	 * I'll do it.
 	 */
 	public InputStream getStream(String key) {
-		InputStream ret = loader.getResourceAsStream("res/" + key);
-		return ret;
+		try {
+			InputStream ret = loader.getResourceAsStream("res/" + key);
+			return ret;
+		}
+		catch (Exception e) {System.out.println(e);}
+		return null;
 	}
 
 	public Scanner getScanner(String key) {
 		return new Scanner(getStream(key));
+	}
+	
+	
+	//Used by Drawer to get Terrain width
+	public int getTerrainWidth() {
+		try {
+			return images.get("Grass Terrain").getWidth(null);
+		}
+		catch (Exception e) { return 20; }
+	}
+	
+	//Used by Drawer to get Terrain height
+	public int getTerrainHeight() {
+		try {
+			return images.get("Grass Terrain").getHeight(null);
+		}
+		catch (Exception e) { return 20; }
 	}
 }
