@@ -26,8 +26,4 @@ public class WaterTerrain extends Terrain {
 		// the bypass (e.g. water shoes)... Maybe the entity will later have a
 	}
 
-	public void draw(Drawer d) {
-		d.drawWaterTerrain(this);
-	}
-
 }

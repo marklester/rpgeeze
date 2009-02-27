@@ -15,7 +15,4 @@ public class RedCross extends Decal {
 		return instance;
 	}
 
-	public void draw(Drawer d) {
-		d.drawRedCross(this);
-	}
 }

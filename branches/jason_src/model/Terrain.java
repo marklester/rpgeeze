@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import view.Drawable;
+import view.Drawer;
 
 /**
  * Indicates the physical characteristics of the landscape. 
@@ -38,6 +39,10 @@ public abstract class Terrain implements Drawable {
 
 	public String toString() {
 		return this.name;
+	}
+	
+	public void draw(Drawer d) {
+		d.drawMe(name);
 	}
 
 	public String toXml() {

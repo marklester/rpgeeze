@@ -14,10 +14,6 @@ public class Arrows extends TakeableItem {
 		super("Arrows");
 	}
 
-	public void draw(Drawer d) {
-		d.drawArrows(this);
-	}
-
 	public void activate(Entity e) {
 		use(e);
 	}

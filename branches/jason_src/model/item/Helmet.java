@@ -12,10 +12,6 @@ public class Helmet extends TakeableItem {
 	public Helmet() {
 		super("Helmet");
 	}
-
-	public void draw(Drawer d) {
-		d.drawHelmet(this);
-	}
 	
 	public void activate(Entity e) {
 		use(e);

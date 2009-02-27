@@ -13,10 +13,6 @@ public class Mana extends TakeableItem {
 	public Mana() {
 		super("Mana");
 	}
-
-	public void draw(Drawer d) {
-		d.drawMana(this);
-	}
 	
 	public void activate(Entity e) {
 		use(e);

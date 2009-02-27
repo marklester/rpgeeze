@@ -13,10 +13,6 @@ public class Sword extends TakeableItem {
 		super("Sword");
 	}
 
-	public void draw(Drawer d) {
-		d.drawSword(this);
-	}
-
 	public void activate(Entity e) {
 		use(e);
 	}
