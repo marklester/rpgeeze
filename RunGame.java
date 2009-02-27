@@ -29,6 +29,7 @@ import java.util.Scanner;
  * - starts the Time thread
  */
 
+
 public class RunGame {
 	/**
 	 * Starts a new game. See the description above for what happens.
@@ -37,8 +38,8 @@ public class RunGame {
 	
 	public static void main(String[] arg) {
 		
-		//AudioThread at = new AudioThread();
-		//at.start();
+		AudioThread at = new AudioThread();
+		at.start();
 		
 		String w = new String("");
 		
