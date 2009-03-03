@@ -1,48 +1,58 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="jar">
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="package" name="rpgeeze">
+	<property name="src.dir" value="src"/>
+	<property name="lib.dir" value="lib"/>
+	<property name="bin.dir" value="bin"/>
+	<property name="dist.dir" value="dist"/>
 	
-	<!--
-		Run this target to create a distributable jar file.
-	-->
-	<target name="jar">
-		<jar
-			destfile="dist/rpgeeze.jar"
-			basedir="."
-			excludes="bin/**,dist/**,.project,.classpath"
-		>
-			<fileset dir="bin"/>
-		    <manifest>
-				<attribute name="Built-By" value="${user.name}"/>
-		    	<attribute name="Main-Class" value="RunGame"/>
-		    </manifest>
-		</jar>
-	</target>
+	<property name="jar.name" value="${ant.project.name}.jar"/>
 	
+	<property name="lib.files" value="${lib.dir}/jogl/jogl.jar${path.separator}${lib.dir}/jogl/gluegen-rt.jar"/>
+
+	<property name="src.main" value="RunGame"/>
 	
-	<!--
-		Run this target to generate documentation. 	Hopefully everyone
-		remembers to update the package list below if/when a new
-		package is added.
-	-->
-    <target name="javadoc">
-        <javadoc
-        	access="private"
-        	author="true"
-        	classpath="."
-        	destdir="doc"
-        	doctitle="rpgeeze Javadocs"
-        	nodeprecated="false"
-        	nodeprecatedlist="false"
-        	noindex="false"
-        	nonavbar="false"
-        	notree="false"
-        	packagenames="controller,model,view,model.items,util"
-        	source="1.6"
-        	sourcefiles="src/RunGame.java"
-        	sourcepath="src"
-        	splitindex="true"
-        	use="false"
-        	version="true"
-        />
-    </target>	
+	<property name="cmd.main" value="java -Djava.library.path=${lib.dir}/jogl/linux-i586${path.separator}${lib.dir}/jogl/macosx-universal${path.separator}${lib.dir}/jogl/windows-i586 -classpath ${jar.name}${path.separator}${lib.files} ${src.main}"/>
+	
+    <target name="clean">
+        <delete dir="${bin.dir}"/>
+    	<delete dir="${dist.dir}"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${bin.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${bin.dir}"
+        	classpath="${lib.files}"/>
+    </target>
+	
+    <target name="package" depends="compile">
+    	<mkdir dir="${dist.dir}"/>
+
+    	<zip destfile="${dist.dir}/${ant.project.name}-src.zip">
+    		<fileset dir="." excludes="${dist.dir}/**,${bin.dir}/**,.*"/>
+    	</zip>
+        
+    	<tar destfile="${dist.dir}/${ant.project.name}-src.tar.gz" compression="gzip">
+        	<fileset dir="." excludes="${dist.dir}/**,${bin.dir}/**,.*"/>
+        </tar>
+    	
+    	<jar destfile="${dist.dir}/${jar.name}"
+        	filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+            </manifest>
+            <fileset dir="${bin.dir}"/>
+        </jar>
+    	<copy todir="${dist.dir}/${lib.dir}">
+    		<fileset dir="${lib.dir}"/>
+    	</copy>
+    	
+    	<echo file="${dist.dir}/${src.main}.sh">#!/bin/bash
+${cmd.main}
+</echo>
+    	<replace file="${dist.dir}/${src.main}.sh" token="${path.separator}" value=":"/>
+    	
+    	<echo file="${dist.dir}/${src.main}.bat">${cmd.main}
+</echo>
+    	<replace file="${dist.dir}/${src.main}.bat" token="${path.separator}" value=";"/>
+    </target>
 </project>
