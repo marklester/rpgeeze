@@ -13,58 +13,56 @@ import javax.media.opengl.glu.GLU;
 import rpgeeze.controller.Controller;
 import rpgeeze.view.View;
 
-public class EventHandler implements GLEventListener, KeyListener, MouseListener {
+public class GameManager implements GLEventListener, KeyListener, MouseListener {
 	private View view;
+	private Controller controller;
 	
 	public void keyPressed(KeyEvent e) {
-		if(view != null)
-			for(Controller c: view)
-				c.keyPressed(e);
+		if(controller != null)
+			controller.keyPressed(e);
 	}
 
 	public void keyReleased(KeyEvent e) {
-		if(view != null)
-			for(Controller c: view)
-				c.keyReleased(e);
+		if(controller != null)
+			controller.keyReleased(e);
 	}
 
 	public void keyTyped(KeyEvent e) {
-		if(view != null)
-			for(Controller c: view)
-				c.keyTyped(e);
+		if(controller != null)
+			controller.keyTyped(e);
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		if(view != null)
-			for(Controller c: view)
-				c.mouseClicked(e);
+		if(controller != null)
+			controller.mouseClicked(e);
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		if(view != null)
-			for(Controller c: view)
-				c.mouseEntered(e);
+		if(controller != null)
+			controller.mouseEntered(e);
 	}
 
 	public void mouseExited(MouseEvent e) {
-		if(view != null)
-			for(Controller c: view)
-				c.mouseExited(e);
+		if(controller != null)
+			controller.mouseExited(e);
 	}
 
 	public void mousePressed(MouseEvent e) {
-		if(view != null)
-			for(Controller c: view)
-				c.mousePressed(e);
+		if(controller != null)
+			controller.mousePressed(e);
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		if(view != null)
-			for(Controller c: view)
-				c.mouseReleased(e);
+		if(controller != null)
+			controller.mouseReleased(e);
 	}
 
 	public void display(GLAutoDrawable drawable) {
+		final GL gl = drawable.getGL();
+		
+		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+		gl.glLoadIdentity();
+		
 		if(view != null)
 			view.display();
 	}
@@ -110,7 +108,7 @@ public class EventHandler implements GLEventListener, KeyListener, MouseListener
 		gl.glLoadIdentity();
 	}
 	
-	private void changeView(View newView) {
+	public void changeView(View newView) {
 		if(view != null)
 			view.changeFrom();
 		if(newView != null)
