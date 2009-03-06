@@ -1,3 +1,5 @@
+package rpgeeze;
+
 import java.awt.Frame;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -15,11 +17,11 @@ public class RunGame {
 	    final GLCanvas canvas = new GLCanvas();
 	    final FPSAnimator animator = new FPSAnimator(canvas, GOAL_FPS);
 	    
-	    GameScreen gs = GameScreen.getInstance();
+//	    GameScreen gs = GameScreen.getInstance();
 	    
-	    canvas.addGLEventListener(gs);
-	    canvas.addKeyListener(gs);
-	    canvas.addMouseListener(gs);
+//	    canvas.addGLEventListener(gs);
+//	    canvas.addKeyListener(gs);
+//	    canvas.addMouseListener(gs);
 	    
 	    frame.add(canvas);
 	    

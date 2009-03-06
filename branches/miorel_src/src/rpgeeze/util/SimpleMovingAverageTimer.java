@@ -1,4 +1,4 @@
-package util;
+package rpgeeze.util;
 
 public class SimpleMovingAverageTimer extends Timer {
 	public final static int DEFAULT_SAMPLE_SIZE = 20; 

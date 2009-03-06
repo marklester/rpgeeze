@@ -11,7 +11,7 @@
 
 	<property name="src.main" value="RunGame"/>
 	
-	<property name="cmd.main" value="java -Djava.library.path=${lib.dir}/jogl/linux-i586${path.separator}${lib.dir}/jogl/macosx-universal${path.separator}${lib.dir}/jogl/windows-i586 -classpath ${jar.name}${path.separator}${lib.files} ${src.main}"/>
+	<property name="cmd.main" value="java -Djava.library.path=${lib.dir}/jogl/linux-i586${path.separator}${lib.dir}/jogl/macosx-universal${path.separator}${lib.dir}/jogl/windows-i586 -classpath ${jar.name}${path.separator}${lib.files} ${ant.project.name}.${src.main}"/>
 	
     <target name="clean">
         <delete dir="${bin.dir}"/>
