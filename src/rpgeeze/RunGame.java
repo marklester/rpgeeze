@@ -12,16 +12,19 @@ public class RunGame {
 	public final static int GOAL_FPS = 80;
 	
 	public static void main(String[] arg) {
+		// we should pass the app name to the frame constructor 
 		final Frame frame = new Frame("");
+		
+		// create a few useful objects
 		final GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 	    final GLCanvas canvas = new GLCanvas();
 	    final FPSAnimator animator = new FPSAnimator(canvas, GOAL_FPS);
 	    
-//	    GameScreen gs = GameScreen.getInstance();
+	    EventHandler eh = new EventHandler();
 	    
-//	    canvas.addGLEventListener(gs);
-//	    canvas.addKeyListener(gs);
-//	    canvas.addMouseListener(gs);
+	    canvas.addGLEventListener(eh);
+	    canvas.addKeyListener(eh);
+	    canvas.addMouseListener(eh);
 	    
 	    frame.add(canvas);
 	    
@@ -40,6 +43,7 @@ public class RunGame {
 	    gd.setFullScreenWindow(frame);
 	    
 		canvas.requestFocus();
+		
 		animator.start();
 		
 		frame.setVisible(true);
