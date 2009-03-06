@@ -15,46 +15,53 @@ import rpgeeze.view.View;
 
 public class EventHandler implements GLEventListener, KeyListener, MouseListener {
 	private View view;
-	private Controller controller;	
 	
 	public void keyPressed(KeyEvent e) {
-		if(controller != null)
-			controller.keyPressed(e);
+		if(view != null)
+			for(Controller c: view)
+				c.keyPressed(e);
 	}
 
 	public void keyReleased(KeyEvent e) {
-		if(controller != null)
-			controller.keyReleased(e);
+		if(view != null)
+			for(Controller c: view)
+				c.keyReleased(e);
 	}
 
 	public void keyTyped(KeyEvent e) {
-		if(controller != null)
-			controller.keyTyped(e);
+		if(view != null)
+			for(Controller c: view)
+				c.keyTyped(e);
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		if(controller != null)
-			controller.mouseClicked(e);
+		if(view != null)
+			for(Controller c: view)
+				c.mouseClicked(e);
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		if(controller != null)
-			controller.mouseEntered(e);
+		if(view != null)
+			for(Controller c: view)
+				c.mouseEntered(e);
 	}
 
 	public void mouseExited(MouseEvent e) {
-		if(controller != null)
-			controller.mouseExited(e);
+		if(view != null)
+			for(Controller c: view)
+				c.mouseExited(e);
 	}
 
 	public void mousePressed(MouseEvent e) {
-		if(controller != null)
-			controller.mousePressed(e);
+		if(view != null)
+			for(Controller c: view)
+				c.mousePressed(e);
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		if(controller != null)
-			controller.mouseReleased(e);
+		if(view != null)
+			for(Controller c: view)
+				c.mouseReleased(e);
 	}
 
 	public void display(GLAutoDrawable drawable) {
@@ -101,5 +108,13 @@ public class EventHandler implements GLEventListener, KeyListener, MouseListener
 		// select modelview matrix
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();
+	}
+	
+	private void changeView(View newView) {
+		if(view != null)
+			view.changeFrom();
+		if(newView != null)
+			newView.changeTo();
+		view = newView;
 	}
 }
