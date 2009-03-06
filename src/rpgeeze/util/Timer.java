@@ -1,4 +1,4 @@
-package util;
+package rpgeeze.util;
 
 public abstract class Timer {
 	private boolean running = false;

@@ -1,4 +1,4 @@
-package util;
+package rpgeeze.util;
 
 public class RunningAverageTimer extends Timer {	
 	private long marks;
