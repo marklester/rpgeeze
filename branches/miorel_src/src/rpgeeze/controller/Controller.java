@@ -1,40 +1,32 @@
 package rpgeeze.controller;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import rpgeeze.util.Command;
-import rpgeeze.util.NoOp;
-
-public abstract class Controller {
+public abstract class Controller implements KeyListener, MouseListener {
 	public void keyPressed(KeyEvent e) {
 	}
 
-	public Command keyReleased(KeyEvent e) {
-		return new NoOp();
+	public void keyReleased(KeyEvent e) {
 	}
 
-	public Command keyTyped(KeyEvent e) {
-		return new NoOp();
+	public void keyTyped(KeyEvent e) {
 	}
 
-	public Command mouseClicked(MouseEvent e) {
-		return new NoOp();
+	public void mouseClicked(MouseEvent e) {
 	}
 
-	public Command mouseEntered(MouseEvent e) {
-		return new NoOp();
+	public void mouseEntered(MouseEvent e) {
 	}
 
-	public Command mouseExited(MouseEvent e) {
-		return new NoOp();
+	public void mouseExited(MouseEvent e) {
 	}
 
-	public Command mousePressed(MouseEvent e) {
-		return new NoOp();
+	public void mousePressed(MouseEvent e) {
 	}
 
-	public Command mouseReleased(MouseEvent e) {
-		return new NoOp();
+	public void mouseReleased(MouseEvent e) {
 	}
 }
