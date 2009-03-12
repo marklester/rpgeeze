@@ -11,9 +11,15 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 
 import rpgeeze.controller.Controller;
+import rpgeeze.util.cmd.CommandHandler;
+import rpgeeze.util.cmd.Commandable;
 import rpgeeze.view.View;
 
-public class GameManager implements GLEventListener, KeyListener, MouseListener {
+/**
+ * Primary implementer of the event-listening interfaces. This class does very little work itself.
+ */
+
+public class GameManager implements GLEventListener, KeyListener, MouseListener, Commandable {
 	private View view;
 	private Controller controller;
 	
@@ -114,5 +120,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener 
 		if(newView != null)
 			newView.changeTo();
 		view = newView;
+	}
+
+	public CommandHandler handler() {
+		return null;
 	}
 }

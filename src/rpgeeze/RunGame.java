@@ -11,9 +11,18 @@ import rpgeeze.view.MainMenu;
 
 import com.sun.opengl.util.FPSAnimator;
 
+/**
+ * Entry point for the game. Houses the main method.
+ */
+
 public class RunGame {	
 	public final static int GOAL_FPS = 80;
 	
+	/**
+	 * Creates the game frame and gives it a game manager.	
+	 * 
+	 * @param arg command-line options
+	 */
 	public static void main(String[] arg) {
 		// we should pass the app name to the frame constructor 
 		final Frame frame = new Frame("");
