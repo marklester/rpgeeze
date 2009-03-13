@@ -13,10 +13,6 @@ public class RedArmor extends TakeableItem {
 		super("Red Armor");
 	}
 
-	public void draw(Drawer d) {
-		d.drawRedArmor(this);
-	}
-
 	public void activate(Entity e) {
 		use(e);
 	}

@@ -12,10 +12,6 @@ public class Boots extends TakeableItem {
 	public Boots() {
 		super("Boots");
 	}
-
-	public void draw(Drawer d) {
-		d.drawBoots(this);
-	}
 	
 	public void activate(Entity e) {
 		use(e);

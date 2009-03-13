@@ -15,7 +15,4 @@ public class GrassTerrain extends Terrain {
 		return instance;
 	}
 
-	public void draw(Drawer d) {
-		d.drawGrassTerrain(this);
-	}
 }

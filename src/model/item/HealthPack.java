@@ -28,7 +28,4 @@ public class HealthPack extends OneShotItem {
 		// yeah you do, it's a one-shot item by definition
 	}
 
-	public void draw(Drawer d) {
-		d.drawHealthPack(this);
-	}
 }

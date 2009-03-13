@@ -15,7 +15,4 @@ public class FireDecal extends Decal {
 		return instance;
 	}
 
-	public void draw(Drawer d) {
-		d.drawFireDecal(this);
-	}
 }

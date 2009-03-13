@@ -36,10 +36,8 @@ public class RunGame {
 	public static WelcomeScreen welcome = null;
 	
 	public static void main(String[] arg) {
-		
-		//AudioThread at = new AudioThread();
-		//at.start();
-		
+		/*
+		*/		
 		String w = new String("");
 		
 		while(!Thread.interrupted()) {

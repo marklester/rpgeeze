@@ -15,7 +15,4 @@ public class SkullAndCrossbones extends Decal {
 		return instance;
 	}
 
-	public void draw(Drawer d) {
-		d.drawSkullAndCrossbones(this);
-	}
 }

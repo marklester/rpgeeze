@@ -13,10 +13,6 @@ public class CrossBow extends TakeableItem {
 		super("Crossbow");
 	}
 
-	public void draw(Drawer d) {
-		d.drawCrossBow(this);
-	}
-
 	public void activate(Entity e) {
 		use(e);
 	}
