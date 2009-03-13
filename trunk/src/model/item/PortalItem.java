@@ -31,10 +31,6 @@ public class PortalItem extends InteractiveItem {
 		}
 	}
 	
-	public void draw(Drawer d) {
-		d.drawPortal(this);
-	}
-	
 	protected void setAttributesFromXml(String xml) {
 		if(xml.length() != 0)
 			this.where = Location.fromXml(xml);

@@ -13,10 +13,6 @@ public class PotionLife extends TakeableItem {
 	public PotionLife() {
 		super("Potion Life");
 	}
-
-	public void draw(Drawer d) {
-		d.drawPotionLife(this);
-	}
 	
 	public void activate(Entity e) {
 		use(e);

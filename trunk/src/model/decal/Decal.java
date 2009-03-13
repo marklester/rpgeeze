@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 import view.Drawable;
+import view.Drawer;
 
 public abstract class Decal implements Drawable, Cloneable {
 	private static Pattern pattern = Pattern.compile("<decal>(.*)</decal>");
@@ -62,5 +63,9 @@ public abstract class Decal implements Drawable, Cloneable {
 			throw new RuntimeException("Bad XML for Decal");
 		Decal ret = prototypes.get(mat.group(1)).clone();
 		return ret;
+	}
+	
+	public void draw(Drawer d) {
+		d.drawMe(name);
 	}
 }

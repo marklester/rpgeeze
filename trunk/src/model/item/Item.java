@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import java.util.Hashtable;
 
 import view.Drawable;
+import view.Drawer;
 import model.Entity;
 
 public abstract class Item implements Drawable, Cloneable {
@@ -85,5 +86,9 @@ public abstract class Item implements Drawable, Cloneable {
 	protected void setAttributesFromXml(String xml) {
 		if(xml.length() > 0)
 			throw new RuntimeException("Bad XML for Item");
+	}
+	
+	public void draw(Drawer d) {
+		d.drawMe(name);
 	}
 }
