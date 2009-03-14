@@ -1,74 +1,55 @@
+//import javax.sound.midi.*;
+//import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import util.ResourceLoader;
+import javazoom.jl.player.Player;
+import model.Entity;
+import model.Model;
+import util.Observer;
+import util.Subject;
 
-import sun.audio.*;
-import java.io.*;
-import javax.sound.sampled.*;
-import javax.sound.midi.*;
-
-public class AudioThread extends Thread {
-
+public class AudioThread extends Thread implements Observer {
+	
 	private volatile boolean muted = false;
+	private Player player; 	
+
 	
 	public AudioThread() {
 		super();
 	}
 	
 	public void run() {
-		while(!interrupted()) {
-			if(!muted) {
-				try {
-					File file = new File("res/audio/zelda1.mp3");
-				    AudioInputStream in= AudioSystem.getAudioInputStream(file);
-				    AudioInputStream din = null;
-				    AudioFormat baseFormat = in.getFormat();
-				    AudioFormat decodedFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
-				                                                                                  baseFormat.getSampleRate(),
-				                                                                                  16,
-				                                                                                  baseFormat.getChannels(),
-				                                                                                  baseFormat.getChannels() * 2,
-				                                                                                  baseFormat.getSampleRate(),
-				                                                                                  false);
-				    din = AudioSystem.getAudioInputStream(decodedFormat, in);
-				    // Play now.
-				    rawplay(decodedFormat, din);
-				    in.close();
-				} catch (Exception e)
-				    {
-				        System.out.println(e);
-				    }
-			}
-		}
-	}
+        setAudio();
+        if (!muted){
+        	try { player.play(); }
+        	catch (Exception e) { System.out.println(e); }
+        }        	
+	}	
 	
-	private void rawplay(AudioFormat targetFormat, AudioInputStream din) throws IOException,                                                                                                LineUnavailableException
-	{
-	  byte[] data = new byte[4096];
-	  SourceDataLine line = getLine(targetFormat);
-	  if (line != null)
-	  {
-	    // Start
-	    line.start();
-	    int nBytesRead = 0, nBytesWritten = 0;
-	    while (nBytesRead != -1)
-	    {
-	        nBytesRead = din.read(data, 0, data.length);
-	        if (nBytesRead != -1) nBytesWritten = line.write(data, 0, nBytesRead);
-	    }
-	    // Stop
-	    line.drain();
-	    line.stop();
-	    line.close();
-	    din.close();
-	  }
-	}
+    public void setAudio() {
+    	setAudio("Intro");
+    }
+    
+    
+    // play the MP3 file to the sound card
+    public void setAudio(String key) {
+    	try {
+            InputStream is = ResourceLoader.getInstance().getIS(key);
+            BufferedInputStream bis = new BufferedInputStream(is);
+            player = new Player(bis);
+        }
+        catch (Exception e) {
+            System.out.println("Problem playing file " + key);
+            System.out.println(e);
+        }
+    }
+	
+	public void close() { 
+    	if (player != null) 
+    		player.close();
+    }
 		
-	private SourceDataLine getLine(AudioFormat audioFormat) throws LineUnavailableException {
-		SourceDataLine res = null;
-		DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
-		res = (SourceDataLine) AudioSystem.getLine(info);
-		res.open(audioFormat);
-		return res;
-	}
-	
 	public void setMute(boolean b) {
 		muted = b;
 	}
@@ -76,5 +57,10 @@ public class AudioThread extends Thread {
 	public boolean isMuted() {
 		return muted;
 	}
+	
+	public void update(Subject s) {
+		//Here we can be updated if the Entity enters a new area of the map, enters a door, etc.
+	}
+	
 	
 }

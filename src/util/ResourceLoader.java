@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 import java.io.InputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -60,6 +61,7 @@ public class ResourceLoader {
 		
 		audios.put("Instant Death", "audio/evilLaugh.wav");
 		audios.put("Portal Item", "audio/elevator.wav");
+		audios.put("Intro", "audio/zelda1.mp3");
 		
 		images.put("Intro Image", getImage("img/IntroOccupationTypes.png"));
 		images.put("New Image", getImage("img/buttons/NewGame.png"));
@@ -68,6 +70,9 @@ public class ResourceLoader {
 		images.put("Smasher", getImage("img/buttons/Smasher.png"));
 		images.put("Summoner", getImage("img/buttons/Summoner.png"));
 		images.put("Sneak", getImage("img/buttons/Sneak.png"));
+		images.put("Grass Terrain",getImage("img/terrain20px/GrassTerrain.png"));
+		images.put("Mountain Terrain",getImage("img/terrain20px/MountainTerrain.png"));
+		images.put("Water Terrain",getImage("img/terrain20px/WaterTerrain.png"));
 	}
 		
 	/**
@@ -106,6 +111,17 @@ public class ResourceLoader {
 		}
 		catch (Exception e) { System.out.println(e); }
 	}
+	
+		
+	/**
+	 * Used by the AudioThread mostly
+	 * @param key Corresponds to key within the audio hashtable
+	 * @return InputStream for the AudioThread to buffer and send to the sound card
+	 */
+	public InputStream getIS(String key) {
+		return getStream(audios.get(key));
+	}
+	
 	
 	/**
 	 * Gives you an InputStream corresponding to the specified key. Currently

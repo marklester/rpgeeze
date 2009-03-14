@@ -9,11 +9,15 @@ import view.Console;
 import view.Drawable;
 import view.Drawer;
 import util.Iterator;
+import util.Observer;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import util.Subject;
 
-public class Entity implements Drawable, Cloneable {
+public class Entity implements Subject, Drawable, Cloneable {
 	private static final Pattern pattern = Pattern.compile("<entity>(<stats>.*</stats>)(<occupation>.*</occupation>)(<inventory>.*</inventory>)(<equipment>.*</equipment>)(<tile>.*</tile>)<facing>(.*)</facing></entity>");
 	
 	private Map map;
@@ -21,13 +25,11 @@ public class Entity implements Drawable, Cloneable {
 	private Occupation occupation;
 	private Inventory inventory;
 	private Tile tile = null;
-			
 	private Equipment equipment;
-
 	private int speed;
-
 	private Direction facing = Direction.EAST;
-
+	protected final List<Observer> observers = new LinkedList<Observer>();
+	
 	// Location
 	// Name
 	// EquippedItems
@@ -83,8 +85,10 @@ public class Entity implements Drawable, Cloneable {
 
 	public void move(Location l) {
 		Tile from = this.getTile();
-		if(from.hasAE())
+		if(from.hasAE()){
+			updateObservers();
 			from.getAE().setMessageSentFlag(false);
+		}
 		int newX = from.getLocation().getX() + l.getX();
 		int newY = from.getLocation().getY() + l.getY();
 		Tile to = map.getTile(newX, newY);
@@ -326,5 +330,18 @@ public class Entity implements Drawable, Cloneable {
 		}
 		ret.map = map;
 		return ret;
+	}
+	
+	public void updateObservers() {
+		for(Observer obs: this.observers)
+			obs.update(this);
+	}
+	
+	public void register(Observer o) {
+		this.observers.add(o);
+	}
+
+	public void unregister(Observer o) {
+		this.observers.remove(o);
 	}
 }
