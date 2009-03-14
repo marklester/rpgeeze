@@ -7,7 +7,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.media.opengl.GLCanvas;
 
-import rpgeeze.view.MainMenu;
+import rpgeeze.controller.MainMenuController;
+import rpgeeze.view.MainMenuView;
 
 import com.sun.opengl.util.FPSAnimator;
 
@@ -32,22 +33,24 @@ public class RunGame {
 	    final GLCanvas canvas = new GLCanvas();
 	    final FPSAnimator animator = new FPSAnimator(canvas, GOAL_FPS);
 	    
-	    GameManager gm = new GameManager();
+	    GameManager gm = new GameManager(canvas);
 	    
-	    canvas.addGLEventListener(gm);
-	    canvas.addKeyListener(gm);
-	    canvas.addMouseListener(gm);
-	    
-	    gm.changeView(new MainMenu());
+	    MainMenuView mmv = new MainMenuView();
+	    MainMenuController mmc = new MainMenuController(mmv);
+	    gm.pushState(mmv, mmc);
 	    
 	    frame.add(canvas);
 	    
 	    frame.addWindowListener(new WindowAdapter() {
 	    	public void windowClosing(WindowEvent e) {
-	    		animator.stop();
-	    		gd.setFullScreenWindow(null);
-	    		frame.setVisible(false);
-	    		frame.dispose();
+	    		synchronized(frame) {
+	    			if(frame.isVisible()) {
+			    		animator.stop();
+			    		gd.setFullScreenWindow(null);
+			    		frame.setVisible(false);
+			    		frame.dispose();
+	    			}
+	    		}
 	    	}
 	    });
 	    
