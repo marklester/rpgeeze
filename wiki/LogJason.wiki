@@ -53,3 +53,17 @@
 2/26/09 21:00-24:00
     * Worked on modifying Resource Loader
     * Worked on audio stuff
+
+2/27/09 19:00-21:00
+
+    * Group meeting for Iteration 1 critique. 
+
+3/3/09 19:00-21:30
+
+    * Group meeting for Iteration 2. 
+
+3/13/09 10:00-18:00
+
+    * Worked on AudioThread
+    * Merged resource loader from my branch, tidied up code
+    * Worked on Skill class, and subclasses, etc.
