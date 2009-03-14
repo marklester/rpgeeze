@@ -2,7 +2,6 @@ import model.Entity;
 import model.Map;
 import model.Model;
 import model.Occupation;
-import view.AudioThread;
 import view.Time;
 import view.View;
 import controller.WelcomeScreen;
@@ -34,10 +33,10 @@ public class RunGame {
 	 * Starts a new game. See the description above for what happens.
 	 */
 	public static WelcomeScreen welcome = null;
+	protected static AudioThread at = new AudioThread();
 	
 	public static void main(String[] arg) {
-		/*
-		*/		
+		
 		String w = new String("");
 		
 		while(!Thread.interrupted()) {
@@ -60,6 +59,7 @@ public class RunGame {
 					}
 				}
 				Thread t = newGame(welcome.getOccupation(), ResourceLoader.getInstance().getScanner("model.xml"));
+				at.run();
 				welcome.setVisible(false);		
 				welcome.dispose();
 				try {
@@ -116,8 +116,10 @@ public class RunGame {
 			xml.append(scanner.nextLine().replaceAll("\\t", ""));
 		Model model = Model.fromXml(occ, xml.toString());
 		
-		View view = new View(model);
+		//Register the AudioThread in order to keep track of the Entity and his locatio
+		model.getAvatar().register(at);
 		
+		View view = new View(model);
 		Time time = new Time(model, view);
 		time.start();
 		return time;
