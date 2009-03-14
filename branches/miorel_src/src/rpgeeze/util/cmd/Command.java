@@ -1,5 +1,5 @@
 package rpgeeze.util.cmd;
 
-public interface Command {
-	public void execute(Commandable c);
+public interface Command<T> {
+	public void execute(T t);
 }

@@ -4,61 +4,83 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Stack;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 
 import rpgeeze.controller.Controller;
-import rpgeeze.util.cmd.CommandHandler;
-import rpgeeze.util.cmd.Commandable;
+import rpgeeze.util.Pair;
 import rpgeeze.view.View;
 
 /**
  * Primary implementer of the event-listening interfaces. This class does very little work itself.
  */
 
-public class GameManager implements GLEventListener, KeyListener, MouseListener, Commandable {
-	private View view;
-	private Controller controller;
+public class GameManager implements GLEventListener, KeyListener, MouseListener {
+	private final Stack<Pair<View, Controller>> stateStack = new Stack<Pair<View, Controller>>();
+	
+	public GameManager(GLCanvas canvas) {
+	    canvas.addGLEventListener(this);
+	    canvas.addKeyListener(this);
+	    canvas.addMouseListener(this);
+	}
+	
+	private View getView() {
+		return stateStack.isEmpty() ? null : stateStack.peek().getFirst();
+	}
+
+	private Controller getController() {
+		return stateStack.isEmpty() ? null : stateStack.peek().getSecond();
+	}
 	
 	public void keyPressed(KeyEvent e) {
+		final Controller controller = getController();
 		if(controller != null)
 			controller.keyPressed(e);
 	}
 
 	public void keyReleased(KeyEvent e) {
+		final Controller controller = getController();
 		if(controller != null)
 			controller.keyReleased(e);
 	}
 
 	public void keyTyped(KeyEvent e) {
+		final Controller controller = getController();
 		if(controller != null)
 			controller.keyTyped(e);
 	}
 
 	public void mouseClicked(MouseEvent e) {
+		final Controller controller = getController();
 		if(controller != null)
 			controller.mouseClicked(e);
 	}
 
 	public void mouseEntered(MouseEvent e) {
+		final Controller controller = getController();
 		if(controller != null)
 			controller.mouseEntered(e);
 	}
 
 	public void mouseExited(MouseEvent e) {
+		final Controller controller = getController();
 		if(controller != null)
 			controller.mouseExited(e);
 	}
 
 	public void mousePressed(MouseEvent e) {
+		final Controller controller = getController();
 		if(controller != null)
 			controller.mousePressed(e);
 	}
 
 	public void mouseReleased(MouseEvent e) {
+		final Controller controller = getController();
 		if(controller != null)
 			controller.mouseReleased(e);
 	}
@@ -69,6 +91,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		gl.glLoadIdentity();
 		
+		final View view = getView();
 		if(view != null)
 			view.display();
 	}
@@ -101,28 +124,25 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 			height = 1;
 		
 		gl.glViewport(0, 0, width, height);
-		
-		// reset projection matrix
-		gl.glMatrixMode(GL.GL_PROJECTION);
-		gl.glLoadIdentity();
-
-		// calculate aspect ratio
-		glu.gluPerspective(45.0f, ((float) width) / ((float) height), 0.1f, 100.0f);
-
-		// select modelview matrix
-		gl.glMatrixMode(GL.GL_MODELVIEW);
-		gl.glLoadIdentity();
 	}
 	
-	public void changeView(View newView) {
+	public void pushState(View newView, Controller newController) {
+		pushState(new Pair<View, Controller>(newView, newController));
+	}
+	
+	public void pushState(Pair<View, Controller> newState) {
+		final View view = getView();
+		final View newView = newState.getFirst();
+		
 		if(view != null)
 			view.changeFrom();
-		if(newView != null)
+		if(newView != null) 
 			newView.changeTo();
-		view = newView;
+		
+		stateStack.push(newState);
 	}
-
-	public CommandHandler handler() {
-		return null;
+	
+	public Pair<View, Controller> popState() {
+		return stateStack.pop();
 	}
 }
