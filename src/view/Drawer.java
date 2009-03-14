@@ -149,7 +149,7 @@ public class Drawer implements Observer {
 	public void drawMe(String name) {
 		doDrawImage(ResourceLoader.getInstance().getItemImage(name));
 	}
-		
+			
 	public void drawEntity(Entity entity) {
 		Iterator<Image> iter = avatar.get(new Pair<Occupation, Direction>(entity.getOccupation(), entity.getFacingDirection()));
 		doDrawImage(iter.current());
