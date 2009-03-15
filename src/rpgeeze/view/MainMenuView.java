@@ -9,6 +9,9 @@ import javax.media.opengl.glu.GLU;
 import rpgeeze.gl.TexturedRectangle;
 import rpgeeze.util.ResourceLoader;
 
+/**
+ * The main menu screen.
+ */
 public class MainMenuView extends View {
 	public static final int NEW_GAME_BUTTON = 1;
 	public static final int LOAD_GAME_BUTTON = 2;
@@ -28,6 +31,9 @@ public class MainMenuView extends View {
 	private TexturedRectangle loadGameButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("img/buttons/LoadGame.png"), 10, 3);
 	private TexturedRectangle quitGameButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("img/buttons/QuitGame.png"), 10, 3);
 
+	/**
+	 * Renders the main menu screen.
+	 */
 	public void render(Point point) {
 		GL gl = GLContext.getCurrent().getGL();
 
@@ -92,14 +98,29 @@ public class MainMenuView extends View {
 		gl.glFlush();
 	}
 
+	/**
+	 * Sets whether or not the New Game button should be highlighted.
+	 * 
+	 * @param value whether or not the New Game button should be highlighted
+	 */
 	public void setNewGameHighlight(boolean value) {
 		newGameHighlight = value; 
 	}
 
+	/**
+	 * Sets whether or not the Load Game button should be highlighted.
+	 * 
+	 * @param value whether or not the Load Game button should be highlighted
+	 */
 	public void setLoadGameHighlight(boolean value) {
 		loadGameHighlight = value; 
 	}
 
+	/**
+	 * Sets whether or not the Quit Game button should be highlighted.
+	 * 
+	 * @param value whether or not the Quit Game button should be highlighted
+	 */
 	public void setQuitGameHighlight(boolean value) {
 		quitGameHighlight = value; 
 	}

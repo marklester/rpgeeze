@@ -1,17 +1,12 @@
 package rpgeeze.util;
 
 /**
- * The Gang of Four's favorite Iterator interface.
- * 
- * "Provide a way to access the elements of an aggregate object sequentially
- * without exposing its underlying implementation."
- * 
- * Intended to be used like this:
+ * The Gang of Four's favorite Iterator interface. Intended to be used like this:
  * 
  * <pre>Iterator<SomeType> iter = someObject.methodThatReturnsIterator();
- * for(iter.reset(); !iter.isDone(); iter.advance()) {
- *     iter.current().doSomething();
- * }</pre>
+ *for(iter.reset(); !iter.isDone(); iter.advance()) {
+ *    iter.current().doSomething();
+ *}</pre>
  * 
  */
 
