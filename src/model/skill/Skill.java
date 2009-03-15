@@ -17,4 +17,8 @@ public abstract class Skill {
 		this.name = name;
 		this.points = initPoints;
 	}
+	
+	public String toString() {
+		return name;
+	}
 }
