@@ -21,10 +21,23 @@ import com.sun.opengl.util.BufferUtil;
  */
 
 public abstract class View {
+	/**
+	 * OpenGL "picking" with a default buffer size.
+	 * 
+	 * @param pickPoint point around which to set up the picking matrix
+	 * @return an iterator over the name constants that registered as hits at the specified point
+	 */
 	public Iterator<Integer> pick(Point pickPoint) {
 		return pick(pickPoint, 16);
 	}
-	
+
+	/**
+	 * Friendly wrapper for OpenGL "picking" of rendered elements. 
+	 * 
+	 * @param pickPoint point around which to set up the picking matrix
+	 * @param bufSize size to use for the selection buffer
+	 * @return an iterator over the name constants that registered as hits at the specified point
+	 */
 	public Iterator<Integer> pick(Point pickPoint, int bufSize) {
 		GL gl = GLContext.getCurrent().getGL();
 
@@ -73,11 +86,22 @@ public abstract class View {
 		};
 	}
 
+	/**
+	 * Renders this View in the current OpenGL context. If the argument is not null, sets up a pick matrix around the specified location, for use in selection mode.  
+	 * 
+	 * @param point coordinates to pick around
+	 */
 	public abstract void render(Point point);
 
+	/**
+	 * Called whenever the GameManager changes away from this state. This is where you should, for example, pause any timers that are specific to this View.
+	 */
 	public void changeFrom() {
 	}
 
+	/**
+	 * Called whenever the GameManager changes to this state. If, for example, you paused some timer in changeFrom(), this is where you should resume it.
+	 */
 	public void changeTo() {
 	}
 }
