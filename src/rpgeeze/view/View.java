@@ -4,16 +4,17 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.nio.IntBuffer;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 
+import rpgeeze.EventProcessor;
+import rpgeeze.MouseHit;
 import rpgeeze.controller.Controller;
+import rpgeeze.util.cmd.Command;
 
 import com.sun.opengl.util.BufferUtil;
 
@@ -29,10 +30,6 @@ import com.sun.opengl.util.BufferUtil;
 
 public abstract class View {
 	public Queue<Point> pickQueue = new LinkedList<Point>();
-
-	private List<Controller> controllers = new ArrayList<Controller>();
-	//private ArrayList<Pair<MouseEvent, Command<Controller>>> mouseEvents = new ArrayList<Pair<MouseEvent, Command<Controller>>>();
-	
 	
 	public final void display() {
 		GL gl = GLU.getCurrentGL();
@@ -75,51 +72,67 @@ public abstract class View {
 	public void changeTo() {
 	}
 
-	public void keyPressed(KeyEvent e) {
-		for(Controller c: controllers)
-			c.keyPressed(e);
+	public void keyPressed(final KeyEvent e) {
+		EventProcessor.getInstance().queueEvent(new Command<Controller>() {
+			public void execute(Controller c) {
+				c.keyPressed(e);
+			}
+		});
 	}
 
-	public void keyReleased(KeyEvent e) {
-		for(Controller c: controllers)
-			c.keyReleased(e);
+	public void keyReleased(final KeyEvent e) {
+		EventProcessor.getInstance().queueEvent(new Command<Controller>() {
+			public void execute(Controller c) {
+				c.keyReleased(e);
+			}
+		});
 	}
 
-	public void keyTyped(KeyEvent e) {
-		for(Controller c: controllers)
-			c.keyTyped(e);
+	public void keyTyped(final KeyEvent e) {
+		EventProcessor.getInstance().queueEvent(new Command<Controller>() {
+			public void execute(Controller c) {
+				c.keyTyped(e);
+			}
+		});
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		for(Controller c: controllers)
-			c.mouseClicked(e);
+		EventProcessor.getInstance().queueEvent(new MouseHit(e) {
+			public void execute(Controller c) {
+				c.mouseClicked(getMouseEvent());
+			}
+		});
 	}
 
-	public void mouseEntered(MouseEvent e) {
-		for(Controller c: controllers)
-			c.mouseEntered(e);
+	public void mouseEntered(final MouseEvent e) {
+		EventProcessor.getInstance().queueEvent(new MouseHit(e) {
+			public void execute(Controller c) {
+				c.mouseEntered(e);
+			}
+		});
 	}
 
 	public void mouseExited(MouseEvent e) {
-		for(Controller c: controllers)
-			c.mouseExited(e);
+		EventProcessor.getInstance().queueEvent(new MouseHit(e) {
+			public void execute(Controller c) {
+				c.mouseExited(getMouseEvent());
+			}
+		});
 	}
 
 	public void mousePressed(MouseEvent e) {
-		for(Controller c: controllers)
-			c.mousePressed(e);
+		EventProcessor.getInstance().queueEvent(new MouseHit(e) {
+			public void execute(Controller c) {
+				c.mousePressed(getMouseEvent());
+			}
+		});
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		for(Controller c: controllers)
-			c.mouseReleased(e);
-	}
-
-	public void addController(Controller c) {
-		controllers.add(c);
-	}
-
-	public void removeController(Controller c) {
-		controllers.remove(c);
+		EventProcessor.getInstance().queueEvent(new MouseHit(e) {
+			public void execute(Controller c) {
+				c.mouseReleased(getMouseEvent());
+			}
+		});
 	}
 }
