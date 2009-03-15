@@ -36,8 +36,8 @@ public class RunGame {
 	    GameManager gm = new GameManager(canvas);
 	    
 	    MainMenuView mmv = new MainMenuView();
-	    MainMenuController mmc = new MainMenuController(mmv);
-	    gm.pushState(mmv, mmc);
+	    new MainMenuController(mmv);
+	    gm.pushState(mmv);
 	    
 	    frame.add(canvas);
 	    

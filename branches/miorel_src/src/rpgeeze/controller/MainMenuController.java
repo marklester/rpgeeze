@@ -9,6 +9,7 @@ public class MainMenuController extends Controller {
 	
 	public MainMenuController(MainMenuView view) {
 		this.view = view;
+		view.addController(this);
 	}
 
 	public void mousePressed(MouseEvent e) {

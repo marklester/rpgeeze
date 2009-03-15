@@ -1,12 +1,21 @@
 package rpgeeze.view;
 
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
+
+import rpgeeze.controller.Controller;
 
 import com.sun.opengl.util.BufferUtil;
 
@@ -20,25 +29,25 @@ import com.sun.opengl.util.BufferUtil;
  * moving away from the game screen.
  */
 
-public abstract class View {
+public abstract class View implements KeyListener, MouseListener {
 	public Queue<Point> pickQueue = new LinkedList<Point>();
+	private List<Controller> controllers = new ArrayList<Controller>();
 	
 	public final void display() {
 		GL gl = GLU.getCurrentGL();
 	
-		setup(null);
-		
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		
-		if(!pickQueue.isEmpty()) {
-			pickRects(gl);
-		}/**/
+		if(!pickQueue.isEmpty())
+			pick();
 		
-		drawRects();
+		render(null);
+		
 		gl.glFlush();
 	}
 
-	public void pickRects(GL gl) {
+	public void pick() {
+		GL gl = GLU.getCurrentGL();
 		int BUFSIZE = 512;
 		
 		Point pickPoint = pickQueue.poll();
@@ -51,42 +60,33 @@ public abstract class View {
 		gl.glInitNames();
 		gl.glPushName(-1);
 
-		setup(pickPoint);
-		drawRects();
+		render(pickPoint);
 		gl.glFlush();
 		
 		int hits = gl.glRenderMode(GL.GL_RENDER);
 				
 		selectBuffer.get(selectBuf);
 
-		setup(null);
-		
-		int names, ptr = 0;
-
 		System.out.println("hits = " + hits);
-		// ptr = (GLuint *) buffer;
-		for (int i = 0; i < hits; i++)
-		{ /* for each hit */
-			names = selectBuf[ptr];
-//			System.out.println(" number of names for hit = " + names);
-			ptr++;
-//			System.out.println("  z1 is " + selectBuf[ptr]);
-			ptr++;
-//			System.out.println(" z2 is " + selectBuf[ptr]);
-			ptr++;
-//			System.out.print("\tthe name is");
-			for (int j = 0; j < names; j++) {
-//				System.out.println(" " + selectBuf[ptr++]);
-				ptr++;
-			}
-			//System.out.println();
-		}
+		System.out.println(Arrays.toString(selectBuf));
+		System.out.println();
 	}
-
-	public void drawRects() {
-		GL gl = GLU.getCurrentGL();
 		
-		//gl.glClearColor(0.0f, 0.5f, 0.0f, 0.0f);
+	public void render(Point point) {
+		GL gl = GLU.getCurrentGL();
+
+		gl.glMatrixMode(GL.GL_PROJECTION);
+		gl.glLoadIdentity();
+		int[] vp = new int[4];
+		gl.glGetIntegerv(GL.GL_VIEWPORT, vp, 0);
+		GLU glu = new GLU();
+		if(point != null)
+			glu.gluPickMatrix((double) point.x, (double) (vp[3] - point.y), 1, 1, vp, 0);		
+		glu.gluPerspective(45, ((double) vp[2]) / ((double) vp[3]), 0.1, 100);
+		gl.glMatrixMode(GL.GL_MODELVIEW);
+		gl.glLoadIdentity();
+		
+		gl.glClearColor(0.0f, 0.5f, 0.0f, 0.0f);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
 		
 		gl.glTranslated(0, 0, -10);
@@ -119,26 +119,57 @@ public abstract class View {
 		gl.glEnd();
 	}
 	
-	
-	public void setup(Point point) {
-		GL gl = GLU.getCurrentGL();
-		gl.glMatrixMode(GL.GL_PROJECTION);
-		gl.glLoadIdentity();
-		int[] vp = new int[4];
-		gl.glGetIntegerv(GL.GL_VIEWPORT, vp, 0);
-		GLU glu = new GLU();
-		if(point != null)
-			glu.gluPickMatrix((double) point.x, (double) (vp[3] - point.y), 1, 1, vp, 0);		
-		glu.gluPerspective(45, ((double) vp[2]) / ((double) vp[3]), 0.1, 100);
-		gl.glMatrixMode(GL.GL_MODELVIEW);
-		gl.glLoadIdentity();
-	}
-	
-	protected abstract void doDisplay();
-	
 	public void changeFrom() {
 	}
 
 	public void changeTo() {
+	}
+
+	public void keyPressed(KeyEvent e) {
+		for(Controller c: controllers)
+			c.keyPressed(e);
+	}
+
+	public void keyReleased(KeyEvent e) {
+		for(Controller c: controllers)
+			c.keyReleased(e);
+	}
+
+	public void keyTyped(KeyEvent e) {
+		for(Controller c: controllers)
+			c.keyTyped(e);
+	}
+
+	public void mouseClicked(MouseEvent e) {
+		for(Controller c: controllers)
+			c.mouseClicked(e);
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		for(Controller c: controllers)
+			c.mouseEntered(e);
+	}
+
+	public void mouseExited(MouseEvent e) {
+		for(Controller c: controllers)
+			c.mouseExited(e);
+	}
+
+	public void mousePressed(MouseEvent e) {
+		for(Controller c: controllers)
+			c.mousePressed(e);
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		for(Controller c: controllers)
+			c.mouseReleased(e);
+	}
+	
+	public void addController(Controller c) {
+		controllers.add(c);
+	}
+	
+	public void removeController(Controller c) {
+		controllers.remove(c);
 	}
 }
