@@ -36,7 +36,11 @@ public class RunGame {
 	    GameManager gm = new GameManager(canvas);
 	    
 	    MainMenuView mmv = new MainMenuView();
-	    new MainMenuController(mmv);
+	    
+	    EventProcessor ev = EventProcessor.getInstance();
+	    ev.addController(new MainMenuController(mmv));
+	    ev.start();
+	    
 	    gm.pushState(mmv);
 	    
 	    frame.add(canvas);
@@ -51,6 +55,7 @@ public class RunGame {
 			    		frame.dispose();
 	    			}
 	    		}
+	    		EventProcessor.getInstance().interrupt();
 	    	}
 	    });
 	    
