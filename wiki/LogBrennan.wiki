@@ -75,3 +75,12 @@
 
 3/3/09 19:00-21:30
   * Group meeting for Iteration 2.
+
+3/10/09 21:00-22:00
+  * Setup JOGL
+
+3/12/09 21:00-22:00
+  * JOGL tutorials
+
+3/15/09 8:00-9:30
+  * JOGL stuff
