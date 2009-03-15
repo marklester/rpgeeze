@@ -4,6 +4,7 @@
 	<property name="lib.dir" value="lib"/>
 	<property name="bin.dir" value="bin"/>
 	<property name="dist.dir" value="dist"/>
+	<property name="res.dir" value="res"/>
 	
 	<property name="jar.name" value="${ant.project.name}.jar"/>
 	
@@ -41,7 +42,9 @@
                 <attribute name="Built-By" value="${user.name}"/>
             </manifest>
             <fileset dir="${bin.dir}"/>
+    		<fileset dir="." includes="${res.dir}/**"/>
         </jar>
+    	
     	<copy todir="${dist.dir}/${lib.dir}">
     		<fileset dir="${lib.dir}"/>
     	</copy>
