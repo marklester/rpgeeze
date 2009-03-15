@@ -1,24 +1,12 @@
 package rpgeeze.view;
 
 import java.awt.Point;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.nio.IntBuffer;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
 
-import javax.media.opengl.DebugGL;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLContext;
-import javax.media.opengl.TraceGL;
-import javax.media.opengl.glu.GLU;
 
-import rpgeeze.EventProcessor;
-import rpgeeze.GameManager;
-import rpgeeze.MouseHit;
-import rpgeeze.controller.Controller;
-import rpgeeze.util.cmd.Command;
+import rpgeeze.util.Iterator;
 
 import com.sun.opengl.util.BufferUtil;
 
@@ -33,121 +21,63 @@ import com.sun.opengl.util.BufferUtil;
  */
 
 public abstract class View {
-	public Queue<Point> pickQueue = new LinkedList<Point>();
-	private GameManager manager;
-	
-	public View(GameManager manager) {
-		this.manager = manager;
+	public Iterator<Integer> pick(Point pickPoint) {
+		return pick(pickPoint, 16);
 	}
 	
-	public void display() {
+	public Iterator<Integer> pick(Point pickPoint, int bufSize) {
 		GL gl = GLContext.getCurrent().getGL();
-		//pick();
-		render(null);
-		gl.glFlush();
-	}
 
-	public void pick() {
-		GL gl = GLContext.getCurrent().getGL();
+		final int[] selectBuf = new int[bufSize];
+		IntBuffer selectBuffer = BufferUtil.newIntBuffer(bufSize);
+
+		gl.glSelectBuffer(bufSize, selectBuffer);
+		gl.glRenderMode(GL.GL_SELECT);
+
+		gl.glInitNames();
+		gl.glPushName(-1);
+
+		render(pickPoint);
+
+		final int hits = gl.glRenderMode(GL.GL_RENDER);
 		
-		if(!pickQueue.isEmpty()) {
-			int BUFSIZE = 512;
+		selectBuffer.get(selectBuf);
+		
+		return new Iterator<Integer>() {
+			private int hit;
+			private int name;
+			private int ptr;
+			
+			public void advance() {
+				++name;
+				if(name == selectBuf[ptr]) {
+					++hit;
+					ptr += 3 + selectBuf[ptr];
+					name = 0;
+				}
+			}
 
-			Point pickPoint = pickQueue.poll();
-			int[] selectBuf = new int[BUFSIZE];
-			IntBuffer selectBuffer = BufferUtil.newIntBuffer(BUFSIZE);
+			public Integer current() {
+				return selectBuf[ptr + 3 + name];
+			}
 
-			gl.glSelectBuffer(BUFSIZE, selectBuffer);
-			gl.glRenderMode(GL.GL_SELECT);
+			public boolean isDone() {
+				return hit == hits;
+			}
 
-			gl.glInitNames();
-			gl.glPushName(-1);
-
-			render(pickPoint);
-			gl.glFlush();
-
-			int hits = gl.glRenderMode(GL.GL_RENDER);
-
-			selectBuffer.get(selectBuf);
-
-			System.out.println("hits = " + hits);
-			System.out.println(Arrays.toString(selectBuf));
-			System.out.println();	
-		}
+			public void reset() {
+				hit = 0;
+				name = 0;
+				ptr = 0;
+			}
+		};
 	}
-	
+
 	public abstract void render(Point point);
 
 	public void changeFrom() {
 	}
 
 	public void changeTo() {
-	}
-
-	public void keyPressed(final KeyEvent e) {
-		EventProcessor.getInstance().queueEvent(new Command<Controller>() {
-			public void execute(Controller c) {
-				c.keyPressed(e);
-			}
-		});
-	}
-
-	public void keyReleased(final KeyEvent e) {
-		EventProcessor.getInstance().queueEvent(new Command<Controller>() {
-			public void execute(Controller c) {
-				c.keyReleased(e);
-			}
-		});
-	}
-
-	public void keyTyped(final KeyEvent e) {
-		EventProcessor.getInstance().queueEvent(new Command<Controller>() {
-			public void execute(Controller c) {
-				c.keyTyped(e);
-			}
-		});
-	}
-
-	public void mouseClicked(MouseEvent e) {
-		System.out.println("Click! " + e);
-		manager.eventContext.makeCurrent();
-		pick();
-		EventProcessor.getInstance().queueEvent(new MouseHit(e) {
-			public void execute(Controller c) {
-				c.mouseClicked(getMouseEvent());
-			}
-		});
-	}
-
-	public void mouseEntered(final MouseEvent e) {
-		EventProcessor.getInstance().queueEvent(new MouseHit(e) {
-			public void execute(Controller c) {
-				c.mouseEntered(e);
-			}
-		});
-	}
-
-	public void mouseExited(MouseEvent e) {
-		EventProcessor.getInstance().queueEvent(new MouseHit(e) {
-			public void execute(Controller c) {
-				c.mouseExited(getMouseEvent());
-			}
-		});
-	}
-
-	public void mousePressed(MouseEvent e) {
-		EventProcessor.getInstance().queueEvent(new MouseHit(e) {
-			public void execute(Controller c) {
-				c.mousePressed(getMouseEvent());
-			}
-		});
-	}
-
-	public void mouseReleased(MouseEvent e) {
-		EventProcessor.getInstance().queueEvent(new MouseHit(e) {
-			public void execute(Controller c) {
-				c.mouseReleased(getMouseEvent());
-			}
-		});
 	}
 }

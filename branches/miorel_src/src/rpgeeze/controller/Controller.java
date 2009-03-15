@@ -1,9 +1,12 @@
 package rpgeeze.controller;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public abstract class Controller {
+public abstract class Controller implements KeyListener, MouseListener, MouseMotionListener {
 	public void keyPressed(KeyEvent e) {
 	}
 
@@ -26,5 +29,11 @@ public abstract class Controller {
 	}
 
 	public void mouseReleased(MouseEvent e) {
+	}
+	
+	public void mouseDragged(MouseEvent e) {
+	}
+
+	public void mouseMoved(MouseEvent e) {
 	}
 }
