@@ -10,10 +10,7 @@ import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLEventListener;
-import javax.media.opengl.glu.GLU;
 
-import rpgeeze.controller.Controller;
-import rpgeeze.util.Pair;
 import rpgeeze.view.View;
 
 /**
@@ -21,7 +18,7 @@ import rpgeeze.view.View;
  */
 
 public class GameManager implements GLEventListener, KeyListener, MouseListener {
-	private final Stack<Pair<View, Controller>> stateStack = new Stack<Pair<View, Controller>>();
+	private final Stack<View> stateStack = new Stack<View>();
 	
 	public GameManager(GLCanvas canvas) {
 	    canvas.addGLEventListener(this);
@@ -30,59 +27,55 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener 
 	}
 	
 	private View getView() {
-		return stateStack.isEmpty() ? null : stateStack.peek().getFirst();
-	}
-
-	private Controller getController() {
-		return stateStack.isEmpty() ? null : stateStack.peek().getSecond();
+		return stateStack.isEmpty() ? null : stateStack.peek();
 	}
 	
 	public void keyPressed(KeyEvent e) {
-		final Controller controller = getController();
-		if(controller != null)
-			controller.keyPressed(e);
+		final View view = getView();
+		if(view != null)
+			view.keyPressed(e);
 	}
 
 	public void keyReleased(KeyEvent e) {
-		final Controller controller = getController();
-		if(controller != null)
-			controller.keyReleased(e);
+		final View view = getView();
+		if(view != null)
+			view.keyReleased(e);
 	}
 
 	public void keyTyped(KeyEvent e) {
-		final Controller controller = getController();
-		if(controller != null)
-			controller.keyTyped(e);
+		final View view = getView();
+		if(view != null)
+			view.keyTyped(e);
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		final Controller controller = getController();
-		if(controller != null)
-			controller.mouseClicked(e);
+		final View view = getView();
+		if(view != null)
+			view.mouseClicked(e);
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		final Controller controller = getController();
-		if(controller != null)
-			controller.mouseEntered(e);
+		final View view = getView();
+		if(view != null)
+			view.mouseEntered(e);
 	}
 
 	public void mouseExited(MouseEvent e) {
-		final Controller controller = getController();
-		if(controller != null)
-			controller.mouseExited(e);
+		final View view = getView();
+		if(view != null)
+			view.mouseExited(e);
 	}
 
 	public void mousePressed(MouseEvent e) {
-		final Controller controller = getController();
-		if(controller != null)
-			controller.mousePressed(e);
+		final View view = getView();
+		if(view != null)
+			view.mousePressed(e);
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		final Controller controller = getController();
-		if(controller != null)
-			controller.mouseReleased(e);
+		final View view = getView();
+		if(view != null)
+			view.mouseReleased(e);
 	}
 
 	public void display(GLAutoDrawable drawable) {
@@ -96,8 +89,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener 
 			view.display();
 	}
 
-	public void displayChanged(GLAutoDrawable drawable, boolean modeChanged,
-			boolean deviceChanged) {
+	public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
 	}
 
 	public void init(GLAutoDrawable drawable) {
@@ -114,10 +106,8 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener 
 		gl.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
 	}
 
-	public void reshape(GLAutoDrawable drawable, int x, int y, int width,
-			int height) {
+	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
 		final GL gl = drawable.getGL();
-		final GLU glu = new GLU();
 		
 		// prevent division by zero
 		if(height <= 0)
@@ -126,23 +116,18 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener 
 		gl.glViewport(0, 0, width, height);
 	}
 	
-	public void pushState(View newView, Controller newController) {
-		pushState(new Pair<View, Controller>(newView, newController));
-	}
-	
-	public void pushState(Pair<View, Controller> newState) {
+	public void pushState(View newView) {
 		final View view = getView();
-		final View newView = newState.getFirst();
 		
 		if(view != null)
 			view.changeFrom();
 		if(newView != null) 
 			newView.changeTo();
 		
-		stateStack.push(newState);
+		stateStack.push(newView);
 	}
 	
-	public Pair<View, Controller> popState() {
+	public View popState() {
 		return stateStack.pop();
 	}
 }

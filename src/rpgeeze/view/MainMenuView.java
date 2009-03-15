@@ -11,7 +11,7 @@ public class MainMenuView extends View {
 	private boolean loadGameHighlight = false;
 	private boolean quitGameHighlight = false;
 	
-	protected void doDisplay() {
+	public void doDisplay() {
 		final GL gl = GLU.getCurrentGL();
 
 		gl.glClearColor(0.0f, 0.5f, 0.0f, 0.0f);
