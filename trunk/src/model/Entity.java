@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import util.Subject;
+import model.skill.*;
 
 public class Entity implements Subject, Drawable, Cloneable {
 	private static final Pattern pattern = Pattern.compile("<entity>(<stats>.*</stats>)(<occupation>.*</occupation>)(<inventory>.*</inventory>)(<equipment>.*</equipment>)(<tile>.*</tile>)<facing>(.*)</facing></entity>");
@@ -23,6 +24,7 @@ public class Entity implements Subject, Drawable, Cloneable {
 	private Map map;
 	private Stats stats;
 	private Occupation occupation;
+	private LinkedList<Skill> skills;
 	private Inventory inventory;
 	private Tile tile = null;
 	private Equipment equipment;
@@ -42,6 +44,7 @@ public class Entity implements Subject, Drawable, Cloneable {
 		this.inventory = new Inventory();
 		this.occupation = occupation;
 		this.stats = (Stats) occupation.stats.clone();
+		this.skills = occupation.skills;
 		this.equipment = new Equipment();
 	}
 
@@ -327,6 +330,7 @@ public class Entity implements Subject, Drawable, Cloneable {
 		{
 		 ret.occupation = occ;
 		 ret.stats = (Stats) ret.occupation.stats.clone();
+		 ret.skills = ret.occupation.skills;
 		}
 		ret.map = map;
 		return ret;

@@ -3,6 +3,8 @@ package model;
 import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import model.skill.*;
+import java.util.LinkedList;
 
 public abstract class Occupation implements Cloneable {
 	private static final Pattern pattern = Pattern.compile("<occupation>(.*?)</occupation>");
@@ -20,10 +22,19 @@ public abstract class Occupation implements Cloneable {
 	
 	protected final String name;
 	protected Stats stats;
+	protected LinkedList<Skill> skills;
 
 	protected Occupation(String name, Stats stats) {
 		this.name = name;
 		this.stats = stats;
+		skills = new LinkedList<Skill>();
+		populateSkills();
+	}
+	
+	protected Occupation(String name, Stats stats, LinkedList<Skill> skills) {
+		this.name = name;
+		this.stats = stats;
+		this.skills = skills;
 	}
 	
 	public Occupation clone() {
@@ -67,5 +78,11 @@ public abstract class Occupation implements Cloneable {
 		if(o instanceof Occupation)
 			ret = o.toString().equals(toString());
 		return ret;
+	}
+	
+	public void populateSkills() {
+		skills.add(new BindWounds());
+		skills.add(new Bargain());
+		skills.add(new Observation());
 	}
 }
