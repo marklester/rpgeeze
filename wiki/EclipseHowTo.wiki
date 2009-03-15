@@ -11,7 +11,7 @@ Here's my accelerated guide to setting up Eclipse to work with the version contr
    * NOTE: some people had problems with Subclipse 1.4, so you may want to just use 1.2, the update URL is [http://subclipse.tigris.org/update_1.2.x]
   * in Eclipse, create a new project
    * select New, Project..., SVN, Checkout Projects from SVN
-   * add the repository location [https://svn.acceleration.net/CEN3031Group1]
+   * add the repository location
    * input your credentials when prompted
    * only get the trunk directory, we'll deal with tags and branches later as needed
    * say you want the New Project wizard when asked and configure it as a Java project
