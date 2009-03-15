@@ -2,9 +2,7 @@ package rpgeeze.view;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,96 +27,48 @@ import com.sun.opengl.util.BufferUtil;
  * moving away from the game screen.
  */
 
-public abstract class View implements KeyListener, MouseListener {
+public abstract class View {
 	public Queue<Point> pickQueue = new LinkedList<Point>();
+
 	private List<Controller> controllers = new ArrayList<Controller>();
+	//private ArrayList<Pair<MouseEvent, Command<Controller>>> mouseEvents = new ArrayList<Pair<MouseEvent, Command<Controller>>>();
+	
 	
 	public final void display() {
 		GL gl = GLU.getCurrentGL();
-	
-		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		
-		if(!pickQueue.isEmpty())
-			pick();
-		
+		if(!pickQueue.isEmpty()) {
+			int BUFSIZE = 512;
+
+			Point pickPoint = pickQueue.poll();
+			int[] selectBuf = new int[BUFSIZE];
+			IntBuffer selectBuffer = BufferUtil.newIntBuffer(BUFSIZE);
+
+			gl.glSelectBuffer(BUFSIZE, selectBuffer);
+			gl.glRenderMode(GL.GL_SELECT);
+
+			gl.glInitNames();
+			gl.glPushName(-1);
+
+			render(pickPoint);
+			gl.glFlush();
+
+			int hits = gl.glRenderMode(GL.GL_RENDER);
+
+			selectBuffer.get(selectBuf);
+
+			System.out.println("hits = " + hits);
+			System.out.println(Arrays.toString(selectBuf));
+			System.out.println();	
+		}
+
 		render(null);
-		
+
 		gl.glFlush();
 	}
 
-	public void pick() {
-		GL gl = GLU.getCurrentGL();
-		int BUFSIZE = 512;
-		
-		Point pickPoint = pickQueue.poll();
-		int[] selectBuf = new int[BUFSIZE];
-		IntBuffer selectBuffer = BufferUtil.newIntBuffer(BUFSIZE);
-		
-		gl.glSelectBuffer(BUFSIZE, selectBuffer);
-		gl.glRenderMode(GL.GL_SELECT);
+	public abstract void render(Point point);
 
-		gl.glInitNames();
-		gl.glPushName(-1);
-
-		render(pickPoint);
-		gl.glFlush();
-		
-		int hits = gl.glRenderMode(GL.GL_RENDER);
-				
-		selectBuffer.get(selectBuf);
-
-		System.out.println("hits = " + hits);
-		System.out.println(Arrays.toString(selectBuf));
-		System.out.println();
-	}
-		
-	public void render(Point point) {
-		GL gl = GLU.getCurrentGL();
-
-		gl.glMatrixMode(GL.GL_PROJECTION);
-		gl.glLoadIdentity();
-		int[] vp = new int[4];
-		gl.glGetIntegerv(GL.GL_VIEWPORT, vp, 0);
-		GLU glu = new GLU();
-		if(point != null)
-			glu.gluPickMatrix((double) point.x, (double) (vp[3] - point.y), 1, 1, vp, 0);		
-		glu.gluPerspective(45, ((double) vp[2]) / ((double) vp[3]), 0.1, 100);
-		gl.glMatrixMode(GL.GL_MODELVIEW);
-		gl.glLoadIdentity();
-		
-		gl.glClearColor(0.0f, 0.5f, 0.0f, 0.0f);
-		gl.glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
-		
-		gl.glTranslated(0, 0, -10);
-		
-		gl.glLoadName(1);
-		gl.glBegin(GL.GL_QUADS);
-		gl.glColor3f(1.0f, 1.0f, 0.0f);
-		gl.glVertex3i(2, 0, -2);
-		gl.glVertex3i(2, 6, -2);
-		gl.glVertex3i(6, 6, -2);
-		gl.glVertex3i(6, 0, -2);
-		gl.glEnd();
-		
-		gl.glLoadName(2);
-		gl.glBegin(GL.GL_QUADS);
-		gl.glColor3f(0.0f, 1.0f, 1.0f);
-		gl.glVertex3i(3, 2, -1);
-		gl.glVertex3i(3, 8, -1);
-		gl.glVertex3i(8, 8, -1);
-		gl.glVertex3i(8, 2, -1);
-		gl.glEnd();
-		
-		gl.glLoadName(3);
-		gl.glBegin(GL.GL_QUADS);
-		gl.glColor3f(1.0f, 0.0f, 1.0f);
-		gl.glVertex3i(0, 2, 0);
-		gl.glVertex3i(0, 7, 0);
-		gl.glVertex3i(5, 7, 0);
-		gl.glVertex3i(5, 2, 0);
-		gl.glEnd();
-	}
-	
 	public void changeFrom() {
 	}
 
@@ -164,11 +114,11 @@ public abstract class View implements KeyListener, MouseListener {
 		for(Controller c: controllers)
 			c.mouseReleased(e);
 	}
-	
+
 	public void addController(Controller c) {
 		controllers.add(c);
 	}
-	
+
 	public void removeController(Controller c) {
 		controllers.remove(c);
 	}
