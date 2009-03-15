@@ -2,9 +2,13 @@ package rpgeeze.view;
 
 import java.awt.Point;
 
+import javax.media.opengl.DebugGL;
 import javax.media.opengl.GL;
+import javax.media.opengl.GLContext;
+import javax.media.opengl.TraceGL;
 import javax.media.opengl.glu.GLU;
 
+import rpgeeze.GameManager;
 import rpgeeze.gl.TexturedRectangle;
 import rpgeeze.util.ResourceLoader;
 
@@ -13,9 +17,22 @@ public class MainMenuView extends View {
 	private boolean loadGameHighlight = false;
 	private boolean quitGameHighlight = false;
 	
+	public MainMenuView(GameManager manager) {
+		super(manager);
+	}
+	
 	public void render(Point point) {
-		GL gl = GLU.getCurrentGL();
+		GL gl = GLContext.getCurrent().getGL();
 
+		gl.glShadeModel(GL.GL_SMOOTH);
+		
+		// depth buffer
+		gl.glClearDepth(1.0f);
+		gl.glEnable(GL.GL_DEPTH_TEST);
+		gl.glDepthFunc(GL.GL_LEQUAL);
+		
+		gl.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
+		
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		
 		gl.glMatrixMode(GL.GL_PROJECTION);
@@ -63,7 +80,7 @@ public class MainMenuView extends View {
 	}
 	
 	public void doDisplay() {
-		final GL gl = GLU.getCurrentGL();
+		GL gl = GLContext.getCurrent().getGL();
 
 		gl.glClearColor(0.0f, 0.5f, 0.0f, 0.0f);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, 0.5f);

@@ -8,10 +8,14 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import javax.media.opengl.DebugGL;
 import javax.media.opengl.GL;
+import javax.media.opengl.GLContext;
+import javax.media.opengl.TraceGL;
 import javax.media.opengl.glu.GLU;
 
 import rpgeeze.EventProcessor;
+import rpgeeze.GameManager;
 import rpgeeze.MouseHit;
 import rpgeeze.controller.Controller;
 import rpgeeze.util.cmd.Command;
@@ -30,9 +34,21 @@ import com.sun.opengl.util.BufferUtil;
 
 public abstract class View {
 	public Queue<Point> pickQueue = new LinkedList<Point>();
+	private GameManager manager;
 	
-	public final void display() {
-		GL gl = GLU.getCurrentGL();
+	public View(GameManager manager) {
+		this.manager = manager;
+	}
+	
+	public void display() {
+		GL gl = GLContext.getCurrent().getGL();
+		//pick();
+		render(null);
+		gl.glFlush();
+	}
+
+	public void pick() {
+		GL gl = GLContext.getCurrent().getGL();
 		
 		if(!pickQueue.isEmpty()) {
 			int BUFSIZE = 512;
@@ -58,12 +74,8 @@ public abstract class View {
 			System.out.println(Arrays.toString(selectBuf));
 			System.out.println();	
 		}
-
-		render(null);
-
-		gl.glFlush();
 	}
-
+	
 	public abstract void render(Point point);
 
 	public void changeFrom() {
@@ -97,6 +109,9 @@ public abstract class View {
 	}
 
 	public void mouseClicked(MouseEvent e) {
+		System.out.println("Click! " + e);
+		manager.eventContext.makeCurrent();
+		pick();
 		EventProcessor.getInstance().queueEvent(new MouseHit(e) {
 			public void execute(Controller c) {
 				c.mouseClicked(getMouseEvent());
