@@ -2,6 +2,9 @@ package rpgeeze.view;
 
 import java.awt.Font;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GLContext;
@@ -24,15 +27,13 @@ public class CreditsView extends View {
 	private Text developer;
 
 	private int pointer;
-	private final String[] names = new String[] {
-			"Eric Hayden", 
-			"Brennan Jones",
-			"Matthew Lance",
-			"Mark Lester",
-			"Jason McAninley",
-			"Jose Morales",
-			"Miorel Palii",
-	};
+	private final List<String> developers = new ArrayList<String>();
+	
+	public CreditsView() {
+		Scanner s = new Scanner(ResourceLoader.getInstance().getStream("txt/developers.txt"));
+		while(s.hasNextLine())
+			developers.add(s.nextLine());
+	}
 	
 	public void render(Point point) {
 		GL gl = GLContext.getCurrent().getGL();
@@ -53,8 +54,8 @@ public class CreditsView extends View {
 	}
 	
 	public void nextDeveloper() {
-		pointer = (pointer + 1) % names.length;
-		developer = new Text(names[pointer], medium);
+		pointer = (pointer + 1) % developers.size();
+		developer = new Text(developers.get(pointer), medium);
 	}
 
 	public void changeTo() {

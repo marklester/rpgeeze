@@ -26,7 +26,7 @@ public class MainMenuView extends View {
 
 	private float intensity;
 
-	private TexturedRectangle introImage = new TexturedRectangle(ResourceLoader.getInstance().getTexture("Intro.png"), 25, 25);
+	private TexturedRectangle introImage = new TexturedRectangle(ResourceLoader.getInstance().getTexture("intro.png"), 25, 25);
 
 	private TexturedRectangle newGameButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/new_game.png"), 10, 3);
 	private TexturedRectangle loadGameButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/load_game.png"), 10, 3);
@@ -63,7 +63,7 @@ public class MainMenuView extends View {
 		gl.glGetIntegerv(GL.GL_VIEWPORT, vp, 0);
 		GLU glu = new GLU();
 		if(point != null)
-			glu.gluPickMatrix((double) point.x, (double) (vp[3] - point.y), 1e-3, 1e-3, vp, 0);				
+			glu.gluPickMatrix((double) point.x, (double) (vp[3] - point.y), 1e-3, 1e-3, vp, 0);
 		glu.gluPerspective(45, ((double) vp[2]) / ((double) vp[3]), 0.1, 100);
 		gl.glMatrixMode(GL.GL_MODELVIEW);		
 
