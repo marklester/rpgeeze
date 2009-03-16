@@ -152,4 +152,10 @@ public abstract class Controller implements KeyListener, MouseListener, MouseMot
 	 */
 	public void windowLostFocus(WindowEvent e) {
 	}
+	
+	public void changeFrom() {
+	}
+	
+	public void changeTo() {
+	}
 }

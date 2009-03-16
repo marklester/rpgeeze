@@ -12,6 +12,10 @@ import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.gl.Text;
 import rpgeeze.gl.TexturedRectangle;
+import rpgeeze.model.Map;
+import rpgeeze.model.Tile;
+import rpgeeze.model.terrain.*;
+import rpgeeze.util.Iterator;
 import rpgeeze.util.ResourceLoader;
 
 public class GameplayView extends View {
@@ -19,12 +23,18 @@ public class GameplayView extends View {
 	private TexturedRectangle mountain = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/mountain.png"), 1, 1);;
 	private TexturedRectangle water = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/water.png"), 1, 1);
 	
-	private TextRenderer renderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.PLAIN, 36), true, true);
+	private TextRenderer renderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.PLAIN, 24), true, true);
+	private String fpsText;
 	
-	private double zoom = -(1 << 5);
-	
-	private double ZOOM_MIN = -(1 << 6);
+	private double zoom = -32;
+	private double ZOOM_MIN = -64;
 	private double ZOOM_MAX = -1;
+	
+	private Map map;
+	
+	public GameplayView(Map map) {
+		this.map = map;
+	}
 	
 	public void render(Point point) {
 		GL gl = GLContext.getCurrent().getGL();
@@ -49,8 +59,8 @@ public class GameplayView extends View {
 		gl.glLoadIdentity();
 		int[] vp = new int[4];
 		gl.glGetIntegerv(GL.GL_VIEWPORT, vp, 0);
-		GLU glu = new GLU();
 /*
+		GLU glu = new GLU();
 		if(point != null)
 			glu.gluPickMatrix((double) point.x, (double) (vp[3] - point.y), 1e-3, 1e-3, vp, 0);
 /**/
@@ -63,19 +73,40 @@ public class GameplayView extends View {
 		gl.glLoadIdentity();
 		gl.glTranslated(-0.5, -0.5, zoom);
 		
+		// get viewport dimensions in tiles that have to be displayed
 		int widthInTiles = (int) Math.ceil(-2 * zoom);
 		int heightInTiles = (int) Math.ceil(-2 * zoom * vp[3] / width);
 		
-		gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		for(int i = 0; i <= 0; ++i)
-			for(int j = 0; j <= 0; ++j) {
-				gl.glPushMatrix();
-				gl.glTranslated(i, j, 0);
-				water.render();
-				gl.glPopMatrix();
-			}
+		// currently center on the origin, later we will center on avatar 
+		double centerX = 0;
+		double centerY = 0;
 		
-		new Text(String.format("zoom = %.3f; dim = %d x %d", zoom, widthInTiles, heightInTiles), Color.RED, renderer).render();
+		int minX = (int) Math.floor(centerX - (1 + widthInTiles / 2));
+		int maxX = (int) Math.ceil(centerX + (1 + widthInTiles / 2));
+		int minY = (int) Math.floor(centerY - (1 + heightInTiles / 2));
+		int maxY = (int) Math.ceil(centerY + (1 + heightInTiles / 2));
+		
+		gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		
+		Iterator<Tile> iter = map.getTiles(minX, maxX, minY, maxY);
+		for(iter.reset(); !iter.isDone(); iter.advance()) {
+			Tile t = iter.current();
+			gl.glPushMatrix();
+			gl.glTranslated(t.getX(), t.getY(), 0);
+			if(t.getTerrain() instanceof GrassTerrain)
+				grass.render();
+			if(t.getTerrain() instanceof MountainTerrain)
+				mountain.render();
+			if(t.getTerrain() instanceof WaterTerrain)
+				water.render();
+			gl.glPopMatrix();
+		}
+	
+		Text fps = new Text(fpsText, Color.RED, renderer);
+		fps.align(1, 1);
+		fps.setX(fps.getX() - fps.getHeight() / 2);
+		fps.setY(fps.getY() - fps.getHeight() / 2);
+		fps.render();
 		
 		gl.glFlush();
 	}
@@ -86,5 +117,9 @@ public class GameplayView extends View {
 			zoom = ZOOM_MAX;
 		else if(zoom < ZOOM_MIN)
 			zoom = ZOOM_MIN;
+	}
+	
+	public void setFpsText(String value) {
+		fpsText = value;
 	}
 }

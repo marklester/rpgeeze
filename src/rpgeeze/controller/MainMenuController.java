@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 
 import rpgeeze.GameManager;
+import rpgeeze.model.Map;
 import rpgeeze.util.Iterator;
 import rpgeeze.view.CreditsView;
 import rpgeeze.view.GameplayView;
@@ -75,7 +76,7 @@ public class MainMenuController extends Controller {
 		for(iter.reset(); !iter.isDone(); iter.advance())
 			switch(iter.current().intValue()) {
 			case MainMenuView.NEW_GAME_BUTTON:
-				GameplayView gv = new GameplayView();
+				GameplayView gv = new GameplayView(new Map());
 				GameplayController gc = new GameplayController(getManager(), gv);
 				getManager().pushState(gv, gc);
 				break;
