@@ -80,6 +80,8 @@ public class NewGameView extends View {
 		smasherButton.render();
 		gl.glPopMatrix();
 
+		gl.glPushMatrix();
+		gl.glTranslated(0, 0, 0);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == SUMMONER_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
 		gl.glLoadName(SUMMONER_BUTTON);
 		summonerButton.render();
@@ -92,14 +94,14 @@ public class NewGameView extends View {
 		gl.glPopMatrix();
 
 		gl.glPushMatrix();
-		gl.glTranslated(-10, -3, 0);
+		gl.glTranslated(-5, -3, 0);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == OPTIONS_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
 		gl.glLoadName(OPTIONS_BUTTON);
 		optionsButton.render();
 		gl.glPopMatrix();
 
 		gl.glPushMatrix();
-		gl.glTranslated(0, -3, 0);
+		gl.glTranslated(5, -3, 0);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == BACK_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
 		gl.glLoadName(BACK_BUTTON);
 		backButton.render();
