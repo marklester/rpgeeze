@@ -9,7 +9,7 @@ import rpgeeze.dp.Iterator;
 import rpgeeze.view.GameplayView;
 import rpgeeze.view.MainMenuView;
 import rpgeeze.view.NewGameView;
-import rpgeeze.model.Map;
+import rpgeeze.model.map.FiniteMatrixMap;
 
 /**
  * Controls the main menu screen.
@@ -78,17 +78,17 @@ public class NewGameController extends Controller {
 		for(iter.reset(); !iter.isDone(); iter.advance())
 			switch(iter.current().intValue()) {
 			case NewGameView.SMASHER_BUTTON:
-				gv = new GameplayView(new Map());
+				gv = new GameplayView(new FiniteMatrixMap());
 				gc = new GameplayController(getManager(), gv);
 				getManager().pushState(gv, gc);
 				break;
 			case NewGameView.SUMMONER_BUTTON:
-				gv = new GameplayView(new Map());
+				gv = new GameplayView(new FiniteMatrixMap());
 				gc = new GameplayController(getManager(), gv);
 				getManager().pushState(gv, gc);
 				break;
 			case NewGameView.SNEAK_BUTTON:
-				gv = new GameplayView(new Map());
+				gv = new GameplayView(new FiniteMatrixMap());
 				gc = new GameplayController(getManager(), gv);
 				getManager().pushState(gv, gc);
 				break;

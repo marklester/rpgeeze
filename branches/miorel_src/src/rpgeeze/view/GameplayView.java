@@ -12,7 +12,7 @@ import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.gl.Text;
 import rpgeeze.gl.TexturedRectangle;
-import rpgeeze.model.Map;
+import rpgeeze.model.map.Map;
 import rpgeeze.model.Tile;
 import rpgeeze.model.terrain.*;
 import rpgeeze.dp.Iterator;
@@ -22,13 +22,15 @@ public class GameplayView extends View {
 	private TexturedRectangle grass = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/grass.png"), 1, 1);
 	private TexturedRectangle mountain = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/mountain.png"), 1, 1);;
 	private TexturedRectangle water = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/water.png"), 1, 1);
+
+	private TexturedRectangle entity = new TexturedRectangle(ResourceLoader.getInstance().getTexture("entity/entity.png"), 1, 1);;
 	
 	private TextRenderer renderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.PLAIN, 24), true, true);
 	private String fpsText;
 	
 	private double zoom = -32;
 	private double ZOOM_MIN = -64;
-	private double ZOOM_MAX = -1;
+	private double ZOOM_MAX = -2;
 
 	private double centerX = 0;
 	private double centerY = 0;
@@ -51,8 +53,6 @@ public class GameplayView extends View {
 
 		// textures and blending
 		gl.glEnable(GL.GL_TEXTURE_2D);
-		gl.glEnable(GL.GL_BLEND);
-		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 
 		gl.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
 
@@ -85,19 +85,25 @@ public class GameplayView extends View {
 		int minY = (int) Math.floor(centerY - (1 + heightInTiles / 2));
 		int maxY = (int) Math.ceil(centerY + (1 + heightInTiles / 2));
 		
-		gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		
 		Iterator<Tile> iter = map.getTiles(minX, maxX, minY, maxY);
 		for(iter.reset(); !iter.isDone(); iter.advance()) {
 			Tile t = iter.current();
 			gl.glPushMatrix();
 			gl.glTranslated(t.getX(), t.getY(), 0);
+			gl.glDisable(GL.GL_BLEND);
+			gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 			if(t.getTerrain() instanceof GrassTerrain)
 				grass.render();
 			if(t.getTerrain() instanceof MountainTerrain)
 				mountain.render();
 			if(t.getTerrain() instanceof WaterTerrain)
 				water.render();
+			if(t.getEntity() != null) {
+				gl.glEnable(GL.GL_BLEND);
+				gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
+				gl.glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+				entity.render();
+			}
 			gl.glPopMatrix();
 		}
 	

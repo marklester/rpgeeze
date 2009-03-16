@@ -53,7 +53,9 @@ public class ResourceLoader {
 				ret = ImageIO.read(getStream("img/" + key));
 				images.put(key, ret);
 			}
-			catch(IOException e) {
+			catch(Exception e) {
+				System.out.println(e);
+				System.exit(0);
 			}
 		}
 		return ret;

@@ -13,7 +13,7 @@ public class GameplayController extends Controller {
 	
 	private Timer fpsTimer = new SimpleMovingAverageTimer();
 	
-	private double ZOOM_STEP = 0.05;
+	private double ZOOM_STEP = 0.025;
 	
 	public GameplayController(GameManager manager, GameplayView view) {
 		super(manager);
