@@ -9,6 +9,8 @@ public class GameplayController extends Controller {
 	private GameplayView view;
 	private MouseEvent prev = null;
 	
+	private double ZOOM_STEP = 0.05;
+	
 	public GameplayController(GameManager manager, GameplayView view) {
 		super(manager);
 		this.view = view;
@@ -26,10 +28,7 @@ public class GameplayController extends Controller {
 	public void mouseDragged(MouseEvent e) {
 		if(prev != null) {
 			double dy = e.getPoint().getY() - prev.getPoint().getY();
-			if(dy < 0)
-				view.zoomOut(-dy);
-			else if(dy > 0)
-				view.zoomIn(dy);
+			view.zoom(dy * ZOOM_STEP);
 			prev = e;
 		}
 	}
