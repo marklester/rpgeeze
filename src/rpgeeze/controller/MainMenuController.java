@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import rpgeeze.GameManager;
 import rpgeeze.util.Iterator;
 import rpgeeze.view.CreditsView;
+import rpgeeze.view.GameplayView;
 import rpgeeze.view.MainMenuView;
 
 /**
@@ -14,7 +15,6 @@ import rpgeeze.view.MainMenuView;
  */
 public class MainMenuController extends Controller {
 	private MainMenuView view;
-	private float intensity = 0.0f;
 	
 	public MainMenuController(GameManager manager, MainMenuView view) {
 		super(manager);
@@ -22,10 +22,7 @@ public class MainMenuController extends Controller {
 	}
 
 	public void idleCycle() {
-		if(intensity <= 0.75f) {
-			view.setBackgroundIntensity(intensity);
-			intensity += 0.02f;
-		}
+		view.brighten();
 	}
 	
 	/**
@@ -78,6 +75,9 @@ public class MainMenuController extends Controller {
 		for(iter.reset(); !iter.isDone(); iter.advance())
 			switch(iter.current().intValue()) {
 			case MainMenuView.NEW_GAME_BUTTON:
+				GameplayView gv = new GameplayView();
+				GameplayController gc = new GameplayController(getManager(), gv);
+				getManager().pushState(gv, gc);
 				break;
 			case MainMenuView.LOAD_GAME_BUTTON:
 				break;
