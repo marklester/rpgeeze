@@ -17,7 +17,7 @@ public class RunGame {
 	 * @param arg command-line options
 	 */
 	public static void main(String[] arg) { 
-		Frame frame = new Frame("");
+		Frame frame = new Frame("rpgeeze");
 
 		final GameManager gm = new GameManager(frame);
 

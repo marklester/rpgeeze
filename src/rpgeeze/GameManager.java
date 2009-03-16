@@ -87,7 +87,6 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the KeyListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void keyTyped(KeyEvent e) {
-		spareContext.makeCurrent();
 		final Controller controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
@@ -289,12 +288,19 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	}
 
 	/**
-	 * Called whenever the canvas needs to be repainted. Delegates to the View, if there is one. 
+	 * Called whenever the canvas needs to be repainted. Delegates to the View, if there is one, for drawing. Informs the Controller, if there is one, via its idleCycle() method. 
 	 */
 	public void display(GLAutoDrawable drawable) {
-		final View view = getView();
-		if(view != null)
-			view.render(null);
+		if(!stateStack.isEmpty()) {
+			Pair<View, Controller> state = stateStack.peek();
+			View view = state.getFirst();
+			Controller controller = state.getSecond();
+	
+			if(controller != null)
+				controller.idleCycle();
+			if(view != null)
+				view.render(null);
+		}
 	}
 
 	/**

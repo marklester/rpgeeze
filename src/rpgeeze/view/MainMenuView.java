@@ -15,21 +15,25 @@ import rpgeeze.util.ResourceLoader;
 public class MainMenuView extends View {
 	public static final int NEW_GAME_BUTTON = 1;
 	public static final int LOAD_GAME_BUTTON = 2;
-	public static final int QUIT_GAME_BUTTON = 3;
+	public static final int OPTIONS_BUTTON = 3;
+	public static final int HELP_BUTTON = 4;
+	public static final int CREDITS_BUTTON = 5;
+	public static final int QUIT_BUTTON = 6;
 
-	private boolean newGameHighlight = false;
-	private boolean loadGameHighlight = false;
-	private boolean quitGameHighlight = false;
+	private int highlightedButton = 0;
 
 	private float HIGHLIGHT_ALPHA = 0.25f;
 
-	private float color = 0.0f;
+	private float intensity;
 
-	private TexturedRectangle introImage = new TexturedRectangle(ResourceLoader.getInstance().getTexture("img/Intro.png"), 25, 25);
-	
-	private TexturedRectangle newGameButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("img/buttons/NewGame.png"), 10, 3);
-	private TexturedRectangle loadGameButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("img/buttons/LoadGame.png"), 10, 3);
-	private TexturedRectangle quitGameButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("img/buttons/QuitGame.png"), 10, 3);
+	private TexturedRectangle introImage = new TexturedRectangle(ResourceLoader.getInstance().getTexture("Intro.png"), 25, 25);
+
+	private TexturedRectangle newGameButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/new_game.png"), 10, 3);
+	private TexturedRectangle loadGameButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/load_game.png"), 10, 3);
+	private TexturedRectangle optionsButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/options.png"), 10, 3);
+	private TexturedRectangle helpButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/help.png"), 10, 3);
+	private TexturedRectangle creditsButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/credits.png"), 10, 3);
+	private TexturedRectangle quitButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/quit.png"), 10, 3);
 
 	/**
 	 * Renders the main menu screen.
@@ -63,14 +67,10 @@ public class MainMenuView extends View {
 		glu.gluPerspective(45, ((double) vp[2]) / ((double) vp[3]), 0.1, 100);
 		gl.glMatrixMode(GL.GL_MODELVIEW);		
 
-		if(point == null) {
-			gl.glClearColor(color, 0, 0, 1.0f);
-			if(color <= 0.75f)
-				color += 0.01f / 3;
-		}
+		gl.glClearColor(intensity, 0, 0, 1.0f);
 
 		gl.glLoadIdentity();
-		gl.glTranslated(-12.5, -10, -32);
+		gl.glTranslated(-12.5, -10, -32.0f);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
 		introImage.render();
 
@@ -79,49 +79,65 @@ public class MainMenuView extends View {
 
 		gl.glPushMatrix();
 		gl.glTranslated(-10, 0, 0);
-		gl.glColor4f(1.0f, 1.0f, 1.0f, newGameHighlight ? HIGHLIGHT_ALPHA : 0.0f);
+		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == NEW_GAME_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
 		gl.glLoadName(NEW_GAME_BUTTON);
 		newGameButton.render();
 		gl.glPopMatrix();
 
-		gl.glColor4f(1.0f, 1.0f, 1.0f, loadGameHighlight ? HIGHLIGHT_ALPHA : 0.0f);
+		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == LOAD_GAME_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
 		gl.glLoadName(LOAD_GAME_BUTTON);
 		loadGameButton.render();
 
 		gl.glPushMatrix();
 		gl.glTranslated(10, 0, 0);
-		gl.glColor4f(1.0f, 1.0f, 1.0f, quitGameHighlight ? HIGHLIGHT_ALPHA : 0.0f);
-		gl.glLoadName(QUIT_GAME_BUTTON);
-		quitGameButton.render();
+		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == OPTIONS_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
+		gl.glLoadName(OPTIONS_BUTTON);
+		optionsButton.render();
+		gl.glPopMatrix();
+
+		gl.glPushMatrix();
+		gl.glTranslated(-10, -3, 0);
+		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == HELP_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
+		gl.glLoadName(HELP_BUTTON);
+		helpButton.render();
+		gl.glPopMatrix();
+
+		gl.glPushMatrix();
+		gl.glTranslated(0, -3, 0);
+		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == CREDITS_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
+		gl.glLoadName(CREDITS_BUTTON);
+		creditsButton.render();
+		gl.glPopMatrix();
+
+		gl.glPushMatrix();
+		gl.glTranslated(10, -3, 0);
+		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == QUIT_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
+		gl.glLoadName(QUIT_BUTTON);
+		quitButton.render();
 		gl.glPopMatrix();
 
 		gl.glFlush();
 	}
 
 	/**
-	 * Sets whether or not the New Game button should be highlighted.
+	 * Sets the button to be highlighted. Call with a value of zero to clear highlighting of all buttons. 
 	 * 
-	 * @param value whether or not the New Game button should be highlighted
+	 * @param id identifier corresponding to the button to highlight
 	 */
-	public void setNewGameHighlight(boolean value) {
-		newGameHighlight = value; 
+	public void setHighlightedButton(int id) {
+		highlightedButton = id;
 	}
 
 	/**
-	 * Sets whether or not the Load Game button should be highlighted.
+	 * Sets the intensity of the background color.
 	 * 
-	 * @param value whether or not the Load Game button should be highlighted
+	 * @param newIntensity the new intensity
 	 */
-	public void setLoadGameHighlight(boolean value) {
-		loadGameHighlight = value; 
+	public void setBackgroundIntensity(float newIntensity) {
+		intensity = newIntensity;
 	}
-
-	/**
-	 * Sets whether or not the Quit Game button should be highlighted.
-	 * 
-	 * @param value whether or not the Quit Game button should be highlighted
-	 */
-	public void setQuitGameHighlight(boolean value) {
-		quitGameHighlight = value; 
+	
+	public void changeFrom() {
+		setHighlightedButton(0);
 	}
 }

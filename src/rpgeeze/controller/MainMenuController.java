@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 
 import rpgeeze.GameManager;
 import rpgeeze.util.Iterator;
+import rpgeeze.view.CreditsView;
 import rpgeeze.view.MainMenuView;
 
 /**
@@ -13,12 +14,20 @@ import rpgeeze.view.MainMenuView;
  */
 public class MainMenuController extends Controller {
 	private MainMenuView view;
+	private float intensity = 0.0f;
 	
 	public MainMenuController(GameManager manager, MainMenuView view) {
 		super(manager);
 		this.view = view;
 	}
 
+	public void idleCycle() {
+		if(intensity <= 0.75f) {
+			view.setBackgroundIntensity(intensity);
+			intensity += 0.02f;
+		}
+	}
+	
 	/**
 	 * Highlights the button at the cursor position, if any.
 	 */
@@ -32,7 +41,7 @@ public class MainMenuController extends Controller {
 	public void mouseMoved(MouseEvent e) {
 		highlight(e.getPoint());
 	}
-	
+
 	/**
 	 * Turns off highlighting on all buttons.
 	 */
@@ -46,61 +55,60 @@ public class MainMenuController extends Controller {
 	public void windowLostFocus(WindowEvent e) {
 		unhighlight();
 	}
-	
+
 	/**
 	 * Turns off highlighting on all buttons.
 	 */
 	public void windowActivated(WindowEvent e) {
 		unhighlight();
 	}
-	
+
 	/**
 	 * Turns off highlighting on all buttons.
 	 */
 	public void windowDeactivated(WindowEvent e) {
 		unhighlight();
 	}
-	
+
 	/**
 	 * Executes the action corresponding to the clicked button, if any.
 	 */
 	public void mouseClicked(MouseEvent e) {
 		Iterator<Integer> iter = view.pick(e.getPoint());
-		for(iter.reset(); !iter.isDone(); iter.advance()) {
-			if(iter.current() == MainMenuView.NEW_GAME_BUTTON) {
-				// new game	
-			}
-			else if(iter.current() == MainMenuView.LOAD_GAME_BUTTON) {
-				// load game
-			}
-			else if(iter.current() == MainMenuView.QUIT_GAME_BUTTON) {
+		for(iter.reset(); !iter.isDone(); iter.advance())
+			switch(iter.current().intValue()) {
+			case MainMenuView.NEW_GAME_BUTTON:
+				break;
+			case MainMenuView.LOAD_GAME_BUTTON:
+				break;
+			case MainMenuView.OPTIONS_BUTTON:
+				break;
+			case MainMenuView.HELP_BUTTON:
+				break;
+			case MainMenuView.CREDITS_BUTTON:
+				CreditsView cv = new CreditsView();
+				CreditsController cc = new CreditsController(getManager(), cv);
+				getManager().pushState(cv, cc);
+				break;
+			case MainMenuView.QUIT_BUTTON:
 				getManager().stop();
 				System.exit(0);
+				break;
 			}
-		}
 	}
-	
+
 	private void highlight(Point p) {
-		boolean newGame = false;
-		boolean loadGame = false;
-		boolean quitGame = false;
+		int hi = 0;
 		Iterator<Integer> iter = view.pick(p);
 		for(iter.reset(); !iter.isDone(); iter.advance()) {
-			if(iter.current() == MainMenuView.NEW_GAME_BUTTON)
-				newGame = true;
-			else if(iter.current() == MainMenuView.LOAD_GAME_BUTTON)
-				loadGame = true;
-			else if(iter.current() == MainMenuView.QUIT_GAME_BUTTON)
-				quitGame = true;
+			int cur = iter.current();
+			if(cur > 0)
+				hi = cur;
 		}
-		view.setNewGameHighlight(newGame);
-		view.setLoadGameHighlight(loadGame);
-		view.setQuitGameHighlight(quitGame);
+		view.setHighlightedButton(hi);
 	}
-	
+
 	private void unhighlight() {
-		view.setNewGameHighlight(false);
-		view.setLoadGameHighlight(false);
-		view.setQuitGameHighlight(false);		
+		view.setHighlightedButton(0);		
 	}
 }
