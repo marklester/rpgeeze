@@ -3,6 +3,8 @@ package rpgeeze;
 import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 
+import rpgeeze.util.ResourceLoader;
+
 /**
  * Entry point for the game. Houses the main method.
  */
@@ -20,7 +22,7 @@ public class RunGame {
 		Frame frame = new Frame("rpgeeze");
 
 		final GameManager gm = new GameManager(frame);
-
+		
 		if(FULL_SCREEN) {
 			frame.setUndecorated(true);
 			GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(frame);

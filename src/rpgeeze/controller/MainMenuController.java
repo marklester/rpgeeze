@@ -5,10 +5,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 
 import rpgeeze.GameManager;
-import rpgeeze.model.Map;
 import rpgeeze.dp.Iterator;
 import rpgeeze.view.CreditsView;
-import rpgeeze.view.GameplayView;
 import rpgeeze.view.MainMenuView;
 import rpgeeze.view.NewGameView;
 
