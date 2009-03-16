@@ -5,6 +5,8 @@ import java.io.InputStream;
 
 import java.util.HashMap;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -21,6 +23,7 @@ public class ResourceLoader {
 	private final ClassLoader loader;
 	private final HashMap<String, BufferedImage> images = new HashMap<String, BufferedImage>();
 	private final HashMap<String, Texture> textures = new HashMap<String, Texture>();
+	private final HashMap<String, Font> fonts = new HashMap<String, Font>();
 	
 	private static ResourceLoader instance = null;	
 
@@ -40,25 +43,18 @@ public class ResourceLoader {
 	 * I'll do it.
 	 */
 	public InputStream getStream(String key) {
-		try {
-			InputStream ret = loader.getResourceAsStream("res/" + key);
-			return ret;
-		}
-		catch (Exception e) {
-			System.out.println(e);
-		}
-		return null;
+		return loader.getResourceAsStream("res/" + key);
 	}
 	
 	public BufferedImage getImage(String key) {
 		BufferedImage ret = images.get(key);
 		if(ret == null) {
 			try {
-				ret = ImageIO.read(getStream(key));
+				ret = ImageIO.read(getStream("img/" + key));
+				images.put(key, ret);
 			}
 			catch(IOException e) {
 			}
-			images.put(key, ret);
 		}
 		return ret;
 	}
@@ -72,5 +68,20 @@ public class ResourceLoader {
 			textures.put(key, ret);
 		}
 		return ret;
+	}
+	
+	public Font getFont(String key, int style, float size) {
+		Font ret = fonts.get(key);
+		if(ret == null) {
+			try {
+				ret = Font.createFont(Font.TRUETYPE_FONT, getStream("font/" + key));
+				fonts.put(key, ret);
+			}
+			catch(IOException e) {
+			}
+			catch(FontFormatException e) {
+			}
+		}
+		return ret == null ? null : ret.deriveFont(size).deriveFont(style);
 	}
 }

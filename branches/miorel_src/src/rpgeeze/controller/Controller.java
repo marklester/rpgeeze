@@ -30,6 +30,12 @@ public abstract class Controller implements KeyListener, MouseListener, MouseMot
 	protected GameManager getManager() {
 		return manager;
 	}
+
+	/**
+	 * Called once every display frame. Does nothing by default. Use for animation effects.
+	 */
+	public void idleCycle() {
+	}
 	
 	/**
 	 * Ignores the event.
