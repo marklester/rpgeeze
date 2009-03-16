@@ -1,7 +1,7 @@
 package util;
 
 import java.awt.Color;
-
+//Prototype Common Cases //Dialog, Hurt, Heal. Pickup, etc
 public class ConsoleMessage {
 	private final String message;
 	private int timer;
