@@ -291,16 +291,13 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Called whenever the canvas needs to be repainted. Delegates to the View, if there is one, for drawing. Informs the Controller, if there is one, via its idleCycle() method. 
 	 */
 	public void display(GLAutoDrawable drawable) {
-		if(!stateStack.isEmpty()) {
-			Pair<View, Controller> state = stateStack.peek();
-			View view = state.getFirst();
-			Controller controller = state.getSecond();
-	
-			if(controller != null)
-				controller.idleCycle();
-			if(view != null)
-				view.render(null);
-		}
+		Pair<View, Controller> state = getState();
+		Controller controller = state.getSecond();
+		View view = state.getFirst();
+		if(controller != null)
+			controller.idleCycle();
+		if(view != null)
+			view.render(null);
 	}
 
 	/**
@@ -343,6 +340,10 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 		return stateStack.isEmpty() ? null : stateStack.peek().getSecond();
 	}
 
+	private Pair<View, Controller> getState() {
+		return stateStack.isEmpty() ? new Pair<View, Controller>(null, null) : stateStack.peek();
+	}
+
 	/**
 	 * Creates a state from the given View and Controller and adds it to the top of the state stack.
 	 * 
@@ -359,11 +360,20 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * @param newState the new state
 	 */
 	public void pushState(Pair<View, Controller> newState) {
-		View view = getView();
+		Pair<View, Controller> state = getState();
+		Controller controller = state.getSecond();
+		View view = state.getFirst();
+		
+		Controller newController = newState.getSecond();
 		View newView = newState.getFirst();
 
+		if(controller != null)
+			controller.changeFrom();
 		if(view != null)
 			view.changeFrom();
+		
+		if(newController != null)
+			newController.changeTo();
 		if(newView != null)
 			newView.changeTo();
 
