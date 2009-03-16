@@ -95,9 +95,7 @@ public class NewGameController extends Controller {
 			case NewGameView.OPTIONS_BUTTON:
 				break;
 			case NewGameView.BACK_BUTTON:
-				MainMenuView mmv = new MainMenuView();
-				MainMenuController mmc = new MainMenuController(getManager(), mmv);
-				getManager().pushState(mmv, mmc);
+				getManager().popState();
 				break;
 			}
 	}
