@@ -6,7 +6,7 @@ import java.awt.event.WindowEvent;
 
 import rpgeeze.GameManager;
 import rpgeeze.model.Map;
-import rpgeeze.util.Iterator;
+import rpgeeze.dp.Iterator;
 import rpgeeze.view.CreditsView;
 import rpgeeze.view.GameplayView;
 import rpgeeze.view.MainMenuView;

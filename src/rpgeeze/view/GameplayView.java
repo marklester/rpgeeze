@@ -15,7 +15,7 @@ import rpgeeze.gl.TexturedRectangle;
 import rpgeeze.model.Map;
 import rpgeeze.model.Tile;
 import rpgeeze.model.terrain.*;
-import rpgeeze.util.Iterator;
+import rpgeeze.dp.Iterator;
 import rpgeeze.util.ResourceLoader;
 
 public class GameplayView extends View {
@@ -29,6 +29,9 @@ public class GameplayView extends View {
 	private double zoom = -32;
 	private double ZOOM_MIN = -64;
 	private double ZOOM_MAX = -1;
+
+	private double centerX = 0;
+	private double centerY = 0;
 	
 	private Map map;
 	
@@ -76,10 +79,6 @@ public class GameplayView extends View {
 		// get viewport dimensions in tiles that have to be displayed
 		int widthInTiles = (int) Math.ceil(-2 * zoom);
 		int heightInTiles = (int) Math.ceil(-2 * zoom * vp[3] / width);
-		
-		// currently center on the origin, later we will center on avatar 
-		double centerX = 0;
-		double centerY = 0;
 		
 		int minX = (int) Math.floor(centerX - (1 + widthInTiles / 2));
 		int maxX = (int) Math.ceil(centerX + (1 + widthInTiles / 2));

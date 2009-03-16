@@ -6,7 +6,7 @@ import java.nio.IntBuffer;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLContext;
 
-import rpgeeze.util.Iterator;
+import rpgeeze.dp.Iterator;
 
 import com.sun.opengl.util.BufferUtil;
 
