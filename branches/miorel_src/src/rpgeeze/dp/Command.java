@@ -1,4 +1,4 @@
-package rpgeeze.util.cmd;
+package rpgeeze.dp;
 
 /**
  * The command design pattern, using generics!

@@ -1,4 +1,4 @@
-package rpgeeze.util;
+package rpgeeze.dp;
 
 /**
  * The Gang of Four's favorite Iterator interface. Intended to be used like this:
