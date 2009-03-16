@@ -58,6 +58,7 @@ public class ResourceLoader {
 		files.put("Grass Terrain","img/terrain20px/GrassTerrain.png");
 		files.put("Mountain Terrain","img/terrain20px/MountainTerrain.png");
 		files.put("Water Terrain","img/terrain20px/WaterTerrain.png");
+		files.put("Skill Button","img/buttons/addSkillPoint.png");
 		
 		audios.put("Instant Death", "audio/evilLaugh.wav");
 		audios.put("Portal Item", "audio/elevator.wav");
@@ -157,4 +158,5 @@ public class ResourceLoader {
 		}
 		catch (Exception e) { return 20; }
 	}
+
 }

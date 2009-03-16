@@ -20,16 +20,21 @@ public class View extends Thread implements Observer {
 	private final Model model;
 	private final GameFrame frame;
 	private InventoryView inventoryView;
+	private SkillView skillView;
 	
 	private Image dbImage = null;
 
 	private boolean inventoryVisible = false;
+	private boolean skillViewVisible = false;
 	
 	public View(Model model) {
 		this.model = model;
 		Drawer.view = this;
 		inventoryView = new InventoryView();
+		skillView = new SkillView();
 		Drawer.getInstance().setInventoryView(inventoryView);
+		Drawer.getInstance().setSkillView(skillView);
+		
 		
 		GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		GraphicsConfiguration gc = dev.getDefaultConfiguration();
@@ -104,18 +109,35 @@ public class View extends Thread implements Observer {
 		return inventoryVisible;
 	}
 	
+	public boolean isSkillViewVisible() {
+		return skillViewVisible;
+	}
+	
 	public void setInventoryVisible(boolean value) {
 		inventoryVisible = value;
+	}
+	
+	public void setSkillViewVisible(boolean value) {
+		skillViewVisible = value;
 	}
 	
 	public void toggleInventoryVisible() {
 		setInventoryVisible(!isInventoryVisible());
 	}
 	
+	public void toggleSkillViewVisible() {
+		setSkillViewVisible(!isSkillViewVisible());
+	}
+	
 	public void mouseLeftClickAt(Point p) {
 		
 		if(isInventoryVisible() && inventoryView.isOnEquippedItems(p)) {
 			Command c = inventoryView.clickEquipment(p);
+			if(c == null) return;
+			model.invoke(c);
+		}
+		else if (isSkillViewVisible() && skillView.isOnSkillView(p)) {
+			Command c = skillView.click(p);
 			if(c == null) return;
 			model.invoke(c);
 		}

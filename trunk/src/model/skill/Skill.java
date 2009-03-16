@@ -21,4 +21,22 @@ public abstract class Skill {
 	public String toString() {
 		return name;
 	}
+	
+	public int getPoints() {
+		return points;
+	}
+	
+	public void incPoints() throws MaxPointsAllocatedException {
+		if (points < 100)
+			points++;
+		else 
+			throw new MaxPointsAllocatedException();
+	}
+	
+	public void addPoints(int howMany) throws MaxPointsAllocatedException {
+		if (points+howMany <= 100)
+			points += howMany;
+		else 
+			throw new MaxPointsAllocatedException();
+	}
 }

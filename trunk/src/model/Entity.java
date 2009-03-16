@@ -348,4 +348,12 @@ public class Entity implements Subject, Drawable, Cloneable {
 	public void unregister(Observer o) {
 		this.observers.remove(o);
 	}
+	
+	public LinkedList<Skill> getSkills() {
+		return skills;
+	}
+	
+	public Skill getSkillAt(int index) {
+		return skills.get(index);
+	}
 }

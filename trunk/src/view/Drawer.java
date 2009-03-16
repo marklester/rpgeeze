@@ -38,6 +38,7 @@ public class Drawer implements Observer {
 	private static Drawer drawerInstance;
 	private static StatView statsView;
 	private static InventoryView inventoryView;
+	private static SkillView skillView;
 	private static Hashtable<Pair<Occupation, Direction>, Iterator<Image>> avatar = new Hashtable<Pair<Occupation, Direction>, Iterator<Image>>();
 	private final Queue<Map.Matrix> mapStateQueue = new LinkedList<Map.Matrix>();
 
@@ -94,6 +95,10 @@ public class Drawer implements Observer {
 		inventoryView = iv;
 	}
 	
+	public void setSkillView(SkillView sk) {
+		skillView = sk;
+	}
+	
 	public void doDraw(Graphics g, Model model, int width, int height) {
 		Entity avatar = model.getAvatar();
 		this.graphics = (Graphics2D) g;
@@ -125,6 +130,10 @@ public class Drawer implements Observer {
 		// Inventory Stuff
 		if(view.isInventoryVisible())
 			inventoryView.drawInventoryView(this.graphics, model.getAvatar(), width, height);
+		
+		// Skills View Stuff
+		if(view.isSkillViewVisible())
+			skillView.drawSkillView(this.graphics, model.getAvatar().getSkills(), width, height);
 	}
 
 	public void update(Subject s) {
