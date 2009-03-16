@@ -126,6 +126,7 @@ public class Controller extends JComponent implements MouseListener {
 		// 'c' is closer to the awsd pad
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_C)), "Stats");
 		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_T)), "Inventory");
+		this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.getKeyText(KeyEvent.VK_Y)), "Skills");
 
 		this.getActionMap().put("MoveNorth", new ActionCommand(model, Direction.NORTH.moveCommand()));
 		this.getActionMap().put("MoveSouth", new ActionCommand(model, Direction.SOUTH.moveCommand()));
@@ -182,6 +183,13 @@ public class Controller extends JComponent implements MouseListener {
 		this.getActionMap().put("Inventory", new ActionCommand(model, new Command() {
 			public void execute(Model model) {
 				Controller.this.view.toggleInventoryVisible();
+			}
+		}));
+		
+		// For Skills
+		this.getActionMap().put("Skills", new ActionCommand(model, new Command() {
+			public void execute(Model model) {
+				Controller.this.view.toggleSkillViewVisible();
 			}
 		}));
 	}
