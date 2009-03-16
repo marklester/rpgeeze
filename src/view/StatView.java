@@ -20,7 +20,7 @@ public class StatView implements Drawable {
 		this.statsView = statsView;
 	}
 
-	@Override
+	//@Override
 	public void draw(Drawer d) {
 		// d.drawStatsView(this);
 	}
