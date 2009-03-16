@@ -133,8 +133,9 @@ public class MainMenuView extends View {
 	 * 
 	 * @param newIntensity the new intensity
 	 */
-	public void setBackgroundIntensity(float newIntensity) {
-		intensity = newIntensity;
+	public void brighten() {
+		if(intensity < 0.75f)
+			intensity += 0.02f;
 	}
 	
 	public void changeFrom() {

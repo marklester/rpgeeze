@@ -28,6 +28,7 @@ public class CreditsView extends View {
 			"Eric Hayden", 
 			"Brennan Jones",
 			"Matthew Lance",
+			"Mark Lester",
 			"Jason McAninley",
 			"Jose Morales",
 			"Miorel Palii",
