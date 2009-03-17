@@ -40,7 +40,7 @@ public abstract class GLObject {
 		gl.glPushMatrix();
 		gl.glTranslated(x, y, z);
 		if(color != null)
-			gl.glColor4d(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+			gl.glColor4f(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f, color.getAlpha() / 255.0f);
 		if(hasName)
 			gl.glLoadName(name);
 		doRender();

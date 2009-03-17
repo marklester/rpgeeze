@@ -4,7 +4,6 @@ import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 
 import com.sun.opengl.util.texture.Texture;
-
 public class TexturedRectangle extends Rectangle {
 	private Texture texture;
 	
