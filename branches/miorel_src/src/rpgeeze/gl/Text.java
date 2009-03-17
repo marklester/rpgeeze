@@ -32,7 +32,7 @@ public class Text extends GLObject implements Cloneable {
 	protected void doRender() {
 		renderer.begin3DRendering();
 		renderer.setColor(getColor());
-		renderer.draw3D(getText(), (float) getX(), (float) getY(), (float) getZ(), scaleFactor);
+		renderer.draw3D(getText(), 0, 0, 0, scaleFactor);
 		renderer.end3DRendering();
 	}
 	
@@ -47,7 +47,7 @@ public class Text extends GLObject implements Cloneable {
 	public Rectangle2D getBounds() {
 		// this seems to work...
 		Rectangle2D ret = delegate.getBounds(getText(), renderer.getFont(), renderer.getFontRenderContext());
-		ret.setRect(0, 0, ret.getWidth() * scaleFactor / 2, ret.getHeight() * scaleFactor / 2);
+		ret.setRect(0, 0, ret.getWidth() * scaleFactor, ret.getHeight() * scaleFactor);
 		return ret;
 	}
 	

@@ -22,9 +22,7 @@ public class TextRectangle extends Rectangle {
 	}
 	
 	public void alignText(double horiz, double vert) {
-		double horizSpace = getWidth() - text.getWidth() * 2;
-		double vertSpace = getHeight() - text.getHeight() * 2;
-		text.setXY(horizSpace * horiz / 2, vertSpace * vert / 2);
+		text.setXY((getWidth() - text.getWidth()) * horiz, (getHeight() - text.getHeight()) * vert);
 	}
 	
 	public void doRender() {

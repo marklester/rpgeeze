@@ -17,13 +17,13 @@ import rpgeeze.util.ResourceLoader;
 
 public class CreditsView extends View {
 	private Font plain = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.PLAIN, 100);
-	private Font italic = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.ITALIC, 100);
+	private Font italic = plain.deriveFont(Font.ITALIC);
 
 	private TextRenderer plainRenderer = new TextRenderer(plain, true, true);
 	private TextRenderer italicRenderer = new TextRenderer(italic, true, true);
 
-	private Text title = new Text("RPGEEZE", plainRenderer, 0.015f);
-	private Text subtitle = new Text("is brought to you by", italicRenderer, 0.005f);
+	private Text title = new Text("RPGEEZE", plainRenderer, 0.0075f);
+	private Text subtitle = new Text("is brought to you by", italicRenderer, 0.0025f);
 	
 	private Text developer;
 
@@ -86,7 +86,7 @@ public class CreditsView extends View {
 	
 	public void nextDeveloper() {
 		pointer = (pointer + 1) % developers.size();
-		developer = new Text(developers.get(pointer), plainRenderer, 0.01f);
+		developer = new Text(developers.get(pointer), plainRenderer, 0.005f);
 	}
 
 	public void changeTo() {
