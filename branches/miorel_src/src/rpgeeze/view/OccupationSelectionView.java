@@ -14,7 +14,6 @@ import com.sun.opengl.util.j2d.TextRenderer.DefaultRenderDelegate;
 import com.sun.opengl.util.j2d.TextRenderer.RenderDelegate;
 
 import rpgeeze.gl.Text;
-import rpgeeze.gl.Text3D;
 import rpgeeze.gl.TexturedRectangle;
 import rpgeeze.gl.Triangle;
 import rpgeeze.math.Vector;
@@ -150,7 +149,7 @@ public class OccupationSelectionView extends View {
 		Font font = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.PLAIN, 20);
 		TextRenderer renderer = new TextRenderer(font, true, true);
 		String text = "Hello world!";
-		Text3D txt = new Text3D(text, renderer, 0.02f);
+		Text txt = new Text(text, renderer, 0.02f);
 		txt.setXYZ(-txt.getWidth() / 2, -txt.getHeight() / 2, -1);
 		txt.setColor(Color.WHITE);
 		txt.render();

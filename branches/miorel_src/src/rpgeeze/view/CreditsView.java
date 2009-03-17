@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GLContext;
+import javax.media.opengl.glu.GLU;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
@@ -15,14 +16,14 @@ import rpgeeze.gl.Text;
 import rpgeeze.util.ResourceLoader;
 
 public class CreditsView extends View {
-	private Font font = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.PLAIN, 100);
+	private Font plain = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.PLAIN, 100);
+	private Font italic = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.ITALIC, 100);
 
-	private TextRenderer large = new TextRenderer(font.deriveFont(120.0f), true, true);
-	private TextRenderer medium = new TextRenderer(font.deriveFont(90.0f), true, true);
-	private TextRenderer small = new TextRenderer(font.deriveFont(60.0f).deriveFont(Font.ITALIC), true, true);
+	private TextRenderer plainRenderer = new TextRenderer(plain, true, true);
+	private TextRenderer italicRenderer = new TextRenderer(italic, true, true);
 
-	private Text title = new Text("RPGEEZE", large);
-	private Text subtitle = new Text("is brought to you by", small);
+	private Text title = new Text("RPGEEZE", plainRenderer, 0.015f);
+	private Text subtitle = new Text("is brought to you by", italicRenderer, 0.005f);
 	
 	private Text developer;
 
@@ -31,23 +32,53 @@ public class CreditsView extends View {
 	
 	public CreditsView() {
 		Scanner s = new Scanner(ResourceLoader.getInstance().getStream("txt/developers.txt"));
-		while(s.hasNextLine())
-			developers.add(s.nextLine());
+		while(s.hasNextLine()) // lowercase k looks silly in this font so replace it
+			developers.add(s.nextLine().replaceAll("k", "K"));
 	}
 	
 	public void render(Point point) {
 		GL gl = GLContext.getCurrent().getGL();
 
-		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-		gl.glClearColor(0.75f, 0, 0, 1.0f);
+		gl.glShadeModel(GL.GL_SMOOTH);
 
-		title.align(0.5, 1);
+		// depth buffer
+		gl.glClearDepth(1.0f);
+		gl.glEnable(GL.GL_DEPTH_TEST);
+		gl.glDepthFunc(GL.GL_LEQUAL);
+
+		// textures and blending
+		gl.glEnable(GL.GL_TEXTURE_2D);
+		gl.glEnable(GL.GL_BLEND);
+		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
+
+		gl.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
+
+		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+
+		gl.glEnable(GL.GL_LINE_SMOOTH);
+		
+		gl.glMatrixMode(GL.GL_PROJECTION);
+		gl.glLoadIdentity();
+		int[] vp = new int[4];
+		gl.glGetIntegerv(GL.GL_VIEWPORT, vp, 0);
+		GLU glu = new GLU();
+		if(point != null)
+			glu.gluPickMatrix((double) point.x, (double) (vp[3] - point.y), 1e-3, 1e-3, vp, 0);
+		double width = vp[2] <= 0 ? 1 : vp[2];
+		gl.glFrustum(-vp[2] / width, vp[2] / width, -vp[3] / width, vp[3] / width, 1, 128);
+		gl.glMatrixMode(GL.GL_MODELVIEW);		
+
+		gl.glClearColor(MainMenuView.MAX_INTENSITY, 0, 0, 1.0f);
+
+		gl.glLoadIdentity();
+		
+		title.setXYZ(-title.getWidth() / 2, 4 * vp[3] / width - title.getHeight(), -4);
 		title.render();
-		subtitle.alignHorizontally(0.5);
-		subtitle.setY(title.getY() - 9 * subtitle.getHeight() / 8);
+	
+		subtitle.setXYZ(-subtitle.getWidth() / 2, title.getY() - subtitle.getHeight() - 0.1, -4);
 		subtitle.render();
 		
-		developer.align(0.5, 0.5);
+		developer.setXYZ(-developer.getWidth() / 2, -developer.getHeight() / 2, -4);
 		developer.render();
 		
 		gl.glFlush();
@@ -55,7 +86,7 @@ public class CreditsView extends View {
 	
 	public void nextDeveloper() {
 		pointer = (pointer + 1) % developers.size();
-		developer = new Text(developers.get(pointer), medium);
+		developer = new Text(developers.get(pointer), plainRenderer, 0.01f);
 	}
 
 	public void changeTo() {
