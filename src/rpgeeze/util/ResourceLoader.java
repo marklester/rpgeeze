@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 import javax.media.opengl.GL;
+import javax.media.opengl.GLException;
 
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureIO;
@@ -66,7 +67,7 @@ public class ResourceLoader {
 		if(ret == null) {
 			ret = TextureIO.newTexture(getImage(key), true);
 			ret.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			ret.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR_MIPMAP_NEAREST);
+			ret.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);//_MIPMAP_NEAREST);
 			textures.put(key, ret);
 		}
 		return ret;

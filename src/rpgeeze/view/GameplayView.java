@@ -23,12 +23,12 @@ public class GameplayView extends View {
 	private TexturedRectangle mountain = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/mountain.png"), 1, 1);;
 	private TexturedRectangle water = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/water.png"), 1, 1);
 
-	private TexturedRectangle entity = new TexturedRectangle(ResourceLoader.getInstance().getTexture("entity/entity.png"), 1, 1);;
+	public TexturedRectangle entity = new TexturedRectangle(ResourceLoader.getInstance().getTexture("entity/entity.png"), 1, 1);;
 	
 	private TextRenderer renderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.PLAIN, 24), true, true);
 	private String fpsText;
 	
-	private double zoom = -32;
+	private double zoom = -5;
 	private double ZOOM_MIN = -64;
 	private double ZOOM_MAX = -2;
 
@@ -44,6 +44,8 @@ public class GameplayView extends View {
 	public void render(Point point) {
 		GL gl = GLContext.getCurrent().getGL();
 
+		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+		
 		gl.glShadeModel(GL.GL_SMOOTH);
 
 		// depth buffer
@@ -53,25 +55,20 @@ public class GameplayView extends View {
 
 		// textures and blending
 		gl.glEnable(GL.GL_TEXTURE_2D);
-
+		gl.glEnable(GL.GL_BLEND);
+		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+		
 		gl.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
-
-		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 
 		gl.glMatrixMode(GL.GL_PROJECTION);
 		gl.glLoadIdentity();
 		int[] vp = new int[4];
 		gl.glGetIntegerv(GL.GL_VIEWPORT, vp, 0);
-/*
-		GLU glu = new GLU();
-		if(point != null)
-			glu.gluPickMatrix((double) point.x, (double) (vp[3] - point.y), 1e-3, 1e-3, vp, 0);
-/**/
 		double width = vp[2] <= 0 ? 1 : vp[2];
 		gl.glFrustum(-vp[2] / width, vp[2] / width, -vp[3] / width, vp[3] / width, 1, -ZOOM_MIN);
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		
-		gl.glClearColor(0, 0, 0, 1.0f);
+		gl.glClearColor(0, 0, 0, 0);
 
 		gl.glLoadIdentity();
 		gl.glTranslated(-0.5, -0.5, zoom);
@@ -85,25 +82,21 @@ public class GameplayView extends View {
 		int minY = (int) Math.floor(centerY - (1 + heightInTiles / 2));
 		int maxY = (int) Math.ceil(centerY + (1 + heightInTiles / 2));
 		
+		gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		
 		Iterator<Tile> iter = map.getTiles(minX, maxX, minY, maxY);
 		for(iter.reset(); !iter.isDone(); iter.advance()) {
 			Tile t = iter.current();
 			gl.glPushMatrix();
 			gl.glTranslated(t.getX(), t.getY(), 0);
-			gl.glDisable(GL.GL_BLEND);
-			gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 			if(t.getTerrain() instanceof GrassTerrain)
 				grass.render();
 			if(t.getTerrain() instanceof MountainTerrain)
 				mountain.render();
 			if(t.getTerrain() instanceof WaterTerrain)
 				water.render();
-			if(t.getEntity() != null) {
-				gl.glEnable(GL.GL_BLEND);
-				gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
-				gl.glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+			if(t.getEntity() != null)
 				entity.render();
-			}
 			gl.glPopMatrix();
 		}
 	

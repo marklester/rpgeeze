@@ -1,8 +1,11 @@
 package rpgeeze.controller;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import rpgeeze.GameManager;
+import rpgeeze.gl.TexturedRectangle;
+import rpgeeze.util.ResourceLoader;
 import rpgeeze.util.SimpleMovingAverageTimer;
 import rpgeeze.util.Timer;
 import rpgeeze.view.GameplayView;
