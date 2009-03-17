@@ -165,4 +165,8 @@ public class MainMenuView extends View {
 		setHighlightedButton(0);
 		intensity = MAX_INTENSITY;
 	}
+	
+	public void changeTo() {
+		setHighlightedButton(0);
+	}
 }
