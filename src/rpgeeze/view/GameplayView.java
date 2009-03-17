@@ -10,7 +10,6 @@ import javax.media.opengl.glu.GLU;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
-import rpgeeze.gl.Text;
 import rpgeeze.gl.TexturedRectangle;
 import rpgeeze.model.map.Map;
 import rpgeeze.model.Tile;
@@ -104,11 +103,11 @@ public class GameplayView extends View {
 			gl.glPopMatrix();
 		}
 	
-		Text fps = new Text(fpsText, Color.RED, renderer);
-		fps.align(1, 1);
-		fps.setX(fps.getX() - fps.getHeight() / 2);
-		fps.setY(fps.getY() - fps.getHeight() / 2);
-		fps.render();
+//		Text fps = new Text(fpsText, Color.RED, renderer);
+//		fps.align(1, 1);
+//		fps.setX(fps.getX() - fps.getHeight() / 2);
+//		fps.setY(fps.getY() - fps.getHeight() / 2);
+//		fps.render();
 		
 		gl.glFlush();
 	}

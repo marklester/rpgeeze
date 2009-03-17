@@ -9,7 +9,6 @@ import javax.media.opengl.glu.GLU;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
-import rpgeeze.gl.Text;
 import rpgeeze.gl.TexturedRectangle;
 import rpgeeze.gl.Triangle;
 import rpgeeze.math.Vector;
@@ -40,7 +39,7 @@ public class NewGameView extends View {
 	private Font font = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.PLAIN, 100);
 	private TextRenderer small = new TextRenderer(font.deriveFont(60.0f), true, true);
 	private TextRenderer medium = new TextRenderer(font.deriveFont(90.0f), true, true);
-	private Text title = new Text("Select Occuptation", small);
+	//private Text title = new Text("Select Occuptation", small);
 	/**
 	 * Renders the new game screen.
 	 */
@@ -86,8 +85,8 @@ public class NewGameView extends View {
 		gl.glTranslated(-5, -8.5, -30);
 		
 		gl.glPushMatrix();
-		title.align(0.5, 0.25);
-		title.render();
+		//title.align(0.5, 0.25);
+		//title.render();
 		gl.glPopMatrix();
 
 		gl.glPushMatrix();

@@ -1,115 +1,53 @@
 package rpgeeze.gl;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.geom.Rectangle2D;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
-
 import com.sun.opengl.util.j2d.TextRenderer;
+import com.sun.opengl.util.j2d.TextRenderer.DefaultRenderDelegate;
+import com.sun.opengl.util.j2d.TextRenderer.RenderDelegate;
 
-public class Text {
-	private int x;
-	private int y;
+public class Text extends GLObject {
 	private String text;
-	private Color color;
-	private TextRenderer renderer; 
+	private TextRenderer renderer;
+	private float scaleFactor;
 	
-	public Text(String text, TextRenderer renderer) {
-		this(text, Color.BLACK, renderer);
+	private static final RenderDelegate delegate = new DefaultRenderDelegate();
+	
+	public Text(String text, TextRenderer renderer, float scaleFactor) {
+		this(text, Color.BLACK, renderer, scaleFactor);
 	}
 	
-	public Text(String text, Color color, TextRenderer renderer) {
+	public Text(String text, Color color, TextRenderer renderer, float scaleFactor) {
+		super(color);
 		this.text = text;
-		this.color = color;
 		this.renderer = renderer;
+		this.scaleFactor = scaleFactor;
 	}
 	
 	public String getText() {
 		return text;
 	}
 
-	public Color getColor() {
-		return color;
+	protected void doRender() {
+		renderer.begin3DRendering();
+		renderer.setColor(getColor());
+		renderer.draw3D(getText(), (float) getX(), (float) getY(), (float) getZ(), scaleFactor);
+		renderer.end3DRendering();
 	}
 	
-	public void setColor(Color newColor) {
-		color = newColor;
+	public double getWidth() {
+		return getBounds().getWidth();
 	}
 
-	public int getX() {
-		return x;
+	public double getHeight() {
+		return getBounds().getHeight();
 	}
 	
-	public void setX(int newX) {
-		x = newX;
-	}
-	
-	public int getY() {
-		return y;
-	}
-	
-	public int getWidth() {
-		return (int) getDimension().getWidth();
-	}
-
-	public int getHeight() {
-		return (int) getDimension().getHeight();
-	}
-	
-	public Dimension getDimension() {
-		Rectangle2D rect = renderer.getBounds(getText());
-		return new Dimension((int) rect.getWidth(), (int) rect.getHeight());		
-	}
-	
-	public int getViewportWidth() {
-		return (int) getViewportDimension().getWidth();
-	}
-
-	public int getViewportHeight() {
-		return (int) getViewportDimension().getHeight();
-	}
-	
-	public Dimension getViewportDimension() {
-		final GL gl = GLU.getCurrentGL();
-		int[] buf = new int[4];
-		gl.glGetIntegerv(GL.GL_VIEWPORT, buf, 0);
-		return new Dimension(buf[2], buf[3]);		
-	}
-	
-	public void setY(int newY) {
-		y = newY;
-	}
-	
-	public int renderMode() {
-		GL gl = GLU.getCurrentGL();
-		int[] mode = new int[1];
-		gl.glGetIntegerv(GL.GL_RENDER_MODE, mode, 0);
-		return mode[0];
-	}
-	
-	public void render() {
-		renderer.beginRendering(getViewportWidth(), getViewportHeight());
-		renderer.setColor(color);
-		renderer.draw(getText(), getX(), getY());
-		renderer.endRendering();
-	}
-	
-	public void alignHorizontally(double fractionLeft) {
-		setX((int) (fractionLeft * (getViewportWidth() - getWidth())));
-	}
-
-	public void alignVertically(double fractionBottom) {
-		setY((int) (fractionBottom * (getViewportHeight() - getHeight())));
-	}
-	
-	public void align(double fractionLeft, double fractionBottom) {
-		alignHorizontally(fractionLeft);
-		alignVertically(fractionBottom);
-	}
-	
-	public String toString() {
-		return getText();
+	public Rectangle2D getBounds() {
+		// this seems to work...
+		Rectangle2D ret = delegate.getBounds(getText(), renderer.getFont(), renderer.getFontRenderContext());
+		ret.setRect(0, 0, ret.getWidth() * scaleFactor / 2, ret.getHeight() * scaleFactor / 2);
+		return ret;
 	}
 }
