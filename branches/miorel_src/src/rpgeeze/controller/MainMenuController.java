@@ -81,8 +81,8 @@ public class MainMenuController extends Controller {
 				break;
 			case MainMenuView.LOAD_GAME_BUTTON:
 				break;
-			case MainMenuView.OPTIONS_BUTTON:
-				break;
+			//case MainMenuView.OPTIONS_BUTTON:
+				//break;
 			case MainMenuView.HELP_BUTTON:
 				break;
 			case MainMenuView.CREDITS_BUTTON:
