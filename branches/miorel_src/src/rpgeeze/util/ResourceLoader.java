@@ -11,7 +11,10 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 import javax.media.opengl.GL;
-import javax.media.opengl.GLException;
+
+import rpgeeze.log.LogManager;
+import rpgeeze.log.Message;
+import rpgeeze.log.MessageType;
 
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureIO;
@@ -55,8 +58,7 @@ public class ResourceLoader {
 				images.put(key, ret);
 			}
 			catch(Exception e) {
-				System.out.println(e);
-				System.exit(0);
+				LogManager.getInstance().log(new Message("Problem getting image: " + e.getMessage(), "ResourceLoader", MessageType.ERROR));
 			}
 		}
 		return ret;
@@ -67,7 +69,7 @@ public class ResourceLoader {
 		if(ret == null) {
 			ret = TextureIO.newTexture(getImage(key), true);
 			ret.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			ret.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);//_MIPMAP_NEAREST);
+			ret.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR_MIPMAP_NEAREST);
 			textures.put(key, ret);
 		}
 		return ret;
@@ -81,8 +83,10 @@ public class ResourceLoader {
 				fonts.put(key, ret);
 			}
 			catch(IOException e) {
+				LogManager.getInstance().log(new Message(e.getMessage(), "ResourceLoader", MessageType.ERROR));
 			}
 			catch(FontFormatException e) {
+				LogManager.getInstance().log(new Message(e.getMessage(), "ResourceLoader", MessageType.ERROR));
 			}
 		}
 		return ret == null ? null : ret.deriveFont(size).deriveFont(style);

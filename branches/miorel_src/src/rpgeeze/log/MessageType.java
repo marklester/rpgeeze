@@ -19,8 +19,4 @@ public enum MessageType {
 	public Color defaultColor() {
 		return defaultColor;
 	}
-	
-	public static MessageType defaultType() {
-		return DEBUG;
-	}
 }

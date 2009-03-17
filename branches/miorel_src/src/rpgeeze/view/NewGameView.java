@@ -11,6 +11,8 @@ import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.gl.Text;
 import rpgeeze.gl.TexturedRectangle;
+import rpgeeze.gl.Triangle;
+import rpgeeze.math.Vector;
 import rpgeeze.util.ResourceLoader;
 
 public class NewGameView extends View {
@@ -68,7 +70,9 @@ public class NewGameView extends View {
 		GLU glu = new GLU();
 		if(point != null)
 			glu.gluPickMatrix((double) point.x, (double) (vp[3] - point.y), 1e-3, 1e-3, vp, 0);
-		glu.gluPerspective(45, ((double) vp[2]) / ((double) vp[3]), 0.1, 100);
+		double width = vp[2] <= 0 ? 1 : vp[2];
+		gl.glFrustum(-vp[2] / width, vp[2] / width, -vp[3] / width, vp[3] / width, 1, 128);
+		//glu.gluPerspective(45, ((double) vp[2]) / ((double) vp[3]), 0.1, 100);
 		gl.glMatrixMode(GL.GL_MODELVIEW);		
 
 		gl.glClearColor(intensity, 0, 0, 1.0f);
@@ -119,9 +123,8 @@ public class NewGameView extends View {
 		gl.glLoadName(SUMMONER_BUTTON);
 		summonerButton.render();
 
-		
-		
-
+//		Triangle triangle = new Triangle(new Vector(), new Vector, new Vector());
+//		triangle.render();
 		
 
 		gl.glFlush();

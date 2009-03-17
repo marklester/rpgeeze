@@ -25,8 +25,8 @@ public class MainMenuView extends View {
 
 	private float HIGHLIGHT_ALPHA = 0.25f;
 
-	private float MIN_INTENSITY = 0.0f;
-	private float MAX_INTENSITY = 0.75f;
+	public final static float MIN_INTENSITY = 0.0f;
+	public final static float MAX_INTENSITY = 0.75f;
 	
 	private float intensity = MIN_INTENSITY;
 	
@@ -60,7 +60,7 @@ public class MainMenuView extends View {
 		quitButton = new TexturedRectangle(loader.getTexture("buttons/quit.png"), 10, 3, 10, -3, 0);
 		quitButton.setName(QUIT_BUTTON);
 		
-		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -10, -32);
+		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -20);
 		introImage.setColor(new Color(1.0f, 1.0f, 1.0f, 0.0f));
 	}
 	
@@ -93,7 +93,8 @@ public class MainMenuView extends View {
 		GLU glu = new GLU();
 		if(point != null)
 			glu.gluPickMatrix((double) point.x, (double) (vp[3] - point.y), 1e-3, 1e-3, vp, 0);
-		glu.gluPerspective(45, ((double) vp[2]) / ((double) vp[3]), 0.1, 100);
+		double width = vp[2] <= 0 ? 1 : vp[2];
+		gl.glFrustum(-vp[2] / width, vp[2] / width, -vp[3] / width, vp[3] / width, 1, 128);
 		gl.glMatrixMode(GL.GL_MODELVIEW);		
 
 		gl.glClearColor(intensity, 0, 0, 1.0f);
@@ -101,7 +102,7 @@ public class MainMenuView extends View {
 		gl.glLoadIdentity();
 		introImage.render();
 
-		gl.glTranslated(-5, -8.5, -30);
+		gl.glTranslated(-5, -7.5, -19);
 
 		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == NEW_GAME_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
 		newGameButton.render();
