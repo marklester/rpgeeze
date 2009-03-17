@@ -3,11 +3,21 @@ package rpgeeze.gl;
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 
-public class Rectangle {
+public class Rectangle extends GLObject {
 	private double width;
 	private double height;
+
+	public Rectangle() {
+		this(1, 1);
+	}
 	
 	public Rectangle(double width, double height) {
+		this.width = width;
+		this.height = height;
+	}
+	
+	public Rectangle(double width, double height, double x, double y, double z) {
+		super(x, y, z);
 		this.width = width;
 		this.height = height;
 	}
@@ -28,9 +38,10 @@ public class Rectangle {
 		height = newHeight;
 	}
 	
-	public void render() {
+	protected void doRender() {
 		GL gl = GLU.getCurrentGL();
 		gl.glBegin(GL.GL_QUADS);
+		gl.glTranslated(getX(), getY(), getZ());
         gl.glVertex2d(0, getHeight());
         gl.glVertex2i(0, 0);
         gl.glVertex2d(getWidth(), 0);

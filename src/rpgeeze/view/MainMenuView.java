@@ -1,5 +1,6 @@
 package rpgeeze.view;
 
+import java.awt.Color;
 import java.awt.Point;
 
 import javax.media.opengl.GL;
@@ -15,25 +16,54 @@ import rpgeeze.util.ResourceLoader;
 public class MainMenuView extends View {
 	public static final int NEW_GAME_BUTTON = 1;
 	public static final int LOAD_GAME_BUTTON = 2;
-	public static final int HELP_BUTTON = 3;
-	public static final int CREDITS_BUTTON = 4;
-	public static final int QUIT_BUTTON = 5;
+	public static final int OPTIONS_BUTTON = 3;
+	public static final int HELP_BUTTON = 4;
+	public static final int CREDITS_BUTTON = 5;
+	public static final int QUIT_BUTTON = 6;
 
 	private int highlightedButton = 0;
 
 	private float HIGHLIGHT_ALPHA = 0.25f;
 
-	private float intensity;
+	private float MIN_INTENSITY = 0.0f;
+	private float MAX_INTENSITY = 0.75f;
+	
+	private float intensity = MIN_INTENSITY;
+	
+	private TexturedRectangle introImage;
 
-	private TexturedRectangle introImage = new TexturedRectangle(ResourceLoader.getInstance().getTexture("intro.png"), 25, 25);
+	private TexturedRectangle newGameButton;
+	private TexturedRectangle loadGameButton;
+	private TexturedRectangle optionsButton;
+	private TexturedRectangle helpButton;
+	private TexturedRectangle creditsButton;
+	private TexturedRectangle quitButton;
 
-	private TexturedRectangle newGameButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/new_game.png"), 10, 3);
-	private TexturedRectangle loadGameButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/load_game.png"), 10, 3);
-	//private TexturedRectangle optionsButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/options.png"), 10, 3);
-	private TexturedRectangle helpButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/help.png"), 10, 3);
-	private TexturedRectangle creditsButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/credits.png"), 10, 3);
-	private TexturedRectangle quitButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/quit.png"), 10, 3);
-
+	public MainMenuView() {
+		ResourceLoader loader = ResourceLoader.getInstance();
+		
+		newGameButton = new TexturedRectangle(loader.getTexture("buttons/new_game.png"), 10, 3, -10, 0, 0);
+		newGameButton.setName(NEW_GAME_BUTTON);
+		
+		loadGameButton = new TexturedRectangle(loader.getTexture("buttons/load_game.png"), 10, 3, 0, 0, 0);
+		loadGameButton.setName(LOAD_GAME_BUTTON);
+		
+		optionsButton = new TexturedRectangle(loader.getTexture("buttons/options.png"), 10, 3, 10, 0, 0);
+		optionsButton.setName(OPTIONS_BUTTON);
+		
+		helpButton = new TexturedRectangle(loader.getTexture("buttons/help.png"), 10, 3, -10, -3, 0);
+		helpButton.setName(HELP_BUTTON);
+		
+		creditsButton = new TexturedRectangle(loader.getTexture("buttons/credits.png"), 10, 3, 0, -3, 0);
+		creditsButton.setName(CREDITS_BUTTON);
+		
+		quitButton = new TexturedRectangle(loader.getTexture("buttons/quit.png"), 10, 3, 10, -3, 0);
+		quitButton.setName(QUIT_BUTTON);
+		
+		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -10, -32);
+		introImage.setColor(new Color(1.0f, 1.0f, 1.0f, 0.0f));
+	}
+	
 	/**
 	 * Renders the main menu screen.
 	 */
@@ -69,54 +99,27 @@ public class MainMenuView extends View {
 		gl.glClearColor(intensity, 0, 0, 1.0f);
 
 		gl.glLoadIdentity();
-		gl.glTranslated(-12.5, -10, -32.0f);
-		gl.glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
 		introImage.render();
 
-		gl.glLoadIdentity();
 		gl.glTranslated(-5, -8.5, -30);
 
-		gl.glPushMatrix();
-		gl.glTranslated(-5, 0, 0);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == NEW_GAME_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
-		gl.glLoadName(NEW_GAME_BUTTON);
 		newGameButton.render();
-		gl.glPopMatrix();
 
-		gl.glPushMatrix();
-		gl.glTranslated(5, 0, 0);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == LOAD_GAME_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
-		gl.glLoadName(LOAD_GAME_BUTTON);
 		loadGameButton.render();
-		gl.glPopMatrix();
 
-		/*gl.glPushMatrix();
-		gl.glTranslated(10, 0, 0);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == OPTIONS_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
-		gl.glLoadName(OPTIONS_BUTTON);
 		optionsButton.render();
-		gl.glPopMatrix();*/
 
-		gl.glPushMatrix();
-		gl.glTranslated(-10, -3, 0);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == HELP_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
-		gl.glLoadName(HELP_BUTTON);
 		helpButton.render();
-		gl.glPopMatrix();
 
-		gl.glPushMatrix();
-		gl.glTranslated(0, -3, 0);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == CREDITS_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
-		gl.glLoadName(CREDITS_BUTTON);
 		creditsButton.render();
-		gl.glPopMatrix();
 
-		gl.glPushMatrix();
-		gl.glTranslated(10, -3, 0);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == QUIT_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
-		gl.glLoadName(QUIT_BUTTON);
 		quitButton.render();
-		gl.glPopMatrix();
 
 		gl.glFlush();
 	}
@@ -131,16 +134,20 @@ public class MainMenuView extends View {
 	}
 
 	/**
-	 * Sets the intensity of the background color.
+	 * Changes the intensity of the background color.
 	 * 
-	 * @param newIntensity the new intensity
+	 * @param dc the amount by which to change the intensity
 	 */
-	public void brighten() {
-		if(intensity < 0.75f)
-			intensity += 0.02f;
+	public void changeIntensity(float dc) {
+		intensity += dc;
+		if(intensity > MAX_INTENSITY)
+			intensity = MAX_INTENSITY;
+		if(intensity < MIN_INTENSITY)
+			intensity = MIN_INTENSITY;
 	}
 	
 	public void changeFrom() {
 		setHighlightedButton(0);
+		intensity = MAX_INTENSITY;
 	}
 }

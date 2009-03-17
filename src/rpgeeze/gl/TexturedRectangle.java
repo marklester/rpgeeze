@@ -8,12 +8,17 @@ import com.sun.opengl.util.texture.Texture;
 public class TexturedRectangle extends Rectangle {
 	private Texture texture;
 	
+	public TexturedRectangle(Texture texture, double width, double height, double x, double y, double z) {
+		super(width, height, x, y, z);
+		this.texture = texture;
+	}
+	
 	public TexturedRectangle(Texture texture, double width, double height) {
 		super(width, height);
 		this.texture = texture;
 	}
 
-	public void render() {
+	public void doRender() {
 		GL gl = GLU.getCurrentGL();
 		texture.bind();
 		gl.glBegin(GL.GL_QUADS);
