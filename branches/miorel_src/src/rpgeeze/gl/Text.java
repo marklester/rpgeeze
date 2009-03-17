@@ -7,7 +7,7 @@ import com.sun.opengl.util.j2d.TextRenderer;
 import com.sun.opengl.util.j2d.TextRenderer.DefaultRenderDelegate;
 import com.sun.opengl.util.j2d.TextRenderer.RenderDelegate;
 
-public class Text extends GLObject {
+public class Text extends GLObject implements Cloneable {
 	private String text;
 	private TextRenderer renderer;
 	private float scaleFactor;
@@ -48,6 +48,16 @@ public class Text extends GLObject {
 		// this seems to work...
 		Rectangle2D ret = delegate.getBounds(getText(), renderer.getFont(), renderer.getFontRenderContext());
 		ret.setRect(0, 0, ret.getWidth() * scaleFactor / 2, ret.getHeight() * scaleFactor / 2);
+		return ret;
+	}
+	
+	public Text clone() {
+		Text ret = null;
+		try {
+			ret = (Text) super.clone();
+		}
+		catch (CloneNotSupportedException e) {
+		}
 		return ret;
 	}
 }
