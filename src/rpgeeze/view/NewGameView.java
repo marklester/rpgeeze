@@ -1,11 +1,15 @@
 package rpgeeze.view;
 
+import java.awt.Font;
 import java.awt.Point;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GLContext;
 import javax.media.opengl.glu.GLU;
 
+import com.sun.opengl.util.j2d.TextRenderer;
+
+import rpgeeze.gl.Text;
 import rpgeeze.gl.TexturedRectangle;
 import rpgeeze.util.ResourceLoader;
 
@@ -31,8 +35,12 @@ public class NewGameView extends View {
 	private TexturedRectangle optionsButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/options.png"), 10, 3);
 	private TexturedRectangle backButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/back.png"), 10, 3);
 	
+	private Font font = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.PLAIN, 100);
+	private TextRenderer small = new TextRenderer(font.deriveFont(60.0f), true, true);
+	private TextRenderer medium = new TextRenderer(font.deriveFont(90.0f), true, true);
+	private Text title = new Text("Select Occuptation", small);
 	/**
-	 * Renders the main menu screen.
+	 * Renders the new game screen.
 	 */
 	public void render(Point point) {
 		GL gl = GLContext.getCurrent().getGL();
@@ -65,32 +73,17 @@ public class NewGameView extends View {
 
 		gl.glClearColor(intensity, 0, 0, 1.0f);
 
-		gl.glLoadIdentity();
+		/*gl.glLoadIdentity();
 		gl.glTranslated(-12.5, -10, -32.0f);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-		introImage.render();
+		introImage.render();*/
 
 		gl.glLoadIdentity();
 		gl.glTranslated(-5, -8.5, -30);
-
+		
 		gl.glPushMatrix();
-		gl.glTranslated(-10, 0, 0);
-		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == SMASHER_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
-		gl.glLoadName(SMASHER_BUTTON);
-		smasherButton.render();
-		gl.glPopMatrix();
-
-		gl.glPushMatrix();
-		gl.glTranslated(0, 0, 0);
-		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == SUMMONER_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
-		gl.glLoadName(SUMMONER_BUTTON);
-		summonerButton.render();
-
-		gl.glPushMatrix();
-		gl.glTranslated(10, 0, 0);
-		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == SNEAK_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
-		gl.glLoadName(SNEAK_BUTTON);
-		sneakButton.render();
+		title.align(0.5, 0.25);
+		title.render();
 		gl.glPopMatrix();
 
 		gl.glPushMatrix();
@@ -106,6 +99,30 @@ public class NewGameView extends View {
 		gl.glLoadName(BACK_BUTTON);
 		backButton.render();
 		gl.glPopMatrix();
+		gl.glPushMatrix();
+		gl.glTranslated(-10, 5, 0);
+		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == SMASHER_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
+		gl.glLoadName(SMASHER_BUTTON);
+		smasherButton.render();
+		gl.glPopMatrix();
+		
+		gl.glPushMatrix();
+		gl.glTranslated(10, 5, 0);
+		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == SNEAK_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
+		gl.glLoadName(SNEAK_BUTTON);
+		sneakButton.render();
+		gl.glPopMatrix();
+
+		gl.glPushMatrix();
+		gl.glTranslated(0, 10, 0);
+		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == SUMMONER_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
+		gl.glLoadName(SUMMONER_BUTTON);
+		summonerButton.render();
+
+		
+		
+
+		
 
 		gl.glFlush();
 	}
