@@ -69,7 +69,7 @@ public class GameplayView extends View {
 		int[] vp = new int[4];
 		gl.glGetIntegerv(GL.GL_VIEWPORT, vp, 0);
 		double width = vp[2] <= 0 ? 1 : vp[2];
-		gl.glFrustum(-vp[2] / width, vp[2] / width, -vp[3] / width, vp[3] / width, 1, -ZOOM_MIN);
+		gl.glFrustum(-vp[2] / width, vp[2] / width, -vp[3] / width, vp[3] / width, 1, 128);
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		
 		gl.glClearColor(0, 0, 0, 0);

@@ -9,7 +9,7 @@ public class Message {
 	private final MessageType type;
 	
 	public Message(String message, String author) {
-		this(message, author, MessageType.defaultType());
+		this(message, author, MessageType.DEBUG);
 	}
 	
 	public Message(String message, String author, MessageType type) {

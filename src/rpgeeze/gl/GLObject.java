@@ -9,6 +9,7 @@ public abstract class GLObject {
 	private double x, y, z;
 	private Color color;
 	private int name;
+	private boolean hasName;
 	
 	public GLObject() {
 		this(0, 0, 0, null, -1);
@@ -40,7 +41,8 @@ public abstract class GLObject {
 		gl.glTranslated(x, y, z);
 		if(color != null)
 			gl.glColor4d(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
-		gl.glLoadName(name);
+		if(hasName)
+			gl.glLoadName(name);
 		doRender();
 		gl.glPopMatrix();
 	}
@@ -61,6 +63,15 @@ public abstract class GLObject {
 	
 	public final void setName(int newName) {
 		name = newName;
+		hasName = true;
+	}
+	
+	public final boolean hasName() {
+		return hasName;
+	}
+	
+	public final void setNameless() {
+		hasName = false;
 	}
 	
 	public final double getX() {
@@ -85,5 +96,16 @@ public abstract class GLObject {
 	
 	public final void setZ(double newZ) {
 		z = newZ;
+	}
+	
+	public final void setXY(double newX, double newY) {
+		setX(newX);
+		setY(newY);
+	}
+	
+	public final void setXYZ(double newX, double newY, double newZ) {
+		setX(newX);
+		setY(newY);
+		setZ(newZ);
 	}
 }

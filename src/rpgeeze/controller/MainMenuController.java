@@ -8,7 +8,7 @@ import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.view.CreditsView;
 import rpgeeze.view.MainMenuView;
-import rpgeeze.view.NewGameView;
+import rpgeeze.view.OccupationSelectionView;
 
 /**
  * Controls the main menu screen.
@@ -75,9 +75,9 @@ public class MainMenuController extends Controller {
 		for(iter.reset(); !iter.isDone(); iter.advance())
 			switch(iter.current().intValue()) {
 			case MainMenuView.NEW_GAME_BUTTON:
-				NewGameView ngv = new NewGameView();
-				NewGameController ngc = new NewGameController(getManager(), ngv);
-				getManager().pushState(ngv, ngc);
+				OccupationSelectionView osv = new OccupationSelectionView();
+				NewGameController ngc = new NewGameController(getManager(), osv);
+				getManager().pushState(osv, ngc);
 				break;
 			case MainMenuView.LOAD_GAME_BUTTON:
 				break;
