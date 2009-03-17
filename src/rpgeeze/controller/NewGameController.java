@@ -7,8 +7,8 @@ import java.awt.event.WindowEvent;
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.view.GameplayView;
-import rpgeeze.view.MainMenuView;
 import rpgeeze.view.OccupationSelectionView;
+import rpgeeze.view.OccupationSelectionView.OccupationSelectionButton;
 import rpgeeze.model.map.FiniteMatrixMap;
 
 /**
@@ -68,20 +68,21 @@ public class NewGameController extends Controller {
 	 * Executes the action corresponding to the clicked button, if any.
 	 */
 	public void mouseClicked(MouseEvent e) {
-		GameplayView gv;
-		GameplayController gc;
 		Iterator<Integer> iter = view.pick(e.getPoint());
-		for(iter.reset(); !iter.isDone(); iter.advance())
-			switch(iter.current().intValue()) {
-			case OccupationSelectionView.OK_BUTTON:
-				gv = new GameplayView(new FiniteMatrixMap());
-				gc = new GameplayController(getManager(), gv);
+		for(iter.reset(); !iter.isDone(); iter.advance()) {
+			OccupationSelectionButton button = OccupationSelectionButton.fromGLName(iter.current());
+			if(button != null)
+			switch(button) {
+			case OK:
+				GameplayView gv = new GameplayView(new FiniteMatrixMap());
+				GameplayController gc = new GameplayController(getManager(), gv);
 				getManager().pushState(gv, gc);
 				break;
-			case OccupationSelectionView.CANCEL_BUTTON:
+			case CANCEL:
 				getManager().popState();
 				break;
 			}
+		}
 	}
 
 	private void highlight(Point p) {

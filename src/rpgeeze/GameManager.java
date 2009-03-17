@@ -384,7 +384,25 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Removes the top state from the state stack. 
 	 */
 	public void popState() {
+		Pair<View, Controller> state = getState();
+		Controller controller = state.getSecond();
+		View view = state.getFirst();
+		
 		stateStack.pop();
+		
+		Pair<View, Controller> newState = getState();
+		Controller newController = newState.getSecond();
+		View newView = newState.getFirst();
+
+		if(controller != null)
+			controller.changeFrom();
+		if(view != null)
+			view.changeFrom();
+		
+		if(newController != null)
+			newController.changeTo();
+		if(newView != null)
+			newView.changeTo();
 	}
 
 	/**
