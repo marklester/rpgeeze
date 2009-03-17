@@ -20,71 +20,75 @@ import rpgeeze.util.ResourceLoader;
  * The main menu screen.
  */
 public class MainMenuView extends View {
-	public static final int NEW_GAME_BUTTON = 1;
-	public static final int LOAD_GAME_BUTTON = 2;
-	public static final int OPTIONS_BUTTON = 3;
-	public static final int HELP_BUTTON = 4;
-	public static final int CREDITS_BUTTON = 5;
-	public static final int QUIT_BUTTON = 6;
-
-	private Font font = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.PLAIN, 36);
-	private TextRenderer renderer = new TextRenderer(font, true, true);
+	private static final Font font = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.PLAIN, 36);
+	private static final TextRenderer renderer = new TextRenderer(font, true, true);
 	
-	private int highlightedButton = 0;
+	public enum MainMenuButton {
+		NEW_GAME("New Game", 1),
+		LOAD_GAME("Load Game", 2),
+		OPTIONS("Options", 3),
+		HELP("Help", 4),
+		CREDITS("Credits", 5),
+		QUIT("Quit", 6);
+
+		private final int glName;
+		private final TextRectangle rect;
+
+		static {
+			for(MainMenuButton button: values()) {
+				button.rect.getText().setY(NEW_GAME.rect.getText().getY());
+			}
+		}
+		
+		private MainMenuButton(String text, int glName) {
+			this.glName = glName;
+			this.rect = new TextRectangle(new Text(text, renderer, 0.05f), 10, 3);
+			this.rect.setName(glName);
+			this.rect.setColor(NORMAL);
+			this.rect.alignText(0.5, 0.5);
+		}
+	
+		public Rectangle getRectangle() {
+			return rect;
+		}
+		
+		public static MainMenuButton fromGLName(int name) {
+			MainMenuButton ret = null;
+			for(MainMenuButton button: values())
+				if(button.glName == name) {
+					ret = button;
+					break;
+				}
+			return ret;
+		}
+	}
+
+	private MainMenuButton highlighted = null;
 
 	private static final Color NORMAL = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 	private static final Color HIGHLIGHTED = new Color(1.0f, 1.0f, 1.0f, 0.25f);
 
 	public final static float MIN_INTENSITY = 0.0f;
 	public final static float MAX_INTENSITY = 0.75f;
-	
+
 	private float intensity = MIN_INTENSITY;
-	
+
 	private TexturedRectangle introImage;
 
-	private TextRectangle newGameButton;
-	private TextRectangle loadGameButton;
-	private TextRectangle optionsButton;
-	private TextRectangle helpButton;
-	private TextRectangle creditsButton;
-	private TextRectangle quitButton;
-	
-	private TextRectangle[] buttons;
-	
 	public MainMenuView() {
 		ResourceLoader loader = ResourceLoader.getInstance();
-		
-		newGameButton = new TextRectangle(new Text("New Game", renderer, 0.05f), 10, 3, -10, 0, 0);
-		newGameButton.setName(NEW_GAME_BUTTON);
-		
-		loadGameButton = new TextRectangle(new Text("Load Game", renderer, 0.05f), 10, 3, 0, 0, 0);
-		loadGameButton.setName(LOAD_GAME_BUTTON);
-		
-		optionsButton = new TextRectangle(new Text("Options", renderer, 0.05f), 10, 3, 10, 0, 0);
-		optionsButton.setName(OPTIONS_BUTTON);
-		
-		helpButton = new TextRectangle(new Text("Help", renderer, 0.05f), 10, 3, -10, -3, 0);
-		helpButton.setName(HELP_BUTTON);
-		
-		creditsButton = new TextRectangle(new Text("Credits", renderer, 0.05f), 10, 3, 0, -3, 0);
-		creditsButton.setName(CREDITS_BUTTON);
-		
-		quitButton = new TextRectangle(new Text("Quit", renderer, 0.05f), 10, 3, 10, -3, 0);
-		quitButton.setName(QUIT_BUTTON);
-		
-		buttons = new TextRectangle[] {
-				newGameButton, loadGameButton, optionsButton, helpButton, creditsButton, quitButton
-		};
-		
-		for(TextRectangle button: buttons) {
-			button.alignText(0.5, 0.5);
-			button.getText().setY(buttons[0].getText().getY());
-		}
+
+		MainMenuButton.NEW_GAME.getRectangle().setXY(-10, 0);
+		MainMenuButton.LOAD_GAME.getRectangle().setXY(0, 0);
+		MainMenuButton.OPTIONS.getRectangle().setXY(10, 0);
+		MainMenuButton.HELP.getRectangle().setXY(-10, -3);
+		MainMenuButton.CREDITS.getRectangle().setXY(0, -3);
+		MainMenuButton.QUIT.getRectangle().setXY(10, -3);
 		
 		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -20);
 		introImage.setColor(NORMAL);
 	}
-	
+
 	/**
 	 * Renders the main menu screen.
 	 */
@@ -125,13 +129,9 @@ public class MainMenuView extends View {
 
 		gl.glTranslated(-5, -7.5, -19);
 
-		newGameButton.render();
-		loadGameButton.render();
-		optionsButton.render();
-		helpButton.render();
-		creditsButton.render();
-		quitButton.render();
-		
+		for(MainMenuButton button: MainMenuButton.values())
+			button.getRectangle().render();
+
 		gl.glFlush();
 	}
 
@@ -141,32 +141,11 @@ public class MainMenuView extends View {
 	 * @param id identifier corresponding to the button to highlight
 	 */
 	public void setHighlightedButton(int id) {
-		newGameButton.setColor(NORMAL);
-		loadGameButton.setColor(NORMAL);
-		optionsButton.setColor(NORMAL);
-		helpButton.setColor(NORMAL);
-		creditsButton.setColor(NORMAL);
-		quitButton.setColor(NORMAL);
-		switch(id) {
-		case NEW_GAME_BUTTON:
-			newGameButton.setColor(HIGHLIGHTED);
-			break;
-		case LOAD_GAME_BUTTON:
-			loadGameButton.setColor(HIGHLIGHTED);
-			break;
-		case OPTIONS_BUTTON:
-			optionsButton.setColor(HIGHLIGHTED);
-			break;
-		case HELP_BUTTON:
-			helpButton.setColor(HIGHLIGHTED);
-			break;
-		case CREDITS_BUTTON:
-			creditsButton.setColor(HIGHLIGHTED);
-			break;
-		case QUIT_BUTTON:
-			quitButton.setColor(HIGHLIGHTED);
-			break;
-		}
+		if(highlighted != null)
+			highlighted.getRectangle().setColor(NORMAL);
+		highlighted = MainMenuButton.fromGLName(id);
+		if(highlighted != null)
+			highlighted.getRectangle().setColor(HIGHLIGHTED);
 	}
 
 	/**
@@ -181,7 +160,7 @@ public class MainMenuView extends View {
 		if(intensity < MIN_INTENSITY)
 			intensity = MIN_INTENSITY;
 	}
-	
+
 	public void changeFrom() {
 		setHighlightedButton(0);
 		intensity = MAX_INTENSITY;

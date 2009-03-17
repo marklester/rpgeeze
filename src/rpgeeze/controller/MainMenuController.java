@@ -8,6 +8,7 @@ import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.view.CreditsView;
 import rpgeeze.view.MainMenuView;
+import rpgeeze.view.MainMenuView.MainMenuButton;
 import rpgeeze.view.OccupationSelectionView;
 
 /**
@@ -15,7 +16,7 @@ import rpgeeze.view.OccupationSelectionView;
  */
 public class MainMenuController extends Controller {
 	private MainMenuView view;
-	
+
 	public MainMenuController(GameManager manager, MainMenuView view) {
 		super(manager);
 		this.view = view;
@@ -24,7 +25,7 @@ public class MainMenuController extends Controller {
 	public void idleCycle() {
 		view.changeIntensity(0.01f);
 	}
-	
+
 	/**
 	 * Highlights the button at the cursor position, if any.
 	 */
@@ -72,29 +73,32 @@ public class MainMenuController extends Controller {
 	 */
 	public void mouseClicked(MouseEvent e) {
 		Iterator<Integer> iter = view.pick(e.getPoint());
-		for(iter.reset(); !iter.isDone(); iter.advance())
-			switch(iter.current().intValue()) {
-			case MainMenuView.NEW_GAME_BUTTON:
-				OccupationSelectionView osv = new OccupationSelectionView();
-				NewGameController ngc = new NewGameController(getManager(), osv);
-				getManager().pushState(osv, ngc);
-				break;
-			case MainMenuView.LOAD_GAME_BUTTON:
-				break;
-			case MainMenuView.OPTIONS_BUTTON:
-				break;
-			case MainMenuView.HELP_BUTTON:
-				break;
-			case MainMenuView.CREDITS_BUTTON:
-				CreditsView cv = new CreditsView();
-				CreditsController cc = new CreditsController(getManager(), cv);
-				getManager().pushState(cv, cc);
-				break;
-			case MainMenuView.QUIT_BUTTON:
-				getManager().stop();
-				System.exit(0);
-				break;
-			}
+		for(iter.reset(); !iter.isDone(); iter.advance()) {
+			MainMenuButton button = MainMenuButton.fromGLName(iter.current());
+			if(button != null)
+				switch(	button) {
+				case NEW_GAME:
+					OccupationSelectionView osv = new OccupationSelectionView();
+					NewGameController ngc = new NewGameController(getManager(), osv);
+					getManager().pushState(osv, ngc);
+					break;
+				case LOAD_GAME:
+					break;
+				case OPTIONS:
+					break;
+				case HELP:
+					break;
+				case CREDITS:
+					CreditsView cv = new CreditsView();
+					CreditsController cc = new CreditsController(getManager(), cv);
+					getManager().pushState(cv, cc);
+					break;
+				case QUIT:
+					getManager().stop();
+					System.exit(0);
+					break;			
+				}
+		}
 	}
 
 	private void highlight(Point p) {
