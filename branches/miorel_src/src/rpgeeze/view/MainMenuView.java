@@ -15,10 +15,9 @@ import rpgeeze.util.ResourceLoader;
 public class MainMenuView extends View {
 	public static final int NEW_GAME_BUTTON = 1;
 	public static final int LOAD_GAME_BUTTON = 2;
-	public static final int OPTIONS_BUTTON = 3;
-	public static final int HELP_BUTTON = 4;
-	public static final int CREDITS_BUTTON = 5;
-	public static final int QUIT_BUTTON = 6;
+	public static final int HELP_BUTTON = 3;
+	public static final int CREDITS_BUTTON = 4;
+	public static final int QUIT_BUTTON = 5;
 
 	private int highlightedButton = 0;
 
@@ -30,7 +29,7 @@ public class MainMenuView extends View {
 
 	private TexturedRectangle newGameButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/new_game.png"), 10, 3);
 	private TexturedRectangle loadGameButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/load_game.png"), 10, 3);
-	private TexturedRectangle optionsButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/options.png"), 10, 3);
+	//private TexturedRectangle optionsButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/options.png"), 10, 3);
 	private TexturedRectangle helpButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/help.png"), 10, 3);
 	private TexturedRectangle creditsButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/credits.png"), 10, 3);
 	private TexturedRectangle quitButton = new TexturedRectangle(ResourceLoader.getInstance().getTexture("buttons/quit.png"), 10, 3);
@@ -78,22 +77,25 @@ public class MainMenuView extends View {
 		gl.glTranslated(-5, -8.5, -30);
 
 		gl.glPushMatrix();
-		gl.glTranslated(-10, 0, 0);
+		gl.glTranslated(-5, 0, 0);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == NEW_GAME_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
 		gl.glLoadName(NEW_GAME_BUTTON);
 		newGameButton.render();
 		gl.glPopMatrix();
 
+		gl.glPushMatrix();
+		gl.glTranslated(5, 0, 0);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == LOAD_GAME_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
 		gl.glLoadName(LOAD_GAME_BUTTON);
 		loadGameButton.render();
+		gl.glPopMatrix();
 
-		gl.glPushMatrix();
+		/*gl.glPushMatrix();
 		gl.glTranslated(10, 0, 0);
 		gl.glColor4f(1.0f, 1.0f, 1.0f, highlightedButton == OPTIONS_BUTTON ? HIGHLIGHT_ALPHA : 0.0f);
 		gl.glLoadName(OPTIONS_BUTTON);
 		optionsButton.render();
-		gl.glPopMatrix();
+		gl.glPopMatrix();*/
 
 		gl.glPushMatrix();
 		gl.glTranslated(-10, -3, 0);
