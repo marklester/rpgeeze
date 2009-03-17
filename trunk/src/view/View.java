@@ -166,5 +166,12 @@ public class View extends Thread implements Observer {
 				}
 			});
 		}
+		
+		else if(isSkillViewVisible() && skillView.isOnSkillView(p)) {
+			Command c = skillView.rClick(p);
+			if(c == null) return;
+			model.invoke(c);
+
+		}
 	}
 }

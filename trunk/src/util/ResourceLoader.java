@@ -62,6 +62,7 @@ public class ResourceLoader {
 		
 		audios.put("Instant Death", "audio/evilLaugh.wav");
 		audios.put("Portal Item", "audio/elevator.wav");
+		audios.put("Bind Wounds", "audio/gasp.wav");
 		audios.put("Intro", "audio/zelda1.mp3");
 		
 		images.put("Intro Image", getImage("img/IntroOccupationTypes.png"));
