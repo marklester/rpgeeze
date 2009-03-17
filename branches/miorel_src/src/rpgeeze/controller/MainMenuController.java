@@ -22,7 +22,7 @@ public class MainMenuController extends Controller {
 	}
 
 	public void idleCycle() {
-		view.brighten();
+		view.changeIntensity(0.01f);
 	}
 	
 	/**
@@ -77,12 +77,12 @@ public class MainMenuController extends Controller {
 			case MainMenuView.NEW_GAME_BUTTON:
 				NewGameView ngv = new NewGameView();
 				NewGameController ngc = new NewGameController(getManager(), ngv);
-				getManager().pushState(ngv,ngc);
+				getManager().pushState(ngv, ngc);
 				break;
 			case MainMenuView.LOAD_GAME_BUTTON:
 				break;
-			//case MainMenuView.OPTIONS_BUTTON:
-				//break;
+			case MainMenuView.OPTIONS_BUTTON:
+				break;
 			case MainMenuView.HELP_BUTTON:
 				break;
 			case MainMenuView.CREDITS_BUTTON:

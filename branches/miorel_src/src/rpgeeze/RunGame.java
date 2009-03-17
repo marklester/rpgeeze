@@ -3,15 +3,13 @@ package rpgeeze;
 import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 
-import rpgeeze.util.ResourceLoader;
-
 /**
  * Entry point for the game. Houses the main method.
  */
 
 public class RunGame {	
 	public final static int GOAL_FPS = 80;
-	public final static boolean FULL_SCREEN = true;
+	public final static boolean FULL_SCREEN = false;
 	
 	/**
 	 * Creates the game frame and gives it a game manager.	

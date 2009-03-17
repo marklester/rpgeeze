@@ -1,11 +1,8 @@
 package rpgeeze.controller;
 
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import rpgeeze.GameManager;
-import rpgeeze.gl.TexturedRectangle;
-import rpgeeze.util.ResourceLoader;
 import rpgeeze.util.SimpleMovingAverageTimer;
 import rpgeeze.util.Timer;
 import rpgeeze.view.GameplayView;
@@ -26,6 +23,7 @@ public class GameplayController extends Controller {
 	public void idleCycle() {
 		fpsTimer.mark();
 		view.setFpsText(String.format("FPS: %.1f", fpsTimer.marksPerSecond()));
+		view.changeIntensity(0.01f);
 	}
 	
 	public void mouseReleased(MouseEvent e) {

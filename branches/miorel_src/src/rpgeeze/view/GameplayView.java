@@ -28,10 +28,14 @@ public class GameplayView extends View {
 	private TextRenderer renderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.PLAIN, 24), true, true);
 	private String fpsText;
 	
-	private double zoom = -5;
 	private double ZOOM_MIN = -64;
 	private double ZOOM_MAX = -2;
-
+	private double zoom = -5;
+	
+	private float MIN_INTENSITY = 0.0f;
+	private float MAX_INTENSITY = 1.0f;
+	private float intensity = MIN_INTENSITY;
+	
 	private double centerX = 0;
 	private double centerY = 0;
 	
@@ -82,7 +86,7 @@ public class GameplayView extends View {
 		int minY = (int) Math.floor(centerY - (1 + heightInTiles / 2));
 		int maxY = (int) Math.ceil(centerY + (1 + heightInTiles / 2));
 		
-		gl.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		gl.glColor4f(intensity, intensity, intensity, 1.0f);
 		
 		Iterator<Tile> iter = map.getTiles(minX, maxX, minY, maxY);
 		for(iter.reset(); !iter.isDone(); iter.advance()) {
@@ -119,5 +123,17 @@ public class GameplayView extends View {
 	
 	public void setFpsText(String value) {
 		fpsText = value;
+	}
+	
+	public void changeIntensity(float dc) {
+		intensity += dc;
+		if(intensity > MAX_INTENSITY)
+			intensity = MAX_INTENSITY;
+		if(intensity < MIN_INTENSITY)
+			intensity = MIN_INTENSITY;
+	}
+	
+	public void changeFrom() {
+		intensity = MAX_INTENSITY;
 	}
 }
