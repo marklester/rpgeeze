@@ -82,7 +82,7 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 		}
 	}	
 	
-	public enum State implements rpgeeze.dp.State { HIDDEN, NORMAL, ZOOMING, ZOOMED; }
+	public enum State implements rpgeeze.dp.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
 	
 	private String characterName;
 	private final String[] occupation = {"Smasher", "Summoner", "Sneak"};
@@ -105,7 +105,7 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 		}
 		for(Button button: Button.values())
 			putHighlightable(button.getButton());
-		changeState(State.HIDDEN);
+		changeState(State.NEW);
 	}
 
 	/**
@@ -192,6 +192,11 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	
 	public void setCharacterName(String newName) {
 		characterName = newName;
+	}
+	
+	public void changeFrom() {
+		super.changeFrom();
+		changeState(State.HIDDEN);
 	}
 	
 	public void changeTo() {

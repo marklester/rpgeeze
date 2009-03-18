@@ -5,6 +5,8 @@ import java.nio.IntBuffer;
 import java.util.HashSet;
 
 import rpgeeze.gl.GL;
+import rpgeeze.log.LogManager;
+import rpgeeze.log.Message;
 import rpgeeze.dp.Iterator;
 import rpgeeze.dp.Observer;
 import rpgeeze.dp.Subject;
@@ -101,14 +103,12 @@ public abstract class View<T extends State> implements Subject<View<?>> {
 	/**
 	 * Called whenever the GameManager changes away from this state. This is where you should, for example, pause any timers that are specific to this View.
 	 */
-	public void changeFrom() {
-	}
+	public abstract void changeFrom();
 
 	/**
 	 * Called whenever the GameManager changes to this state. If, for example, you paused some timer in changeFrom(), this is where you should resume it.
 	 */
-	public void changeTo() {
-	}
+	public abstract void changeTo();
 	
 	public void attach(Observer<View<?>> observer) {
 		observers.add(observer);
@@ -128,7 +128,12 @@ public abstract class View<T extends State> implements Subject<View<?>> {
 	}
 	
 	protected final void changeState(T newState) {
+		LogManager.getInstance().log(new Message(this + " changing state to " + newState, "VIEW"));
 		state = newState;
 		notifyObservers();
+	}
+	
+	public String toString() {
+		return getClass().getSimpleName();
 	}
 }
