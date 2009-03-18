@@ -10,13 +10,14 @@ import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
 
 import rpgeeze.GameManager;
+import rpgeeze.dp.Observer;
 import rpgeeze.view.View;
 
 /**
  * Abstract listener interface implementer providing empty handlers for most event types. Subclass to do interesting things.
  *
  */
-public abstract class Controller<T extends View> implements KeyListener, MouseListener, MouseMotionListener, WindowListener, WindowFocusListener {
+public abstract class Controller<T extends View> implements KeyListener, MouseListener, MouseMotionListener, WindowListener, WindowFocusListener, Observer<View> {
 	private GameManager manager;
 	private T view;
 	
@@ -159,5 +160,8 @@ public abstract class Controller<T extends View> implements KeyListener, MouseLi
 	}
 	
 	public void changeTo() {
+	}
+	
+	public void update() {
 	}
 }

@@ -81,6 +81,15 @@ public class HighlightableWrapper implements Highlightable {
 		object.setZ(newZ);
 	}
 
+	public boolean isVisible() {
+		return object.isVisible();
+	}
+
+	@Override
+	public void setVisible(boolean vis) {
+		object.setVisible(vis);
+	}
+	
 	public HighlightableWrapper clone() {
 		HighlightableWrapper ret = null;
 		try {

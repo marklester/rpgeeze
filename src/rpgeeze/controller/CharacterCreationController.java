@@ -17,7 +17,7 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 	public CharacterCreationController(GameManager manager, CharacterCreationView view) {
 		super(manager, view);
 	}
-	
+
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {
 		case KeyEvent.VK_TAB:
@@ -41,28 +41,30 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 				getView().setCharacterName(getView().getCharacterName() + c);
 		}
 	}
-	
+
 	/**
 	 * Executes the action corresponding to the clicked button, if any.
 	 */
 	public void mouseClicked(MouseEvent e) {
-		Iterator<Integer> iter = getView().pick(e.getPoint());
-		for(iter.reset(); !iter.isDone(); iter.advance()) {
-			OccupationSelectionButton button = OccupationSelectionButton.fromGLName(iter.current());
-			if(button != null)
-			switch(button) {
-			case OK:
-				executeOK();
-				break;
-			case CANCEL:
-				executeCancel();
-				break;
-			case LEFT_ARROW:
-				getView().previousOccupation();
-				break;
-			case RIGHT_ARROW:
-				getView().nextOccupation();
-				break;
+		if(e.getButton() == MouseEvent.BUTTON1) {
+			Iterator<Integer> iter = getView().pick(e.getPoint());
+			for(iter.reset(); !iter.isDone(); iter.advance()) {
+				OccupationSelectionButton button = OccupationSelectionButton.fromGLName(iter.current());
+				if(button != null)
+					switch(button) {
+					case OK:
+						executeOK();
+						break;
+					case CANCEL:
+						executeCancel();
+						break;
+					case LEFT_ARROW:
+						getView().previousOccupation();
+						break;
+					case RIGHT_ARROW:
+						getView().nextOccupation();
+						break;
+					}
 			}
 		}
 	}
@@ -72,7 +74,7 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 		GameplayController gc = new GameplayController(getManager(), gv);
 		getManager().pushState(gv, gc);
 	}
-	
+
 	private void executeCancel() {
 		getManager().popState();		
 	}
