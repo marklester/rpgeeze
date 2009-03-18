@@ -17,5 +17,8 @@ public interface GLObject extends Cloneable {
 	public void setXY(double newX, double newY);
 	public void setXYZ(double newX, double newY, double newZ);
 	
+	public void setVisible(boolean vis);
+	public boolean isVisible();
+	
 	public GLObject clone();
 }

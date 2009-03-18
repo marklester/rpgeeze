@@ -82,16 +82,24 @@ public class CharacterCreationView extends HighlightableView {
 		}
 	}	
 	
-	private TexturedRectangle introImage;
 	private String characterName;
 	private static final String[] occupation = {"Smasher", "Summoner", "Sneak"};
+	private static final TexturedRectangle[] occupationImage = {
+		new TexturedRectangle(ResourceLoader.getInstance().getTexture("occupation/smasher.png"), 25, 25, -12.5, -8, -15),
+		new TexturedRectangle(ResourceLoader.getInstance().getTexture("occupation/summoner.png"), 25, 25, -12.5, -8, -15),
+		new TexturedRectangle(ResourceLoader.getInstance().getTexture("occupation/sneak.png"), 25, 25, -12.5, -8, -15),
+	};
 	private int occP;
 	
+	private double ZOOM_MIN = -14.5;
+	private double ZOOM_MAX = -2;
+	private double zoom = ZOOM_MIN;
+	
 	public CharacterCreationView() {
-		ResourceLoader loader = ResourceLoader.getInstance();
-		
-		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -15);
-		introImage.setColor(MainMenuView.PLAIN);
+		for(TexturedRectangle rect: occupationImage) {
+			rect.setColor(MainMenuView.PLAIN);
+			rect.setVisible(false);
+		}
 		for(OccupationSelectionButton button: OccupationSelectionButton.values())
 			putHighlightable(button.getButton());
 	}
@@ -105,7 +113,8 @@ public class CharacterCreationView extends HighlightableView {
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		gl.glClearColor(MainMenuView.MAX_INTENSITY, 0, 0, 1.0f);
 		
-		introImage.render();
+		for(TexturedRectangle rect: occupationImage)
+			rect.render();
 	
 		Highlightable leftArrow = OccupationSelectionButton.LEFT_ARROW.getButton();
 		leftArrow.setXY(-14.5 * gl.getViewportAspectRatio() + 3, 8);
@@ -115,7 +124,7 @@ public class CharacterCreationView extends HighlightableView {
 		rightArrow.setXY(14.5 * gl.getViewportAspectRatio() - 3, 8);
 		putHighlightable(rightArrow);
 		
-		gl.glTranslated(0, -9.5, -14.5);
+		gl.glTranslated(0, -9.5, zoom);
 		renderHighlightables();		
 		gl.glLoadName(-1);
 		
@@ -129,11 +138,17 @@ public class CharacterCreationView extends HighlightableView {
 	}
 	
 	public void nextOccupation() {
-		occP = (occP + 1) % occupation.length;
+		setOccupation((occP + 1) % occupation.length);
 	}
 	
 	public void previousOccupation() {
-		occP = (occP - 1 + occupation.length) % occupation.length;
+		setOccupation((occP - 1 + occupation.length) % occupation.length);
+	}
+	
+	private void setOccupation(int newOccupation) {
+		occupationImage[occP].setVisible(false);
+		occP = newOccupation;
+		occupationImage[newOccupation].setVisible(true);
 	}
 	
 	public void randomName() {
@@ -157,6 +172,8 @@ public class CharacterCreationView extends HighlightableView {
 	
 	public void changeTo() {
 		super.changeTo();
+		Random rnd = new Random();
+		setOccupation(rnd.nextInt(occupation.length));
 		randomName();
 	}
 }
