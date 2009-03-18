@@ -3,9 +3,7 @@ package rpgeeze.view;
 import java.awt.Point;
 import java.nio.IntBuffer;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GLContext;
-
+import rpgeeze.gl.GL;
 import rpgeeze.dp.Iterator;
 
 import com.sun.opengl.util.BufferUtil;
@@ -39,8 +37,8 @@ public abstract class View {
 	 * @return an iterator over the name constants that registered as hits at the specified point
 	 */
 	public Iterator<Integer> pick(Point pickPoint, int bufSize) {
-		GL gl = GLContext.getCurrent().getGL();
-
+		GL gl = GL.getCurrent();
+		
 		final int[] selectBuf = new int[bufSize];
 		IntBuffer selectBuffer = BufferUtil.newIntBuffer(bufSize);
 

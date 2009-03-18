@@ -3,12 +3,11 @@ package rpgeeze.view;
 import java.awt.Font;
 import java.awt.Point;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GLContext;
 import javax.media.opengl.glu.GLU;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
+import rpgeeze.gl.GL;
 import rpgeeze.gl.TexturedRectangle;
 import rpgeeze.gl.Triangle;
 import rpgeeze.math.Vector;
@@ -20,7 +19,6 @@ public class NewGameView extends View {
 	public static final int SNEAK_BUTTON = 3;
 	public static final int OPTIONS_BUTTON = 4;
 	public static final int BACK_BUTTON = 5;
-	
 
 	private int highlightedButton = 0;
 
@@ -44,7 +42,7 @@ public class NewGameView extends View {
 	 * Renders the new game screen.
 	 */
 	public void render(Point point) {
-		GL gl = GLContext.getCurrent().getGL();
+		GL gl = GL.getCurrent();
 
 		gl.glShadeModel(GL.GL_SMOOTH);
 

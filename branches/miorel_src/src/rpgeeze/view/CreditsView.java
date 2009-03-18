@@ -6,12 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GLContext;
 import javax.media.opengl.glu.GLU;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
+import rpgeeze.gl.GL;
 import rpgeeze.gl.Text;
 import rpgeeze.util.ResourceLoader;
 
@@ -37,7 +36,7 @@ public class CreditsView extends View {
 	}
 	
 	public void render(Point point) {
-		GL gl = GLContext.getCurrent().getGL();
+		GL gl = GL.getCurrent();
 
 		gl.glShadeModel(GL.GL_SMOOTH);
 

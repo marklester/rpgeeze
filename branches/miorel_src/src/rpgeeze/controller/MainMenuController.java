@@ -1,8 +1,6 @@
 package rpgeeze.controller;
 
-import java.awt.Point;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
 
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
@@ -14,65 +12,20 @@ import rpgeeze.view.OccupationSelectionView;
 /**
  * Controls the main menu screen.
  */
-public class MainMenuController extends Controller {
-	private MainMenuView view;
-
+public class MainMenuController extends HighlightableViewController<MainMenuView> {
 	public MainMenuController(GameManager manager, MainMenuView view) {
-		super(manager);
-		this.view = view;
+		super(manager, view);
 	}
 
 	public void idleCycle() {
-		view.changeIntensity(0.01f);
-	}
-
-	/**
-	 * Highlights the button at the cursor position, if any.
-	 */
-	public void mouseEntered(MouseEvent e) {
-		highlight(e.getPoint());
-	}
-
-	/**
-	 * Highlights the button at the cursor position, if any.
-	 */
-	public void mouseMoved(MouseEvent e) {
-		highlight(e.getPoint());
-	}
-
-	/**
-	 * Turns off highlighting on all buttons.
-	 */
-	public void mouseExited(MouseEvent e) {
-		unhighlight();		
-	}
-
-	/**
-	 * Turns off highlighting on all buttons.
-	 */
-	public void windowLostFocus(WindowEvent e) {
-		unhighlight();
-	}
-
-	/**
-	 * Turns off highlighting on all buttons.
-	 */
-	public void windowActivated(WindowEvent e) {
-		unhighlight();
-	}
-
-	/**
-	 * Turns off highlighting on all buttons.
-	 */
-	public void windowDeactivated(WindowEvent e) {
-		unhighlight();
+		getView().changeIntensity(0.01f);
 	}
 
 	/**
 	 * Executes the action corresponding to the clicked button, if any.
 	 */
 	public void mouseClicked(MouseEvent e) {
-		Iterator<Integer> iter = view.pick(e.getPoint());
+		Iterator<Integer> iter = getView().pick(e.getPoint());
 		for(iter.reset(); !iter.isDone(); iter.advance()) {
 			MainMenuButton button = MainMenuButton.fromGLName(iter.current());
 			if(button != null)
@@ -99,20 +52,5 @@ public class MainMenuController extends Controller {
 					break;			
 				}
 		}
-	}
-
-	private void highlight(Point p) {
-		int hi = 0;
-		Iterator<Integer> iter = view.pick(p);
-		for(iter.reset(); !iter.isDone(); iter.advance()) {
-			int cur = iter.current();
-			if(cur > 0)
-				hi = cur;
-		}
-		view.setHighlightedButton(hi);
-	}
-
-	private void unhighlight() {
-		view.setHighlightedButton(0);		
 	}
 }

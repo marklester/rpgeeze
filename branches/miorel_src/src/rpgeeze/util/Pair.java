@@ -24,7 +24,7 @@ public class Pair<T, U> {
 	public boolean equals(Object o) {
 		boolean ret = false;
 		if(o instanceof Pair) {
-			Pair p = (Pair) o;
+			Pair<? extends Object, ? extends Object> p = (Pair<? extends Object, ? extends Object>) o;
 			if(first.equals(p.first) && second.equals(p.second)) 
 				ret = true;
 		}

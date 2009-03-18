@@ -1,9 +1,7 @@
 package rpgeeze.gl;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
-
 import com.sun.opengl.util.texture.Texture;
+
 public class TexturedRectangle extends Rectangle {
 	private Texture texture;
 	
@@ -18,7 +16,8 @@ public class TexturedRectangle extends Rectangle {
 	}
 
 	public void doRender() {
-		GL gl = GLU.getCurrentGL();
+		GL gl = GL.getCurrent();
+		gl.glEnable(GL.GL_TEXTURE_2D);
 		texture.bind();
 		gl.glBegin(GL.GL_QUADS);
         gl.glTexCoord2i(0, 0);
@@ -30,5 +29,9 @@ public class TexturedRectangle extends Rectangle {
         gl.glTexCoord2i(1, 0);
         gl.glVertex2d(getWidth(), getHeight());
 		gl.glEnd();
+	}
+	
+	public TexturedRectangle clone() {
+		return (TexturedRectangle) super.clone();
 	}
 }

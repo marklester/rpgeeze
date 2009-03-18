@@ -10,12 +10,13 @@ import java.awt.FontFormatException;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
-import javax.media.opengl.GL;
 
+import rpgeeze.gl.GL;
 import rpgeeze.log.LogManager;
 import rpgeeze.log.Message;
 import rpgeeze.log.MessageType;
 
+import com.sun.opengl.util.j2d.TextRenderer;
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureIO;
 
@@ -90,5 +91,9 @@ public class ResourceLoader {
 			}
 		}
 		return ret == null ? null : ret.deriveFont(size).deriveFont(style);
+	}
+	
+	public TextRenderer getTextRenderer(String key, int style, float size) {
+		return new TextRenderer(getFont(key, style, size), true, true);
 	}
 }

@@ -4,12 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GLContext;
-import javax.media.opengl.glu.GLU;
-
 import com.sun.opengl.util.j2d.TextRenderer;
 
+import rpgeeze.gl.GL;
+import rpgeeze.gl.Text;
 import rpgeeze.gl.TexturedRectangle;
 import rpgeeze.model.map.Map;
 import rpgeeze.model.Tile;
@@ -45,7 +43,7 @@ public class GameplayView extends View {
 	}
 	
 	public void render(Point point) {
-		GL gl = GLContext.getCurrent().getGL();
+		GL gl = GL.getCurrent();
 
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		
@@ -103,11 +101,10 @@ public class GameplayView extends View {
 			gl.glPopMatrix();
 		}
 	
-//		Text fps = new Text(fpsText, Color.RED, renderer);
-//		fps.align(1, 1);
-//		fps.setX(fps.getX() - fps.getHeight() / 2);
-//		fps.setY(fps.getY() - fps.getHeight() / 2);
-//		fps.render();
+		gl.glLoadIdentity();
+		Text fps = new Text(fpsText, Color.RED, renderer, 0.0025f);
+		fps.setXYZ(1 - fps.getWidth() - fps.getHeight() / 2, vp[3] / width - 3 * fps.getHeight() / 2, -1);
+		fps.render();
 		
 		gl.glFlush();
 	}
