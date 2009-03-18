@@ -1,18 +1,20 @@
 package rpgeeze.model;
 
+import rpgeeze.model.ae.AreaEffect;
+import rpgeeze.model.decal.Decal;
+import rpgeeze.model.item.Item;
 import rpgeeze.model.terrain.Terrain;
+import rpgeeze.view.Drawable;
 
-public class Tile {
+public class Tile implements Drawable {
 	private Terrain terrain;
 	private Entity entity;
+	private Item item;
+	private AreaEffect areaEffect;
+	private Decal decal;
 	
-	private int x;
-	private int y;
-	
-	public Tile(Terrain terrain, int x, int y) {
+	public Tile(Terrain terrain) {
 		this.terrain = terrain;
-		this.x = x;
-		this.y = y;
 	}
 	
 	public Terrain getTerrain() {
@@ -26,12 +28,28 @@ public class Tile {
 	public void setEntity(Entity entity) {
 		this.entity = entity;
 	}
-	
-	public int getX() {
-		return x;
+
+	public Item getItem() {
+		return item;
 	}
-	
-	public int getY() {
-		return y;
+
+	public void setItem(Item newItem) {
+		item = newItem;
+	}
+
+	public AreaEffect getAreaEffect() {
+		return areaEffect;
+	}
+
+	public void setAreaEffect(AreaEffect newAreaEffect) {
+		areaEffect = newAreaEffect;
+	}
+
+	public Decal getDecal() {
+		return decal;
+	}
+
+	public void setDecal(Decal newDecal) {
+		decal = newDecal;
 	}
 }

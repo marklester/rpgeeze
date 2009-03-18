@@ -16,14 +16,14 @@ public class FiniteMatrixMap extends Map {
 		yOffset = -1;
 		for(int i = 0; i <= 2; ++i) {
 			for(int j = 0; j <= 2; ++j) {
-				matrix[i][j] = new Tile(GrassTerrain.getInstance(), i + xOffset, j + yOffset);		
+				matrix[i][j] = new Tile(GrassTerrain.getInstance());		
 			}
 		}
 		matrix[0][0].setEntity(new Entity());
 	}
 	
-	public Tile defaultTile(int x, int y) {
-		return new Tile(WaterTerrain.getInstance(), x, y);
+	protected Tile defaultTile() {
+		return new Tile(WaterTerrain.getInstance());
 	}
 	
 	public Tile getTile(int x, int y) {
@@ -31,7 +31,7 @@ public class FiniteMatrixMap extends Map {
 		int ry = y - yOffset;
 		Tile ret;
 		if(ry < 0 || ry >= matrix.length || rx < 0 || rx >= matrix[0].length)
-			ret = defaultTile(x, y);
+			ret = defaultTile();
 		else
 			ret = matrix[ry][rx];
 		return ret;

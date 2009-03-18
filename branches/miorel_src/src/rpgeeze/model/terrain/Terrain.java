@@ -1,5 +1,6 @@
 package rpgeeze.model.terrain;
 
-public class Terrain {
+import rpgeeze.view.Drawable;
 
+public abstract class Terrain implements Drawable {
 }
