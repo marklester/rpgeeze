@@ -12,6 +12,12 @@ public class HighlightableSet {
 		hashMap.put(highlightable.getGLName(), highlightable);
 	}
 	
+	public void remove(int glName) {
+		Highlightable removed = hashMap.remove(glName);
+		if(highlighted == removed)
+			highlighted = null;
+	}
+	
 	private Highlightable get(int glName) {
 		return hashMap.get(glName);
 	}

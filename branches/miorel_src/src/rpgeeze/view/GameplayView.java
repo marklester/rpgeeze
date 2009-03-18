@@ -27,7 +27,7 @@ public class GameplayView extends View {
 	
 	private double ZOOM_MIN = -64;
 	private double ZOOM_MAX = -2;
-	private double zoom = -5;
+	private double zoom = -8;
 	
 	private float MIN_INTENSITY = 0.0f;
 	private float MAX_INTENSITY = 1.0f;
@@ -43,40 +43,17 @@ public class GameplayView extends View {
 	}
 	
 	public void render(Point point) {
-		GL gl = GL.getCurrent();
+		GL gl = GL.getCurrent();		
+		gl.standardPrepare(point);
+        gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+        gl.glClearColor(0, 0, 0, 0);
 
-		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-		
-		gl.glShadeModel(GL.GL_SMOOTH);
-
-		// depth buffer
-		gl.glClearDepth(1.0f);
-		gl.glEnable(GL.GL_DEPTH_TEST);
-		gl.glDepthFunc(GL.GL_LEQUAL);
-
-		// textures and blending
-		gl.glEnable(GL.GL_TEXTURE_2D);
-		gl.glEnable(GL.GL_BLEND);
-		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
-		
-		gl.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
-
-		gl.glMatrixMode(GL.GL_PROJECTION);
-		gl.glLoadIdentity();
-		int[] vp = new int[4];
-		gl.glGetIntegerv(GL.GL_VIEWPORT, vp, 0);
-		double width = vp[2] <= 0 ? 1 : vp[2];
-		gl.glFrustum(-vp[2] / width, vp[2] / width, -vp[3] / width, vp[3] / width, 1, 128);
-		gl.glMatrixMode(GL.GL_MODELVIEW);
-		
-		gl.glClearColor(0, 0, 0, 0);
-
-		gl.glLoadIdentity();
-		gl.glTranslated(-0.5, -0.5, zoom);
+        // zoom
+        gl.glTranslated(-0.5, -0.5, zoom);
 		
 		// get viewport dimensions in tiles that have to be displayed
-		int widthInTiles = (int) Math.ceil(-2 * zoom);
-		int heightInTiles = (int) Math.ceil(-2 * zoom * vp[3] / width);
+		int widthInTiles = (int) Math.ceil(-2 * zoom * gl.getViewportAspectRatio());
+		int heightInTiles = (int) Math.ceil(-2 * zoom);
 		
 		int minX = (int) Math.floor(centerX - (1 + widthInTiles / 2));
 		int maxX = (int) Math.ceil(centerX + (1 + widthInTiles / 2));
@@ -100,10 +77,11 @@ public class GameplayView extends View {
 				entity.render();
 			gl.glPopMatrix();
 		}
-	
+
+		// report FPS
 		gl.glLoadIdentity();
 		Text fps = new Text(fpsText, Color.RED, renderer, 0.0025f);
-		fps.setXYZ(1 - fps.getWidth() - fps.getHeight() / 2, vp[3] / width - 3 * fps.getHeight() / 2, -1);
+		fps.setXYZ(gl.getViewportAspectRatio() - fps.getWidth() - fps.getHeight() / 2, 1 - 3 * fps.getHeight() / 2, -1);
 		fps.render();
 		
 		gl.glFlush();

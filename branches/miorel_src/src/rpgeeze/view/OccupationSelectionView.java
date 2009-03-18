@@ -1,15 +1,13 @@
 package rpgeeze.view;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
-
-import javax.media.opengl.glu.GLU;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.gl.GL;
-import rpgeeze.gl.Rectangle;
+import rpgeeze.gl.Highlightable;
+import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.TextRectangle;
 import rpgeeze.gl.TexturedRectangle;
@@ -21,140 +19,70 @@ import rpgeeze.util.ResourceLoader;
  * The occupation selection screen.
  */
 public class OccupationSelectionView extends HighlightableView {
-	private static final Font font = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.PLAIN, 36);
-	private static final TextRenderer renderer = new TextRenderer(font, true, true);
+	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	
 	public enum OccupationSelectionButton {
-		OK("OK", 1),
-		CANCEL("Cancel", 2);
+		OK("OK", 1, -5, -3),
+		CANCEL("Cancel", 2, 5, -3);
 
+		private final String text;
 		private final int glName;
-		private final TextRectangle rect;
+		private final double x, y;
 
-		static {
-			for(OccupationSelectionButton button: values()) {
-				button.rect.getText().setY(OK.rect.getText().getY());
-			}
-		}
-		
-		private OccupationSelectionButton(String text, int glName) {
+		private OccupationSelectionButton(String text, int glName, double x, double y) {
+			this.text = text;
 			this.glName = glName;
-			this.rect = new TextRectangle(new Text(text, renderer, 0.05f), 10, 3);
-			this.rect.setGLName(glName);
-			this.rect.setColor(NORMAL);
-			this.rect.alignText(0.5, 0.5);
+			this.x = x;
+			this.y = y;
 		}
-	
-		public Rectangle getRectangle() {
+
+		private TextRectangle getRectangle() {
+			TextRectangle rect = new TextRectangle(new Text(text, renderer, 0.05f), 10, 3);
+			rect.setGLName(glName);
+			rect.alignText(0.5, 0.5);
+			rect.setXY(x, y);
+			if(this != OK)
+				rect.getText().setY(OK.getRectangle().getText().getY());
 			return rect;
 		}
 		
-		public static OccupationSelectionButton fromGLName(int name) {
-			OccupationSelectionButton ret = null;
-			for(OccupationSelectionButton button: values())
-				if(button.glName == name) {
-					ret = button;
-					break;
-				}
-			return ret;
+		public Highlightable getButton() {
+			return new HighlightableWrapper(getRectangle(), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 		}
-	}
-
-	private OccupationSelectionButton highlighted = null;
-
-	private static final Color NORMAL = new Color(1.0f, 1.0f, 1.0f, 0.0f);
-	private static final Color HIGHLIGHTED = new Color(1.0f, 1.0f, 1.0f, 0.25f);
-
+		
+		public static OccupationSelectionButton fromGLName(int glName) {
+			for(OccupationSelectionButton button: values())
+				if(button.glName == glName)
+					return button;
+			return null;
+		}
+	}	
+	
 	private TexturedRectangle introImage;
 
 	public OccupationSelectionView() {
 		ResourceLoader loader = ResourceLoader.getInstance();
-
-		OccupationSelectionButton.OK.getRectangle().setXY(-5, -3);
-		OccupationSelectionButton.CANCEL.getRectangle().setXY(5, -3);
 		
-		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -20);
-		introImage.setColor(NORMAL);
-		
-//	    leftArrow = new Triangle(new Vector(-14, 0, -20), new Vector(-14, 5, -20), new Vector(-16, 2.5, -20));
-//	    leftArrow.setName(LEFT_ARROW);
-	    
-//	    rightArrow = new Triangle(new Vector(14, 0, -20), new Vector(14, 5, -20), new Vector(16, 2.5, -20));
-//	    rightArrow.setName(RIGHT_ARROW);
+		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -15);
+		introImage.setColor(MainMenuView.PLAIN);
+		for(OccupationSelectionButton button: OccupationSelectionButton.values())
+			putHighlightable(button.getButton());
 	}
 
 	/**
-	 * Renders the main menu screen.
+	 * Renders the occupation selection screen.
 	 */
 	public void render(Point point) {
-		GL gl = GL.getCurrent();
-
-		gl.glShadeModel(GL.GL_SMOOTH);
-
-		// depth buffer
-		gl.glClearDepth(1.0f);
-		gl.glEnable(GL.GL_DEPTH_TEST);
-		gl.glDepthFunc(GL.GL_LEQUAL);
-
-		// textures and blending
-		gl.glEnable(GL.GL_TEXTURE_2D);
-		gl.glEnable(GL.GL_BLEND);
+		GL gl = GL.getCurrent();		
+		gl.standardPrepare(point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
-
-		gl.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
-
-		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-
-		gl.glMatrixMode(GL.GL_PROJECTION);
-		gl.glLoadIdentity();
-		int[] vp = new int[4];
-		gl.glGetIntegerv(GL.GL_VIEWPORT, vp, 0);
-		GLU glu = new GLU();
-		if(point != null)
-			glu.gluPickMatrix((double) point.x, (double) (vp[3] - point.y), 1e-3, 1e-3, vp, 0);
-		double width = vp[2] <= 0 ? 1 : vp[2];
-		gl.glFrustum(-vp[2] / width, vp[2] / width, -vp[3] / width, vp[3] / width, 1, 128);
-		gl.glMatrixMode(GL.GL_MODELVIEW);		
-
 		gl.glClearColor(MainMenuView.MAX_INTENSITY, 0, 0, 1.0f);
-
-		gl.glLoadIdentity();
-		introImage.render();
-
-		gl.glTranslated(-5, -7.5, -19);
-
-		for(OccupationSelectionButton button: OccupationSelectionButton.values())
-			button.getRectangle().render();
-
-		gl.glFlush();
-	}
-
-	public void highlight(int glName) {
-		//buttons.highlight(glName);
-	}
-	
-	public void unhighlight() {
-		//buttons.unhighlight();
-	}
-	
-	/**
-	 * Sets the button to be highlighted. Call with a value of zero to clear highlighting of all buttons. 
-	 * 
-	 * @param id identifier corresponding to the button to highlight
-	 */
-	public void setHighlightedButton(int id) {
-		if(highlighted != null)
-			highlighted.getRectangle().setColor(NORMAL);
-		highlighted = OccupationSelectionButton.fromGLName(id);
-		if(highlighted != null)
-			highlighted.getRectangle().setColor(HIGHLIGHTED);
-	}
-
-	public void changeFrom() {
-		setHighlightedButton(0);
-	}
 		
-	public void changeTo() {
-		setHighlightedButton(0);
+		introImage.render();
+		
+		gl.glTranslated(-5, -9.5, -14.5);
+		renderHighlightables();
+		
+		gl.glFlush();
 	}
 }
