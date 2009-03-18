@@ -1,9 +1,9 @@
 package rpgeeze.model.item;
 
 import rpgeeze.model.Entity;
-import rpgeeze.phys.GameObject;
+import rpgeeze.model.phys.GameObject;
 
-public abstract class TakeableItem extends GameObject implements Item {
+public abstract class TakeableItem implements GameObject, Item {
 	public void activate(Entity entity) {
 		// add self to entity's inventory
 		

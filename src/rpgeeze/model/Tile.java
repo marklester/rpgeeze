@@ -1,24 +1,25 @@
 package rpgeeze.model;
 
+import rpgeeze.math.Vector;
 import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
 import rpgeeze.model.item.Item;
 import rpgeeze.model.terrain.Terrain;
 import rpgeeze.view.Drawable;
 
-public class Tile implements Drawable {
+public abstract class Tile implements Drawable {
 	private Terrain terrain;
 	private Entity entity;
 	private Item item;
 	private AreaEffect areaEffect;
 	private Decal decal;
 	
-	public Tile(Terrain terrain) {
-		this.terrain = terrain;
-	}
-	
 	public Terrain getTerrain() {
 		return terrain;
+	}
+	
+	protected void setTerrain(Terrain newTerrain) {
+		this.terrain = newTerrain;
 	}
 	
 	public Entity getEntity() {
@@ -52,4 +53,6 @@ public class Tile implements Drawable {
 	public void setDecal(Decal newDecal) {
 		decal = newDecal;
 	}
+	
+	public abstract Tile getTile(Vector offset);
 }

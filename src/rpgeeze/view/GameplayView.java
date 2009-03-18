@@ -9,7 +9,8 @@ import com.sun.opengl.util.j2d.TextRenderer;
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.TexturedRectangle;
-import rpgeeze.model.map.Map;
+import rpgeeze.math.VectorImpl;
+import rpgeeze.model.Entity;
 import rpgeeze.model.Tile;
 import rpgeeze.model.terrain.*;
 import rpgeeze.util.ResourceLoader;
@@ -37,12 +38,12 @@ public class GameplayView extends View<GameplayView.State> {
 	private double centerX = 0;
 	private double centerY = 0;
 
-	private Map map;
+	private Entity avatar;
 
 	public enum State implements rpgeeze.dp.State { NEW, FADING_IN, NORMAL, HIDDEN; }
 
-	public GameplayView(Map map) {
-		this.map = map;
+	public GameplayView(Entity avatar) {
+		this.avatar = avatar;
 		changeState(State.NEW);
 	}
 
@@ -77,7 +78,7 @@ public class GameplayView extends View<GameplayView.State> {
 
 		for(int i = minX; i <= maxX; ++i)
 			for(int j = minY; j <= maxY; ++j) {
-				Tile t = map.getTile(i, j);
+				Tile t = avatar.getTile().getTile(new VectorImpl(i, j, 0));
 				gl.glPushMatrix();
 				gl.glTranslated(i, j, 0);
 				if(t.getTerrain() instanceof GrassTerrain)

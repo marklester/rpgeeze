@@ -7,6 +7,7 @@ import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.view.GameplayView;
 import rpgeeze.view.CharacterCreationView;
+import rpgeeze.model.Entity;
 import rpgeeze.model.map.FiniteMatrixMap;
 
 /**
@@ -78,7 +79,8 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 	
 	public void update() {
 		if(getView().getState() == CharacterCreationView.State.ZOOMED) {
-			GameplayView gv = new GameplayView(new FiniteMatrixMap());
+			Entity avatar = new FiniteMatrixMap().getAvatar();
+			GameplayView gv = new GameplayView(avatar);
 			GameplayController gc = new GameplayController(getManager(), gv);
 			getManager().pushState(gv, gc);
 		}

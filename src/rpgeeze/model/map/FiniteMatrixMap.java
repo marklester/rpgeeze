@@ -1,39 +1,60 @@
 package rpgeeze.model.map;
 
+import rpgeeze.math.Vector;
 import rpgeeze.model.Entity;
 import rpgeeze.model.Tile;
 import rpgeeze.model.terrain.GrassTerrain;
+import rpgeeze.model.terrain.Terrain;
 import rpgeeze.model.terrain.WaterTerrain;
 
-public class FiniteMatrixMap extends Map {
-	private Tile[][] matrix;
-	private int xOffset;
-	private int yOffset;
+public class FiniteMatrixMap implements Map {
+	private TileImpl[][] matrix;
+	private Entity avatar;
+	
+	private class TileImpl extends Tile {
+		private final int x, y, z;
+		
+		public TileImpl(Terrain terrain, int x, int y, int z) {
+			setTerrain(terrain);
+			this.x = x;
+			this.y = y;
+			this.z = z;
+		}
+
+		public Tile getTile(Vector offset) {
+			int dx = (int) Math.floor(offset.getX());
+			int dy = (int) Math.floor(offset.getY());
+			int dz = (int) Math.floor(offset.getZ());
+			return FiniteMatrixMap.this.getTile(x + dx, y + dy, z + dz);
+		}
+	}
 	
 	public FiniteMatrixMap() {
-		matrix = new Tile[3][3];
-		xOffset = -1;
-		yOffset = -1;
+		matrix = new TileImpl[3][3];
 		for(int i = 0; i <= 2; ++i) {
 			for(int j = 0; j <= 2; ++j) {
-				matrix[i][j] = new Tile(GrassTerrain.getInstance());		
+				matrix[i][j] = new TileImpl(GrassTerrain.getInstance(), i, j, 0);		
 			}
 		}
-		matrix[0][0].setEntity(new Entity());
+		avatar = new Entity();
+		matrix[0][0].setEntity(avatar);
+		avatar.setTile(matrix[0][0]);
 	}
 	
-	protected Tile defaultTile() {
-		return new Tile(WaterTerrain.getInstance());
+	protected Tile defaultTile(int x, int y, int z) {
+		return new TileImpl(WaterTerrain.getInstance(), x, y, z);
 	}
 	
-	public Tile getTile(int x, int y) {
-		int rx = x - xOffset;
-		int ry = y - yOffset;
+	private Tile getTile(int x, int y, int z) {
 		Tile ret;
-		if(ry < 0 || ry >= matrix.length || rx < 0 || rx >= matrix[0].length)
-			ret = defaultTile();
+		if(y < 0 || y >= matrix.length || x < 0 || x >= matrix[0].length || z != 0)
+			ret = defaultTile(x, y, z);
 		else
-			ret = matrix[ry][rx];
+			ret = matrix[x][y];
 		return ret;
+	}
+
+	public Entity getAvatar() {
+		return avatar;
 	}
 }
