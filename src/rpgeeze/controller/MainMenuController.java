@@ -7,6 +7,9 @@ import rpgeeze.dp.Iterator;
 import rpgeeze.view.CreditsView;
 import rpgeeze.view.MainMenuView;
 import rpgeeze.view.CharacterCreationView;
+import javax.swing.JFileChooser;
+import rpgeeze.util.GameFilter;
+import javax.swing.UIManager;
 
 /**
  * Controls the main menu screen.
@@ -32,6 +35,9 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 						getManager().pushState(ccv, ccc);
 						break;
 					case LOAD_GAME:
+						JFileChooser chooser = new JFileChooser(); 
+                        chooser.addChoosableFileFilter(new GameFilter());
+                        int status = chooser.showOpenDialog(null);
 						break;
 					case OPTIONS:
 						break;
@@ -48,6 +54,13 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 						break;			
 					}
 			}
+		}
+	}
+	{
+		try {
+			UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 }
