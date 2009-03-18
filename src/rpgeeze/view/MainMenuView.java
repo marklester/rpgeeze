@@ -4,13 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
 
-import javax.media.opengl.glu.GLU;
-
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Highlightable;
-import rpgeeze.gl.HighlightableSet;
 import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.TextRectangle;
@@ -33,8 +30,6 @@ public class MainMenuView extends HighlightableView {
 
 	private TexturedRectangle introImage;
 
-	private HighlightableSet buttons = new HighlightableSet();
-
 	public enum MainMenuButton {
 		NEW_GAME("New Game", 1, -10, 0),
 		LOAD_GAME("Load Game", 2, 0, 0),
@@ -54,12 +49,18 @@ public class MainMenuView extends HighlightableView {
 			this.y = y;
 		}
 
-		public Highlightable getButton() {
+		private TextRectangle getRectangle() {
 			TextRectangle rect = new TextRectangle(new Text(text, renderer, 0.05f), 10, 3);
 			rect.setGLName(glName);
 			rect.alignText(0.5, 0.5);
 			rect.setXY(x, y);
-			return new HighlightableWrapper(rect, PLAIN, HIGHLIGHTED);
+			if(this != NEW_GAME)
+				rect.getText().setY(NEW_GAME.getRectangle().getText().getY());
+			return rect;
+		}
+		
+		public Highlightable getButton() {
+			return new HighlightableWrapper(getRectangle(), PLAIN, HIGHLIGHTED);
 		}
 		
 		public static MainMenuButton fromGLName(int glName) {
@@ -72,62 +73,27 @@ public class MainMenuView extends HighlightableView {
 
 	public MainMenuView() {
 		ResourceLoader loader = ResourceLoader.getInstance();	
-		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -20);
+		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -15);
 		introImage.setColor(PLAIN);
 		for(MainMenuButton button: MainMenuButton.values())
-			buttons.put(button.getButton());
+			putHighlightable(button.getButton());
 	}
 
 	/**
 	 * Renders the main menu screen.
 	 */
 	public void render(Point point) {
-		GL gl = GL.getCurrent();
-		
-		gl.glShadeModel(GL.GL_SMOOTH);
-
-		// depth buffer
-		gl.glClearDepth(1.0f);
-		gl.glEnable(GL.GL_DEPTH_TEST);
-		gl.glDepthFunc(GL.GL_LEQUAL);
-
-		// textures and blending
-		gl.glEnable(GL.GL_BLEND);
+		GL gl = GL.getCurrent();		
+		gl.standardPrepare(point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
-
-		gl.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
-
-		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-
-		gl.glMatrixMode(GL.GL_PROJECTION);
-		gl.glLoadIdentity();
-		int[] vp = new int[4];
-		gl.glGetIntegerv(GL.GL_VIEWPORT, vp, 0);
-		GLU glu = new GLU();
-		if(point != null)
-			glu.gluPickMatrix((double) point.x, (double) (vp[3] - point.y), 1e-3, 1e-3, vp, 0);
-		double width = vp[2] <= 0 ? 1 : vp[2];
-		gl.glFrustum(-vp[2] / width, vp[2] / width, -vp[3] / width, vp[3] / width, 1, 128);
-		gl.glMatrixMode(GL.GL_MODELVIEW);		
-
 		gl.glClearColor(intensity, 0, 0, 1.0f);
-
-		gl.glLoadIdentity();
+		
 		introImage.render();
-
-		gl.glTranslated(-5, -7.5, -19);
-
-		buttons.render();
-
+		
+		gl.glTranslated(-5, -9.5, -14.5);
+		renderHighlightables();
+		
 		gl.glFlush();
-	}
-
-	public void highlight(int glName) {
-		buttons.highlight(glName);
-	}
-	
-	public void unhighlight() {
-		buttons.unhighlight();
 	}
 
 	/**
