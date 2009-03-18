@@ -7,7 +7,7 @@ import rpgeeze.dp.Iterator;
 import rpgeeze.view.CreditsView;
 import rpgeeze.view.MainMenuView;
 import rpgeeze.view.MainMenuView.MainMenuButton;
-import rpgeeze.view.OccupationSelectionView;
+import rpgeeze.view.CharacterCreationView;
 
 /**
  * Controls the main menu screen.
@@ -31,9 +31,9 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 			if(button != null)
 				switch(	button) {
 				case NEW_GAME:
-					OccupationSelectionView osv = new OccupationSelectionView();
-					NewGameController ngc = new NewGameController(getManager(), osv);
-					getManager().pushState(osv, ngc);
+					CharacterCreationView ccv = new CharacterCreationView();
+					CharacterCreationController ccc = new CharacterCreationController(getManager(), ccv);
+					getManager().pushState(ccv, ccc);
 					break;
 				case LOAD_GAME:
 					break;

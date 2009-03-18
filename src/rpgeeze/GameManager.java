@@ -54,7 +54,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 		this.frame = frame;
 		frame.setBackground(Color.BLACK);
 		frame.enableInputMethods(false);
+		frame.setFocusTraversalKeysEnabled(false);
 		canvas = new GLCanvas();
+		canvas.setFocusTraversalKeysEnabled(false);
 		frame.add(canvas);
 		animator = new FPSAnimator(canvas, RunGame.GOAL_FPS);
 	}
