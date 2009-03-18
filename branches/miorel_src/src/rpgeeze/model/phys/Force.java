@@ -1,4 +1,4 @@
-package rpgeeze.phys;
+package rpgeeze.model.phys;
 
 import rpgeeze.math.Vector;
 import rpgeeze.model.Entity;
@@ -14,7 +14,7 @@ public abstract class Force implements AreaEffect, Vector {
 	}
 	
 	public final void doApply(GameObject object) {
-		// simply add self to object's acceleration
+		// simply add self / object's mass to object's acceleration
 		// some physics engine will then update velocities and positions
 	}
 }
