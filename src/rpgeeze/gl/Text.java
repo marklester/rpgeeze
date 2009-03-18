@@ -7,7 +7,7 @@ import com.sun.opengl.util.j2d.TextRenderer;
 import com.sun.opengl.util.j2d.TextRenderer.DefaultRenderDelegate;
 import com.sun.opengl.util.j2d.TextRenderer.RenderDelegate;
 
-public class Text extends ConcreteGLObject {
+public class Text extends GLObjectImpl {
 	private String text;
 	private TextRenderer renderer;
 	private float scaleFactor;

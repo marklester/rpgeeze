@@ -1,6 +1,6 @@
 package rpgeeze.model.item;
 
-public abstract class OneShotItem extends Item {
+public abstract class OneShotItem implements Item {
 	/* 
 	 *  activate() will do whatever this item is supposed to do when it comes in contact with the entity
 	 *  

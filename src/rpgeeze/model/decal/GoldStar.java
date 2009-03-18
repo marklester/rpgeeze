@@ -1,4 +1,4 @@
 package rpgeeze.model.decal;
 
-public class GoldStar extends Decal {
+public class GoldStar implements Decal {
 }
