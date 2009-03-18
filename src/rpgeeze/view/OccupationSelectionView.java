@@ -1,11 +1,13 @@
 package rpgeeze.view;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.gl.GL;
+import rpgeeze.gl.GLObject;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
@@ -22,33 +24,52 @@ public class OccupationSelectionView extends HighlightableView {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	
 	public enum OccupationSelectionButton {
-		OK("OK", 1, -5, -3),
-		CANCEL("Cancel", 2, 5, -3);
-
-		private final String text;
+		OK(1) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("OK", -10, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		CANCEL(2) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("Cancel", 0, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		LEFT_ARROW(3) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(new Triangle(new Vector(0, 0), new Vector(0, 8), new Vector(-2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED); 
+			}
+		},
+		RIGHT_ARROW(4) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(new Triangle(new Vector(0, 0), new Vector(0, 8), new Vector(2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+			}
+		};
+		
 		private final int glName;
-		private final double x, y;
-
-		private OccupationSelectionButton(String text, int glName, double x, double y) {
-			this.text = text;
+		private Highlightable button;
+		
+		private OccupationSelectionButton(int glName) {
 			this.glName = glName;
-			this.x = x;
-			this.y = y;
 		}
-
-		private TextRectangle getRectangle() {
+		
+		private static TextRectangle getRectangle(String text, double x, double y) {
 			TextRectangle rect = new TextRectangle(new Text(text, renderer, 0.05f), 10, 3);
-			rect.setGLName(glName);
 			rect.alignText(0.5, 0.5);
 			rect.setXY(x, y);
-			if(this != OK)
-				rect.getText().setY(OK.getRectangle().getText().getY());
+			if(!text.equals("OK"))
+				rect.getText().setY(getRectangle("OK", 0, 0).getText().getY());
 			return rect;
 		}
 		
 		public Highlightable getButton() {
-			return new HighlightableWrapper(getRectangle(), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			if(button == null) {
+				button = doGetButton();
+				button.setGLName(glName);
+			}
+			return button;
 		}
+		
+		public abstract Highlightable doGetButton();
 		
 		public static OccupationSelectionButton fromGLName(int glName) {
 			for(OccupationSelectionButton button: values())
@@ -79,9 +100,17 @@ public class OccupationSelectionView extends HighlightableView {
 		gl.glClearColor(MainMenuView.MAX_INTENSITY, 0, 0, 1.0f);
 		
 		introImage.render();
+	
+		Highlightable leftArrow = OccupationSelectionButton.LEFT_ARROW.getButton();
+		leftArrow.setXY(-14.5 * gl.getViewportAspectRatio() + 3, 8);
+		putHighlightable(leftArrow);
+
+		Highlightable rightArrow = OccupationSelectionButton.RIGHT_ARROW.getButton();
+		rightArrow.setXY(14.5 * gl.getViewportAspectRatio() - 3, 8);
+		putHighlightable(rightArrow);
 		
-		gl.glTranslated(-5, -9.5, -14.5);
-		renderHighlightables();
+		gl.glTranslated(0, -9.5, -14.5);
+		renderHighlightables();		
 		
 		gl.glFlush();
 	}

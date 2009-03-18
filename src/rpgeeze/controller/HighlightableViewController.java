@@ -38,6 +38,7 @@ public abstract class HighlightableViewController<T extends HighlightableView> e
 	}
 	
 	private void highlight(Point p) {
+		getView().unhighlight();
 		Iterator<Integer> iter = getView().pick(p);
 		iter.reset();
 		for(iter.reset(); !iter.isDone(); iter.advance())

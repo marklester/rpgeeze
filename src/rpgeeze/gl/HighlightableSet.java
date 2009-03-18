@@ -6,23 +6,25 @@ public class HighlightableSet {
 	private HashMap<Integer, Highlightable> hashMap = new HashMap<Integer, Highlightable>();
 	private Highlightable highlighted;
 	
-	public void put(Highlightable highlightable) {
+	public synchronized void put(Highlightable highlightable) {
 		highlightable = highlightable.clone();
 		highlightable.unhighlight();
 		hashMap.put(highlightable.getGLName(), highlightable);
+		if(highlighted != null)
+			highlight(highlighted.getGLName());
 	}
 	
-	public void remove(int glName) {
+	public synchronized void remove(int glName) {
 		Highlightable removed = hashMap.remove(glName);
 		if(highlighted == removed)
 			highlighted = null;
 	}
 	
-	private Highlightable get(int glName) {
+	private synchronized Highlightable get(int glName) {
 		return hashMap.get(glName);
 	}
 	
-	public void highlight(int glName) {
+	public synchronized void highlight(int glName) {
 		unhighlight();
 		Highlightable h = get(glName);
 		if(h != null)
@@ -30,12 +32,13 @@ public class HighlightableSet {
 		highlighted = h;
 	}
 	
-	public void unhighlight() {
+	public synchronized void unhighlight() {
 		if(highlighted != null)
 			highlighted.unhighlight();
+		highlighted = null;
 	}
 	
-	public void render() {
+	public synchronized void render() {
 		for(Highlightable h: hashMap.values())
 			h.render();
 	}
