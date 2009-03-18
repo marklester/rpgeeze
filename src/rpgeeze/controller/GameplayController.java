@@ -7,8 +7,7 @@ import rpgeeze.util.SimpleMovingAverageTimer;
 import rpgeeze.util.Timer;
 import rpgeeze.view.GameplayView;
 
-public class GameplayController extends Controller {
-	private GameplayView view;
+public class GameplayController extends Controller<GameplayView> {
 	private MouseEvent prev = null;
 	
 	private Timer fpsTimer = new SimpleMovingAverageTimer();
@@ -16,12 +15,12 @@ public class GameplayController extends Controller {
 	private double ZOOM_STEP = 0.025;
 	
 	public GameplayController(GameManager manager, GameplayView view) {
-		super(manager);
-		this.view = view;
+		super(manager, view);
 	}
 	
 	public void idleCycle() {
 		fpsTimer.mark();
+		GameplayView view = getView();
 		view.setFpsText(String.format("FPS: %.1f", fpsTimer.marksPerSecond()));
 		view.changeIntensity(0.01f);
 	}
@@ -38,7 +37,7 @@ public class GameplayController extends Controller {
 	public void mouseDragged(MouseEvent e) {
 		if(prev != null) {
 			double dy = e.getPoint().getY() - prev.getPoint().getY();
-			view.zoom(dy * ZOOM_STEP);
+			getView().zoom(dy * ZOOM_STEP);
 			prev = e;
 		}
 	}

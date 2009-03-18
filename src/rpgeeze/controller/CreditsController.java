@@ -5,13 +5,11 @@ import java.awt.event.KeyEvent;
 import rpgeeze.GameManager;
 import rpgeeze.view.CreditsView;
 
-public class CreditsController extends Controller {
-	private CreditsView view;
+public class CreditsController extends Controller<CreditsView> {
 	private int frames = 0;
 	
 	public CreditsController(GameManager manager, CreditsView view) {
-		super(manager);
-		this.view = view;
+		super(manager, view);
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -23,7 +21,7 @@ public class CreditsController extends Controller {
 		++frames;
 		if(frames >= 160) {
 			frames = 0;
-			view.nextDeveloper();
+			getView().nextDeveloper();
 		}
 	}
 }

@@ -3,16 +3,12 @@ package rpgeeze.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
-import java.awt.geom.Rectangle2D;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GLContext;
 import javax.media.opengl.glu.GLU;
 
 import com.sun.opengl.util.j2d.TextRenderer;
-import com.sun.opengl.util.j2d.TextRenderer.DefaultRenderDelegate;
-import com.sun.opengl.util.j2d.TextRenderer.RenderDelegate;
 
+import rpgeeze.gl.GL;
 import rpgeeze.gl.Rectangle;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.TextRectangle;
@@ -20,12 +16,11 @@ import rpgeeze.gl.TexturedRectangle;
 import rpgeeze.gl.Triangle;
 import rpgeeze.math.Vector;
 import rpgeeze.util.ResourceLoader;
-import rpgeeze.view.MainMenuView.MainMenuButton;
 
 /**
  * The occupation selection screen.
  */
-public class OccupationSelectionView extends View {
+public class OccupationSelectionView extends HighlightableView {
 	private static final Font font = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	private static final TextRenderer renderer = new TextRenderer(font, true, true);
 	
@@ -45,7 +40,7 @@ public class OccupationSelectionView extends View {
 		private OccupationSelectionButton(String text, int glName) {
 			this.glName = glName;
 			this.rect = new TextRectangle(new Text(text, renderer, 0.05f), 10, 3);
-			this.rect.setName(glName);
+			this.rect.setGLName(glName);
 			this.rect.setColor(NORMAL);
 			this.rect.alignText(0.5, 0.5);
 		}
@@ -80,13 +75,19 @@ public class OccupationSelectionView extends View {
 		
 		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -20);
 		introImage.setColor(NORMAL);
+		
+//	    leftArrow = new Triangle(new Vector(-14, 0, -20), new Vector(-14, 5, -20), new Vector(-16, 2.5, -20));
+//	    leftArrow.setName(LEFT_ARROW);
+	    
+//	    rightArrow = new Triangle(new Vector(14, 0, -20), new Vector(14, 5, -20), new Vector(16, 2.5, -20));
+//	    rightArrow.setName(RIGHT_ARROW);
 	}
 
 	/**
 	 * Renders the main menu screen.
 	 */
 	public void render(Point point) {
-		GL gl = GLContext.getCurrent().getGL();
+		GL gl = GL.getCurrent();
 
 		gl.glShadeModel(GL.GL_SMOOTH);
 
@@ -128,6 +129,14 @@ public class OccupationSelectionView extends View {
 		gl.glFlush();
 	}
 
+	public void highlight(int glName) {
+		//buttons.highlight(glName);
+	}
+	
+	public void unhighlight() {
+		//buttons.unhighlight();
+	}
+	
 	/**
 	 * Sets the button to be highlighted. Call with a value of zero to clear highlighting of all buttons. 
 	 * 
@@ -144,8 +153,7 @@ public class OccupationSelectionView extends View {
 	public void changeFrom() {
 		setHighlightedButton(0);
 	}
-	
-	
+		
 	public void changeTo() {
 		setHighlightedButton(0);
 	}

@@ -1,8 +1,5 @@
 package rpgeeze.gl;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
-
 public class TextRectangle extends Rectangle {
 	private Text text;
 
@@ -10,7 +7,7 @@ public class TextRectangle extends Rectangle {
 		super(width, height, x, y, z);
 		this.text = text.clone();
 		this.text.setXYZ(0, 0, 0);
-		this.text.setNameless();
+		this.text.removeGLName();
 	}
 
 	public TextRectangle(Text text, double width, double height) {
@@ -26,7 +23,7 @@ public class TextRectangle extends Rectangle {
 	}
 	
 	public void doRender() {
-		GL gl = GLU.getCurrentGL();
+		GL gl = GL.getCurrent();
 		gl.glBegin(GL.GL_QUADS);
 		gl.glVertex2d(0, getHeight());
 		gl.glVertex2i(0, 0);
@@ -34,5 +31,9 @@ public class TextRectangle extends Rectangle {
 		gl.glVertex2d(getWidth(), getHeight());
 		gl.glEnd();
 		text.render();
+	}
+	
+	public TextRectangle clone() {
+		return (TextRectangle) super.clone();
 	}
 }

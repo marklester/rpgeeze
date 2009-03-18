@@ -1,9 +1,6 @@
 package rpgeeze.gl;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
-
-public class Rectangle extends GLObject {
+public class Rectangle extends ConcreteGLObject {
 	private double width;
 	private double height;
 
@@ -39,7 +36,7 @@ public class Rectangle extends GLObject {
 	}
 	
 	protected void doRender() {
-		GL gl = GLU.getCurrentGL();
+		GL gl = GL.getCurrent();
 		gl.glBegin(GL.GL_QUADS);
 		gl.glTranslated(getX(), getY(), getZ());
         gl.glVertex2d(0, getHeight());

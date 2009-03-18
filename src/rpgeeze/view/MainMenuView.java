@@ -4,13 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GLContext;
 import javax.media.opengl.glu.GLU;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
-import rpgeeze.gl.Rectangle;
+import rpgeeze.gl.GL;
+import rpgeeze.gl.Highlightable;
+import rpgeeze.gl.HighlightableSet;
+import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.TextRectangle;
 import rpgeeze.gl.TexturedRectangle;
@@ -19,82 +20,70 @@ import rpgeeze.util.ResourceLoader;
 /**
  * The main menu screen.
  */
-public class MainMenuView extends View {
-	private static final Font font = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.PLAIN, 36);
-	private static final TextRenderer renderer = new TextRenderer(font, true, true);
-	
-	public enum MainMenuButton {
-		NEW_GAME("New Game", 1),
-		LOAD_GAME("Load Game", 2),
-		OPTIONS("Options", 3),
-		HELP("Help", 4),
-		CREDITS("Credits", 5),
-		QUIT("Quit", 6);
-
-		private final int glName;
-		private final TextRectangle rect;
-
-		static {
-			for(MainMenuButton button: values()) {
-				button.rect.getText().setY(NEW_GAME.rect.getText().getY());
-			}
-		}
-		
-		private MainMenuButton(String text, int glName) {
-			this.glName = glName;
-			this.rect = new TextRectangle(new Text(text, renderer, 0.05f), 10, 3);
-			this.rect.setName(glName);
-			this.rect.setColor(NORMAL);
-			this.rect.alignText(0.5, 0.5);
-		}
-	
-		public Rectangle getRectangle() {
-			return rect;
-		}
-		
-		public static MainMenuButton fromGLName(int name) {
-			MainMenuButton ret = null;
-			for(MainMenuButton button: values())
-				if(button.glName == name) {
-					ret = button;
-					break;
-				}
-			return ret;
-		}
-	}
-
-	private MainMenuButton highlighted = null;
-
-	private static final Color NORMAL = new Color(1.0f, 1.0f, 1.0f, 0.0f);
-	private static final Color HIGHLIGHTED = new Color(1.0f, 1.0f, 1.0f, 0.25f);
+public class MainMenuView extends HighlightableView {
+	public static final Color PLAIN = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+	public static final Color HIGHLIGHTED = new Color(1.0f, 1.0f, 1.0f, 0.25f);
 
 	public final static float MIN_INTENSITY = 0.0f;
 	public final static float MAX_INTENSITY = 0.75f;
+
+	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 
 	private float intensity = MIN_INTENSITY;
 
 	private TexturedRectangle introImage;
 
-	public MainMenuView() {
-		ResourceLoader loader = ResourceLoader.getInstance();
+	private HighlightableSet buttons = new HighlightableSet();
 
-		MainMenuButton.NEW_GAME.getRectangle().setXY(-10, 0);
-		MainMenuButton.LOAD_GAME.getRectangle().setXY(0, 0);
-		MainMenuButton.OPTIONS.getRectangle().setXY(10, 0);
-		MainMenuButton.HELP.getRectangle().setXY(-10, -3);
-		MainMenuButton.CREDITS.getRectangle().setXY(0, -3);
-		MainMenuButton.QUIT.getRectangle().setXY(10, -3);
+	public enum MainMenuButton {
+		NEW_GAME("New Game", 1, -10, 0),
+		LOAD_GAME("Load Game", 2, 0, 0),
+		OPTIONS("Options", 3, 10, 0),
+		HELP("Help", 4, -10, -3),
+		CREDITS("Credits", 5, 0, -3),
+		QUIT("Quit", 6, 10, -3);
+
+		private final String text;
+		private final int glName;
+		private final double x, y;
+
+		private MainMenuButton(String text, int glName, double x, double y) {
+			this.text = text;
+			this.glName = glName;
+			this.x = x;
+			this.y = y;
+		}
+
+		public Highlightable getButton() {
+			TextRectangle rect = new TextRectangle(new Text(text, renderer, 0.05f), 10, 3);
+			rect.setGLName(glName);
+			rect.alignText(0.5, 0.5);
+			rect.setXY(x, y);
+			return new HighlightableWrapper(rect, PLAIN, HIGHLIGHTED);
+		}
 		
+		public static MainMenuButton fromGLName(int glName) {
+			for(MainMenuButton button: values())
+				if(button.glName == glName)
+					return button;
+			return null;
+		}
+	}
+
+	public MainMenuView() {
+		ResourceLoader loader = ResourceLoader.getInstance();	
 		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -20);
-		introImage.setColor(NORMAL);
+		introImage.setColor(PLAIN);
+		for(MainMenuButton button: MainMenuButton.values())
+			buttons.put(button.getButton());
 	}
 
 	/**
 	 * Renders the main menu screen.
 	 */
 	public void render(Point point) {
-		GL gl = GLContext.getCurrent().getGL();
-
+		GL gl = GL.getCurrent();
+		
 		gl.glShadeModel(GL.GL_SMOOTH);
 
 		// depth buffer
@@ -103,7 +92,6 @@ public class MainMenuView extends View {
 		gl.glDepthFunc(GL.GL_LEQUAL);
 
 		// textures and blending
-		gl.glEnable(GL.GL_TEXTURE_2D);
 		gl.glEnable(GL.GL_BLEND);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 
@@ -129,23 +117,17 @@ public class MainMenuView extends View {
 
 		gl.glTranslated(-5, -7.5, -19);
 
-		for(MainMenuButton button: MainMenuButton.values())
-			button.getRectangle().render();
+		buttons.render();
 
 		gl.glFlush();
 	}
 
-	/**
-	 * Sets the button to be highlighted. Call with a value of zero to clear highlighting of all buttons. 
-	 * 
-	 * @param id identifier corresponding to the button to highlight
-	 */
-	public void setHighlightedButton(int id) {
-		if(highlighted != null)
-			highlighted.getRectangle().setColor(NORMAL);
-		highlighted = MainMenuButton.fromGLName(id);
-		if(highlighted != null)
-			highlighted.getRectangle().setColor(HIGHLIGHTED);
+	public void highlight(int glName) {
+		buttons.highlight(glName);
+	}
+	
+	public void unhighlight() {
+		buttons.unhighlight();
 	}
 
 	/**
@@ -162,11 +144,7 @@ public class MainMenuView extends View {
 	}
 
 	public void changeFrom() {
-		setHighlightedButton(0);
+		super.changeFrom();
 		intensity = MAX_INTENSITY;
-	}
-	
-	public void changeTo() {
-		setHighlightedButton(0);
 	}
 }
