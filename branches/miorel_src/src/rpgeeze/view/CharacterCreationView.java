@@ -17,7 +17,7 @@ import rpgeeze.gl.Text;
 import rpgeeze.gl.TextRectangle;
 import rpgeeze.gl.TexturedRectangle;
 import rpgeeze.gl.Triangle;
-import rpgeeze.math.Vector;
+import rpgeeze.math.VectorImpl;
 import rpgeeze.util.ResourceLoader;
 
 /**
@@ -39,12 +39,12 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 		},
 		LEFT_ARROW(3) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new Vector(0, 0), new Vector(0, 8), new Vector(-2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED); 
+				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 8), new VectorImpl(-2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED); 
 			}
 		},
 		RIGHT_ARROW(4) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new Vector(0, 0), new Vector(0, 8), new Vector(2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 8), new VectorImpl(2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		};
 		

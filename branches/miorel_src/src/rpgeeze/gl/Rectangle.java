@@ -1,6 +1,6 @@
 package rpgeeze.gl;
 
-public class Rectangle extends ConcreteGLObject {
+public class Rectangle extends GLObjectImpl {
 	private double width;
 	private double height;
 

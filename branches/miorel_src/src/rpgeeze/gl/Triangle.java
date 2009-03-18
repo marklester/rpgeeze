@@ -2,7 +2,7 @@ package rpgeeze.gl;
 
 import rpgeeze.math.Vector;
 
-public class Triangle extends ConcreteGLObject {
+public class Triangle extends GLObjectImpl {
 	private final Vector[] vertex;
 	
 	public Triangle(Vector v0, Vector v1, Vector v2) {

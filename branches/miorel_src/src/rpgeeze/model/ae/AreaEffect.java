@@ -2,6 +2,6 @@ package rpgeeze.model.ae;
 
 import rpgeeze.model.Entity;
 
-public abstract class AreaEffect {
-	public abstract void apply(Entity entity);
+public interface AreaEffect {
+	public void apply(Entity entity);
 }

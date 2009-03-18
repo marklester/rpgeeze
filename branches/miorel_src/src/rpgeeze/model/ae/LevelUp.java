@@ -2,7 +2,7 @@ package rpgeeze.model.ae;
 
 import rpgeeze.model.Entity;
 
-public class LevelUp extends AreaEffect {
+public class LevelUp implements AreaEffect {
 	public void apply(Entity entity) {
 		// gain a level
 		

@@ -2,26 +2,26 @@ package rpgeeze.gl;
 
 import java.awt.Color;
 
-public abstract class ConcreteGLObject implements Colorable {
+public abstract class GLObjectImpl implements Colorable {
 	private double x, y, z;
 	private Color color;
 	private int glName = -1;
 	private boolean hasName = false;
 	private boolean visible = true;
 
-	public ConcreteGLObject() {
+	public GLObjectImpl() {
 		this(0, 0, 0, null);
 	}
 
-	public ConcreteGLObject(Color color) {
+	public GLObjectImpl(Color color) {
 		this(0, 0, 0, color);
 	}
 
-	public ConcreteGLObject(double x, double y, double z) {
+	public GLObjectImpl(double x, double y, double z) {
 		this(x, y, z, null);
 	}	
 
-	public ConcreteGLObject(double x, double y, double z, Color color) {
+	public GLObjectImpl(double x, double y, double z, Color color) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -112,10 +112,10 @@ public abstract class ConcreteGLObject implements Colorable {
 		visible = vis;
 	}
 
-	public ConcreteGLObject clone() {
-		ConcreteGLObject ret = null;
+	public GLObjectImpl clone() {
+		GLObjectImpl ret = null;
 		try {
-			ret = (ConcreteGLObject) super.clone();
+			ret = (GLObjectImpl) super.clone();
 		}
 		catch (CloneNotSupportedException e) {
 		}
