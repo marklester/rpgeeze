@@ -3,11 +3,14 @@ package rpgeeze.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.gl.GL;
-import rpgeeze.gl.GLObject;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
@@ -20,7 +23,7 @@ import rpgeeze.util.ResourceLoader;
 /**
  * The occupation selection screen.
  */
-public class OccupationSelectionView extends HighlightableView {
+public class CharacterCreationView extends HighlightableView {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	
 	public enum OccupationSelectionButton {
@@ -80,8 +83,11 @@ public class OccupationSelectionView extends HighlightableView {
 	}	
 	
 	private TexturedRectangle introImage;
-
-	public OccupationSelectionView() {
+	private String characterName;
+	private static final String[] occupation = {"Smasher", "Summoner", "Sneak"};
+	private int occP;
+	
+	public CharacterCreationView() {
 		ResourceLoader loader = ResourceLoader.getInstance();
 		
 		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -15);
@@ -111,7 +117,46 @@ public class OccupationSelectionView extends HighlightableView {
 		
 		gl.glTranslated(0, -9.5, -14.5);
 		renderHighlightables();		
+		gl.glLoadName(-1);
+		
+		// silly K's...
+		String title = (characterName + " the " + occupation[occP]).replaceAll("k", "K");
+		Text characterTitle = new Text(title, renderer, 0.075f);
+		characterTitle.setXY(-characterTitle.getWidth() / 2, 1);
+		characterTitle.render();
 		
 		gl.glFlush();
+	}
+	
+	public void nextOccupation() {
+		occP = (occP + 1) % occupation.length;
+	}
+	
+	public void previousOccupation() {
+		occP = (occP - 1 + occupation.length) % occupation.length;
+	}
+	
+	public void randomName() {
+		Scanner s = new Scanner(ResourceLoader.getInstance().getStream("txt/names.txt"));
+		List<String> names = new ArrayList<String>();
+		while(s.hasNextLine())
+			names.add(s.nextLine());
+		Random rnd = new Random();
+		String newName;
+		while((newName = names.get(rnd.nextInt(names.size()))).equals(characterName));
+		setCharacterName(newName);
+	}
+	
+	public String getCharacterName() {
+		return characterName;
+	}
+	
+	public void setCharacterName(String newName) {
+		characterName = newName;
+	}
+	
+	public void changeTo() {
+		super.changeTo();
+		randomName();
 	}
 }
