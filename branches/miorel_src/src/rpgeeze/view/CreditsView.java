@@ -32,13 +32,13 @@ public class CreditsView extends View<CreditsView.State> {
 	
 	private int frames;
 	
-	public enum State implements rpgeeze.dp.State { NORMAL, HIDDEN; }
+	public enum State implements rpgeeze.dp.State { NEW, NORMAL, HIDDEN; }
 	
 	public CreditsView() {
 		Scanner s = new Scanner(ResourceLoader.getInstance().getStream("txt/developers.txt"));
 		while(s.hasNextLine()) // lowercase k looks silly in this font so replace it
 			developers.add(s.nextLine().replaceAll("k", "K"));
-		changeState(State.HIDDEN);
+		changeState(State.NEW);
 	}
 	
 	public void render(Point point) {

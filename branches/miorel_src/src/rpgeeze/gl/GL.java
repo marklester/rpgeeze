@@ -44,13 +44,9 @@ public class GL extends DelegatingGL {
 		return (double) getViewportWidth() / getViewportHeight();
 	}
 	
-	public void pickMatrix(Point point) {
-		pickMatrix(point.x, point.y);
-	}
-	
 	public void pickMatrix(double x, double y) {
 		GLU glu = new GLU();
-		glu.gluPickMatrix(x, getViewportHeight() - y, 1e-3, 1e-3, getViewportDimensionsAsArray(), 0);
+		glu.gluPickMatrix(x, y, 1e-3, 1e-3, getViewportDimensionsAsArray(), 0);
 	}
 	
 	public void standardPrepare(Point point) {
@@ -71,7 +67,7 @@ public class GL extends DelegatingGL {
 		glMatrixMode(GL.GL_PROJECTION);
 		glLoadIdentity();
 		if(point != null)
-			pickMatrix(point);
+			pickMatrix(point.getX(), getViewportHeight() - point.getY());
 		
 		double aspectRatio = getViewportAspectRatio();
 		glFrustum(-aspectRatio, aspectRatio, -1, 1, 1, 128);

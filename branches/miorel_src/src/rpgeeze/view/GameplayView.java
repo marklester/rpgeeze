@@ -113,13 +113,11 @@ public class GameplayView extends View<GameplayView.State> {
 	}
 
 	public void changeFrom() {
-		super.changeFrom();
 		fpsTimer.stop();
 		changeState(State.HIDDEN);
 	}
 
 	public void changeTo() {
-		super.changeTo();
 		fpsTimer.start();
 		if(getState() == State.NEW)
 			changeState(State.FADING_IN);
