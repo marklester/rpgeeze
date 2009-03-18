@@ -8,7 +8,7 @@ import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.view.HighlightableView;
 
-public abstract class HighlightableViewController<T extends HighlightableView> extends Controller<T> {
+public abstract class HighlightableViewController<T extends HighlightableView<?>> extends Controller<T> {
 	public HighlightableViewController(GameManager manager, T view) {
 		super(manager, view);
 	}

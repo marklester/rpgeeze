@@ -23,10 +23,10 @@ import rpgeeze.util.ResourceLoader;
 /**
  * The occupation selection screen.
  */
-public class CharacterCreationView extends HighlightableView {
+public class CharacterCreationView extends HighlightableView<CharacterCreationView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	
-	public enum OccupationSelectionButton {
+	public enum Button {
 		OK(1) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(getRectangle("OK", -10, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
@@ -51,7 +51,7 @@ public class CharacterCreationView extends HighlightableView {
 		private final int glName;
 		private Highlightable button;
 		
-		private OccupationSelectionButton(int glName) {
+		private Button(int glName) {
 			this.glName = glName;
 		}
 		
@@ -74,25 +74,28 @@ public class CharacterCreationView extends HighlightableView {
 		
 		public abstract Highlightable doGetButton();
 		
-		public static OccupationSelectionButton fromGLName(int glName) {
-			for(OccupationSelectionButton button: values())
+		public static Button fromGLName(int glName) {
+			for(Button button: values())
 				if(button.glName == glName)
 					return button;
 			return null;
 		}
 	}	
 	
+	public enum State implements rpgeeze.dp.State { HIDDEN, NORMAL, ZOOMING, ZOOMED; }
+	
 	private String characterName;
-	private static final String[] occupation = {"Smasher", "Summoner", "Sneak"};
-	private static final TexturedRectangle[] occupationImage = {
-		new TexturedRectangle(ResourceLoader.getInstance().getTexture("occupation/smasher.png"), 25, 25, -12.5, -8, -15),
-		new TexturedRectangle(ResourceLoader.getInstance().getTexture("occupation/summoner.png"), 25, 25, -12.5, -8, -15),
-		new TexturedRectangle(ResourceLoader.getInstance().getTexture("occupation/sneak.png"), 25, 25, -12.5, -8, -15),
+	private final String[] occupation = {"Smasher", "Summoner", "Sneak"};
+	private final TexturedRectangle[] occupationImage = {
+		new TexturedRectangle(ResourceLoader.getInstance().getTexture("occupation/smasher.png"), 100, 100),
+		new TexturedRectangle(ResourceLoader.getInstance().getTexture("occupation/summoner.png"), 100, 100),
+		new TexturedRectangle(ResourceLoader.getInstance().getTexture("occupation/sneak.png"), 100, 100),
 	};
 	private int occP;
 	
-	private double ZOOM_MIN = -14.5;
-	private double ZOOM_MAX = -2;
+	private static final double ZOOM_MIN = -60;
+	private static final double ZOOM_MAX = -1.1;
+	private static final double ZOOM_STEP = 0.25; 
 	private double zoom = ZOOM_MIN;
 	
 	public CharacterCreationView() {
@@ -100,8 +103,9 @@ public class CharacterCreationView extends HighlightableView {
 			rect.setColor(MainMenuView.PLAIN);
 			rect.setVisible(false);
 		}
-		for(OccupationSelectionButton button: OccupationSelectionButton.values())
+		for(Button button: Button.values())
 			putHighlightable(button.getButton());
+		changeState(State.HIDDEN);
 	}
 
 	/**
@@ -113,26 +117,46 @@ public class CharacterCreationView extends HighlightableView {
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		gl.glClearColor(MainMenuView.MAX_INTENSITY, 0, 0, 1.0f);
 		
+		gl.glTranslated(0, 0, zoom);
 		for(TexturedRectangle rect: occupationImage)
 			rect.render();
-	
-		Highlightable leftArrow = OccupationSelectionButton.LEFT_ARROW.getButton();
-		leftArrow.setXY(-14.5 * gl.getViewportAspectRatio() + 3, 8);
-		putHighlightable(leftArrow);
+			
+		switch(getState()) {
+		case NORMAL:
+			gl.glLoadIdentity();
+			gl.glTranslated(0, -9.5, -14.5);
+			
+			Highlightable leftArrow = Button.LEFT_ARROW.getButton();
+			leftArrow.setXY(-14.5 * gl.getViewportAspectRatio() + 3, 8);
+			putHighlightable(leftArrow);
 
-		Highlightable rightArrow = OccupationSelectionButton.RIGHT_ARROW.getButton();
-		rightArrow.setXY(14.5 * gl.getViewportAspectRatio() - 3, 8);
-		putHighlightable(rightArrow);
-		
-		gl.glTranslated(0, -9.5, zoom);
-		renderHighlightables();		
-		gl.glLoadName(-1);
-		
-		// silly K's...
-		String title = (characterName + " the " + occupation[occP]).replaceAll("k", "K");
-		Text characterTitle = new Text(title, renderer, 0.075f);
-		characterTitle.setXY(-characterTitle.getWidth() / 2, 1);
-		characterTitle.render();
+			Highlightable rightArrow = Button.RIGHT_ARROW.getButton();
+			rightArrow.setXY(14.5 * gl.getViewportAspectRatio() - 3, 8);
+			putHighlightable(rightArrow);
+			
+			renderHighlightables();
+			gl.glLoadName(-1);
+			
+			// silly K's...
+			String title = (characterName + " the " + occupation[occP]).replaceAll("k", "K");
+			Text characterTitle = new Text(title, renderer, 0.075f);
+			characterTitle.setXY(-characterTitle.getWidth() / 2, 1);
+			characterTitle.render();
+			
+			break;
+		case ZOOMING:
+			if(point == null) {
+				zoom += ZOOM_STEP;
+				occupationImage[occP].setY(occupationImage[occP].getY() + ZOOM_STEP * 18 / (ZOOM_MIN - ZOOM_MAX));
+				if(zoom > ZOOM_MAX) {
+					zoom = ZOOM_MAX;
+					changeState(State.ZOOMED);
+				}
+			}
+			break;
+		case ZOOMED:
+			break;
+		}
 		
 		gl.glFlush();
 	}
@@ -175,5 +199,14 @@ public class CharacterCreationView extends HighlightableView {
 		Random rnd = new Random();
 		setOccupation(rnd.nextInt(occupation.length));
 		randomName();
+		zoom = ZOOM_MIN;
+		for(TexturedRectangle rect: occupationImage)
+			rect.setXYZ(-50, -32, 0);
+		changeState(State.NORMAL);
+	}
+	
+	public void startZoom() {
+		if(getState() != State.ZOOMING && getState() != State.ZOOMED)
+			changeState(State.ZOOMING);
 	}
 }

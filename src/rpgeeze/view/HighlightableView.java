@@ -1,9 +1,10 @@
 package rpgeeze.view;
 
+import rpgeeze.dp.State;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableSet;
 
-public abstract class HighlightableView extends View {
+public abstract class HighlightableView<T extends State> extends View<T> {
 	private HighlightableSet highlightables = new HighlightableSet();
 		
 	public void changeFrom() {

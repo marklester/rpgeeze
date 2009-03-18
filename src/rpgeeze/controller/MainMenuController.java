@@ -6,7 +6,6 @@ import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.view.CreditsView;
 import rpgeeze.view.MainMenuView;
-import rpgeeze.view.MainMenuView.MainMenuButton;
 import rpgeeze.view.CharacterCreationView;
 
 /**
@@ -17,10 +16,6 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 		super(manager, view);
 	}
 
-	public void idleCycle() {
-		getView().changeIntensity(0.01f);
-	}
-
 	/**
 	 * Executes the action corresponding to the clicked button, if any.
 	 */
@@ -28,7 +23,7 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 		if(e.getButton() == MouseEvent.BUTTON1) {
 			Iterator<Integer> iter = getView().pick(e.getPoint());
 			for(iter.reset(); !iter.isDone(); iter.advance()) {
-				MainMenuButton button = MainMenuButton.fromGLName(iter.current());
+				MainMenuView.Button button = MainMenuView.Button.fromGLName(iter.current());
 				if(button != null)
 					switch(	button) {
 					case NEW_GAME:

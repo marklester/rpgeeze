@@ -31,7 +31,7 @@ import rpgeeze.view.View;
  */
 
 public class GameManager implements GLEventListener, KeyListener, MouseListener, MouseMotionListener, WindowListener, WindowFocusListener {
-	private Stack<Pair<View, Controller<? extends View>>> stateStack = new Stack<Pair<View, Controller<? extends View>>>();
+	private Stack<Pair<View<?>, Controller<? extends View<?>>>> stateStack = new Stack<Pair<View<?>, Controller<? extends View<?>>>>();
 	private GLContext spareContext;
 	private GLCanvas canvas;
 	private FPSAnimator animator;
@@ -65,7 +65,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the KeyListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void keyPressed(KeyEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.keyPressed(e);
@@ -77,7 +77,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the KeyListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void keyReleased(KeyEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.keyReleased(e);
@@ -89,7 +89,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the KeyListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void keyTyped(KeyEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.keyTyped(e);
@@ -101,7 +101,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the KeyListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void mouseClicked(MouseEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.mouseClicked(e);
@@ -113,7 +113,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the MouseListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void mouseEntered(MouseEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.mouseEntered(e);
@@ -125,7 +125,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the MouseListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void mouseExited(MouseEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.mouseExited(e);
@@ -137,7 +137,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the MouseListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void mousePressed(MouseEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.mousePressed(e);
@@ -149,7 +149,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the MouseListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void mouseReleased(MouseEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.mouseReleased(e);
@@ -161,7 +161,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the MouseMotionListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void mouseDragged(MouseEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.mouseDragged(e);
@@ -173,7 +173,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the MouseMotionListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void mouseMoved(MouseEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.mouseMoved(e);
@@ -185,7 +185,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the WindowListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void windowActivated(WindowEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.windowActivated(e);
@@ -197,7 +197,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the WindowListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void windowClosed(WindowEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.windowClosed(e);
@@ -209,7 +209,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the WindowListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void windowClosing(WindowEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.windowClosing(e);
@@ -221,7 +221,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the WindowListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void windowDeactivated(WindowEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.windowDeactivated(e);
@@ -233,7 +233,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the WindowListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void windowDeiconified(WindowEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.windowDeiconified(e);
@@ -245,7 +245,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the WindowListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void windowIconified(WindowEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.windowIconified(e);
@@ -257,7 +257,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the WindowListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void windowOpened(WindowEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.windowOpened(e);
@@ -269,7 +269,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the WindowFocusListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void windowGainedFocus(WindowEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.windowGainedFocus(e);
@@ -281,7 +281,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Required by the WindowFocusListener interface. Delegates to the Controller, if there is one. 
 	 */
 	public void windowLostFocus(WindowEvent e) {
-		final Controller<? extends View> controller = getController();
+		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
 			spareContext.makeCurrent();
 			controller.windowLostFocus(e);
@@ -293,11 +293,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Called whenever the canvas needs to be repainted. Delegates to the View, if there is one, for drawing. Informs the Controller, if there is one, via its idleCycle() method. 
 	 */
 	public void display(GLAutoDrawable drawable) {
-		Pair<View, Controller<? extends View>> state = getState();
-		Controller<? extends View> controller = state.getSecond();
-		View view = state.getFirst();
-		if(controller != null)
-			controller.idleCycle();
+		View<?> view = getView();
 		if(view != null)
 			view.render(null);
 	}
@@ -334,16 +330,16 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 		grabNewContext(drawable);
 	}
 
-	protected View getView() {
+	protected View<?> getView() {
 		return stateStack.isEmpty() ? null : stateStack.peek().getFirst();
 	}
 
-	protected Controller<? extends View> getController() {
+	protected Controller<? extends View<?>> getController() {
 		return stateStack.isEmpty() ? null : stateStack.peek().getSecond();
 	}
 
-	protected Pair<View, Controller<? extends View>> getState() {
-		return stateStack.isEmpty() ? new Pair<View, Controller<? extends View>>(null, null) : stateStack.peek();
+	protected Pair<View<?>, Controller<? extends View<?>>> getState() {
+		return stateStack.isEmpty() ? new Pair<View<?>, Controller<? extends View<?>>>(null, null) : stateStack.peek();
 	}
 
 	/**
@@ -352,8 +348,8 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * @param newView the new state's View
 	 * @param newController the new state's Controller
 	 */
-	public void pushState(View newView, Controller<? extends View> newController) {
-		pushState(new Pair<View, Controller<? extends View>>(newView, newController));
+	public void pushState(View<?> newView, Controller<? extends View<?>> newController) {
+		pushState(new Pair<View<?>, Controller<? extends View<?>>>(newView, newController));
 	}
 
 	/**
@@ -361,21 +357,15 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * 
 	 * @param newState the new state
 	 */
-	public void pushState(Pair<View, Controller<? extends View>> newState) {
-		Pair<View, Controller<? extends View>> state = getState();
-		Controller<? extends View> controller = state.getSecond();
-		View view = state.getFirst();
+	public void pushState(Pair<View<?>, Controller<? extends View<?>>> newState) {
+		Pair<View<?>, Controller<? extends View<?>>> state = getState();
+		View<?> view = state.getFirst();
 		
-		Controller<? extends View> newController = newState.getSecond();
-		View newView = newState.getFirst();
+		View<?> newView = newState.getFirst();
 
-		if(controller != null)
-			controller.changeFrom();
 		if(view != null)
 			view.changeFrom();
 		
-		if(newController != null)
-			newController.changeTo();
 		if(newView != null)
 			newView.changeTo();
 
@@ -386,23 +376,17 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	 * Removes the top state from the state stack. 
 	 */
 	public void popState() {
-		Pair<View, Controller<? extends View>> state = getState();
-		Controller<? extends View> controller = state.getSecond();
-		View view = state.getFirst();
+		Pair<View<?>, Controller<? extends View<?>>> state = getState();
+		View<?> view = state.getFirst();
 		
 		stateStack.pop();
 		
-		Pair<View, Controller<? extends View>> newState = getState();
-		Controller<? extends View> newController = newState.getSecond();
-		View newView = newState.getFirst();
+		Pair<View<?>, Controller<? extends View<?>>> newState = getState();
+		View<?> newView = newState.getFirst();
 
-		if(controller != null)
-			controller.changeFrom();
 		if(view != null)
 			view.changeFrom();
 		
-		if(newController != null)
-			newController.changeTo();
 		if(newView != null)
 			newView.changeTo();
 	}

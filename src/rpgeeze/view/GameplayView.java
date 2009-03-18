@@ -14,8 +14,10 @@ import rpgeeze.model.Tile;
 import rpgeeze.model.terrain.*;
 import rpgeeze.dp.Iterator;
 import rpgeeze.util.ResourceLoader;
+import rpgeeze.util.SimpleMovingAverageTimer;
+import rpgeeze.util.Timer;
 
-public class GameplayView extends View {
+public class GameplayView extends View<GameplayView.State> {
 	private TexturedRectangle grass = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/grass.png"), 1, 1);
 	private TexturedRectangle mountain = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/mountain.png"), 1, 1);;
 	private TexturedRectangle water = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/water.png"), 1, 1);
@@ -23,10 +25,10 @@ public class GameplayView extends View {
 	private TexturedRectangle entity = new TexturedRectangle(ResourceLoader.getInstance().getTexture("entity/entity.png"), 1, 1);;
 	
 	private TextRenderer renderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.PLAIN, 24), true, true);
-	private String fpsText;
+	private Timer fpsTimer = new SimpleMovingAverageTimer();
 	
-	private double ZOOM_MIN = -64;
-	private double ZOOM_MAX = -2;
+	private final static double ZOOM_MIN = -64;
+	private final static double ZOOM_MAX = -2;
 	private double zoom = -8;
 	
 	private float MIN_INTENSITY = 0.0f;
@@ -38,8 +40,11 @@ public class GameplayView extends View {
 	
 	private Map map;
 	
+	public enum State implements rpgeeze.dp.State { NEW, FADING_IN, NORMAL, HIDDEN; }
+	
 	public GameplayView(Map map) {
 		this.map = map;
+		changeState(State.NEW);
 	}
 	
 	public void render(Point point) {
@@ -47,7 +52,7 @@ public class GameplayView extends View {
 		gl.standardPrepare(point);
         gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
         gl.glClearColor(0, 0, 0, 0);
-
+        
         // zoom
         gl.glTranslated(-0.5, -0.5, zoom);
 		
@@ -60,7 +65,16 @@ public class GameplayView extends View {
 		int minY = (int) Math.floor(centerY - (1 + heightInTiles / 2));
 		int maxY = (int) Math.ceil(centerY + (1 + heightInTiles / 2));
 		
-		gl.glColor4f(intensity, intensity, intensity, 1.0f);
+		if(getState() == State.FADING_IN) {
+			gl.glColor4f(intensity, intensity, intensity, 1.0f);
+			if(point == null) {
+				intensity += 0.01f;
+				if(intensity > MAX_INTENSITY)
+					changeState(State.NORMAL);
+			}
+		}
+		else
+			gl.glColor4f(MAX_INTENSITY, MAX_INTENSITY, MAX_INTENSITY, 1.0f);
 		
 		Iterator<Tile> iter = map.getTiles(minX, maxX, minY, maxY);
 		for(iter.reset(); !iter.isDone(); iter.advance()) {
@@ -79,10 +93,14 @@ public class GameplayView extends View {
 		}
 
 		// report FPS
-		gl.glLoadIdentity();
-		Text fps = new Text(fpsText, Color.RED, renderer, 0.0025f);
-		fps.setXYZ(gl.getViewportAspectRatio() - fps.getWidth() - fps.getHeight() / 2, 1 - 3 * fps.getHeight() / 2, -1);
-		fps.render();
+        if(point == null)
+    		fpsTimer.mark();
+        if(getState() == State.NORMAL) {
+			gl.glLoadIdentity();
+			Text fps = new Text(String.format("FPS: %.1f", fpsTimer.marksPerSecond()), Color.RED, renderer, 0.0025f);
+			fps.setXYZ(gl.getViewportAspectRatio() - fps.getWidth() - fps.getHeight() / 2, 1 - 3 * fps.getHeight() / 2, -1);
+			fps.render();
+        }
 		
 		gl.glFlush();
 	}
@@ -95,19 +113,18 @@ public class GameplayView extends View {
 			zoom = ZOOM_MIN;
 	}
 	
-	public void setFpsText(String value) {
-		fpsText = value;
-	}
-	
-	public void changeIntensity(float dc) {
-		intensity += dc;
-		if(intensity > MAX_INTENSITY)
-			intensity = MAX_INTENSITY;
-		if(intensity < MIN_INTENSITY)
-			intensity = MIN_INTENSITY;
-	}
-	
 	public void changeFrom() {
-		intensity = MAX_INTENSITY;
+		super.changeFrom();
+		fpsTimer.stop();
+		changeState(State.HIDDEN);
+	}
+	
+	public void changeTo() {
+		super.changeTo();
+		fpsTimer.start();
+		if(getState() == State.NEW)
+			changeState(State.FADING_IN);
+		else
+			changeState(State.NORMAL);
 	}
 }
