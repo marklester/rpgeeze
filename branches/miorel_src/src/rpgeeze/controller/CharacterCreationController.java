@@ -7,7 +7,6 @@ import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.view.GameplayView;
 import rpgeeze.view.CharacterCreationView;
-import rpgeeze.view.CharacterCreationView.OccupationSelectionButton;
 import rpgeeze.model.map.FiniteMatrixMap;
 
 /**
@@ -49,7 +48,7 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 		if(e.getButton() == MouseEvent.BUTTON1) {
 			Iterator<Integer> iter = getView().pick(e.getPoint());
 			for(iter.reset(); !iter.isDone(); iter.advance()) {
-				OccupationSelectionButton button = OccupationSelectionButton.fromGLName(iter.current());
+				CharacterCreationView.Button button = CharacterCreationView.Button.fromGLName(iter.current());
 				if(button != null)
 					switch(button) {
 					case OK:
@@ -70,12 +69,18 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 	}
 
 	private void executeOK() {
-		GameplayView gv = new GameplayView(new FiniteMatrixMap());
-		GameplayController gc = new GameplayController(getManager(), gv);
-		getManager().pushState(gv, gc);
+		getView().startZoom();
 	}
 
 	private void executeCancel() {
 		getManager().popState();		
+	}
+	
+	public void update() {
+		if(getView().getState() == CharacterCreationView.State.ZOOMED) {
+			GameplayView gv = new GameplayView(new FiniteMatrixMap());
+			GameplayController gc = new GameplayController(getManager(), gv);
+			getManager().pushState(gv, gc);
+		}
 	}
 }

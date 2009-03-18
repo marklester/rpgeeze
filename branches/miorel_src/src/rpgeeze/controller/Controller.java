@@ -17,13 +17,14 @@ import rpgeeze.view.View;
  * Abstract listener interface implementer providing empty handlers for most event types. Subclass to do interesting things.
  *
  */
-public abstract class Controller<T extends View> implements KeyListener, MouseListener, MouseMotionListener, WindowListener, WindowFocusListener, Observer<View> {
+public abstract class Controller<T extends View<?>> implements KeyListener, MouseListener, MouseMotionListener, WindowListener, WindowFocusListener, Observer<View<?>> {
 	private GameManager manager;
 	private T view;
 	
 	public Controller(GameManager manager, T view) {
 		this.manager = manager;
 		this.view = view;
+		view.attach(this);
 	}
 	
 	protected GameManager getManager() {
@@ -32,12 +33,6 @@ public abstract class Controller<T extends View> implements KeyListener, MouseLi
 
 	protected T getView() {
 		return view;
-	}
-	
-	/**
-	 * Called once every display frame. Does nothing by default. Use for animation effects.
-	 */
-	public void idleCycle() {
 	}
 	
 	/**
@@ -154,12 +149,6 @@ public abstract class Controller<T extends View> implements KeyListener, MouseLi
 	 * Ignores the event.
 	 */
 	public void windowLostFocus(WindowEvent e) {
-	}
-	
-	public void changeFrom() {
-	}
-	
-	public void changeTo() {
 	}
 	
 	public void update() {

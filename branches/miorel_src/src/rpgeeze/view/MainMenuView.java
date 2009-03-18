@@ -17,7 +17,7 @@ import rpgeeze.util.ResourceLoader;
 /**
  * The main menu screen.
  */
-public class MainMenuView extends HighlightableView {
+public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 	public static final Color PLAIN = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 	public static final Color HIGHLIGHTED = new Color(1.0f, 1.0f, 1.0f, 0.25f);
 
@@ -30,7 +30,7 @@ public class MainMenuView extends HighlightableView {
 
 	private TexturedRectangle introImage;
 
-	public enum MainMenuButton {
+	public enum Button {
 		NEW_GAME("New Game", 1, -10, 0),
 		LOAD_GAME("Load Game", 2, 0, 0),
 		OPTIONS("Options", 3, 10, 0),
@@ -42,7 +42,7 @@ public class MainMenuView extends HighlightableView {
 		private final int glName;
 		private final double x, y;
 
-		private MainMenuButton(String text, int glName, double x, double y) {
+		private Button(String text, int glName, double x, double y) {
 			this.text = text;
 			this.glName = glName;
 			this.x = x;
@@ -63,20 +63,23 @@ public class MainMenuView extends HighlightableView {
 			return new HighlightableWrapper(getRectangle(), PLAIN, HIGHLIGHTED);
 		}
 		
-		public static MainMenuButton fromGLName(int glName) {
-			for(MainMenuButton button: values())
+		public static Button fromGLName(int glName) {
+			for(Button button: values())
 				if(button.glName == glName)
 					return button;
 			return null;
 		}
 	}
 
+	public enum State implements rpgeeze.dp.State { NEW, FADING_IN, NORMAL, HIDDEN; }
+	
 	public MainMenuView() {
 		ResourceLoader loader = ResourceLoader.getInstance();	
 		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -15);
 		introImage.setColor(PLAIN);
-		for(MainMenuButton button: MainMenuButton.values())
+		for(Button button: Button.values())
 			putHighlightable(button.getButton());
+		changeState(State.NEW);
 	}
 
 	/**
@@ -86,7 +89,17 @@ public class MainMenuView extends HighlightableView {
 		GL gl = GL.getCurrent();		
 		gl.standardPrepare(point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
-		gl.glClearColor(intensity, 0, 0, 1.0f);
+		
+		if(getState() == State.FADING_IN) {
+			gl.glClearColor(intensity, 0, 0, 1.0f);
+			if(point == null) {
+				intensity += 0.01f;
+				if(intensity > MAX_INTENSITY)
+					changeState(State.NORMAL);
+			}
+		}
+		else
+			gl.glClearColor(MAX_INTENSITY, 0, 0, 1.0f);
 		
 		introImage.render();
 		
@@ -96,21 +109,16 @@ public class MainMenuView extends HighlightableView {
 		gl.glFlush();
 	}
 
-	/**
-	 * Changes the intensity of the background color.
-	 * 
-	 * @param dc the amount by which to change the intensity
-	 */
-	public void changeIntensity(float dc) {
-		intensity += dc;
-		if(intensity > MAX_INTENSITY)
-			intensity = MAX_INTENSITY;
-		if(intensity < MIN_INTENSITY)
-			intensity = MIN_INTENSITY;
-	}
-
 	public void changeFrom() {
 		super.changeFrom();
-		intensity = MAX_INTENSITY;
+		changeState(State.HIDDEN);
+	}
+	
+	public void changeTo() {
+		super.changeTo();
+		if(getState() == State.NEW)
+			changeState(State.FADING_IN);
+		else
+			changeState(State.NORMAL);		
 	}
 }

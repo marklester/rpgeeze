@@ -8,6 +8,7 @@ import rpgeeze.gl.GL;
 import rpgeeze.dp.Iterator;
 import rpgeeze.dp.Observer;
 import rpgeeze.dp.Subject;
+import rpgeeze.dp.State;
 
 import com.sun.opengl.util.BufferUtil;
 
@@ -21,8 +22,9 @@ import com.sun.opengl.util.BufferUtil;
  * moving away from the game screen.
  */
 
-public abstract class View implements Subject<View> {
-	private HashSet<Observer<View>> observers = new HashSet<Observer<View>>();
+public abstract class View<T extends State> implements Subject<View<?>> {
+	private HashSet<Observer<View<?>>> observers = new HashSet<Observer<View<?>>>();
+	private T state;
 	
 	/**
 	 * OpenGL "picking" with a default buffer size.
@@ -108,16 +110,25 @@ public abstract class View implements Subject<View> {
 	public void changeTo() {
 	}
 	
-	public void attach(Observer<View> observer) {
+	public void attach(Observer<View<?>> observer) {
 		observers.add(observer);
 	}
 	
-	public void detach(Observer<View> observer) {
+	public void detach(Observer<View<?>> observer) {
 		observers.remove(observer);
 	}
 	
 	protected void notifyObservers() {
-		for(Observer<View> observer: observers)
+		for(Observer<View<?>> observer: observers)
 			observer.update();
+	}
+	
+	public final T getState() {
+		return state;
+	}
+	
+	protected final void changeState(T newState) {
+		state = newState;
+		notifyObservers();
 	}
 }
