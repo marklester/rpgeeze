@@ -6,14 +6,14 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 /**
- * A logger that prints out all messages it receives to a PrintStream.
+ * A logger that prints out all messages it receives to a <code>PrintStream</code>.
  * 
  */
 public class PrintStreamLogger implements Logger {
 	private final PrintStream stream;
 
 	/**
-	 * Construct a logger which outputs to the file with the specified name.
+	 * Constructs a logger which outputs to the file with the specified name.
 	 * 
 	 * @param fileName
 	 *            the output destination
@@ -23,9 +23,9 @@ public class PrintStreamLogger implements Logger {
 	public PrintStreamLogger(String fileName) throws FileNotFoundException {
 		this(new PrintStream(new File(fileName)));
 	}
-	
+
 	/**
-	 * Construct a logger which outputs to the specified file.
+	 * Constructs a logger which outputs to the specified file.
 	 * 
 	 * @param file
 	 *            the output destination
@@ -37,7 +37,7 @@ public class PrintStreamLogger implements Logger {
 	}
 
 	/**
-	 * Construct a logger which outputs to the specified OutputStream.
+	 * Constructs a logger which outputs to the specified <code>OutputStream</code>.
 	 * 
 	 * @param stream
 	 *            the output destination
@@ -47,7 +47,7 @@ public class PrintStreamLogger implements Logger {
 	}
 
 	/**
-	 * Construct a logger which outputs to the specified PrintStream.
+	 * Construct a logger which outputs to the specified <code>PrintStream</code>.
 	 * 
 	 * @param stream
 	 *            the output destination
@@ -63,9 +63,9 @@ public class PrintStreamLogger implements Logger {
 	}
 
 	/**
-	 * Get the backing PrintStream of this logger.
+	 * Gets the backing <code>PrintStream</code> of this logger.
 	 * 
-	 * @return the backing PrintStream
+	 * @return the backing <code>PrintStream</code>
 	 */
 	public PrintStream getPrintStream() {
 		return stream;

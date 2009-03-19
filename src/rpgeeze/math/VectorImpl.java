@@ -1,14 +1,14 @@
 package rpgeeze.math;
 
 /**
- * Simple Vector interface implementation.
+ * Simple <code>Vector</code> interface implementation.
  * 
  */
 public class VectorImpl implements Vector {
 	private final double x, y, z;
 
 	/**
-	 * Construct a vector with the specified coordinates in 2D space and a
+	 * Constructs a vector with the specified coordinates in 2D space and a
 	 * z-coordinate of zero.
 	 * 
 	 * @param x
@@ -21,7 +21,7 @@ public class VectorImpl implements Vector {
 	}
 
 	/**
-	 * Construct a vector with the specified coordinates in 3D space.
+	 * Constructs a vector with the specified coordinates in 3D space.
 	 * 
 	 * @param x
 	 *            the x-coordinate

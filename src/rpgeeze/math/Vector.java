@@ -6,21 +6,21 @@ package rpgeeze.math;
  */
 public interface Vector {
 	/**
-	 * Get the x-coordinate of this vector.
+	 * Gets the x-coordinate of this vector.
 	 * 
 	 * @return the x-coordinate of this vector
 	 */
 	public double getX();
 
 	/**
-	 * Get the y-coordinate of this vector.
+	 * Gets the y-coordinate of this vector.
 	 * 
 	 * @return the y-coordinate of this vector
 	 */
 	public double getY();
 
 	/**
-	 * Get the z-coordinate of this vector.
+	 * Gets the z-coordinate of this vector.
 	 * 
 	 * @return the z-coordinate of this vector
 	 */

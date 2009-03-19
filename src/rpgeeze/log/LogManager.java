@@ -8,7 +8,7 @@ import java.util.List;
  * A centralized interface for logging messages.
  * 
  */
-public class LogManager {
+public final class LogManager {
 	private static LogManager instance;
 
 	private List<Logger> loggers = new ArrayList<Logger>();
@@ -23,7 +23,7 @@ public class LogManager {
 	 * @return the singleton log manager
 	 */
 	public static LogManager getInstance() {
-		if (instance == null)
+		if(instance == null)
 			instance = new LogManager();
 		return instance;
 	}
@@ -56,7 +56,7 @@ public class LogManager {
 	 *            the message
 	 */
 	public void log(Message message) {
-		for (Logger logger : loggers)
+		for(Logger logger: loggers)
 			logger.log(message);
 	}
 

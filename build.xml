@@ -29,7 +29,7 @@
 	
 	<target name="document" depends="clean">
         <javadoc
-        	access="public"
+        	access="protected"
         	classpath="${lib.files}"
         	destdir="${doc.dir}"
         	doctitle="${ant.project.name} Javadoc"
