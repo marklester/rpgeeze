@@ -6,7 +6,6 @@ import java.util.HashSet;
 
 import rpgeeze.gl.GL;
 import rpgeeze.log.LogManager;
-import rpgeeze.log.Message;
 import rpgeeze.dp.Iterator;
 import rpgeeze.dp.Observer;
 import rpgeeze.dp.Subject;
@@ -128,7 +127,7 @@ public abstract class View<T extends State> implements Subject<View<?>> {
 	}
 	
 	protected final void changeState(T newState) {
-		LogManager.getInstance().log(new Message(this + " changing state to " + newState, "VIEW"));
+		LogManager.getInstance().log(this + " changing state to " + newState, "VIEW");
 		state = newState;
 		notifyObservers();
 	}
