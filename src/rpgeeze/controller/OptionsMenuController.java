@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
+import rpgeeze.view.KeyBindingsView;
 import rpgeeze.view.OptionsMenuView;
 
 /**
@@ -25,6 +26,9 @@ public class OptionsMenuController extends HighlightableViewController<OptionsMe
 				if(button != null)
 					switch(	button) {
 					case KEY_BINDINGS:
+						KeyBindingsView kbv = new KeyBindingsView();
+						KeyBindingsViewController kbc = new KeyBindingsViewController(getManager(), kbv);
+						getManager().pushState(kbv,kbc);
 						break;
 					case SOUND_OPTIONS:
 						break;
