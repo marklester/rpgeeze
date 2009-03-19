@@ -4,12 +4,13 @@ import java.awt.event.MouseEvent;
 
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
+import rpgeeze.log.LogManager;
+import rpgeeze.log.Message;
 import rpgeeze.view.CreditsView;
 import rpgeeze.view.MainMenuView;
 import rpgeeze.view.CharacterCreationView;
 import javax.swing.JFileChooser;
-import rpgeeze.util.GameFilter;
-import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Controls the main menu screen.
@@ -35,9 +36,10 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 						getManager().pushState(ccv, ccc);
 						break;
 					case LOAD_GAME:
-						JFileChooser chooser = new JFileChooser(); 
-                        chooser.addChoosableFileFilter(new GameFilter());
+						JFileChooser chooser = new JFileChooser();
+                        chooser.addChoosableFileFilter(new FileNameExtensionFilter("XML files", "xml"));
                         int status = chooser.showOpenDialog(null);
+                        LogManager.getInstance().log(new Message("File chooser returned status " + status, "CONTROLLER"));
 						break;
 					case OPTIONS:
 						break;
@@ -54,13 +56,6 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 						break;			
 					}
 			}
-		}
-	}
-	{
-		try {
-			UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
-		} catch(Exception e) {
-			e.printStackTrace();
 		}
 	}
 }

@@ -38,7 +38,9 @@ public class GameplayView extends View<GameplayView.State> {
 	private double centerX = 0;
 	private double centerY = 0;
 
-	private Entity avatar;
+	// currently public so the Controller can access it easily 
+	// later someone will tell the Controller about the avatar differently
+	public Entity avatar;
 
 	public enum State implements rpgeeze.dp.State { NEW, FADING_IN, NORMAL, HIDDEN; }
 

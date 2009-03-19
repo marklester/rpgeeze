@@ -115,7 +115,7 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 		GL gl = GL.getCurrent();		
 		gl.standardPrepare(point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
-		gl.glClearColor(MainMenuView.MAX_INTENSITY, 0, 0, 1.0f);
+		gl.glClearColor(0, MainMenuView.MAX_INTENSITY, MainMenuView.MAX_INTENSITY, 1.0f);
 		
 		gl.glTranslated(0, 0, zoom);
 		for(TexturedRectangle rect: occupationImage)

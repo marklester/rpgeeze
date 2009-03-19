@@ -44,11 +44,19 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 			spareContext.destroy();
 		spareContext = drawable.createContext(GLContext.getCurrent());		
 	}
+	
+	private void releaseContext() {
+		if(spareContext == GLContext.getCurrent())
+			spareContext.release();
+	}
+	
+	private void lockContext() {
+		spareContext.makeCurrent();
+	}
 
 	/**
 	 * Creates a new GameManager.
 	 * 
-	 * @param frame the frame which will be used to display the game
 	 */
 	public GameManager(Frame frame) {
 		this.frame = frame;
@@ -67,9 +75,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void keyPressed(KeyEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.keyPressed(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -79,9 +87,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void keyReleased(KeyEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.keyReleased(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -91,9 +99,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void keyTyped(KeyEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.keyTyped(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -103,9 +111,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void mouseClicked(MouseEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.mouseClicked(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -115,9 +123,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void mouseEntered(MouseEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.mouseEntered(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -127,9 +135,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void mouseExited(MouseEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.mouseExited(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -139,9 +147,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void mousePressed(MouseEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.mousePressed(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -151,9 +159,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void mouseReleased(MouseEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.mouseReleased(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -163,9 +171,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void mouseDragged(MouseEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.mouseDragged(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -175,9 +183,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void mouseMoved(MouseEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.mouseMoved(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -187,9 +195,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void windowActivated(WindowEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.windowActivated(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -199,9 +207,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void windowClosed(WindowEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.windowClosed(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -211,9 +219,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void windowClosing(WindowEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.windowClosing(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -223,9 +231,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void windowDeactivated(WindowEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.windowDeactivated(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -235,9 +243,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void windowDeiconified(WindowEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.windowDeiconified(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -247,9 +255,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void windowIconified(WindowEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.windowIconified(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -259,9 +267,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void windowOpened(WindowEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.windowOpened(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -271,9 +279,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void windowGainedFocus(WindowEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.windowGainedFocus(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -283,9 +291,9 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 	public void windowLostFocus(WindowEvent e) {
 		final Controller<? extends View<?>> controller = getController();
 		if(controller != null) {
-			spareContext.makeCurrent();
+			lockContext();
 			controller.windowLostFocus(e);
-			spareContext.release();
+			releaseContext();
 		}
 	}
 
@@ -413,7 +421,7 @@ public class GameManager implements GLEventListener, KeyListener, MouseListener,
 		animator.stop();
 		if(spareContext != null) {
 			if(GLContext.getCurrent() == spareContext)
-				spareContext.release();
+				releaseContext();
 			spareContext.destroy();	
 		}
 		frame.dispose();

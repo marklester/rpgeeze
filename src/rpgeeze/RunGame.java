@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Arrays;
 
+import javax.swing.UIManager;
+
 import rpgeeze.log.LogManager;
 import rpgeeze.log.MessageType;
 import rpgeeze.log.PrintStreamLogger;
@@ -18,6 +20,7 @@ import rpgeeze.log.Message;
 
 public class RunGame {	
 	public final static int GOAL_FPS = 80;
+	public final static int GOAL_UPS = 80;
 	public final static boolean FULL_SCREEN = false;
 	
 	/**
@@ -38,6 +41,14 @@ public class RunGame {
 		
 		lm.log(new Message("Running with arguments: " + Arrays.toString(arg), "MAIN"));
 		lm.log(new Message("Working directory is " + System.getProperty("user.dir"), "MAIN"));
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			LogManager.getInstance().log(new Message("Sucessfully set native look and feel", "MAIN"));
+		}
+		catch(Exception e) {
+			LogManager.getInstance().log(new Message("Problem setting look and feel: " + e.getMessage(), "MAIN", MessageType.ERROR));
+		}
 		
 		lm.log(new Message("Creating frame", "MAIN"));
 		Frame frame = new Frame("rpgeeze");
