@@ -10,6 +10,7 @@ import rpgeeze.view.MainMenuView;
 import rpgeeze.view.CharacterCreationView;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import rpgeeze.view.OptionsMenuView;
 
 /**
  * Controls the main menu screen.
@@ -41,6 +42,9 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
                         LogManager.getInstance().log("File chooser returned status " + status, "CONTROLLER");
 						break;
 					case OPTIONS:
+						OptionsMenuView omv = new OptionsMenuView();
+						OptionsMenuController omc = new OptionsMenuController(getManager(), omv);
+						getManager().pushState(omv, omc);
 						break;
 					case HELP:
 						break;
