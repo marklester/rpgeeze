@@ -10,7 +10,7 @@ public class Triangle extends GLObjectImpl {
 	}
 	
 	protected void doRender() {
-		GL gl = GL.getCurrent();
+		GL gl = new GL();
 		gl.glBegin(GL.GL_TRIANGLES);
 		gl.glTranslated(getX(), getY(), getZ());
 		for(Vector v: vertex)

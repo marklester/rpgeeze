@@ -86,7 +86,7 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 	 * Renders the main menu screen.
 	 */
 	public void render(Point point) {
-		GL gl = GL.getCurrent();		
+		GL gl = new GL();		
 		gl.standardPrepare(point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		

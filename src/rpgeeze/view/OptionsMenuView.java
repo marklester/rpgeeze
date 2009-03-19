@@ -84,7 +84,7 @@ public final class OptionsMenuView extends HighlightableView<OptionsMenuView.Sta
 	 * Renders the options menu screen.
 	 */
 	public void render(Point point) {
-		GL gl = GL.getCurrent();		
+		GL gl = new GL();		
 		gl.standardPrepare(point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		

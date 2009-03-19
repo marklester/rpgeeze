@@ -50,7 +50,7 @@ public class GameplayView extends View<GameplayView.State> {
 	}
 
 	public void render(Point point) {
-		GL gl = GL.getCurrent();		
+		GL gl = new GL();		
 		gl.standardPrepare(point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 		gl.glClearColor(0, 0, 0, 0);

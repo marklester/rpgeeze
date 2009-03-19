@@ -112,7 +112,7 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	 * Renders the occupation selection screen.
 	 */
 	public void render(Point point) {
-		GL gl = GL.getCurrent();		
+		GL gl = new GL();		
 		gl.standardPrepare(point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		gl.glClearColor(0, MainMenuView.MAX_INTENSITY, MainMenuView.MAX_INTENSITY, 1.0f);

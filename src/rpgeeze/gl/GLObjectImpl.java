@@ -30,7 +30,7 @@ public abstract class GLObjectImpl implements Colorable {
 
 	public final void render() {
 		if(isVisible()) {
-			GL gl = GL.getCurrent();
+			GL gl = new GL();
 			gl.glPushMatrix();
 			gl.glTranslated(x, y, z);
 			if(color != null)

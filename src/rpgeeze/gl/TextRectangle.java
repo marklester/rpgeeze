@@ -23,7 +23,7 @@ public class TextRectangle extends Rectangle {
 	}
 	
 	public void doRender() {
-		GL gl = GL.getCurrent();
+		GL gl = new GL();
 		gl.glBegin(GL.GL_QUADS);
 		gl.glVertex2d(0, getHeight());
 		gl.glVertex2i(0, 0);

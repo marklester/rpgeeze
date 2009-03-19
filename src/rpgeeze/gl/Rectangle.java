@@ -36,7 +36,7 @@ public class Rectangle extends GLObjectImpl {
 	}
 	
 	protected void doRender() {
-		GL gl = GL.getCurrent();
+		GL gl = new GL();
 		gl.glBegin(GL.GL_QUADS);
 		gl.glTranslated(getX(), getY(), getZ());
         gl.glVertex2d(0, getHeight());
