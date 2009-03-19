@@ -29,19 +29,7 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	private GLCanvas canvas;
 	private FPSAnimator animator;
 	private Frame frame;
-
 	private boolean initialized = false;
-
-	protected void replaceContext(GLAutoDrawable drawable) {
-		GLContext current = GLContext.getCurrent();
-		if(spareContext == current && spareContext != null)
-			spareContext.release();
-		spareContext.destroy();
-		if(drawable != null)
-			spareContext = drawable.createContext(current);
-		else
-			spareContext = null;
-	}
 	
 	/**
 	 * Creates a new GameManager.
@@ -182,6 +170,10 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 		replaceContext(null);
 	}
 
+	/**
+	 * Gets the controller 
+	 * 
+	 */
 	protected EventAdapter getDelegate() {
 		EventAdapter delegate = getController();
 		if(delegate == null)
@@ -189,12 +181,29 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 		return delegate;
 	}
 
+	/**
+	 * Reserves an OpenGL context.
+	 */
 	protected void preEventDelegate() {
 		spareContext.makeCurrent();
 	}
 
+	/**
+	 * Releases the previously-reserved OpenGL context. 
+	 */
 	protected void postEventDelegate() {
 		if(spareContext == GLContext.getCurrent())
 			spareContext.release();
+	}
+	
+	protected void replaceContext(GLAutoDrawable drawable) {
+		GLContext current = GLContext.getCurrent();
+		if(spareContext == current && spareContext != null)
+			spareContext.release();
+		spareContext.destroy();
+		if(drawable != null)
+			spareContext = drawable.createContext(current);
+		else
+			spareContext = null;
 	}
 }
