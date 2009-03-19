@@ -1,7 +1,7 @@
 package rpgeeze.dp;
 
 /**
- * The Gang of Four's favorite Iterator interface. Intended to be used like this:
+ * The Gang of Four's favorite iterator interface. Intended to be used like this:
  * 
  * <pre>Iterator<SomeType> iter = someObject.methodThatReturnsIterator();
  *for(iter.reset(); !iter.isDone(); iter.advance()) {
@@ -12,24 +12,27 @@ package rpgeeze.dp;
 
 public interface Iterator<T> {
 	/**
-	 * Resets the Iterator. Should be explicitly called since the Iterator may
-	 * do extra initialization work in this method. 
+	 * Resets this iterator. Should be explicitly called since this Iterator may
+	 * need to do extra initialization work in this method.
+	 *  
 	 */
 	public void reset();
 
 	/**
 	 * Advances to the next element.
+	 * 
 	 */
 	public void advance();
 
 	/**
-	 * Returns whether or not the Iterator has exhausted all of its elements. 
+	 * Returns whether or not this iterator has exhausted all of its elements.
+	 *  
 	 */
 	public boolean isDone();
 
 	/**
-	 * Returns the current element. This doesn't automatically advance the
-	 * Iterator, you'll have to explicitly call advance().
+	 * Returns the current element. Doesn't automatically advance this
+	 * iterator, <code>advance()</code> should be explicitly called.
 	 */
 	public T current();
 }

@@ -8,7 +8,6 @@ import rpgeeze.gl.GL;
 import rpgeeze.log.LogManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.dp.Observer;
-import rpgeeze.dp.Subject;
 import rpgeeze.dp.State;
 
 import com.sun.opengl.util.BufferUtil;
@@ -23,7 +22,7 @@ import com.sun.opengl.util.BufferUtil;
  * moving away from the game screen.
  */
 
-public abstract class View<T extends State> implements Subject<View<?>> {
+public abstract class View<T extends State> {
 	private HashSet<Observer<View<?>>> observers = new HashSet<Observer<View<?>>>();
 	private T state;
 	
@@ -109,11 +108,11 @@ public abstract class View<T extends State> implements Subject<View<?>> {
 	 */
 	public abstract void changeTo();
 	
-	public void attach(Observer<View<?>> observer) {
+	public void attachObserver(Observer<View<?>> observer) {
 		observers.add(observer);
 	}
 	
-	public void detach(Observer<View<?>> observer) {
+	public void detachObserver(Observer<View<?>> observer) {
 		observers.remove(observer);
 	}
 	
