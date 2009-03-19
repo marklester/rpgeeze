@@ -1,16 +1,14 @@
 package rpgeeze.dp;
 
 /**
- * The command design pattern, using generics!
+ * The command design pattern.
  * 
- * @param <T> the type on which the Command operates 
  */
 
-public interface Command<T> {
+public interface Command {
 	/**
-	 * Executes this Command on the given argument.
+	 * Executes this command.
 	 * 
-	 * @param t receiver for the action encapsulated in this Command
 	 */
-	public void execute(T t);
+	public void execute();
 }

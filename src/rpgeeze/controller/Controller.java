@@ -18,7 +18,7 @@ public abstract class Controller<T extends View<?>> extends EventAdapter impleme
 	public Controller(GameManager manager, T view) {
 		this.manager = manager;
 		this.view = view;
-		view.attach(this);
+		view.attachObserver(this);
 	}
 	
 	protected GameManager getManager() {
