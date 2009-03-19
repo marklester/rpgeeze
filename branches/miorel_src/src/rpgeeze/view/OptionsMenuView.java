@@ -31,10 +31,10 @@ public final class OptionsMenuView extends HighlightableView<OptionsMenuView.Sta
 	private TexturedRectangle introImage;
 
 	public enum Button {
-		KEY_BINDINGS("Key Bindings", 1, -12, 0),
-		SOUND_OPTIONS("Sound Options", 2, 0, 0),
-		VIDEO_OPTIONS("Video Options", 3, 12, 0),
-		BACK("Back", 4, 0, -3);
+		KEY_BINDINGS("Key Bindings", 1, -6, 0),
+		SOUND_OPTIONS("Sound Options", 2, 6, 0),
+		VIDEO_OPTIONS("Video Options", 3, -6, -3),
+		BACK("Back", 4, 6, -3);
 
 		private final String text;
 		private final int glName;
@@ -89,7 +89,7 @@ public final class OptionsMenuView extends HighlightableView<OptionsMenuView.Sta
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		
 		if(getState() == State.NORMAL) {
-			gl.glClearColor(intensity, 0, 0, 1.0f);
+			gl.glClearColor(0, intensity, intensity, 1.0f);
 			if(point == null) {
 				intensity += 0.01f;
 				if(intensity > MAX_INTENSITY)
@@ -97,7 +97,7 @@ public final class OptionsMenuView extends HighlightableView<OptionsMenuView.Sta
 			}
 		}
 		else
-			gl.glClearColor(MAX_INTENSITY, 0, 0, 1.0f);
+			gl.glClearColor(0, MAX_INTENSITY, MAX_INTENSITY, 1.0f);
 		
 		introImage.render();
 		
