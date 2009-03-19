@@ -64,6 +64,7 @@ public class RunGame {
 			GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 			if(dev.isDisplayChangeSupported())
 				dev.setDisplayMode(mode);
+			dev.setFullScreenWindow(frame);
 		}
 		else {
 			lm.log("Staying windowed, setting frame size", "MAIN");
