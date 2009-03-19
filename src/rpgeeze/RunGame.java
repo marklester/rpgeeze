@@ -21,7 +21,7 @@ import rpgeeze.log.Message;
 public class RunGame {	
 	public final static int GOAL_FPS = 80;
 	public final static int GOAL_UPS = 80;
-	public final static boolean FULL_SCREEN = true;
+	public final static boolean FULL_SCREEN = false;
 	
 	/**
 	 * Creates the game frame and gives it a game manager.	
@@ -44,7 +44,7 @@ public class RunGame {
 		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			LogManager.getInstance().log("Sucessfully set native look and feel", "MAIN");
+			LogManager.getInstance().log("Successfully set native look and feel", "MAIN");
 		}
 		catch(Exception e) {
 			LogManager.getInstance().log("Problem setting look and feel: " + e.getMessage(), "MAIN", Message.Type.ERROR);
@@ -56,11 +56,11 @@ public class RunGame {
 		lm.log("Preparing game manager", "MAIN");
 		final GameManager gm = new GameManager(frame);
 		
+		DisplayMode mode = new DisplayMode(1024, 768, 32, DisplayMode.REFRESH_RATE_UNKNOWN);
 		if(FULL_SCREEN) {
 			lm.log("Going fullscreen", "MAIN");
 			frame.setUndecorated(true);
-			frame.setSize(1024, 768);
-			DisplayMode mode = new DisplayMode(1024, 768, 32, DisplayMode.REFRESH_RATE_UNKNOWN);
+			frame.setSize(mode.getWidth(), mode.getHeight());
 			GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 			if(dev.isDisplayChangeSupported()) {
 				lm.log("Desired display mode is supported", "MAIN");
@@ -71,7 +71,8 @@ public class RunGame {
 		}
 		else {
 			lm.log("Staying windowed, setting frame size", "MAIN");
-			frame.setSize(768, 576);
+			double scaleFactor = 2.0 / 3;
+			frame.setSize((int) (mode.getWidth() * scaleFactor), (int) (mode.getHeight() * scaleFactor));
 		}
 		
 		lm.log("Starting game manager", "MAIN");

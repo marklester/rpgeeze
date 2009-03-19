@@ -6,6 +6,8 @@
 	<property name="dist.dir" value="dist"/>
 	<property name="res.dir" value="res"/>
 	<property name="doc.dir" value="doc"/>
+	<property name="util.dir" value="util"/>
+	<property name="tmp.dir" value="tmp"/>
 	
 	<property name="jar.name" value="${ant.project.name}.jar"/>
 	
@@ -19,9 +21,41 @@
         <delete dir="${bin.dir}"/>
     	<delete dir="${dist.dir}"/>
     	<delete dir="${doc.dir}"/>
+    	<delete dir="${tmp.dir}"/>
     </target>
 
-    <target name="compile" depends="clean">
+	<target name="generate">
+		<property name="generate.class" value="GlobalProperties"/>
+		<property name="generate.header" value="${tmp.dir}/header.txt"/>
+		<property name="generate.footer" value="${tmp.dir}/footer.txt"/>
+		
+		<mkdir dir="${tmp.dir}"/> 
+		<javac srcdir="${util.dir}" destdir="${tmp.dir}"/>
+		<echo file="${generate.header}">
+// WARNING: This file is auto-generated!
+// Edit config.txt if you need to add a property otherwise your change will be overwritten.
+
+/**
+ * Holds global variables needed throughout the game.
+ *
+ */</echo>
+		<echo file="${generate.footer}">
+	private int parseInt(String s) {
+		return Integer.parseInt(s.replaceFirst("^[^=]=", ""));
+	}
+}</echo>
+	    <java classname="Autogen" classpath="${tmp.dir}"
+	    	input="config.txt"
+	    	output="${src.dir}/${ant.project.name}/${generate.class}.java"
+	    >
+			<arg value="${ant.project.name}"/>
+	    	<arg value="${generate.class}"/>
+	    	<arg value="${generate.header}"/>
+	    	<arg value="${generate.footer}"/>
+    	</java>
+	</target>
+	
+    <target name="compile" depends="clean,generate">
         <mkdir dir="${bin.dir}"/>
         <javac srcdir="${src.dir}" destdir="${bin.dir}"
         	classpath="${lib.files}"/>
@@ -48,9 +82,13 @@
         	<link href="http://java.sun.com/javase/6/docs/api/"/>
         	<link href="http://download.java.net/media/jogl/builds/nightly/javadoc_public/"/>
         </javadoc>
+		
+        <copy todir="${dist.dir}/${doc.dir}">
+        	<fileset dir="${doc.dir}"/>
+        </copy>
     </target>
 	
-    <target name="package" depends="compile,document">
+    <target name="package" depends="compile">
     	<mkdir dir="${dist.dir}"/>
 
     	<zip destfile="${dist.dir}/${ant.project.name}-src.zip">
@@ -73,10 +111,6 @@
     	<copy todir="${dist.dir}/${lib.dir}">
     		<fileset dir="${lib.dir}"/>
     	</copy>
-
-        <copy todir="${dist.dir}/${doc.dir}">
-        	<fileset dir="${doc.dir}"/>
-        </copy>
     	
     	<echo file="${dist.dir}/${src.main}.sh">#!/bin/bash
 ${cmd.main}
