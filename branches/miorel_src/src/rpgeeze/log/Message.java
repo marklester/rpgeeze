@@ -26,7 +26,7 @@ public interface Message {
 		}
 
 		/**
-		 * Get a default color for this type of message. This is simply here for
+		 * Gets a default color for this type of message. This is simply here for
 		 * the convenience of message interface implementers, as it's unlikely
 		 * anyone else will need to query it.
 		 * 
@@ -38,21 +38,21 @@ public interface Message {
 	}
 
 	/**
-	 * Get the message string.
+	 * Gets the message string.
 	 * 
 	 * @return the message string
 	 */
 	public String getMessage();
 
 	/**
-	 * Get a string identifying the author of this message.
+	 * Gets a string identifying the author of this message.
 	 * 
 	 * @return a string identifying the author of this message
 	 */
 	public String getAuthor();
 
 	/**
-	 * Get the color associated with this message. Loggers which support colored
+	 * Gets the color associated with this message. Loggers which support colored
 	 * output will make use of this method.
 	 * 
 	 * @return the color associated with this message
@@ -60,7 +60,7 @@ public interface Message {
 	public Color getColor();
 
 	/**
-	 * Get the type of this message.
+	 * Gets the type of this message.
 	 * 
 	 * @return the type of this message
 	 */

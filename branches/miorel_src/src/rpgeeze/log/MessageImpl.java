@@ -3,7 +3,7 @@ package rpgeeze.log;
 import java.awt.Color;
 
 /**
- * Simple message interface implementation.
+ * Simple <code>Message</code> interface implementation.
  * 
  */
 public class MessageImpl implements Message {
@@ -13,10 +13,10 @@ public class MessageImpl implements Message {
 	private final Message.Type type;
 
 	/**
-	 * Construct a message with the the specified text and author. The message
-	 * will be automatically assigned a default type. This is currently DEBUG,
-	 * but don't count on this: you may only assume that the default message
-	 * type is not severe but diagnostic.
+	 * Constructs a message with the the specified text and author. The message
+	 * will be automatically assigned a default type. This is currently set to DEBUG,
+	 * but the only allowed assumption is that the default message
+	 * type will not be severe but diagnostic.
 	 * 
 	 * @param message
 	 *            the message string
@@ -28,7 +28,7 @@ public class MessageImpl implements Message {
 	}
 
 	/**
-	 * Construct a message with the the specified text, author, and message
+	 * Constructs a message with the the specified text, author, and message
 	 * type. The message will be assigned a default color dependent on the type.
 	 * 
 	 * @param message
@@ -43,7 +43,7 @@ public class MessageImpl implements Message {
 	}
 
 	/**
-	 * Construct a message with the the specified text, author, color, and
+	 * Constructs a message with the the specified text, author, color, and
 	 * message type.
 	 * 
 	 * @param message

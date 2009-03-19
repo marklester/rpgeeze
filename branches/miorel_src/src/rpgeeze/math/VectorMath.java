@@ -1,12 +1,12 @@
 package rpgeeze.math;
 
 /**
- * Implement methods related to vector math here.
+ * Utility class for mathematical operations on vectors.
  * 
  */
 public class VectorMath {
 	/**
-	 * Add two vectors.
+	 * Adds two vectors.
 	 * 
 	 * @param v0
 	 *            the first vector
@@ -19,7 +19,7 @@ public class VectorMath {
 	}
 
 	/**
-	 * Multiply a vector by a scalar.
+	 * Multiplies a vector by a scalar.
 	 * 
 	 * @param v
 	 *            a vector
