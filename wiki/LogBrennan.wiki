@@ -93,3 +93,12 @@
 
 3/16/09 14:00-16:00
   * Created New Game Screen
+
+3/18/09 15:00-16:00
+  * Familiarized myself with JOGL code
+
+3/19/09 15:00-17:00
+  * Researched text boxes in JOGL
+
+3/19/09  23:00-24:00
+  * Created Options Screen and Controller
