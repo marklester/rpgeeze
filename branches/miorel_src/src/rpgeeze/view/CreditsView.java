@@ -45,7 +45,7 @@ public class CreditsView extends View<CreditsView.State> {
 		GL gl = GL.getCurrent();
 		gl.standardPrepare(point);
 
-		gl.glClearColor(MainMenuView.MAX_INTENSITY, 0, 0, 1.0f);
+		gl.glClearColor(0, MainMenuView.MAX_INTENSITY, MainMenuView.MAX_INTENSITY, 1.0f);
 		
 		title.setXYZ(-title.getWidth() / 2, 4 - title.getHeight(), -4);
 		title.render();

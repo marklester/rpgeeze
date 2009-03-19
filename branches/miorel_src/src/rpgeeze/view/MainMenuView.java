@@ -91,7 +91,7 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		
 		if(getState() == State.FADING_IN) {
-			gl.glClearColor(intensity, 0, 0, 1.0f);
+			gl.glClearColor(0, intensity, intensity, 1.0f);
 			if(point == null) {
 				intensity += 0.01f;
 				if(intensity > MAX_INTENSITY)
@@ -99,7 +99,7 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 			}
 		}
 		else
-			gl.glClearColor(MAX_INTENSITY, 0, 0, 1.0f);
+			gl.glClearColor(0, MAX_INTENSITY, MAX_INTENSITY, 1.0f);
 		
 		introImage.render();
 		

@@ -30,15 +30,16 @@ public class FiniteMatrixMap implements Map {
 	}
 	
 	public FiniteMatrixMap() {
-		matrix = new TileImpl[3][3];
-		for(int i = 0; i <= 2; ++i) {
-			for(int j = 0; j <= 2; ++j) {
-				matrix[i][j] = new TileImpl(GrassTerrain.getInstance(), i, j, 0);		
-			}
-		}
+		int horizSize = 11;
+		int vertSize = 17;
+		matrix = new TileImpl[horizSize][vertSize];
+		for(int i = 0; i < horizSize; ++i)
+			for(int j = 0; j < vertSize; ++j)
+				matrix[i][j] = new TileImpl(GrassTerrain.getInstance(), i, j, 0);
 		avatar = new Entity();
-		matrix[0][0].setEntity(avatar);
-		avatar.setTile(matrix[0][0]);
+		int ax = 4, ay = 7;
+		matrix[ax][ay].setEntity(avatar);
+		avatar.setTile(matrix[ax][ay]);
 	}
 	
 	protected Tile defaultTile(int x, int y, int z) {
@@ -47,7 +48,7 @@ public class FiniteMatrixMap implements Map {
 	
 	private Tile getTile(int x, int y, int z) {
 		Tile ret;
-		if(y < 0 || y >= matrix.length || x < 0 || x >= matrix[0].length || z != 0)
+		if(x < 0 || x >= matrix.length || y < 0 || y >= matrix[0].length || z != 0)
 			ret = defaultTile(x, y, z);
 		else
 			ret = matrix[x][y];
