@@ -6,12 +6,12 @@ import java.awt.Rectangle;
 import javax.media.opengl.glu.GLU;
 
 public class GL extends DelegatingGL {
-	private GL(javax.media.opengl.GL delegate) {
+	protected GL(javax.media.opengl.GL delegate) {
 		super(delegate);
 	}
 	
-	public static GL getCurrent() {
-		return new GL(GLU.getCurrentGL());
+	public GL() {
+		this(GLU.getCurrentGL());
 	}
 	
 	private int[] getViewportDimensionsAsArray() {

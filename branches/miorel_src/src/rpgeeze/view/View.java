@@ -44,7 +44,7 @@ public abstract class View<T extends State> {
 	 * @return an iterator over the name constants that registered as hits at the specified point
 	 */
 	public Iterator<Integer> pick(Point pickPoint, int bufSize) {
-		GL gl = GL.getCurrent();
+		GL gl = new GL();
 		
 		final int[] selectBuf = new int[bufSize];
 		IntBuffer selectBuffer = BufferUtil.newIntBuffer(bufSize);

@@ -16,7 +16,7 @@ public class TexturedRectangle extends Rectangle {
 	}
 
 	public void doRender() {
-		GL gl = GL.getCurrent();
+		GL gl = new GL();
 		gl.glEnable(GL.GL_TEXTURE_2D);
 		texture.bind();
 		gl.glBegin(GL.GL_QUADS);
