@@ -1,6 +1,8 @@
 package rpgeeze;
 
+import java.awt.DisplayMode;
 import java.awt.Frame;
+import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,7 +21,7 @@ import rpgeeze.log.Message;
 public class RunGame {	
 	public final static int GOAL_FPS = 80;
 	public final static int GOAL_UPS = 80;
-	public final static boolean FULL_SCREEN = false;
+	public final static boolean FULL_SCREEN = true;
 	
 	/**
 	 * Creates the game frame and gives it a game manager.	
@@ -57,7 +59,11 @@ public class RunGame {
 		if(FULL_SCREEN) {
 			lm.log("Going fullscreen", "MAIN");
 			frame.setUndecorated(true);
-			GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(frame);
+			frame.setSize(1024, 768);
+			DisplayMode mode = new DisplayMode(1024, 768, 32, DisplayMode.REFRESH_RATE_UNKNOWN);
+			GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+			if(dev.isDisplayChangeSupported())
+				dev.setDisplayMode(mode);
 		}
 		else {
 			lm.log("Staying windowed, setting frame size", "MAIN");
