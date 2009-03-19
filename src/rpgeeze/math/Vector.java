@@ -2,7 +2,7 @@ package rpgeeze.math;
 
 /**
  * A displacement in 3D space.
- *
+ * 
  */
 public interface Vector {
 	/**
@@ -18,7 +18,7 @@ public interface Vector {
 	 * @return the y-coordinate of this vector
 	 */
 	public double getY();
-	
+
 	/**
 	 * Get the z-coordinate of this vector.
 	 * 

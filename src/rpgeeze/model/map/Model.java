@@ -2,7 +2,6 @@ package rpgeeze.model.map;
 
 import rpgeeze.RunGame;
 import rpgeeze.log.LogManager;
-import rpgeeze.log.Message;
 
 public class Model extends Thread {
 	private boolean paused = false;
@@ -12,12 +11,12 @@ public class Model extends Thread {
 	}
 	
 	public synchronized void pauseGame() {
-		LogManager.getInstance().log(new Message("Pausing game", "MODEL"));
+		LogManager.getInstance().log("Pausing game", "MODEL");
 		paused = true;
 	}
 
 	public synchronized void resumeGame() {
-		LogManager.getInstance().log(new Message("Resuming game", "MODEL"));
+		LogManager.getInstance().log("Resuming game", "MODEL");
 		paused = false;
 		notifyAll();
 	}
@@ -37,9 +36,9 @@ public class Model extends Thread {
 			while(!interrupted()) {
 				synchronized(this) {
 					if(isPaused()) {
-						lm.log(new Message("Game is paused, going to sleep", "MODEL"));
+						lm.log("Game is paused, going to sleep", "MODEL");
 						wait();
-						lm.log(new Message("Woke up, getting back to work", "MODEL"));
+						lm.log("Woke up, getting back to work", "MODEL");
 					}
 				}
 				update();

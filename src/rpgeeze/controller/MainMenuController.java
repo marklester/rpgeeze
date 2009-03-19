@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.log.LogManager;
-import rpgeeze.log.Message;
 import rpgeeze.view.CreditsView;
 import rpgeeze.view.MainMenuView;
 import rpgeeze.view.CharacterCreationView;
@@ -39,7 +38,7 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 						JFileChooser chooser = new JFileChooser();
                         chooser.addChoosableFileFilter(new FileNameExtensionFilter("XML files", "xml"));
                         int status = chooser.showOpenDialog(null);
-                        LogManager.getInstance().log(new Message("File chooser returned status " + status, "CONTROLLER"));
+                        LogManager.getInstance().log("File chooser returned status " + status, "CONTROLLER");
 						break;
 					case OPTIONS:
 						break;

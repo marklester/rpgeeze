@@ -4,10 +4,6 @@ import java.awt.event.MouseEvent;
 
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
-import rpgeeze.view.CharacterCreationView;
-import javax.swing.JFileChooser;
-import rpgeeze.util.GameFilter;
-import javax.swing.UIManager;
 import rpgeeze.view.OptionsMenuView;
 
 /**
