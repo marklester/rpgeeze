@@ -25,11 +25,13 @@ import rpgeeze.view.View;
 
 public class GameManager extends DelegatingEventAdapter implements GLEventListener {
 	private Stack<Pair<View<?>, Controller<? extends View<?>>>> stateStack = new Stack<Pair<View<?>, Controller<? extends View<?>>>>();
-	private GLContext spareContext;
+
+	private boolean initialized = false;
+	
+	private Frame frame;
 	private GLCanvas canvas;
 	private FPSAnimator animator;
-	private Frame frame;
-	private boolean initialized = false;
+	private GLContext spareContext;
 	
 	/**
 	 * Creates a new GameManager.
@@ -42,7 +44,7 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 		frame.setFocusTraversalKeysEnabled(false);
 		canvas = new GLCanvas();
 		canvas.setFocusTraversalKeysEnabled(false);
-		spareContext = canvas.createContext(null);
+		replaceContext(canvas);
 		frame.add(canvas);
 		animator = new FPSAnimator(canvas, RunGame.GOAL_FPS);
 	}
@@ -146,7 +148,8 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	}
 
 	/**
-	 * Registers the proper event listeners and displays the game Frame.
+	 * Registers the proper event listeners, starts an animator, and displays the game <code>Frame</code>.
+	 * 
 	 */
 	public void start() {
 		frame.addWindowListener(this);
@@ -162,7 +165,7 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	}
 
 	/**
-	 * Stops the backing animator, destroys the event thread's GLContext, and disposes of the Frame that was used for the game. You will probably want to exit the application completely after calling this method, but this isn't done automatically just in case you don't.
+	 * Stops the backing animator, destroys the spare OpenGL context, and disposes of the <code>Frame</code> that was used for the game.
 	 */
 	public void stop() {
 		animator.stop();
@@ -171,7 +174,7 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	}
 
 	/**
-	 * Gets the controller 
+	 * Gets the current controller if there is one, or a no-action <code>EventAdapter</code> otherwise. 
 	 * 
 	 */
 	protected EventAdapter getDelegate() {
@@ -183,6 +186,7 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 
 	/**
 	 * Reserves an OpenGL context.
+	 * 
 	 */
 	protected void preEventDelegate() {
 		spareContext.makeCurrent();
@@ -190,17 +194,25 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 
 	/**
 	 * Releases the previously-reserved OpenGL context. 
+	 * 
 	 */
 	protected void postEventDelegate() {
 		if(spareContext == GLContext.getCurrent())
 			spareContext.release();
 	}
 	
+	/**
+	 * Replaces the spare OpenGL context maintained by this <code>GameManager</code>.
+	 * 
+	 * @param drawable the <code>GLAutoDrawable</code> to ask for a new context
+	 */
 	protected void replaceContext(GLAutoDrawable drawable) {
 		GLContext current = GLContext.getCurrent();
-		if(spareContext == current && spareContext != null)
-			spareContext.release();
-		spareContext.destroy();
+		if(spareContext != null) {
+			if(spareContext == current)
+				spareContext.release();
+			spareContext.destroy();	
+		}
 		if(drawable != null)
 			spareContext = drawable.createContext(current);
 		else

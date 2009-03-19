@@ -23,7 +23,7 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 			Iterator<Integer> iter = getView().pick(e.getPoint());
 			for(iter.reset(); !iter.isDone(); iter.advance()) {
 				KeyBindingsView.Button button = KeyBindingsView.Button.fromGLName(iter.current());
-				if(button != null)
+/*				if(button != null)
 					switch(	button) {
 					case KEY_BINDINGS:
 						KeyBindingsView kbv = new KeyBindingsView();
@@ -36,7 +36,7 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 					case BACK:
 						getManager().popState();
 						break;			
-					}
+					}*/
 			}
 		}
 	}
