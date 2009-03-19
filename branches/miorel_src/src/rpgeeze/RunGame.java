@@ -39,7 +39,7 @@ public class RunGame {
 			lm.log("Failed to open log file for writing.", "MAIN", Message.Type.ERROR);
 		}
 		
-		lm.log("Running with arguments: " + Arrays.toString(arg), "MAIN");
+		lm.log("Running on " + System.getProperty("os.name") + " with arguments: " + Arrays.toString(arg), "MAIN");
 		lm.log("Working directory is " + System.getProperty("user.dir"), "MAIN");
 		
 		try {
@@ -62,9 +62,12 @@ public class RunGame {
 			frame.setSize(1024, 768);
 			DisplayMode mode = new DisplayMode(1024, 768, 32, DisplayMode.REFRESH_RATE_UNKNOWN);
 			GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-			if(dev.isDisplayChangeSupported())
+			if(dev.isDisplayChangeSupported()) {
+				lm.log("Desired display mode is supported", "MAIN");
 				dev.setDisplayMode(mode);
-			dev.setFullScreenWindow(frame);
+			}
+			if(System.getProperty("os.name").equals("Linux"))
+				dev.setFullScreenWindow(frame);
 		}
 		else {
 			lm.log("Staying windowed, setting frame size", "MAIN");
