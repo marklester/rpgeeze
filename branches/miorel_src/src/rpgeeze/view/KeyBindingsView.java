@@ -3,6 +3,10 @@ package rpgeeze.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
@@ -12,54 +16,73 @@ import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.TextRectangle;
 import rpgeeze.gl.TexturedRectangle;
+import rpgeeze.gl.Triangle;
+import rpgeeze.math.VectorImpl;
 import rpgeeze.util.ResourceLoader;
 
 /**
- * The main menu screen.
+ * The key bindings screen.
  */
-public final class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
-	public static final Color PLAIN = new Color(1.0f, 1.0f, 1.0f, 0.0f);
-	public static final Color HIGHLIGHTED = new Color(1.0f, 1.0f, 1.0f, 0.25f);
-
-	public final static float MIN_INTENSITY = 0.0f;
-	public final static float MAX_INTENSITY = 0.75f;
-
+public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
-
-	private float intensity = MIN_INTENSITY;
-
-	private TexturedRectangle introImage;
-
+	
 	public enum Button {
-		KEY_BINDINGS("Key Bindings", 1, -6, 0),
-		SOUND_OPTIONS("Sound Options", 2, 6, 0),
-		VIDEO_OPTIONS("Video Options", 3, -6, -3),
-		BACK("Back", 4, 6, -3);
-
-		private final String text;
+		OK(1) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("OK", -10, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		CANCEL(2) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("Cancel", 0, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		N_ARROW(3) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(new Triangle(new VectorImpl(-1, 0), new VectorImpl(1, 0), new VectorImpl(0, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED); 
+			}
+		},
+		S_ARROW(4) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(new Triangle(new VectorImpl(-1, 0), new VectorImpl(1, 0), new VectorImpl(0, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		E_ARROW(5) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 2), new VectorImpl(1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		W_ARROW(6) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 2), new VectorImpl(-1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+			}
+		};
+		
 		private final int glName;
-		private final double x, y;
-
-		private Button(String text, int glName, double x, double y) {
-			this.text = text;
+		private Highlightable button;
+		
+		private Button(int glName) {
 			this.glName = glName;
-			this.x = x;
-			this.y = y;
 		}
-
-		private TextRectangle getRectangle() {
-			TextRectangle rect = new TextRectangle(new Text(text, renderer, 0.05f), 12, 3);
-			rect.setGLName(glName);
+		
+		private static TextRectangle getRectangle(String text, double x, double y) {
+			TextRectangle rect = new TextRectangle(new Text(text, renderer, 0.05f), 10, 3);
 			rect.alignText(0.5, 0.5);
 			rect.setXY(x, y);
-			if(this != KEY_BINDINGS)
-				rect.getText().setY(KEY_BINDINGS.getRectangle().getText().getY());
+			if(!text.equals("OK"))
+				rect.getText().setY(getRectangle("OK", 0, 0).getText().getY());
 			return rect;
 		}
 		
 		public Highlightable getButton() {
-			return new HighlightableWrapper(getRectangle(), PLAIN, HIGHLIGHTED);
+			if(button == null) {
+				button = doGetButton();
+				button.setGLName(glName);
+			}
+			return button;
 		}
+		
+		public abstract Highlightable doGetButton();
 		
 		public static Button fromGLName(int glName) {
 			for(Button button: values())
@@ -67,46 +90,67 @@ public final class KeyBindingsView extends HighlightableView<KeyBindingsView.Sta
 					return button;
 			return null;
 		}
-	}
-
-	public enum State implements rpgeeze.dp.State { NEW, FADING_IN, NORMAL, HIDDEN; }
+	}	
+	
+	public enum State implements rpgeeze.dp.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
+	
+	
+	
+	private static final double ZOOM_MIN = -60;
+	private static final double ZOOM_MAX = -1.1;
+	private static final double ZOOM_STEP = 0.25; 
+	private double zoom = ZOOM_MIN;
 	
 	public KeyBindingsView() {
-		ResourceLoader loader = ResourceLoader.getInstance();	
-		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -15);
-		introImage.setColor(PLAIN);
 		for(Button button: Button.values())
 			putHighlightable(button.getButton());
 		changeState(State.NEW);
 	}
 
 	/**
-	 * Renders the options menu screen.
+	 * Renders the occupation selection screen.
 	 */
 	public void render(Point point) {
 		GL gl = new GL();		
 		gl.standardPrepare(point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
+		gl.glClearColor(0, MainMenuView.MAX_INTENSITY, MainMenuView.MAX_INTENSITY, 1.0f);
 		
-		if(getState() == State.NORMAL) {
-			gl.glClearColor(0, intensity, intensity, 1.0f);
-			if(point == null) {
-				intensity += 0.01f;
-				if(intensity > MAX_INTENSITY)
-					changeState(State.NORMAL);
-			}
+		gl.glTranslated(0, 0, zoom);
+		
+			
+		switch(getState()) {
+		case NORMAL:
+			gl.glLoadIdentity();
+			gl.glTranslated(0, -9.5, -14.5);
+			
+			Highlightable northArrow = Button.N_ARROW.getButton();
+			northArrow.setXY(0, 13);
+			putHighlightable(northArrow);
+			
+			Highlightable southArrow = Button.S_ARROW.getButton();
+			southArrow.setXY(0, 9);
+			putHighlightable(southArrow);
+			
+			Highlightable westArrow = Button.W_ARROW.getButton();
+			westArrow.setXY(-2, 10);
+			putHighlightable(westArrow);
+
+			Highlightable eastArrow = Button.E_ARROW.getButton();
+			eastArrow.setXY(2, 10);
+			putHighlightable(eastArrow);
+			
+			renderHighlightables();
+			gl.glLoadName(-1);
+			break;
+		case ZOOMING:
+			break;
+		case ZOOMED:
+			break;
 		}
-		else
-			gl.glClearColor(0, MAX_INTENSITY, MAX_INTENSITY, 1.0f);
-		
-		introImage.render();
-		
-		gl.glTranslated(-5, -9.5, -14.5);
-		renderHighlightables();
 		
 		gl.glFlush();
 	}
-
 	public void changeFrom() {
 		super.changeFrom();
 		changeState(State.HIDDEN);
@@ -114,9 +158,11 @@ public final class KeyBindingsView extends HighlightableView<KeyBindingsView.Sta
 	
 	public void changeTo() {
 		super.changeTo();
-		if(getState() == State.NEW)
-			changeState(State.FADING_IN);
-		else
-			changeState(State.NORMAL);		
+		changeState(State.NORMAL);
+	}
+	
+	public void startZoom() {
+		if(getState() != State.ZOOMING && getState() != State.ZOOMED)
+			changeState(State.ZOOMING);
 	}
 }
