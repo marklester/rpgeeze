@@ -14,9 +14,9 @@ public class MessageImpl implements Message {
 
 	/**
 	 * Constructs a message with the the specified text and author. The message
-	 * will be automatically assigned a default type. This is currently set to DEBUG,
-	 * but the only allowed assumption is that the default message
-	 * type will not be severe but diagnostic.
+	 * will be automatically assigned a default type. This is currently set to
+	 * DEBUG, but the only allowed assumption is that the default message type
+	 * will not be severe but diagnostic.
 	 * 
 	 * @param message
 	 *            the message string

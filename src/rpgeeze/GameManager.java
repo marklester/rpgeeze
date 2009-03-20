@@ -22,33 +22,38 @@ import rpgeeze.view.View;
 
 /**
  * Primary event listener and access point for game operations. Like a true
- * manager, does little work itself and instead functions by delegating tasks
- * to subordinates, namely the <code>View</code> and <code>Controller</code>
- * that represent its current state.
+ * manager, does little work itself and instead functions by delegating tasks to
+ * subordinates, namely the <code>View</code> and <code>Controller</code> that
+ * represent its current state.
  * 
  */
-public class GameManager extends DelegatingEventAdapter implements GLEventListener {
-	private Stack<Pair<View<?>, Controller<? extends View<?>>>> stateStack = new Stack<Pair<View<?>, Controller<? extends View<?>>>>();
+public class GameManager extends DelegatingEventAdapter
+		implements GLEventListener {
+	private Stack<Pair<View<?>, Controller<? extends View<?>>>> stateStack;
 
 	private boolean initialized = false;
-	
+
 	private GameProperties properties;
 	private Frame frame;
 	private GLCanvas canvas;
 	private FPSAnimator animator;
 	private GLContext spareContext;
-	
+
 	/**
 	 * Constructs a game manager that will display in the specified
 	 * <code>Frame</code> and will be initialized with the specified game
 	 * properties.
 	 * 
-	 * @param frame	 the <code>Frame</code> that will be used for displaying the game 
-	 * @param properties the initial game properties
+	 * @param frame
+	 *            the <code>Frame</code> that will be used for displaying the
+	 *            game
+	 * @param properties
+	 *            the initial game properties
 	 */
 	public GameManager(Frame frame, GameProperties properties) {
 		this.frame = frame;
 		this.properties = properties;
+		stateStack = new Stack<Pair<View<?>, Controller<? extends View<?>>>>();
 		frame.setBackground(Color.BLACK);
 		frame.enableInputMethods(false);
 		frame.setFocusTraversalKeysEnabled(false);
@@ -67,13 +72,14 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	public GameProperties getProperties() {
 		return properties;
 	}
-	
+
 	/**
 	 * Displays the game. This method is called by the animator whenever the
 	 * canvas needs to be repainted. Delegates display to the <code>View</code>,
 	 * if there is one.
 	 * 
-	 * @param drawable the OpenGL canvas
+	 * @param drawable
+	 *            the OpenGL canvas
 	 */
 	public void display(GLAutoDrawable drawable) {
 		View<?> view = getState().getFirst();
@@ -86,11 +92,15 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	 * <code>GLEventListener</code> interface. Its implementation currently
 	 * doesn't do anything.
 	 * 
-	 * @param drawable the canvas
-	 * @param modeChanged whether or not the display mode was changed
-	 * @param deviceChanged whether or not the display device was changed
+	 * @param drawable
+	 *            the canvas
+	 * @param modeChanged
+	 *            whether or not the display mode was changed
+	 * @param deviceChanged
+	 *            whether or not the display device was changed
 	 */
-	public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
+	public void displayChanged(GLAutoDrawable drawable, boolean modeChanged,
+			boolean deviceChanged) {
 	}
 
 	/**
@@ -98,7 +108,8 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	 * <code>GLContext</code> for the event thread. The first time it's called
 	 * it also pushes the main menu onto the state stack.
 	 * 
-	 * @param drawable the canvas to initialize
+	 * @param drawable
+	 *            the canvas to initialize
 	 */
 	public void init(GLAutoDrawable drawable) {
 		replaceContext(drawable);
@@ -116,13 +127,19 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	 * Reacts to a change in the shape of the canvas. Reserves a spare
 	 * <code>GLContext</code> for the event thread.
 	 * 
-	 * @param drawable the reshaped canvas
-	 * @param x the new abscissa of the bottom left corner of the canvas
-	 * @param y the new ordinate of the bottom left corner of the canvas
-	 * @param width the new width of the canvas
-	 * @param height the new height of the canvas
+	 * @param drawable
+	 *            the reshaped canvas
+	 * @param x
+	 *            the new abscissa of the bottom left corner of the canvas
+	 * @param y
+	 *            the new ordinate of the bottom left corner of the canvas
+	 * @param width
+	 *            the new width of the canvas
+	 * @param height
+	 *            the new height of the canvas
 	 */
-	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
+	public void reshape(GLAutoDrawable drawable, int x, int y, int width,
+			int height) {
 		replaceContext(drawable);
 	}
 
@@ -130,13 +147,16 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	 * Retrieves the current state of this game manager. Never returns
 	 * <code>null</code>: if there is no <code>View</code> /
 	 * <code>Controller</code> pair, a pair of <code>null</code>s is returned
-	 * instead. 
+	 * instead.
 	 * 
 	 * @return the current state of this game manager
 	 */
 	protected Pair<View<?>, Controller<? extends View<?>>> getState() {
-		synchronized(stateStack) {
-			return stateStack.isEmpty() ? new Pair<View<?>, Controller<? extends View<?>>>(null, null) : stateStack.peek();
+		
+		synchronized (stateStack) {
+			return stateStack.isEmpty()
+					? new Pair<View<?>, Controller<? extends View<?>>>(null, null)
+					: stateStack.peek();
 		}
 	}
 
@@ -144,26 +164,31 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	 * Creates a state from the given <code>View</code> and
 	 * <code>Controller</code> and adds it to the top of the state stack.
 	 * 
-	 * @param newView the new state's <code>View</code>
-	 * @param newController the new state's <code>Controller</code>
+	 * @param newView
+	 *            the new state's <code>View</code>
+	 * @param newController
+	 *            the new state's <code>Controller</code>
 	 */
-	public void pushState(View<?> newView, Controller<? extends View<?>> newController) {
-		pushState(new Pair<View<?>, Controller<? extends View<?>>>(newView, newController));
+	public void pushState(View<?> newView,
+			Controller<? extends View<?>> newController) {
+		pushState(new Pair<View<?>, Controller<? extends View<?>>>(newView,
+				newController));
 	}
 
 	/**
-	 * Adds a new state to the top of the state stack. 
+	 * Adds a new state to the top of the state stack.
 	 * 
-	 * @param newState the new state
+	 * @param newState
+	 *            the new state
 	 */
 	public void pushState(Pair<View<?>, Controller<? extends View<?>>> newState) {
-		synchronized(stateStack) {
+		synchronized (stateStack) {
 			Pair<View<?>, Controller<? extends View<?>>> oldState = popState();
-			
+
 			View<?> newView = newState.getFirst();
 			if(newView != null)
 				newView.changeTo();
-	
+
 			if(oldState != null)
 				stateStack.push(oldState);
 			stateStack.push(newState);
@@ -178,9 +203,9 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	 */
 	public Pair<View<?>, Controller<? extends View<?>>> popState() {
 		Pair<View<?>, Controller<? extends View<?>>> ret = null;
-		synchronized(stateStack) {
+		synchronized (stateStack) {
 			if(!stateStack.isEmpty()) {
-				ret = stateStack.pop(); 
+				ret = stateStack.pop();
 				View<?> view = ret.getFirst();
 				if(view != null)
 					view.changeFrom();
@@ -215,14 +240,15 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	public void stop() {
 		animator.stop();
 		frame.setVisible(false);
-		GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(null);
+		GraphicsEnvironment.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice().setFullScreenWindow(null);
 		frame.dispose();
 		replaceContext(null);
 	}
 
 	/**
 	 * Gets the current controller if there is one, or a no-action
-	 * <code>EventAdapter</code> otherwise. 
+	 * <code>EventAdapter</code> otherwise.
 	 * 
 	 */
 	protected EventAdapter getDelegate() {
@@ -241,25 +267,27 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	}
 
 	/**
-	 * Releases the previously-reserved OpenGL context. 
+	 * Releases the previously-reserved OpenGL context.
 	 * 
 	 */
 	protected void postEventDelegate() {
 		if(spareContext == GLContext.getCurrent())
 			spareContext.release();
 	}
-	
+
 	/**
-	 * Replaces the spare OpenGL context maintained by this <code>GameManager</code>.
+	 * Replaces the spare OpenGL context maintained by this
+	 * <code>GameManager</code>.
 	 * 
-	 * @param drawable the <code>GLAutoDrawable</code> to ask for a new context
+	 * @param drawable
+	 *            the <code>GLAutoDrawable</code> to ask for a new context
 	 */
 	protected void replaceContext(GLAutoDrawable drawable) {
 		GLContext current = GLContext.getCurrent();
 		if(spareContext != null) {
 			if(spareContext == current)
 				spareContext.release();
-			spareContext.destroy();	
+			spareContext.destroy();
 		}
 		if(drawable != null)
 			spareContext = drawable.createContext(current);

@@ -6,7 +6,8 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 /**
- * A logger that prints out all messages it receives to a <code>PrintStream</code>.
+ * A logger that prints out all messages it receives to a
+ * <code>PrintStream</code>.
  * 
  */
 public class PrintStreamLogger implements Logger {
@@ -37,7 +38,8 @@ public class PrintStreamLogger implements Logger {
 	}
 
 	/**
-	 * Constructs a logger which outputs to the specified <code>OutputStream</code>.
+	 * Constructs a logger which outputs to the specified
+	 * <code>OutputStream</code>.
 	 * 
 	 * @param stream
 	 *            the output destination
@@ -47,7 +49,8 @@ public class PrintStreamLogger implements Logger {
 	}
 
 	/**
-	 * Construct a logger which outputs to the specified <code>PrintStream</code>.
+	 * Construct a logger which outputs to the specified
+	 * <code>PrintStream</code>.
 	 * 
 	 * @param stream
 	 *            the output destination

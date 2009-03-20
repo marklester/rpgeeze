@@ -19,14 +19,15 @@ import rpgeeze.log.Message;
  * Entry point for the game. Houses the main method.
  * 
  */
-public class RunGame {	
+public class RunGame {
 	private RunGame() {
 	}
-	
+
 	/**
-	 * Creates the game frame and gives it a game manager.	
+	 * Creates the game frame and gives it a game manager.
 	 * 
-	 * @param arg command-line options
+	 * @param arg
+	 *            command-line options
 	 */
 	public static void main(String[] arg) {
 		LogManager lm = LogManager.getInstance();
@@ -35,33 +36,38 @@ public class RunGame {
 			new File("log").mkdir();
 			lm.registerLogger(new PrintStreamLogger("log/log.txt"));
 		}
-		catch(FileNotFoundException e) {
-			lm.log("Failed to open log file for writing.", "MAIN", Message.Type.ERROR);
+		catch (FileNotFoundException e) {
+			lm.log("Failed to open log file for writing.", "MAIN",
+					Message.Type.ERROR);
 		}
-		
-		lm.log("Running on " + System.getProperty("os.name") + " with arguments: " + Arrays.toString(arg), "MAIN");
-		lm.log("Working directory is " + System.getProperty("user.dir"), "MAIN");
-	
+
+		lm.log(String.format("Running on %s with arguments: %s",
+				System.getProperty("os.name"), Arrays.toString(arg)), "MAIN");
+		lm.log("Working directory is " + System.getProperty("user.dir"),
+				"MAIN");
+
 		GameProperties prop = new GameProperties(arg);
-		
+
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			LogManager.getInstance().log("Successfully set native look and feel", "MAIN");
+			lm.log("Successfully set native look and feel", "MAIN");
 		}
-		catch(Exception e) {
-			LogManager.getInstance().log("Problem setting look and feel: " + e.getMessage(), "MAIN", Message.Type.ERROR);
+		catch (Exception e) {
+			lm.log("Problem setting look and feel: " + e.getMessage(), "MAIN",
+					Message.Type.ERROR);
 		}
-		
+
 		lm.log("Creating frame", "MAIN");
 		Frame frame = new Frame("rpgeeze");
 		frame.setResizable(false);
-		
+
 		lm.log("Preparing game manager", "MAIN");
 		final GameManager gm = new GameManager(frame, prop);
-		
-	    Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-	    GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-	    
+
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice();
+
 		if(prop.getFullScreen() && dev.isFullScreenSupported()) {
 			lm.log("Going fullscreen", "MAIN");
 			frame.setUndecorated(true);
@@ -70,9 +76,11 @@ public class RunGame {
 		else {
 			lm.log("Staying windowed, setting frame size", "MAIN");
 			double scaleFactor = 2.0 / 3;
-			frame.setSize((int) (screen.getWidth() * scaleFactor), (int) (screen.getHeight() * scaleFactor));
+			frame.setSize(
+					(int) (screen.getWidth() * scaleFactor),
+					(int) (screen.getHeight() * scaleFactor));
 		}
-		
+
 		lm.log("Starting game manager", "MAIN");
 		gm.start();
 	}

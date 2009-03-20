@@ -6,6 +6,7 @@ import rpgeeze.model.decal.Decal;
 import rpgeeze.model.item.Item;
 import rpgeeze.model.terrain.Terrain;
 import rpgeeze.view.Drawable;
+import rpgeeze.view.Drawer;
 
 public abstract class Tile implements Drawable {
 	private Terrain terrain;
@@ -55,4 +56,8 @@ public abstract class Tile implements Drawable {
 	}
 	
 	public abstract Tile getTile(Vector offset);
+	
+	public void draw(Drawer drawer) {
+		
+	}
 }

@@ -2,8 +2,9 @@ package rpgeeze.dp;
 
 /**
  * The observer design pattern.
- *
- * @param <T> the subject this observer observes 
+ * 
+ * @param <T>
+ *            the subject this observer observes
  */
 public interface Observer<T> {
 	/**
