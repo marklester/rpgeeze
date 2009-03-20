@@ -30,21 +30,43 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 					case CANCEL:
 						getManager().popState();
 						break;
+					case DEFAULTS:
+						break;
 					case N_ARROW:
 						break;
 					case S_ARROW:
-						
-						break;			
+						break;	
+					case E_ARROW:
+						break;
+					case W_ARROW:
+						break;
+					case NE_ARROW:
+						break;
+					case NW_ARROW:
+						break;
+					case SE_ARROW:
+						break;
+					case SW_ARROW:
+						break;
+					case DROP_ITEM:
+						break;
+					case EQUIP_ITEM:
+						break;
+					case SAVE_GAME:
+						break;
+					case LOAD_GAME:
+						break;
+					case NEW_GAME:
+						break;
+					case INVENTORY_VIEW:
+						break;
+					case STATS_VIEW:
+						break;
+					case SKILLS_VIEW:
+						break;
+					
 					}
 			}
 		}
 	}
-	
-	/*private void changeColor(Point p) {
-		getView().unhighlight();
-		Iterator<Integer> iter = getView().pick(p);
-		iter.reset();
-		for(iter.reset(); !iter.isDone(); iter.advance())
-			getView().highlight(iter.current());
-	}*/
 }
