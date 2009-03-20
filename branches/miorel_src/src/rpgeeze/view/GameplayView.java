@@ -8,7 +8,6 @@ import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
 import rpgeeze.gl.GL;
-import rpgeeze.gl.StandardSetup;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.math.VectorImpl;
@@ -54,7 +53,7 @@ public class GameplayView extends View<GameplayView.State> {
 
 	public void render(Point point) {
 		GL gl = new GL();		
-		new StandardSetup(point).render(gl);
+		setup(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 		gl.glClearColor(0, 0, 0, 0);
 

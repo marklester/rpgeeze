@@ -10,7 +10,6 @@ import rpgeeze.GameManager;
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
-import rpgeeze.gl.StandardSetup;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.gl.geom.TexturedRectangle;
@@ -88,7 +87,7 @@ public final class OptionsMenuView extends HighlightableView<OptionsMenuView.Sta
 	 */
 	public void render(Point point) {
 		GL gl = new GL();		
-		new StandardSetup(point).render(gl);
+		setup(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		
 		if(getState() == State.NORMAL) {

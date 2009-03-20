@@ -10,8 +10,8 @@ import java.nio.ShortBuffer;
 
 /**
  * OpenGL interface object that delegates to another object.
+ * 
  */
-
 public abstract class DelegatingGL implements javax.media.opengl.GL {
 	private final javax.media.opengl.GL delegate;
 	
