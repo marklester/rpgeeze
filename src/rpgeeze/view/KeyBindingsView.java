@@ -129,7 +129,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	}
 
 	/**
-	 * Renders the occupation selection screen.
+	 * Renders the key bindings screen.
 	 */
 	public void render(Point point) {
 		GL gl = new GL();		
