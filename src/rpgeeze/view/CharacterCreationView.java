@@ -3,13 +3,11 @@ package rpgeeze.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
+import rpgeeze.GameManager;
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
@@ -98,7 +96,8 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	private static final double ZOOM_STEP = 0.25; 
 	private double zoom = ZOOM_MIN;
 	
-	public CharacterCreationView() {
+	public CharacterCreationView(GameManager manager) {
+		super(manager);
 		for(TexturedRectangle rect: occupationImage) {
 			rect.setColor(MainMenuView.PLAIN);
 			rect.setVisible(false);
@@ -176,13 +175,16 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	}
 	
 	public void randomName() {
-		Scanner s = new Scanner(ResourceLoader.getInstance().getStream("txt/names.txt"));
-		List<String> names = new ArrayList<String>();
-		while(s.hasNextLine())
-			names.add(s.nextLine());
+		String names = getManager().getProperties().getProperty("names");
+		
+		// lowercase K's are silly in usual font, make them uppercase
+		names = names.replaceAll("k", "K");
+		
+		String[] arr = names.split(",");
+		
 		Random rnd = new Random();
 		String newName;
-		while((newName = names.get(rnd.nextInt(names.size()))).equals(characterName));
+		while((newName = arr[rnd.nextInt(arr.length)]).equals(characterName));
 		setCharacterName(newName);
 	}
 	

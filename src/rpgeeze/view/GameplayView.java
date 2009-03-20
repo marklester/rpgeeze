@@ -6,6 +6,7 @@ import java.awt.Point;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
+import rpgeeze.GameManager;
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.TexturedRectangle;
@@ -44,7 +45,8 @@ public class GameplayView extends View<GameplayView.State> {
 
 	public enum State implements rpgeeze.dp.State { NEW, FADING_IN, NORMAL, HIDDEN; }
 
-	public GameplayView(Entity avatar) {
+	public GameplayView(GameManager manager, Entity avatar) {
+		super(manager);
 		this.avatar = avatar;
 		changeState(State.NEW);
 	}

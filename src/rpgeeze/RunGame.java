@@ -1,6 +1,6 @@
 package rpgeeze;
 
-import java.awt.DisplayMode;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -57,28 +57,18 @@ public class RunGame {
 		lm.log("Preparing game manager", "MAIN");
 		final GameManager gm = new GameManager(frame, prop);
 		
-		DisplayMode mode = new DisplayMode(1024, 768, 32, DisplayMode.REFRESH_RATE_UNKNOWN);
-		for(DisplayMode m: GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayModes())
-			System.out.println(m.getWidth() + "x" + m.getHeight() + " " + m.getBitDepth() + " " + m.getRefreshRate());
-
-		if(prop.getFullScreen()) {
+	    Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+	    GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+	    
+		if(prop.getFullScreen() && dev.isFullScreenSupported()) {
 			lm.log("Going fullscreen", "MAIN");
-			frame.setSize(mode.getWidth(), mode.getHeight());
-			GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 			frame.setUndecorated(true);
-			if(dev.isDisplayChangeSupported()) {
-				lm.log("Desired display mode is supported", "MAIN");
-				dev.setDisplayMode(mode);
-			}
-			System.out.println(Toolkit.getDefaultToolkit().getScreenSize());
-			if(System.getProperty("os.name").equals("Linux"))
-				dev.setFullScreenWindow(frame);
-			System.out.println(Toolkit.getDefaultToolkit().getScreenSize());
+			dev.setFullScreenWindow(frame);
 		}
 		else {
 			lm.log("Staying windowed, setting frame size", "MAIN");
 			double scaleFactor = 2.0 / 3;
-			frame.setSize((int) (mode.getWidth() * scaleFactor), (int) (mode.getHeight() * scaleFactor));
+			frame.setSize((int) (screen.getWidth() * scaleFactor), (int) (screen.getHeight() * scaleFactor));
 		}
 		
 		lm.log("Starting game manager", "MAIN");

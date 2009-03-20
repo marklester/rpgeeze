@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
+import rpgeeze.GameManager;
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
@@ -115,14 +116,13 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	
 	public enum State implements rpgeeze.dp.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
 	
-	
-	
 	private static final double ZOOM_MIN = -60;
 	private static final double ZOOM_MAX = -1.1;
 	private static final double ZOOM_STEP = 0.25; 
 	private double zoom = ZOOM_MIN;
 	
-	public KeyBindingsView() {
+	public KeyBindingsView(GameManager manager) {
+		super(manager);
 		for(Button button: Button.values())
 			putHighlightable(button.getButton());
 		changeState(State.NEW);
