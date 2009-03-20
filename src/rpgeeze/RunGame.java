@@ -4,6 +4,7 @@ import java.awt.DisplayMode;
 import java.awt.Frame;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -57,17 +58,22 @@ public class RunGame {
 		final GameManager gm = new GameManager(frame, prop);
 		
 		DisplayMode mode = new DisplayMode(1024, 768, 32, DisplayMode.REFRESH_RATE_UNKNOWN);
+		for(DisplayMode m: GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayModes())
+			System.out.println(m.getWidth() + "x" + m.getHeight() + " " + m.getBitDepth() + " " + m.getRefreshRate());
+
 		if(prop.getFullScreen()) {
 			lm.log("Going fullscreen", "MAIN");
-			frame.setUndecorated(true);
 			frame.setSize(mode.getWidth(), mode.getHeight());
 			GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+			frame.setUndecorated(true);
 			if(dev.isDisplayChangeSupported()) {
 				lm.log("Desired display mode is supported", "MAIN");
 				dev.setDisplayMode(mode);
 			}
+			System.out.println(Toolkit.getDefaultToolkit().getScreenSize());
 			if(System.getProperty("os.name").equals("Linux"))
 				dev.setFullScreenWindow(frame);
+			System.out.println(Toolkit.getDefaultToolkit().getScreenSize());
 		}
 		else {
 			lm.log("Staying windowed, setting frame size", "MAIN");
