@@ -14,14 +14,16 @@ import com.sun.opengl.util.BufferUtil;
 
 /**
  * Superclass for the various screens that the game will have to display. The
- * most important method is display(), which will be called whenever the screen
- * must be painted. Additionally, each View must provide a CommandHandler so
- * that it may participate in the command framework. The methods changeFrom()
- * and changeTo() are called when the game state changes from and to this view,
- * respectively. They should be used, for example, to pause/resume the game when
- * moving away from the game screen.
+ * most important method is <code>render()</code>, which will be called whenever
+ * the screen must be painted. The <code>changeFrom()</code> and
+ * <code>changeTo()</code> are invoked whenever the game state changes from and
+ * to this view, respectively. Each view additionally has its own sub-states (it
+ * will at the very least have a normal and a hidden state). Changes among these
+ * can be monitored by registering an observer.
+ *
+ * @param <T> the type of state that describes this view (should probably be
+ * an enum)
  */
-
 public abstract class View<T extends View.State> {
 	private HashSet<Observer<View<?>>> observers = new HashSet<Observer<View<?>>>();
 	private T state;
@@ -34,16 +36,27 @@ public abstract class View<T extends View.State> {
 	public interface State {
 	}
 	
+	/**
+	 * Constructs a view that answers to the specified game manager.
+	 * 
+	 * @param manager the game manager
+	 */
 	public View(GameManager manager) {
 		this.manager = manager;
 	}
 	
+	/**
+	 * Retrieves the game manager in charge of this view.
+	 * 
+	 * @return the game manager
+	 */
 	protected GameManager getManager() {
 		return manager;
 	}
 	
 	/**
-	 * OpenGL "picking" with a default buffer size.
+	 * OpenGL "picking" with a (small) default buffer size. An error in this
+	 * method most likely means that a large buffer size is necessary.
 	 * 
 	 * @param pickPoint point around which to set up the picking matrix
 	 * @return an iterator over the name constants that registered as hits at the specified point
@@ -108,45 +121,81 @@ public abstract class View<T extends View.State> {
 	}
 
 	/**
-	 * Renders this View in the current OpenGL context. If the argument is not null, sets up a pick matrix around the specified location, for use in selection mode.  
+	 * Renders this view in the current OpenGL context. If the argument is not
+	 * null, sets up a pick matrix around the specified location, for use in
+	 * selection mode.  
 	 * 
 	 * @param point coordinates to pick around
 	 */
 	public abstract void render(Point point);
 
 	/**
-	 * Called whenever the GameManager changes away from this state. This is where you should, for example, pause any timers that are specific to this View.
+	 * Prepares this view for no longer being displayed. This method is invoked
+	 * by the game manager whenever it changes away from this view, and it
+	 * should therefore be thought of as a pause rather than a destroy
+	 * operation, since the game manager may return to this view. 
+	 *  
 	 */
 	public abstract void changeFrom();
 
 	/**
-	 * Called whenever the GameManager changes to this state. If, for example, you paused some timer in changeFrom(), this is where you should resume it.
+	 * Prepares this view for being displayed. This method is invoked by the
+	 * game manager whenever it changes to this view.
+	 *  
 	 */
 	public abstract void changeTo();
 	
+	/**
+	 * Attaches an observer to this view.
+	 * 
+	 * @param observer the observer to attach
+	 */
 	public void attachObserver(Observer<View<?>> observer) {
 		observers.add(observer);
 	}
-	
+
+	/**
+	 * Detaches an observer from this view.
+	 * 
+	 * @param observer the observer to detach
+	 */
 	public void detachObserver(Observer<View<?>> observer) {
 		observers.remove(observer);
 	}
 	
+	/**
+	 * Notifies observes of a change in the state of this view.
+	 * 
+	 */
 	protected void notifyObservers() {
 		for(Observer<View<?>> observer: observers)
-			observer.update();
+			observer.reactToChange();
 	}
 	
+	/**
+	 * Gets the current state of this view.
+	 * 
+	 * @return the current state
+	 */
 	public final T getState() {
 		return state;
 	}
 	
+	/**
+	 * Changes to the specified state and notifies any observers of this change.
+	 * 
+	 * @param newState the state to which to change
+	 */
 	protected final void changeState(T newState) {
 		LogManager.getInstance().log(this + " changing state to " + newState, "VIEW");
 		state = newState;
 		notifyObservers();
 	}
 	
+	/**
+	 * Returns a string which describes this type of view.
+	 * 
+	 */
 	public String toString() {
 		return getClass().getSimpleName();
 	}

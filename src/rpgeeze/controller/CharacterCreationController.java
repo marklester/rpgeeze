@@ -69,15 +69,15 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 		}
 	}
 
-	private void executeOK() {
+	protected void executeOK() {
 		getView().startZoom();
 	}
 
-	private void executeCancel() {
+	protected void executeCancel() {
 		getManager().popState();		
 	}
 	
-	public void update() {
+	public void reactToChange() {
 		if(getView().getState() == CharacterCreationView.State.ZOOMED) {
 			Entity avatar = new FiniteMatrixMap().getAvatar();
 			GameplayView gv = new GameplayView(getManager(), avatar);

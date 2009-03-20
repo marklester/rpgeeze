@@ -10,5 +10,5 @@ public interface Observer<T> {
 	 * Reacts to a change in the state of the subject.
 	 * 
 	 */
-	public void update();
+	public void reactToChange();
 }
