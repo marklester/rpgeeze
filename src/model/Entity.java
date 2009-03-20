@@ -87,6 +87,7 @@ public class Entity implements Subject, Drawable, Cloneable {
 	}
 
 	public void move(Location l) {
+		this.updateObservers();
 		Tile from = this.getTile();
 		if(from.hasAE()){
 			updateObservers();

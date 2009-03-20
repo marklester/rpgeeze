@@ -1,0 +1,17 @@
+package model.skill.visitor;
+
+import model.skill.*;
+
+public interface Visitor {
+	
+	
+	public void visit(BindWounds skill);
+	
+	/*
+	--
+	visit( s: EnchantmentSkill )
+	visit( s: BindWoundSkill )
+	visit( s: BargainSkill )
+	...for each usable skill...
+	*/
+}
