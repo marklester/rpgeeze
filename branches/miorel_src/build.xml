@@ -30,6 +30,7 @@
 		<property name="generate.footer" value="${tmp.dir}/footer.txt"/>
 		
 		<property name="opts.file" value="properties/opts.properties"/>
+		<property name="const.file" value="properties/const.properties"/>
 		<property name="keyval.file" value="properties/keyval.properties"/>
 
 		<mkdir dir="${tmp.dir}"/> 
@@ -46,6 +47,7 @@ import ${ant.project.name}.util.ResourceLoader;
 
 // WARNING! This file is auto-generated! Any changes will be overwritten.
 // To add an option configurable via the command line, edit ${res.dir}/${opts.file}
+// To add a constant, edit ${res.dir}/${const.file}
 // To add a key-value pair, edit ${res.dir}/${keyval.file}
 
 /**
@@ -53,7 +55,18 @@ import ${ant.project.name}.util.ResourceLoader;
  *
  */
 public class ${generate.class} {
-	public ${generate.class}(String... arg) {
+	private static ${generate.class} instance;
+			
+	private ${generate.class}() {
+	}		
+	
+	public static ${generate.class} getInstance() {
+		if(instance == null)
+			instance = new ${generate.class}();
+		return instance;
+	}
+	
+	public void load(String... arg) {
 		LogManager lm = LogManager.getInstance();
 		Properties prop = new Properties();
 		try {
@@ -89,6 +102,7 @@ public class ${generate.class} {
 	    >
 			<arg value="${ant.project.name}"/>
 	    	<arg value="${res.dir}/${opts.file}"/>
+	    	<arg value="${res.dir}/${const.file}"/>
 	    	<arg value="${generate.header}"/>
 	    	<arg value="${generate.footer}"/>
     	</java>

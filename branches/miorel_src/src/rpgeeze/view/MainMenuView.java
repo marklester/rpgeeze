@@ -7,13 +7,18 @@ import java.awt.Point;
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
+import rpgeeze.GameProperties;
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.geom.TextRectangle;
-import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.util.ResourceLoader;
+import rpgeeze.view.overlay.TextureOverlay;
+
+import static rpgeeze.GameProperties.LOGO_SIZE;
+import static rpgeeze.GameProperties.LOGO_Y;
+import static rpgeeze.GameProperties.LOGO_Z;
 
 /**
  * The main menu screen.
@@ -28,8 +33,8 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 
 	private float intensity = MIN_INTENSITY;
-
-	private TexturedRectangle introImage;
+	
+	private TextureOverlay logo;
 
 	public enum Button {
 		NEW_GAME("New Game", 1, -10, 0),
@@ -76,9 +81,11 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 	
 	public MainMenuView(GameManager manager) {
 		super(manager);
-		ResourceLoader loader = ResourceLoader.getInstance();	
-		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -15);
-		introImage.setColor(PLAIN);
+		ResourceLoader loader = ResourceLoader.getInstance();
+		GameProperties prop = GameProperties.getInstance();
+	
+		logo = new TextureOverlay(loader.getTexture(prop.getProperty("img.logo")));
+		
 		for(Button button: Button.values())
 			putHighlightable(button.getButton());
 		changeState(State.NEW);
@@ -88,7 +95,8 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 	 * Renders the main menu screen.
 	 */
 	public void render(Point point) {
-		GL gl = new GL();		
+		GL gl = new GL();
+		boolean pick = point != null;
 		setup(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		
@@ -103,7 +111,11 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 		else
 			gl.glClearColor(0, MAX_INTENSITY, MAX_INTENSITY, 1.0f);
 		
-		introImage.render();
+		
+		gl.color(PLAIN);
+		gl.glTranslated(0, LOGO_Y, 0);
+		logo.render(gl, LOGO_SIZE, LOGO_SIZE, LOGO_Z, LOGO_Z, pick);
+		gl.glTranslated(0, -LOGO_Y, 0);
 		
 		gl.glTranslated(-5, -9.5, -14.5);
 		renderHighlightables();

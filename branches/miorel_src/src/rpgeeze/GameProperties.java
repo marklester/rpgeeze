@@ -11,6 +11,7 @@ import rpgeeze.util.ResourceLoader;
 
 // WARNING! This file is auto-generated! Any changes will be overwritten.
 // To add an option configurable via the command line, edit res/properties/opts.properties
+// To add a constant, edit res/properties/const.properties
 // To add a key-value pair, edit res/properties/keyval.properties
 
 /**
@@ -18,7 +19,18 @@ import rpgeeze.util.ResourceLoader;
  *
  */
 public class GameProperties {
-	public GameProperties(String... arg) {
+	private static GameProperties instance;
+			
+	private GameProperties() {
+	}		
+	
+	public static GameProperties getInstance() {
+		if(instance == null)
+			instance = new GameProperties();
+		return instance;
+	}
+	
+	public void load(String... arg) {
 		LogManager lm = LogManager.getInstance();
 		Properties prop = new Properties();
 		try {
@@ -62,6 +74,12 @@ public class GameProperties {
 	public boolean getFullScreen() {
 		return fullScreen;
 	}
+
+	public static final double LOGO_Z = -100;
+
+	public static final double LOGO_Y = -LOGO_Z/5;
+
+	public static final double LOGO_SIZE = -LOGO_Z*1.7;
 
 	private HashMap<String, String> map = new HashMap<String, String>();
 	public String getProperty(String key) {

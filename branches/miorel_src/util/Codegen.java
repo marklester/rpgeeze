@@ -18,8 +18,9 @@ public class Codegen {
 	public static void main(String[] arg) throws Exception {
 		String packageName = arg[0];
 		HashMap<String, String> opts = readProperties(new FileInputStream(arg[1]));
-		Scanner header = new Scanner(new File(arg[2]));
-		Scanner footer = new Scanner(new File(arg[3]));
+		HashMap<String, String> constants = readProperties(new FileInputStream(arg[2]));
+		Scanner header = new Scanner(new File(arg[3]));
+		Scanner footer = new Scanner(new File(arg[4]));
 		
 		System.out.printf("package %s;\n", packageName);
 		while(header.hasNextLine())
@@ -28,10 +29,10 @@ public class Codegen {
 			String[] token = readProperty(s, opts.get(s));
 			generateOption(token[0], token[1], token[2]);
 		}
-/*		for(String s: constants.keySet()) {
+		for(String s: constants.keySet()) {
 			String[] token = readProperty(s, constants.get(s));
-			generateConstant(token[0], token[1], token[2]);
-		}*/
+			generateConstant(token[0], token[1], token[2], "public static final");
+		}
 		System.out.print(parse);
 		System.out.printf("\t\t\t}\n\t\t\tcatch(Exception e) {\n\t\t\t\tlm.log(\"Error parsing argument: \" + s, \"PARSER\", Message.Type.ERROR);\n\t\t\t}\n");
 		System.out.printf("\t\t}\n\t}\n");
@@ -41,7 +42,7 @@ public class Codegen {
 	}
 	
 	private static void generateOption(String name, String type, String defaultValue) {
-		generateConstant(name, type, defaultValue);
+		generateConstant(name, type, defaultValue, "private");
 		String optName = name.replaceAll("([A-Z]+)", "-$1").toLowerCase();
 		if(type.equals("boolean")) {
 			parseFormatter.format("\t\t\t\t%s(s.matches(\"--%s\"))\n\t\t\t\t\t%s = true;\n", ifString(), optName, name);
@@ -55,11 +56,13 @@ public class Codegen {
 		}
 	}
 	
-	private static void generateConstant(String name, String type, String defaultValue) {
-		methodFormatter.format("\n\tprivate %s %s = %s;\n", type, name, defaultValue);
-		methodFormatter.format("\tpublic %s get%s() {\n", type, capitalize(name));
-		methodFormatter.format("\t\treturn %s;\n", name);
-		methodFormatter.format("\t}\n");		
+	private static void generateConstant(String name, String type, String defaultValue, String mods) {
+		methodFormatter.format("\n\t%s %s %s = %s;\n", mods, type, name, defaultValue);
+		if(!mods.contains("public")) {
+			methodFormatter.format("\tpublic %s get%s() {\n", type, capitalize(name));
+			methodFormatter.format("\t\treturn %s;\n", name);
+			methodFormatter.format("\t}\n");
+		}
 	}
 	
 	private static HashMap<String, String> readProperties(InputStream stream) throws IOException {

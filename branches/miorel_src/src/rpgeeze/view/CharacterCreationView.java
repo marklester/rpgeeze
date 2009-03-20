@@ -8,6 +8,7 @@ import java.util.Random;
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
+import rpgeeze.GameProperties;
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
@@ -175,7 +176,7 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	}
 	
 	public void randomName() {
-		String names = getManager().getProperties().getProperty("game.names");
+		String names = GameProperties.getInstance().getProperty("game.names");
 		
 		// lowercase K's are silly in usual font, make them uppercase
 		names = names.replaceAll("k", "K");

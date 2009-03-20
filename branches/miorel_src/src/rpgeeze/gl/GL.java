@@ -1,8 +1,11 @@
 package rpgeeze.gl;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 
 import javax.media.opengl.glu.GLU;
+
+import rpgeeze.math.Vector;
 
 public class GL extends DelegatingGL {
 	public GL(javax.media.opengl.GL delegate) {
@@ -46,5 +49,13 @@ public class GL extends DelegatingGL {
 	public void pickMatrix(double x, double y) {
 		GLU glu = new GLU();
 		glu.gluPickMatrix(x, y, 1e-3, 1e-3, getViewportDimensionsAsArray(), 0);
-	}	
+	}
+	
+	public void translate(Vector v) {
+		glTranslated(v.getX(), v.getY(), v.getZ());
+	}
+	
+	public void color(Color c) {
+		glColor4f(c.getRed() / 255f, c.getGreen() / 255f, c.getBlue() / 255f, c.getAlpha() / 255f);
+	}
 }

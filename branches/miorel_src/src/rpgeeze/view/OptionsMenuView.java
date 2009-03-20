@@ -1,5 +1,9 @@
 package rpgeeze.view;
 
+import static rpgeeze.GameProperties.LOGO_SIZE;
+import static rpgeeze.GameProperties.LOGO_Y;
+import static rpgeeze.GameProperties.LOGO_Z;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
@@ -7,13 +11,15 @@ import java.awt.Point;
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
+import rpgeeze.GameProperties;
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.geom.TextRectangle;
-import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.util.ResourceLoader;
+import rpgeeze.view.overlay.Overlay;
+import rpgeeze.view.overlay.TextureOverlay;
 
 /**
  * The main menu screen.
@@ -28,8 +34,8 @@ public final class OptionsMenuView extends HighlightableView<OptionsMenuView.Sta
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 
 	private float intensity = MIN_INTENSITY;
-
-	private TexturedRectangle introImage;
+	
+	private Overlay logo;
 
 	public enum Button {
 		KEY_BINDINGS("Key Bindings", 1, -6, 0),
@@ -75,8 +81,10 @@ public final class OptionsMenuView extends HighlightableView<OptionsMenuView.Sta
 	public OptionsMenuView(GameManager manager) {
 		super(manager);
 		ResourceLoader loader = ResourceLoader.getInstance();	
-		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -15);
-		introImage.setColor(PLAIN);
+		GameProperties prop = GameProperties.getInstance();
+	
+		logo = new TextureOverlay(loader.getTexture(prop.getProperty("img.logo")));
+		
 		for(Button button: Button.values())
 			putHighlightable(button.getButton());
 		changeState(State.NEW);
@@ -86,7 +94,8 @@ public final class OptionsMenuView extends HighlightableView<OptionsMenuView.Sta
 	 * Renders the options menu screen.
 	 */
 	public void render(Point point) {
-		GL gl = new GL();		
+		GL gl = new GL();
+		boolean pick = point != null;
 		setup(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		
@@ -101,7 +110,10 @@ public final class OptionsMenuView extends HighlightableView<OptionsMenuView.Sta
 		else
 			gl.glClearColor(0, MAX_INTENSITY, MAX_INTENSITY, 1.0f);
 		
-		introImage.render();
+		gl.color(PLAIN);
+		gl.glTranslated(0, LOGO_Y, 0);
+		logo.render(gl, LOGO_SIZE, LOGO_SIZE, LOGO_Z, LOGO_Z, pick);
+		gl.glTranslated(0, -LOGO_Y, 0);
 		
 		gl.glTranslated(-5, -9.5, -14.5);
 		renderHighlightables();

@@ -7,6 +7,7 @@ import java.util.Random;
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
+import rpgeeze.GameProperties;
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Text;
 import rpgeeze.util.ResourceLoader;
@@ -33,7 +34,7 @@ public class CreditsView extends View<CreditsView.State> {
 	
 	public CreditsView(GameManager manager) {
 		super(manager);
-		String devs = getManager().getProperties().getProperty("app.developers");
+		String devs = GameProperties.getInstance().getProperty("app.developers");
 		
 		// lowercase K's are silly in usual font, make them uppercase
 		devs = devs.replaceAll("k", "K");
