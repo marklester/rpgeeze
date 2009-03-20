@@ -33,7 +33,7 @@ public class CreditsView extends View<CreditsView.State> {
 	
 	public CreditsView(GameManager manager) {
 		super(manager);
-		String devs = getManager().getProperties().getProperty("developers");
+		String devs = getManager().getProperties().getProperty("app.developers");
 		
 		// lowercase K's are silly in usual font, make them uppercase
 		devs = devs.replaceAll("k", "K");

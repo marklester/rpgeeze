@@ -17,10 +17,9 @@ public class Codegen {
 	
 	public static void main(String[] arg) throws Exception {
 		String packageName = arg[0];
-		HashMap<String, String> constants = readProperties(new FileInputStream(arg[1]));
-		HashMap<String, String> opts = readProperties(new FileInputStream(arg[2]));
-		Scanner header = new Scanner(new File(arg[3]));
-		Scanner footer = new Scanner(new File(arg[4]));
+		HashMap<String, String> opts = readProperties(new FileInputStream(arg[1]));
+		Scanner header = new Scanner(new File(arg[2]));
+		Scanner footer = new Scanner(new File(arg[3]));
 		
 		System.out.printf("package %s;\n", packageName);
 		while(header.hasNextLine())
@@ -29,10 +28,10 @@ public class Codegen {
 			String[] token = readProperty(s, opts.get(s));
 			generateOption(token[0], token[1], token[2]);
 		}
-		for(String s: constants.keySet()) {
+/*		for(String s: constants.keySet()) {
 			String[] token = readProperty(s, constants.get(s));
 			generateConstant(token[0], token[1], token[2]);
-		}
+		}*/
 		System.out.print(parse);
 		System.out.printf("\t\t\t}\n\t\t\tcatch(Exception e) {\n\t\t\t\tlm.log(\"Error parsing argument: \" + s, \"PARSER\", Message.Type.ERROR);\n\t\t\t}\n");
 		System.out.printf("\t\t}\n\t}\n");
