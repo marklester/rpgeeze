@@ -46,7 +46,8 @@ public class RunGame {
 		lm.log("Working directory is " + System.getProperty("user.dir"),
 				"MAIN");
 
-		GameProperties prop = new GameProperties(arg);
+		GameProperties prop = GameProperties.getInstance();
+		prop.load(arg);
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -62,7 +63,7 @@ public class RunGame {
 		frame.setResizable(false);
 
 		lm.log("Preparing game manager", "MAIN");
-		final GameManager gm = new GameManager(frame, prop);
+		final GameManager gm = new GameManager(frame);
 
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		GraphicsDevice dev = GraphicsEnvironment.getLocalGraphicsEnvironment()

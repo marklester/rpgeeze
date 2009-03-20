@@ -33,7 +33,6 @@ public class GameManager extends DelegatingEventAdapter
 
 	private boolean initialized = false;
 
-	private GameProperties properties;
 	private Frame frame;
 	private GLCanvas canvas;
 	private FPSAnimator animator;
@@ -41,18 +40,14 @@ public class GameManager extends DelegatingEventAdapter
 
 	/**
 	 * Constructs a game manager that will display in the specified
-	 * <code>Frame</code> and will be initialized with the specified game
-	 * properties.
+	 * <code>Frame</code>.
 	 * 
 	 * @param frame
 	 *            the <code>Frame</code> that will be used for displaying the
 	 *            game
-	 * @param properties
-	 *            the initial game properties
 	 */
-	public GameManager(Frame frame, GameProperties properties) {
+	public GameManager(Frame frame) {
 		this.frame = frame;
-		this.properties = properties;
 		stateStack = new Stack<Pair<View<?>, Controller<? extends View<?>>>>();
 		frame.setBackground(Color.BLACK);
 		frame.enableInputMethods(false);
@@ -61,16 +56,7 @@ public class GameManager extends DelegatingEventAdapter
 		canvas.setFocusTraversalKeysEnabled(false);
 		replaceContext(canvas);
 		frame.add(canvas);
-		animator = new FPSAnimator(canvas, properties.getGoalFPS());
-	}
-
-	/**
-	 * Retrieves the game properties that were used to initialize this manager.
-	 * 
-	 * @return the game properties used to initialize this manager
-	 */
-	public GameProperties getProperties() {
-		return properties;
+		animator = new FPSAnimator(canvas, GameProperties.getInstance().getGoalFPS());
 	}
 
 	/**

@@ -8,6 +8,14 @@ public class VectorImpl implements Vector {
 	private final double x, y, z;
 
 	/**
+	 * Constructs a zero vector;
+	 * 
+	 */
+	public VectorImpl() {
+		this(0, 0, 0);
+	}
+	
+	/**
 	 * Constructs a vector with the specified coordinates in 2D space and a
 	 * z-coordinate of zero.
 	 * 
