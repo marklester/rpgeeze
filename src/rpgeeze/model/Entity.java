@@ -3,7 +3,7 @@ package rpgeeze.model;
 import rpgeeze.math.Vector;
 import rpgeeze.util.Direction;
 
-public class Entity {
+public class Entity implements Visitable {
 	private Direction facing;
 	private Tile tile;
 	
@@ -17,5 +17,9 @@ public class Entity {
 	
 	public void setTile(Tile newTile) {
 		tile = newTile;
+	}
+	
+	public void accept(Visitor visitor) {
+		visitor.visitEntity(this);
 	}
 }

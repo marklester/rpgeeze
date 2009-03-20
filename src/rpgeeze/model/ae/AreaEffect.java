@@ -1,7 +1,13 @@
 package rpgeeze.model.ae;
 
 import rpgeeze.model.Entity;
+import rpgeeze.model.Visitable;
+import rpgeeze.model.Visitor;
 
-public interface AreaEffect {
-	public void apply(Entity entity);
+public abstract class AreaEffect implements Visitable {
+	public abstract void apply(Entity entity);
+	
+	public void accept(Visitor visitor) {
+		visitor.visitAreaEffect(this);
+	}
 }
