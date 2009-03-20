@@ -19,9 +19,6 @@ import rpgeeze.log.Message;
  */
 
 public class RunGame {	
-	public final static int GOAL_FPS = 80;
-	public final static int GOAL_UPS = 80;
-	public final static boolean FULL_SCREEN = false;
 	
 	/**
 	 * Creates the game frame and gives it a game manager.	
@@ -41,6 +38,8 @@ public class RunGame {
 		
 		lm.log("Running on " + System.getProperty("os.name") + " with arguments: " + Arrays.toString(arg), "MAIN");
 		lm.log("Working directory is " + System.getProperty("user.dir"), "MAIN");
+	
+		GameProperties prop = new GameProperties(arg);
 		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -52,12 +51,13 @@ public class RunGame {
 		
 		lm.log("Creating frame", "MAIN");
 		Frame frame = new Frame("rpgeeze");
+		frame.setResizable(false);
 		
 		lm.log("Preparing game manager", "MAIN");
-		final GameManager gm = new GameManager(frame);
+		final GameManager gm = new GameManager(frame, prop);
 		
 		DisplayMode mode = new DisplayMode(1024, 768, 32, DisplayMode.REFRESH_RATE_UNKNOWN);
-		if(FULL_SCREEN) {
+		if(prop.getFullScreen()) {
 			lm.log("Going fullscreen", "MAIN");
 			frame.setUndecorated(true);
 			frame.setSize(mode.getWidth(), mode.getHeight());

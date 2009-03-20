@@ -28,6 +28,7 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 
 	private boolean initialized = false;
 	
+	private GameProperties properties;
 	private Frame frame;
 	private GLCanvas canvas;
 	private FPSAnimator animator;
@@ -37,8 +38,9 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	 * Creates a new GameManager.
 	 * 
 	 */
-	public GameManager(Frame frame) {
+	public GameManager(Frame frame, GameProperties properties) {
 		this.frame = frame;
+		this.properties = properties;
 		frame.setBackground(Color.BLACK);
 		frame.enableInputMethods(false);
 		frame.setFocusTraversalKeysEnabled(false);
@@ -46,7 +48,7 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 		canvas.setFocusTraversalKeysEnabled(false);
 		replaceContext(canvas);
 		frame.add(canvas);
-		animator = new FPSAnimator(canvas, RunGame.GOAL_FPS);
+		animator = new FPSAnimator(canvas, properties.getGoalFPS());
 	}
 
 	/**
