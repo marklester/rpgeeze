@@ -1,6 +1,9 @@
 package rpgeeze.controller;
 
+import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
@@ -10,6 +13,7 @@ import rpgeeze.view.KeyBindingsView;
  * Controls the main menu screen.
  */
 public class KeyBindingsViewController extends HighlightableViewController<KeyBindingsView> {
+	
 	public KeyBindingsViewController(GameManager manager, KeyBindingsView view) {
 		super(manager, view);
 	}
@@ -17,9 +21,14 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 	/**
 	 * Executes the action corresponding to the clicked button, if any.
 	 */
+	Iterator<Integer> iter;
+	Point p;
 	public void mouseClicked(MouseEvent e) {
+		
 		if(e.getButton() == MouseEvent.BUTTON1) {
-			Iterator<Integer> iter = getView().pick(e.getPoint());
+			getView().unhighlight();
+			p = e.getPoint();
+			iter = getView().pick(e.getPoint());
 			for(iter.reset(); !iter.isDone(); iter.advance()) {
 				KeyBindingsView.Button button = KeyBindingsView.Button.fromGLName(iter.current());
 				if(button != null)
@@ -31,14 +40,71 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 						getManager().popState();
 						break;
 					case DEFAULTS:
+						getView().defaults();
 						break;
 					case N_ARROW:
+						highlight(e.getPoint());
 						break;
 					case S_ARROW:
+						highlight(e.getPoint());
 						break;	
 					case E_ARROW:
+						highlight(e.getPoint());
 						break;
 					case W_ARROW:
+						highlight(e.getPoint());
+						break;
+					case NE_ARROW:
+						highlight(e.getPoint());
+						break;
+					case NW_ARROW:
+						highlight(e.getPoint());
+						break;
+					case SE_ARROW:
+						highlight(e.getPoint());
+						break;
+					case SW_ARROW:
+						highlight(e.getPoint());
+						break;
+					case DROP_ITEM:
+						break;
+					case EQUIP_ITEM:
+						break;
+					case SAVE_GAME:
+						break;
+					case LOAD_GAME:
+						break;
+					case NEW_GAME:
+						break;
+					case INVENTORY_VIEW:
+						break;
+					case STATS_VIEW:
+						break;
+					case SKILLS_VIEW:
+						break;
+					}
+			}
+		}
+	}
+	
+	public void keyPressed(KeyEvent e) {
+		if(e.getID() == KeyEvent.KEY_PRESSED) {
+			for(iter.reset(); !iter.isDone(); iter.advance()) {
+				KeyBindingsView.Button button = KeyBindingsView.Button.fromGLName(iter.current());
+				char c = e.getKeyChar();
+				if(button != null && (c == ' ' || Character.isLetter(c) || Character.isDigit(c)))
+					switch(	button) {
+					case N_ARROW:
+						getView().setNorthCommand(c);
+						break;
+					case S_ARROW:
+						getView().setSouthCommand(c);
+						break;	
+					case E_ARROW:
+						getView().setEastCommand(c);
+						break;
+					case W_ARROW:
+						getView().setWestCommand(c);
 						break;
 					case NE_ARROW:
 						break;
@@ -68,5 +134,37 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 					}
 			}
 		}
+	}
+	
+	private void highlight(Point p) {
+		getView().unhighlight();
+		Iterator<Integer> iter = getView().pick(p);
+		iter.reset();
+		for(iter.reset(); !iter.isDone(); iter.advance())
+			getView().highlight(iter.current());
+	}
+	
+	public void mouseEntered(MouseEvent e) {
+		
+	}
+
+	public void mouseMoved(MouseEvent e) {
+		
+	}
+
+	public void mouseExited(MouseEvent e) {
+		
+	}
+
+	public void windowLostFocus(WindowEvent e) {
+		
+	}
+
+	public void windowActivated(WindowEvent e) {
+		
+	}
+
+	public void windowDeactivated(WindowEvent e) {
+		
 	}
 }
