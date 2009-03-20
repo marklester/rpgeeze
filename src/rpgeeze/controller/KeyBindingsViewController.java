@@ -1,6 +1,8 @@
 package rpgeeze.controller;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
 
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
@@ -23,21 +25,29 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 			Iterator<Integer> iter = getView().pick(e.getPoint());
 			for(iter.reset(); !iter.isDone(); iter.advance()) {
 				KeyBindingsView.Button button = KeyBindingsView.Button.fromGLName(iter.current());
-/*				if(button != null)
+				if(button != null)
 					switch(	button) {
-					case KEY_BINDINGS:
-						KeyBindingsView kbv = new KeyBindingsView();
-						
-						break;
-					case SOUND_OPTIONS:
-						break;
-					case VIDEO_OPTIONS:
-						break;
-					case BACK:
+					case OK:
 						getManager().popState();
+						break;
+					case CANCEL:
+						getManager().popState();
+						break;
+					case N_ARROW:
+						break;
+					case S_ARROW:
+						
 						break;			
-					}*/
+					}
 			}
 		}
 	}
+	
+	/*private void changeColor(Point p) {
+		getView().unhighlight();
+		Iterator<Integer> iter = getView().pick(p);
+		iter.reset();
+		for(iter.reset(); !iter.isDone(); iter.advance())
+			getView().highlight(iter.current());
+	}*/
 }
