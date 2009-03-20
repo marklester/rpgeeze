@@ -23,7 +23,7 @@ import rpgeeze.util.ResourceLoader;
 public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	private static final TextRenderer smallRenderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 22);
-	
+	private Character north, south, east, west;
 	public enum Button {
 		OK(1) {
 			public Highlightable doGetButton() {
@@ -79,27 +79,27 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		},
 		DROP_ITEM(11) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Drop Item", -20, 20), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(getRectangle("Drop Item", -19, 20), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		EQUIP_ITEM(12) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Equip Item", -20, 15), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(getRectangle("Equip Item", -19, 15), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		SAVE_GAME(13) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Save Game", -20, 10), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(getRectangle("Save Game", -19, 10), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		LOAD_GAME(14) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Load Game", -20, 5), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(getRectangle("Load Game", -19, 5), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		NEW_GAME(15) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("New Game", -20, 0), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(getRectangle("New Game", -19, 0), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		INVENTORY_VIEW(16) {
@@ -169,6 +169,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		for(Button button: Button.values())
 			putHighlightable(button.getButton());
 		changeState(State.NEW);
+		defaults();
 	}
 
 	/**
@@ -192,7 +193,6 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			northArrow.setXY(0, 14);
 			putHighlightable(northArrow);
 			
-			Character north = 'n';
 			Text northCommand = new Text(north.toString(), smallRenderer, 0.075f);
 			northCommand.setXY(-0.5, 15.5);
 			northCommand.render();
@@ -201,18 +201,25 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			southArrow.setXY(0, 8);
 			putHighlightable(southArrow);
 			
-			Character south = 's';
-			Text southCommand = new Text(south.toString(), smallRenderer, 0.075f);
+			Text southCommand = new Text(south.toString().toString(), smallRenderer, 0.075f);
 			southCommand.setXY(-0.5, 5.5);
 			southCommand.render();
+			
+			Highlightable eastArrow = Button.E_ARROW.getButton();
+			eastArrow.setXY(3, 10);
+			putHighlightable(eastArrow);
+			
+			Text eastCommand = new Text(east.toString(), smallRenderer, 0.075f);
+			eastCommand.setXY(4.5, 10.5);
+			eastCommand.render();
 			
 			Highlightable westArrow = Button.W_ARROW.getButton();
 			westArrow.setXY(-3, 10);
 			putHighlightable(westArrow);
-
-			Highlightable eastArrow = Button.E_ARROW.getButton();
-			eastArrow.setXY(3, 10);
-			putHighlightable(eastArrow);
+			
+			Text westCommand = new Text(west.toString(), smallRenderer, 0.075f);
+			westCommand.setXY(-5.5, 10.5);
+			westCommand.render();
 			
 			Highlightable northeastArrow = Button.NE_ARROW.getButton();
 			northeastArrow.setXY(1, 13);
@@ -256,5 +263,28 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	public void startZoom() {
 		if(getState() != State.ZOOMING && getState() != State.ZOOMED)
 			changeState(State.ZOOMING);
+	}
+	
+	public void setNorthCommand(Character c){
+		north = c;
+	}
+	
+	public void setSouthCommand(Character c){
+		south = c;
+	}
+	
+	public void setEastCommand(Character c){
+		east = c;
+	}
+	
+	public void setWestCommand(Character c){
+		west = c;
+	}
+	
+	public void defaults(){
+		north = '8';
+		south = '2';
+		east = '6';
+		west = '4';
 	}
 }
