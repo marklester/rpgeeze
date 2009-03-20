@@ -6,6 +6,8 @@ import util.ResourceLoader;
 import view.Console;
 import model.skill.*;
 import model.Entity;
+import model.Location;
+
 
 public class UseSkillVisitor implements Visitor {
 	
@@ -35,6 +37,10 @@ public class UseSkillVisitor implements Visitor {
 		}
 		else
 			Console.getInstance().writeLine("You do not have enough mana...", Color.RED);
+	}
+	
+	public void visit(RangedWeapon sk) {
+		
 	}
 
 }
