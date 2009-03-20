@@ -67,3 +67,13 @@
     * Worked on AudioThread
     * Merged resource loader from my branch, tidied up code
     * Worked on Skill class, and subclasses, etc.
+
+3/18/09 10:00-12:00
+
+    * Worked on AudioThread
+    * Skills, started in a visitor pattern
+
+3/19/09 10:00-17:00
+
+    * Finished visitor pattern for Skills
+    * Worked on some usable skills, such as BindWounds and Enchantment, etc.
