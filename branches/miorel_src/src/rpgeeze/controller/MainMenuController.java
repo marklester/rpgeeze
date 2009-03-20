@@ -31,7 +31,7 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 				if(button != null)
 					switch(	button) {
 					case NEW_GAME:
-						CharacterCreationView ccv = new CharacterCreationView();
+						CharacterCreationView ccv = new CharacterCreationView(getManager());
 						CharacterCreationController ccc = new CharacterCreationController(getManager(), ccv);
 						getManager().pushState(ccv, ccc);
 						break;
@@ -42,14 +42,14 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
                         LogManager.getInstance().log("File chooser returned status " + status, "CONTROLLER");
 						break;
 					case OPTIONS:
-						OptionsMenuView omv = new OptionsMenuView();
+						OptionsMenuView omv = new OptionsMenuView(getManager());
 						OptionsMenuController omc = new OptionsMenuController(getManager(), omv);
 						getManager().pushState(omv, omc);
 						break;
 					case HELP:
 						break;
 					case CREDITS:
-						CreditsView cv = new CreditsView();
+						CreditsView cv = new CreditsView(getManager());
 						CreditsController cc = new CreditsController(getManager(), cv);
 						getManager().pushState(cv, cc);
 						break;

@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.nio.IntBuffer;
 import java.util.HashSet;
 
+import rpgeeze.GameManager;
 import rpgeeze.gl.GL;
 import rpgeeze.log.LogManager;
 import rpgeeze.dp.Iterator;
@@ -25,6 +26,15 @@ import com.sun.opengl.util.BufferUtil;
 public abstract class View<T extends State> {
 	private HashSet<Observer<View<?>>> observers = new HashSet<Observer<View<?>>>();
 	private T state;
+	private GameManager manager;
+	
+	public View(GameManager manager) {
+		this.manager = manager;
+	}
+	
+	protected GameManager getManager() {
+		return manager;
+	}
 	
 	/**
 	 * OpenGL "picking" with a default buffer size.

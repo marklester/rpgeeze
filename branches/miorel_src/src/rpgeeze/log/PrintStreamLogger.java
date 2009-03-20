@@ -57,8 +57,8 @@ public class PrintStreamLogger implements Logger {
 	}
 
 	public void log(Message message) {
-		stream.printf("[%s %s] %s\n", message.getAuthor(), message.getType(),
-				message.getMessage());
+		stream.printf("[%s %s] %s%s", message.getAuthor(), message.getType(),
+				message.getMessage(), System.getProperty("line.separator"));
 		stream.flush();
 	}
 

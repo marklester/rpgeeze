@@ -6,6 +6,7 @@ import java.awt.Point;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
+import rpgeeze.GameManager;
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
@@ -73,7 +74,8 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 
 	public enum State implements rpgeeze.dp.State { NEW, FADING_IN, NORMAL, HIDDEN; }
 	
-	public MainMenuView() {
+	public MainMenuView(GameManager manager) {
+		super(manager);
 		ResourceLoader loader = ResourceLoader.getInstance();	
 		introImage = new TexturedRectangle(loader.getTexture("intro.png"), 25, 25, -12.5, -8, -15);
 		introImage.setColor(PLAIN);

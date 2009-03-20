@@ -26,7 +26,7 @@ public class OptionsMenuController extends HighlightableViewController<OptionsMe
 				if(button != null)
 					switch(	button) {
 					case KEY_BINDINGS:
-						KeyBindingsView kbv = new KeyBindingsView();
+						KeyBindingsView kbv = new KeyBindingsView(getManager());
 						KeyBindingsViewController kbc = new KeyBindingsViewController(getManager(), kbv);
 						getManager().pushState(kbv,kbc);
 						break;

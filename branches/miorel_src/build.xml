@@ -28,29 +28,60 @@
 		<property name="generate.class" value="GameProperties"/>
 		<property name="generate.header" value="${tmp.dir}/header.txt"/>
 		<property name="generate.footer" value="${tmp.dir}/footer.txt"/>
-		<property name="const.file" value="${res.dir}/properties/const.properties"/>
-		<property name="opts.file" value="${res.dir}/properties/opts.properties"/>
 		
+		<property name="const.file" value="properties/const.properties"/>
+		<property name="opts.file" value="properties/opts.properties"/>
+		<property name="keyval.file" value="properties/keyval.properties"/>
+
 		<mkdir dir="${tmp.dir}"/> 
 		<javac srcdir="${util.dir}" destdir="${tmp.dir}"/>
 		<echo file="${generate.header}">
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Enumeration;
+import java.util.Properties;
+
 import ${ant.project.name}.log.LogManager;
 import ${ant.project.name}.log.Message;
+import ${ant.project.name}.util.ResourceLoader;
 
 // WARNING! This file is auto-generated! Any changes will be overwritten.
-// To add a constant, edit ${const.file}
-// To add an option configurable via the command line, edit ${opts.file}
+// To add a constant, edit ${res.dir}/${const.file}
+// To add an option configurable via the command line, edit ${res.dir}/${opts.file}
+// To add a key-value pair, edit ${res.dir}/${keyval.file}
 
 /**
  * Holds constants needed throughout the game.
  *
- */</echo>
+ */
+public class ${generate.class} {
+	public ${generate.class}(String... arg) {
+		LogManager lm = LogManager.getInstance();
+		Properties prop = new Properties();
+		try {
+			prop.load(ResourceLoader.getInstance().getStream("${keyval.file}"));
+		}
+		catch(IOException e) {
+		}
+		Enumeration&lt;?&gt; en = prop.propertyNames();
+		while(en.hasMoreElements()) {
+			String key = en.nextElement().toString();
+			map.put(key, prop.getProperty(key));
+		}
+		for(String s: arg) {
+			try {
+</echo>
 		<echo file="${generate.footer}">
-	private String parseString(String s) {
-		return s.replaceFirst("^[^=]=", "");
+	private HashMap&lt;String, String&gt; map = new HashMap&lt;String, String&gt;();
+	public String getProperty(String key) {
+		return map.get(key);
 	}
 
-	private int parseInt(String s) {
+	private static String parseString(String s) {
+		return s.replaceFirst("^[^=]=", "");
+	}
+	
+	private static int parseInt(String s) {
 		return Integer.parseInt(parseString(s));
 	}
 }</echo>
@@ -59,9 +90,8 @@ import ${ant.project.name}.log.Message;
 	    	output="${src.dir}/${ant.project.name}/${generate.class}.java"
 	    >
 			<arg value="${ant.project.name}"/>
-	    	<arg value="${generate.class}"/>
-	    	<arg value="${const.file}"/>
-	    	<arg value="${opts.file}"/>
+	    	<arg value="${res.dir}/${const.file}"/>
+	    	<arg value="${res.dir}/${opts.file}"/>
 	    	<arg value="${generate.header}"/>
 	    	<arg value="${generate.footer}"/>
     	</java>

@@ -2,6 +2,7 @@ package rpgeeze;
 
 import java.awt.Color;
 import java.awt.Frame;
+import java.awt.GraphicsEnvironment;
 import java.util.Stack;
 
 import javax.media.opengl.GLAutoDrawable;
@@ -35,8 +36,12 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	private GLContext spareContext;
 	
 	/**
-	 * Creates a new GameManager.
+	 * Constructs a game manager that will display in the specified
+	 * <code>Frame</code> and will be initialized with the specified game
+	 * properties.
 	 * 
+	 * @param frame	 the <code>Frame</code> that will be used for displaying the game 
+	 * @param properties the initial game properties
 	 */
 	public GameManager(Frame frame, GameProperties properties) {
 		this.frame = frame;
@@ -52,7 +57,18 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	}
 
 	/**
-	 * Called whenever the canvas needs to be repainted. Delegates to the View, if there is one, for drawing. 
+	 * Retrieves the game properties that were used to initialize this manager.
+	 * 
+	 * @return the game properties used to initialize this manager
+	 */
+	public GameProperties getProperties() {
+		return properties;
+	}
+	
+	/**
+	 * Displays the game. Is called by the animator whenever the canvas needs to be repainted. Delegates display to the <code>View</code>, if there is one.
+	 * 
+	 * @param drawable the OpenGL canvas
 	 */
 	public void display(GLAutoDrawable drawable) {
 		View<?> view = getView();
@@ -62,6 +78,7 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 
 	/**
 	 * Required by the GLEventListener interface. Doesn't actually do anything.
+	 * 
 	 */
 	public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
 	}
@@ -75,7 +92,7 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 		if(!initialized) {
 			initialized = true;
 
-			MainMenuView mmv = new MainMenuView();
+			MainMenuView mmv = new MainMenuView(this);
 			MainMenuController mmc = new MainMenuController(this, mmv);
 			pushState(mmv, mmc);
 		}
@@ -89,15 +106,21 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	}
 
 	protected View<?> getView() {
-		return stateStack.isEmpty() ? null : stateStack.peek().getFirst();
+		synchronized(stateStack) {
+			return stateStack.isEmpty() ? null : stateStack.peek().getFirst();
+		}
 	}
 
 	protected Controller<? extends View<?>> getController() {
-		return stateStack.isEmpty() ? null : stateStack.peek().getSecond();
+		synchronized(stateStack) {
+			return stateStack.isEmpty() ? null : stateStack.peek().getSecond();
+		}
 	}
 
 	protected Pair<View<?>, Controller<? extends View<?>>> getState() {
-		return stateStack.isEmpty() ? new Pair<View<?>, Controller<? extends View<?>>>(null, null) : stateStack.peek();
+		synchronized(stateStack) {
+			return stateStack.isEmpty() ? new Pair<View<?>, Controller<? extends View<?>>>(null, null) : stateStack.peek();
+		}
 	}
 
 	/**
@@ -116,37 +139,33 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	 * @param newState the new state
 	 */
 	public void pushState(Pair<View<?>, Controller<? extends View<?>>> newState) {
-		Pair<View<?>, Controller<? extends View<?>>> state = getState();
-		View<?> view = state.getFirst();
-		
-		View<?> newView = newState.getFirst();
-
-		if(view != null)
-			view.changeFrom();
-		
-		if(newView != null)
-			newView.changeTo();
-
-		stateStack.push(newState);
+		synchronized(stateStack) {
+			Pair<View<?>, Controller<? extends View<?>>> oldState = popState();
+			
+			View<?> newView = newState.getFirst();
+			if(newView != null)
+				newView.changeTo();
+	
+			if(oldState != null)
+				stateStack.push(oldState);
+			stateStack.push(newState);
+		}
 	}
 
 	/**
 	 * Removes the top state from the state stack. 
 	 */
-	public void popState() {
-		Pair<View<?>, Controller<? extends View<?>>> state = getState();
-		View<?> view = state.getFirst();
-		
-		stateStack.pop();
-		
-		Pair<View<?>, Controller<? extends View<?>>> newState = getState();
-		View<?> newView = newState.getFirst();
-
-		if(view != null)
-			view.changeFrom();
-		
-		if(newView != null)
-			newView.changeTo();
+	public Pair<View<?>, Controller<? extends View<?>>> popState() {
+		Pair<View<?>, Controller<? extends View<?>>> ret = null;
+		synchronized(stateStack) {
+			if(!stateStack.isEmpty()) {
+				ret = stateStack.pop(); 
+				View<?> view = ret.getFirst();
+				if(view != null)
+					view.changeFrom();
+			}
+		}
+		return ret;
 	}
 
 	/**
@@ -171,6 +190,8 @@ public class GameManager extends DelegatingEventAdapter implements GLEventListen
 	 */
 	public void stop() {
 		animator.stop();
+		frame.setVisible(false);
+		GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(null);
 		frame.dispose();
 		replaceContext(null);
 	}

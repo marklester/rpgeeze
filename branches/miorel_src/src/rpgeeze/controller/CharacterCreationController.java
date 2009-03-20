@@ -80,7 +80,7 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 	public void update() {
 		if(getView().getState() == CharacterCreationView.State.ZOOMED) {
 			Entity avatar = new FiniteMatrixMap().getAvatar();
-			GameplayView gv = new GameplayView(avatar);
+			GameplayView gv = new GameplayView(getManager(), avatar);
 			GameplayController gc = new GameplayController(getManager(), gv);
 			getManager().pushState(gv, gc);
 		}
