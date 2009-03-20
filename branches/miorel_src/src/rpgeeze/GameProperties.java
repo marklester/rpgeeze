@@ -16,16 +16,17 @@ import rpgeeze.util.ResourceLoader;
 
 /**
  * Holds constants needed throughout the game.
- *
+ * 
  */
 public class GameProperties {
 	public GameProperties(String... arg) {
 		LogManager lm = LogManager.getInstance();
 		Properties prop = new Properties();
 		try {
-			prop.load(ResourceLoader.getInstance().getStream("properties/keyval.properties"));
+			prop.load(ResourceLoader.getInstance().getStream(
+					"properties/keyval.properties"));
 		}
-		catch(IOException e) {
+		catch (IOException e) {
 		}
 		Enumeration<?> en = prop.propertyNames();
 		while(en.hasMoreElements()) {
@@ -43,28 +44,33 @@ public class GameProperties {
 				else if(s.matches("--no-full-screen"))
 					fullScreen = false;
 			}
-			catch(Exception e) {
-				lm.log("Error parsing argument: " + s, "PARSER", Message.Type.ERROR);
+			catch (Exception e) {
+				lm.log("Error parsing argument: " + s, "PARSER",
+						Message.Type.ERROR);
 			}
 		}
 	}
 
 	private int goalUPS = 80;
+
 	public int getGoalUPS() {
 		return goalUPS;
 	}
 
 	private int goalFPS = 80;
+
 	public int getGoalFPS() {
 		return goalFPS;
 	}
 
 	private boolean fullScreen = true;
+
 	public boolean getFullScreen() {
 		return fullScreen;
 	}
 
 	private HashMap<String, String> map = new HashMap<String, String>();
+
 	public String getProperty(String key) {
 		return map.get(key);
 	}
@@ -72,7 +78,7 @@ public class GameProperties {
 	private static String parseString(String s) {
 		return s.replaceFirst("^[^=]=", "");
 	}
-	
+
 	private static int parseInt(String s) {
 		return Integer.parseInt(parseString(s));
 	}
