@@ -10,7 +10,6 @@ import rpgeeze.GameManager;
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
-import rpgeeze.gl.StandardSetup;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.gl.geom.Triangle;
@@ -150,8 +149,8 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	public enum State implements View.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
 	
 	private static final double ZOOM_MIN = -60;
-	private static final double ZOOM_MAX = -1.1;
-	private static final double ZOOM_STEP = 0.25; 
+	//private static final double ZOOM_MAX = -1.1;
+	//private static final double ZOOM_STEP = 0.25; 
 	private double zoom = ZOOM_MIN;
 	
 	public KeyBindingsView(GameManager manager) {
@@ -167,7 +166,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	 */
 	public void render(Point point) {
 		GL gl = new GL();		
-		new StandardSetup(point).render(gl);
+		setup(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		gl.glClearColor(0, MainMenuView.MAX_INTENSITY, MainMenuView.MAX_INTENSITY, 1.0f);
 		

@@ -8,7 +8,6 @@ import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
 import rpgeeze.gl.GL;
-import rpgeeze.gl.StandardSetup;
 import rpgeeze.gl.Text;
 import rpgeeze.util.ResourceLoader;
 
@@ -45,7 +44,7 @@ public class CreditsView extends View<CreditsView.State> {
 	
 	public void render(Point point) {
 		GL gl = new GL();
-		new StandardSetup(point).render(gl);
+		setup(gl, point);
 
 		gl.glClearColor(0, MainMenuView.MAX_INTENSITY, MainMenuView.MAX_INTENSITY, 1.0f);
 		

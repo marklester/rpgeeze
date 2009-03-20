@@ -11,7 +11,6 @@ import rpgeeze.GameManager;
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
-import rpgeeze.gl.StandardSetup;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.gl.geom.TexturedRectangle;
@@ -113,7 +112,7 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	 */
 	public void render(Point point) {
 		GL gl = new GL();		
-		new StandardSetup(point).render(gl);
+		setup(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		gl.glClearColor(0, MainMenuView.MAX_INTENSITY, MainMenuView.MAX_INTENSITY, 1.0f);
 		
