@@ -66,21 +66,23 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 					case SW_ARROW:
 						highlight(e.getPoint());
 						break;
-					case DROP_ITEM:
-						break;
-					case EQUIP_ITEM:
-						break;
 					case SAVE_GAME:
+						highlight(e.getPoint());
 						break;
 					case LOAD_GAME:
+						highlight(e.getPoint());
 						break;
 					case NEW_GAME:
+						highlight(e.getPoint());
 						break;
 					case INVENTORY_VIEW:
+						highlight(e.getPoint());
 						break;
 					case STATS_VIEW:
+						highlight(e.getPoint());
 						break;
 					case SKILLS_VIEW:
+						highlight(e.getPoint());
 						break;
 					}
 			}
@@ -114,21 +116,23 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 						break;
 					case SW_ARROW:
 						break;
-					case DROP_ITEM:
-						break;
-					case EQUIP_ITEM:
-						break;
 					case SAVE_GAME:
+						getView().setSaveGameCommand(c);
 						break;
 					case LOAD_GAME:
+						getView().setLoadGameCommand(c);
 						break;
 					case NEW_GAME:
+						getView().setNewGameCommand(c);
 						break;
 					case INVENTORY_VIEW:
+						getView().setInventoryView(c);
 						break;
 					case STATS_VIEW:
+						getView().setStatsView(c);
 						break;
 					case SKILLS_VIEW:
+						getView().setSkillsView(c);
 						break;
 					
 					}
