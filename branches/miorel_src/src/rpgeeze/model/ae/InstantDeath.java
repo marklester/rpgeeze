@@ -2,7 +2,7 @@ package rpgeeze.model.ae;
 
 import rpgeeze.model.Entity;
 
-public class InstantDeath implements AreaEffect {
+public class InstantDeath extends AreaEffect {
 	public void apply(Entity entity) {
 		// kill the entity
 		

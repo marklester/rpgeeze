@@ -33,23 +33,19 @@ public abstract class Tile implements Visitable {
 		return item;
 	}
 
-	public void setItem(Item newItem) {
+	protected void setItem(Item newItem) {
 		item = newItem;
 	}
 
-	public AreaEffect getAreaEffect() {
+	protected AreaEffect getAreaEffect() {
 		return areaEffect;
 	}
 
-	public void setAreaEffect(AreaEffect newAreaEffect) {
+	protected void setAreaEffect(AreaEffect newAreaEffect) {
 		areaEffect = newAreaEffect;
 	}
 
-	public Decal getDecal() {
-		return decal;
-	}
-
-	public void setDecal(Decal newDecal) {
+	protected void setDecal(Decal newDecal) {
 		decal = newDecal;
 	}
 	
@@ -57,5 +53,15 @@ public abstract class Tile implements Visitable {
 	
 	public void accept(Visitor visitor) {
 		visitor.visitTile(this);
+		if(terrain != null)
+			terrain.accept(visitor);
+		if(areaEffect != null)
+			areaEffect.accept(visitor);
+		if(decal != null)
+			decal.accept(visitor);
+		if(item != null)
+			item.accept(visitor);
+		if(entity != null)
+			entity.accept(visitor);
 	}
 }
