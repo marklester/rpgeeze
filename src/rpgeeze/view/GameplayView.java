@@ -9,7 +9,7 @@ import com.sun.opengl.util.j2d.TextRenderer;
 import rpgeeze.GameManager;
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Text;
-import rpgeeze.gl.TexturedRectangle;
+import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.math.VectorImpl;
 import rpgeeze.model.Entity;
 import rpgeeze.model.Tile;
@@ -43,7 +43,7 @@ public class GameplayView extends View<GameplayView.State> {
 	// later someone will tell the Controller about the avatar differently
 	public Entity avatar;
 
-	public enum State implements rpgeeze.dp.State { NEW, FADING_IN, NORMAL, HIDDEN; }
+	public enum State implements View.State { NEW, FADING_IN, NORMAL, HIDDEN; }
 
 	public GameplayView(GameManager manager, Entity avatar) {
 		super(manager);

@@ -9,7 +9,6 @@ import rpgeeze.gl.GL;
 import rpgeeze.log.LogManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.dp.Observer;
-import rpgeeze.dp.State;
 
 import com.sun.opengl.util.BufferUtil;
 
@@ -23,10 +22,17 @@ import com.sun.opengl.util.BufferUtil;
  * moving away from the game screen.
  */
 
-public abstract class View<T extends State> {
+public abstract class View<T extends View.State> {
 	private HashSet<Observer<View<?>>> observers = new HashSet<Observer<View<?>>>();
 	private T state;
 	private GameManager manager;
+
+	/**
+	 * Label for types which represent a state.
+	 *
+	 */
+	public interface State {
+	}
 	
 	public View(GameManager manager) {
 		this.manager = manager;

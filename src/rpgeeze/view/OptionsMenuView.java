@@ -11,8 +11,8 @@ import rpgeeze.gl.GL;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
-import rpgeeze.gl.TextRectangle;
-import rpgeeze.gl.TexturedRectangle;
+import rpgeeze.gl.geom.TextRectangle;
+import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.util.ResourceLoader;
 
 /**
@@ -70,7 +70,7 @@ public final class OptionsMenuView extends HighlightableView<OptionsMenuView.Sta
 		}
 	}
 
-	public enum State implements rpgeeze.dp.State { NEW, FADING_IN, NORMAL, HIDDEN; }
+	public enum State implements View.State { NEW, FADING_IN, NORMAL, HIDDEN; }
 	
 	public OptionsMenuView(GameManager manager) {
 		super(manager);

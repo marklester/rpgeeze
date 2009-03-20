@@ -1,4 +1,6 @@
-package rpgeeze.gl;
+package rpgeeze.gl.geom;
+
+import rpgeeze.gl.GL;
 
 import com.sun.opengl.util.texture.Texture;
 

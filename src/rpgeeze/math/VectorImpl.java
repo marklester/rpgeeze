@@ -47,4 +47,21 @@ public class VectorImpl implements Vector {
 	public double getZ() {
 		return z;
 	}
+	
+	public boolean equals(Object o) {
+		boolean ret = false;
+		if(o instanceof Vector) {
+			Vector v = (Vector) o;
+			return getX() == v.getX() && getY() == v.getY() && getZ() == v.getZ();
+		}
+		return ret;
+	}
+	
+	public int hashCode() {
+		return (int) (getX() + getY() + getZ());
+	}
+	
+	public String toString() {
+		return String.format("(%.2f, %.2f, %.2f)", getX(), getY(), getZ());
+	}
 }

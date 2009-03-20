@@ -1,13 +1,10 @@
 package rpgeeze.controller;
 
-import java.awt.Point;
 import java.awt.event.MouseEvent;
-import java.awt.Color;
 
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.view.KeyBindingsView;
-import rpgeeze.view.OptionsMenuView;
 
 /**
  * Controls the main menu screen.

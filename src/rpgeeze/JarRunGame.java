@@ -1,14 +1,25 @@
 package rpgeeze;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+/**
+ * Entry point for execution via the jar file. 
+ * 
+ */
 public class JarRunGame {
-	public static void main(String[] arg) throws IOException {
+	private JarRunGame() {
+	}
+	
+	/**
+	 * Spawns a process that runs the proper system-specific script instead.
+	 * 
+	 * @param arg command-line options
+	 */
+	public static void main(String[] arg) {
 		List<String> command = new ArrayList<String>();
 		if(System.getProperty("os.name").equals("Windows"))
 			command.add("RunGame");

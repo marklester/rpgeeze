@@ -30,4 +30,12 @@ public class VectorMath {
 	public Vector multiply(Vector v, double s) {
 		return new VectorImpl(s * v.getX(), s * v.getY());
 	}
+	
+	public boolean equals(Object o) {
+		return o instanceof VectorMath;
+	}
+	
+	public int hashCode() {
+		return 0;
+	}
 }

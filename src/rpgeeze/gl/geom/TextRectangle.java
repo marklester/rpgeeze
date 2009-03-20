@@ -1,4 +1,7 @@
-package rpgeeze.gl;
+package rpgeeze.gl.geom;
+
+import rpgeeze.gl.GL;
+import rpgeeze.gl.Text;
 
 public class TextRectangle extends Rectangle {
 	private Text text;

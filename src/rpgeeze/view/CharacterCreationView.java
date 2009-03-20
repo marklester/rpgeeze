@@ -12,9 +12,9 @@ import rpgeeze.gl.GL;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
-import rpgeeze.gl.TextRectangle;
-import rpgeeze.gl.TexturedRectangle;
-import rpgeeze.gl.Triangle;
+import rpgeeze.gl.geom.TextRectangle;
+import rpgeeze.gl.geom.TexturedRectangle;
+import rpgeeze.gl.geom.Triangle;
 import rpgeeze.math.VectorImpl;
 import rpgeeze.util.ResourceLoader;
 
@@ -80,7 +80,7 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 		}
 	}	
 	
-	public enum State implements rpgeeze.dp.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
+	public enum State implements View.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
 	
 	private String characterName;
 	private final String[] occupation = {"Smasher", "Summoner", "Sneak"};
