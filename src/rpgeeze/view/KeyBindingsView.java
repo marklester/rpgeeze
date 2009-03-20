@@ -26,6 +26,7 @@ import rpgeeze.util.ResourceLoader;
 public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	
+	
 	public enum Button {
 		OK(1) {
 			public Highlightable doGetButton() {
@@ -47,9 +48,29 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(-1, 0), new VectorImpl(1, 0), new VectorImpl(0, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		E_ARROW(5) {
+		NE_ARROW(5) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(new Triangle(new VectorImpl(2, 1), new VectorImpl(0, 1), new VectorImpl(2, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		SE_ARROW(8) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(new Triangle(new VectorImpl(2, 1), new VectorImpl(0, -1), new VectorImpl(2, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		E_ARROW(7) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 2), new VectorImpl(1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		NW_ARROW(9) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(new Triangle(new VectorImpl(-2, 1), new VectorImpl(-2, -1), new VectorImpl(0, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		SW_ARROW(10) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(new Triangle(new VectorImpl(-2, 1), new VectorImpl(-2, -1), new VectorImpl(0, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		W_ARROW(6) {
@@ -125,20 +146,38 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			gl.glTranslated(0, -9.5, -14.5);
 			
 			Highlightable northArrow = Button.N_ARROW.getButton();
-			northArrow.setXY(0, 13);
+			northArrow.setXY(0, 14);
 			putHighlightable(northArrow);
 			
 			Highlightable southArrow = Button.S_ARROW.getButton();
-			southArrow.setXY(0, 9);
+			southArrow.setXY(0, 8);
 			putHighlightable(southArrow);
 			
 			Highlightable westArrow = Button.W_ARROW.getButton();
-			westArrow.setXY(-2, 10);
+			westArrow.setXY(-3, 10);
 			putHighlightable(westArrow);
 
 			Highlightable eastArrow = Button.E_ARROW.getButton();
-			eastArrow.setXY(2, 10);
+			eastArrow.setXY(3, 10);
 			putHighlightable(eastArrow);
+			
+			Highlightable northeastArrow = Button.NE_ARROW.getButton();
+			northeastArrow.setXY(1, 13);
+			putHighlightable(northeastArrow);
+			
+			Highlightable southeastArrow = Button.SE_ARROW.getButton();
+			southeastArrow.setXY(1, 9);
+			putHighlightable(southeastArrow);
+			
+			Highlightable northwestArrow = Button.NW_ARROW.getButton();
+			northwestArrow.setXY(-1, 13);
+			putHighlightable(northwestArrow);
+			
+			Highlightable southwestArrow = Button.SW_ARROW.getButton();
+			southwestArrow.setXY(-1, 9);
+			putHighlightable(southwestArrow);
+			
+			
 			
 			renderHighlightables();
 			gl.glLoadName(-1);
