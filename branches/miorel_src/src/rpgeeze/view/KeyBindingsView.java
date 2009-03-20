@@ -21,7 +21,7 @@ import rpgeeze.util.ResourceLoader;
  */
 public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
-	
+	private static final TextRenderer smallRenderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 22);
 	
 	public enum Button {
 		OK(1) {
@@ -191,9 +191,19 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			northArrow.setXY(0, 14);
 			putHighlightable(northArrow);
 			
+			Character north = 'n';
+			Text northCommand = new Text(north.toString(), smallRenderer, 0.075f);
+			northCommand.setXY(-0.5, 15.5);
+			northCommand.render();
+			
 			Highlightable southArrow = Button.S_ARROW.getButton();
 			southArrow.setXY(0, 8);
 			putHighlightable(southArrow);
+			
+			Character south = 's';
+			Text southCommand = new Text(south.toString(), smallRenderer, 0.075f);
+			southCommand.setXY(-0.5, 5.5);
+			southCommand.render();
 			
 			Highlightable westArrow = Button.W_ARROW.getButton();
 			westArrow.setXY(-3, 10);
