@@ -17,9 +17,11 @@ import rpgeeze.log.Message;
 
 /**
  * Entry point for the game. Houses the main method.
+ * 
  */
-
 public class RunGame {	
+	private RunGame() {
+	}
 	
 	/**
 	 * Creates the game frame and gives it a game manager.	

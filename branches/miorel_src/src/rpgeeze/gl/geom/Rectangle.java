@@ -1,4 +1,7 @@
-package rpgeeze.gl;
+package rpgeeze.gl.geom;
+
+import rpgeeze.gl.GL;
+import rpgeeze.gl.GLObjectImpl;
 
 public class Rectangle extends GLObjectImpl {
 	private double width;

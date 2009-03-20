@@ -2,10 +2,7 @@ package rpgeeze.view;
 
 import java.awt.Font;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
@@ -32,7 +29,7 @@ public class CreditsView extends View<CreditsView.State> {
 	
 	private int frames;
 	
-	public enum State implements rpgeeze.dp.State { NEW, NORMAL, HIDDEN; }
+	public enum State implements View.State { NEW, NORMAL, HIDDEN; }
 	
 	public CreditsView(GameManager manager) {
 		super(manager);

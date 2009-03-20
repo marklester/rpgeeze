@@ -3,10 +3,6 @@ package rpgeeze.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
@@ -15,9 +11,8 @@ import rpgeeze.gl.GL;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
-import rpgeeze.gl.TextRectangle;
-import rpgeeze.gl.TexturedRectangle;
-import rpgeeze.gl.Triangle;
+import rpgeeze.gl.geom.TextRectangle;
+import rpgeeze.gl.geom.Triangle;
 import rpgeeze.math.VectorImpl;
 import rpgeeze.util.ResourceLoader;
 
@@ -114,7 +109,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		}
 	}	
 	
-	public enum State implements rpgeeze.dp.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
+	public enum State implements View.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
 	
 	private static final double ZOOM_MIN = -60;
 	private static final double ZOOM_MAX = -1.1;

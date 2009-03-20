@@ -1,5 +1,7 @@
-package rpgeeze.gl;
+package rpgeeze.gl.geom;
 
+import rpgeeze.gl.GL;
+import rpgeeze.gl.GLObjectImpl;
 import rpgeeze.math.Vector;
 
 public class Triangle extends GLObjectImpl {
