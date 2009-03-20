@@ -23,7 +23,7 @@ import rpgeeze.util.ResourceLoader;
 public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	private static final TextRenderer smallRenderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 22);
-	private Character north, south, east, west;
+	private Character north, south, east, west, saveGame, loadGame, newGame, inventoryView, statsView, skillsView;
 	public enum Button {
 		OK(1) {
 			public Highlightable doGetButton() {
@@ -77,47 +77,37 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(-2, 1), new VectorImpl(-2, -1), new VectorImpl(0, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		DROP_ITEM(11) {
+		SAVE_GAME(11) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Drop Item", -19, 20), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(getRectangle("Save Game", -19, 18), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		EQUIP_ITEM(12) {
+		LOAD_GAME(12) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Equip Item", -19, 15), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(getRectangle("Load Game", -19, 10), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		SAVE_GAME(13) {
+		NEW_GAME(13) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Save Game", -19, 10), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(getRectangle("New Game", -19, 2), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		LOAD_GAME(14) {
+		INVENTORY_VIEW(14) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Load Game", -19, 5), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(getRectangle("Inventory View", 5, 18), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		NEW_GAME(15) {
+		STATS_VIEW(15) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("New Game", -19, 0), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(getRectangle("Stats View", 9, 10), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		INVENTORY_VIEW(16) {
+		SKILLS_VIEW(16) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Inventory View", 5, 20), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(getRectangle("Skills View", 8, 2), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		STATS_VIEW(17) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Stats View", 9, 15), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		SKILLS_VIEW(18) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Skills View", 8, 10), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		DEFAULTS(19) {
+		DEFAULTS(17) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(getRectangle("Defaults", -5, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
@@ -237,6 +227,30 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			southwestArrow.setXY(-1, 9);
 			putHighlightable(southwestArrow);
 			
+			Text saveGameCommand = new Text(saveGame.toString(), smallRenderer, 0.075f);
+			saveGameCommand.setXY(-15, 16.5);
+			saveGameCommand.render();
+			
+			Text loadGameCommand = new Text(loadGame.toString(), smallRenderer, 0.075f);
+			loadGameCommand.setXY(-15, 8.5);
+			loadGameCommand.render();
+			
+			Text newGameCommand = new Text(newGame.toString(), smallRenderer, 0.075f);
+			newGameCommand.setXY(-15, 0.5);
+			newGameCommand.render();
+			
+			Text inventoryViewCommand = new Text(inventoryView.toString(), smallRenderer, 0.075f);
+			inventoryViewCommand.setXY(13, 16.5);
+			inventoryViewCommand.render();
+			
+			Text statsViewCommand = new Text(statsView.toString(), smallRenderer, 0.075f);
+			statsViewCommand.setXY(13, 8.5);
+			statsViewCommand.render();
+			
+			Text skillsViewCommand = new Text(skillsView.toString(), smallRenderer, 0.075f);
+			skillsViewCommand.setXY(13, 0.5);
+			skillsViewCommand.render();
+			
 			
 			
 			renderHighlightables();
@@ -281,10 +295,40 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		west = c;
 	}
 	
+	public void setSaveGameCommand(Character c){
+		saveGame = c;
+	}
+	
+	public void setLoadGameCommand(Character c){
+		loadGame = c;
+	}
+	
+	public void setNewGameCommand(Character c){
+		newGame = c;
+	}
+	
+	public void setInventoryView(Character c){
+		inventoryView = c;
+	}
+	
+	public void setStatsView(Character c){
+		statsView = c;
+	}
+	
+	public void setSkillsView(Character c){
+		skillsView = c;
+	}
+	
 	public void defaults(){
 		north = '8';
 		south = '2';
 		east = '6';
 		west = '4';
+		saveGame = 's';
+		loadGame = 'l';
+		newGame = 'n';
+		inventoryView = 'i';
+		statsView = 'q';
+		skillsView = 'w';
 	}
 }
