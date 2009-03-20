@@ -1,11 +1,19 @@
 package rpgeeze.model.map;
 
-import rpgeeze.RunGame;
 import rpgeeze.log.LogManager;
 
 public class Model extends Thread {
 	private boolean paused = false;
-
+	private int ups;
+	
+	public Model(int ups) {
+		setUPS(ups);
+	}
+	
+	public void setUPS(int ups) {
+		this.ups = ups;
+	}
+	
 	public void update() {
 		
 	}
@@ -45,7 +53,7 @@ public class Model extends Thread {
 				long time = System.nanoTime();
 				long nanoDiff = time - prev;
 				prev = time;
-				long nap = (1000000000 - nanoDiff * RunGame.GOAL_UPS) / RunGame.GOAL_UPS;
+				long nap = (1000000000 - nanoDiff * ups) / ups;
 				if(nap > 0)
 					sleep(nap);
 			}

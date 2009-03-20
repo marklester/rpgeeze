@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
-import rpgeeze.RunGame;
 import rpgeeze.gl.GL;
 import rpgeeze.gl.Text;
 import rpgeeze.util.ResourceLoader;
@@ -56,7 +55,8 @@ public class CreditsView extends View<CreditsView.State> {
 		developer.setXYZ(-developer.getWidth() / 2, -developer.getHeight() / 2, -4);
 		developer.render();
 		
-		if(point == null && ++frames >= RunGame.GOAL_FPS * SECONDS_PER_DEVELOPER)
+		// change this to read property value
+		if(point == null && ++frames >= 80 * SECONDS_PER_DEVELOPER)
 			nextDeveloper();
 		
 		gl.glFlush();

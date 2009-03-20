@@ -1,2 +1,0 @@
-int goalFPS 80
-int goalUPS 80

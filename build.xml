@@ -25,31 +25,43 @@
     </target>
 
 	<target name="generate">
-		<property name="generate.class" value="GlobalProperties"/>
+		<property name="generate.class" value="GameProperties"/>
 		<property name="generate.header" value="${tmp.dir}/header.txt"/>
 		<property name="generate.footer" value="${tmp.dir}/footer.txt"/>
+		<property name="const.file" value="${res.dir}/properties/const.properties"/>
+		<property name="opts.file" value="${res.dir}/properties/opts.properties"/>
 		
 		<mkdir dir="${tmp.dir}"/> 
 		<javac srcdir="${util.dir}" destdir="${tmp.dir}"/>
 		<echo file="${generate.header}">
-// WARNING: This file is auto-generated!
-// Edit config.txt if you need to add a property otherwise your change will be overwritten.
+import ${ant.project.name}.log.LogManager;
+import ${ant.project.name}.log.Message;
+
+// WARNING! This file is auto-generated! Any changes will be overwritten.
+// To add a constant, edit ${const.file}
+// To add an option configurable via the command line, edit ${opts.file}
 
 /**
- * Holds global variables needed throughout the game.
+ * Holds constants needed throughout the game.
  *
  */</echo>
 		<echo file="${generate.footer}">
+	private String parseString(String s) {
+		return s.replaceFirst("^[^=]=", "");
+	}
+
 	private int parseInt(String s) {
-		return Integer.parseInt(s.replaceFirst("^[^=]=", ""));
+		return Integer.parseInt(parseString(s));
 	}
 }</echo>
-	    <java classname="Autogen" classpath="${tmp.dir}"
+	    <java classname="Codegen" classpath="${tmp.dir}"
 	    	input="config.txt"
 	    	output="${src.dir}/${ant.project.name}/${generate.class}.java"
 	    >
 			<arg value="${ant.project.name}"/>
 	    	<arg value="${generate.class}"/>
+	    	<arg value="${const.file}"/>
+	    	<arg value="${opts.file}"/>
 	    	<arg value="${generate.header}"/>
 	    	<arg value="${generate.footer}"/>
     	</java>
@@ -92,17 +104,18 @@
     	<mkdir dir="${dist.dir}"/>
 
     	<zip destfile="${dist.dir}/${ant.project.name}-src.zip">
-    		<fileset dir="." excludes="${doc.dir}/**,${dist.dir}/**,${bin.dir}/**,.*,.*/**"/>
+    		<fileset dir="." excludes="${tmp.dir}/**,${doc.dir}/**,${dist.dir}/**,${bin.dir}/**,.*,.*/**"/>
     	</zip>
         
     	<tar destfile="${dist.dir}/${ant.project.name}-src.tar.gz" compression="gzip">
-        	<fileset dir="." excludes="${doc.dir}/**,${dist.dir}/**,${bin.dir}/**,.*,.*/**"/>
+        	<fileset dir="." excludes="${tmp.dir}/**,${doc.dir}/**,${dist.dir}/**,${bin.dir}/**,.*,.*/**"/>
         </tar>
     	
     	<jar destfile="${dist.dir}/${jar.name}"
         	filesetmanifest="mergewithoutmain">
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
+            	<attribute name="Main-Class" value="${ant.project.name}.JarRunGame"/>
             </manifest>
             <fileset dir="${bin.dir}"/>
     		<fileset dir="." includes="${res.dir}/**"/>
@@ -113,11 +126,12 @@
     	</copy>
     	
     	<echo file="${dist.dir}/${src.main}.sh">#!/bin/bash
-${cmd.main}
+${cmd.main} $@
 </echo>
     	<replace file="${dist.dir}/${src.main}.sh" token="${path.separator}" value=":"/>
+    	<chmod perm="+x" file="${dist.dir}/${src.main}.sh"/>
     	
-    	<echo file="${dist.dir}/${src.main}.bat">${cmd.main}
+    	<echo file="${dist.dir}/${src.main}.bat">${cmd.main} %*
 </echo>
     	<replace file="${dist.dir}/${src.main}.bat" token="${path.separator}" value=";"/>
     </target>
