@@ -1,10 +1,9 @@
 package rpgeeze.model.terrain;
 
-import rpgeeze.view.Drawable;
-import rpgeeze.view.Drawer;
+import rpgeeze.model.Visitor;
 
-public abstract class Terrain implements Drawable {
-	public void draw(Drawer drawer) {
-		
+public abstract class Terrain {
+	public void accept(Visitor visitor) {
+		visitor.visitTerrain(this);
 	}
 }

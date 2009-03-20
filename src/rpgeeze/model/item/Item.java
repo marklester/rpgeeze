@@ -1,8 +1,13 @@
 package rpgeeze.model.item;
 
 import rpgeeze.model.Entity;
-import rpgeeze.view.Drawable;
+import rpgeeze.model.Visitable;
+import rpgeeze.model.Visitor;
 
-public interface Item extends Drawable {
-	public void activate(Entity entity);
+public abstract class Item implements Visitable {
+	public abstract void activate(Entity entity);
+	
+	public void accept(Visitor visitor) {
+		visitor.visitItem(this);
+	}
 }

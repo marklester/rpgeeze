@@ -51,8 +51,7 @@ public class GameplayView extends View<GameplayView.State> {
 		changeState(State.NEW);
 	}
 
-	public void render(Point point) {
-		GL gl = new GL();		
+	public void render(GL gl, Point point) {		
 		setup(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 		gl.glClearColor(0, 0, 0, 0);

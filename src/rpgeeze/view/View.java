@@ -53,28 +53,38 @@ public abstract class View<T extends View.State> {
 	protected GameManager getManager() {
 		return manager;
 	}
-	
+
 	/**
-	 * OpenGL "picking" with a (small) default buffer size. An error in this
+	 * OpenGL "picking" with a (small) default buffer size and a new OpenGL interface. An error in this
 	 * method most likely means that a large buffer size is necessary.
 	 * 
 	 * @param pickPoint point around which to set up the picking matrix
 	 * @return an iterator over the name constants that registered as hits at the specified point
 	 */
 	public Iterator<Integer> pick(Point pickPoint) {
-		return pick(pickPoint, 16);
+		return pick(new GL(), pickPoint, 16);
+	}
+	
+	/**
+	 * OpenGL "picking" with a (small) default buffer size and the specified OpenGL interface. An error in this
+	 * method most likely means that a large buffer size is necessary.
+	 * 
+	 * @param pickPoint point around which to set up the picking matrix
+	 * @return an iterator over the name constants that registered as hits at the specified point
+	 */
+	public Iterator<Integer> pick(GL gl, Point pickPoint) {
+		return pick(gl, pickPoint, 16);
 	}
 
 	/**
 	 * Friendly wrapper for OpenGL "picking" of rendered elements. 
 	 * 
+	 * @param the OpenGL interface to use for picking
 	 * @param pickPoint point around which to set up the picking matrix
 	 * @param bufSize size to use for the selection buffer
 	 * @return an iterator over the name constants that registered as hits at the specified point
 	 */
-	public Iterator<Integer> pick(Point pickPoint, int bufSize) {
-		GL gl = new GL();
-		
+	public Iterator<Integer> pick(GL gl, Point pickPoint, int bufSize) {
 		final int[] selectBuf = new int[bufSize];
 		IntBuffer selectBuffer = BufferUtil.newIntBuffer(bufSize);
 
@@ -84,7 +94,7 @@ public abstract class View<T extends View.State> {
 		gl.glInitNames();
 		gl.glPushName(-1);
 
-		render(pickPoint);
+		render(gl, pickPoint);
 
 		final int hits = gl.glRenderMode(GL.GL_RENDER);
 		
@@ -127,7 +137,7 @@ public abstract class View<T extends View.State> {
 	 * 
 	 * @param point coordinates to pick around
 	 */
-	public abstract void render(Point point);
+	public abstract void render(GL gl, Point point);
 
 	/**
 	 * Sets up a depth buffer, enables blending, sets up a picking matrix and a

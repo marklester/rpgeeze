@@ -14,6 +14,7 @@ import com.sun.opengl.util.FPSAnimator;
 
 import rpgeeze.controller.Controller;
 import rpgeeze.controller.MainMenuController;
+import rpgeeze.gl.GL;
 import rpgeeze.util.DelegatingEventAdapter;
 import rpgeeze.util.EventAdapter;
 import rpgeeze.util.Pair;
@@ -70,7 +71,7 @@ public class GameManager extends DelegatingEventAdapter
 	public void display(GLAutoDrawable drawable) {
 		View<?> view = getState().getFirst();
 		if(view != null)
-			view.render(null);
+			view.render(new GL(drawable.getGL()), null);
 	}
 
 	/**

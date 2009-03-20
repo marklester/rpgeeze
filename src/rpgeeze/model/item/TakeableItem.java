@@ -2,7 +2,7 @@ package rpgeeze.model.item;
 
 import rpgeeze.model.Entity;
 
-public abstract class TakeableItem implements Item {
+public abstract class TakeableItem extends Item {
 	public void activate(Entity entity) {
 		// add self to entity's inventory
 		
