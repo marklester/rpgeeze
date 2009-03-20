@@ -19,7 +19,7 @@ import rpgeeze.math.VectorImpl;
 import rpgeeze.util.ResourceLoader;
 
 /**
- * The occupation selection screen.
+ * The character creation screen.
  */
 public class CharacterCreationView extends HighlightableView<CharacterCreationView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
@@ -175,7 +175,7 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	}
 	
 	public void randomName() {
-		String names = getManager().getProperties().getProperty("names");
+		String names = getManager().getProperties().getProperty("game.names");
 		
 		// lowercase K's are silly in usual font, make them uppercase
 		names = names.replaceAll("k", "K");

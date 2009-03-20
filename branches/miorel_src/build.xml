@@ -29,7 +29,6 @@
 		<property name="generate.header" value="${tmp.dir}/header.txt"/>
 		<property name="generate.footer" value="${tmp.dir}/footer.txt"/>
 		
-		<property name="const.file" value="properties/const.properties"/>
 		<property name="opts.file" value="properties/opts.properties"/>
 		<property name="keyval.file" value="properties/keyval.properties"/>
 
@@ -46,7 +45,6 @@ import ${ant.project.name}.log.Message;
 import ${ant.project.name}.util.ResourceLoader;
 
 // WARNING! This file is auto-generated! Any changes will be overwritten.
-// To add a constant, edit ${res.dir}/${const.file}
 // To add an option configurable via the command line, edit ${res.dir}/${opts.file}
 // To add a key-value pair, edit ${res.dir}/${keyval.file}
 
@@ -90,7 +88,6 @@ public class ${generate.class} {
 	    	output="${src.dir}/${ant.project.name}/${generate.class}.java"
 	    >
 			<arg value="${ant.project.name}"/>
-	    	<arg value="${res.dir}/${const.file}"/>
 	    	<arg value="${res.dir}/${opts.file}"/>
 	    	<arg value="${generate.header}"/>
 	    	<arg value="${generate.footer}"/>
