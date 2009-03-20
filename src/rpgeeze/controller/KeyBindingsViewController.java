@@ -109,12 +109,16 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 						getView().setWestCommand(c);
 						break;
 					case NE_ARROW:
+						getView().setNorthEastCommand(c);
 						break;
 					case NW_ARROW:
+						getView().setNorthWestCommand(c);
 						break;
 					case SE_ARROW:
+						getView().setSouthEastCommand(c);
 						break;
 					case SW_ARROW:
+						getView().setSouthWestCommand(c);
 						break;
 					case SAVE_GAME:
 						getView().setSaveGameCommand(c);
