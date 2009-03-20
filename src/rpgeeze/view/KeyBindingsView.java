@@ -22,7 +22,7 @@ import rpgeeze.util.ResourceLoader;
 public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	private static final TextRenderer smallRenderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 22);
-	private Character north, south, east, west, saveGame, loadGame, newGame, inventoryView, statsView, skillsView;
+	private Character north, south, east, west, northEast, northWest, southEast, southWest, saveGame, loadGame, newGame, inventoryView, statsView, skillsView;
 	public enum Button {
 		OK(1) {
 			public Highlightable doGetButton() {
@@ -206,24 +206,40 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			putHighlightable(westArrow);
 			
 			Text westCommand = new Text(west.toString(), smallRenderer, 0.075f);
-			westCommand.setXY(-5.5, 10.5);
+			westCommand.setXY(-5, 10.5);
 			westCommand.render();
 			
 			Highlightable northeastArrow = Button.NE_ARROW.getButton();
 			northeastArrow.setXY(1, 13);
 			putHighlightable(northeastArrow);
 			
+			Text northEastCommand = new Text(northEast.toString(), smallRenderer, 0.075f);
+			northEastCommand.setXY(3.5, 14);
+			northEastCommand.render();
+			
 			Highlightable southeastArrow = Button.SE_ARROW.getButton();
 			southeastArrow.setXY(1, 9);
 			putHighlightable(southeastArrow);
+			
+			Text southEastCommand = new Text(southEast.toString(), smallRenderer, 0.075f);
+			southEastCommand.setXY(3.5, 7);
+			southEastCommand.render();
 			
 			Highlightable northwestArrow = Button.NW_ARROW.getButton();
 			northwestArrow.setXY(-1, 13);
 			putHighlightable(northwestArrow);
 			
+			Text northWestCommand = new Text(northWest.toString(), smallRenderer, 0.075f);
+			northWestCommand.setXY(-4, 14);
+			northWestCommand.render();
+			
 			Highlightable southwestArrow = Button.SW_ARROW.getButton();
 			southwestArrow.setXY(-1, 9);
 			putHighlightable(southwestArrow);
+			
+			Text southWestCommand = new Text(southWest.toString(), smallRenderer, 0.075f);
+			southWestCommand.setXY(-4, 7);
+			southWestCommand.render();
 			
 			Text saveGameCommand = new Text(saveGame.toString(), smallRenderer, 0.075f);
 			saveGameCommand.setXY(-15, 16.5);
@@ -293,6 +309,22 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		west = c;
 	}
 	
+	public void setNorthEastCommand(Character c){
+		northEast = c;
+	}
+	
+	public void setNorthWestCommand(Character c){
+		northWest = c;
+	}
+	
+	public void setSouthEastCommand(Character c){
+		southEast =c;
+	}
+	
+	public void setSouthWestCommand(Character c){
+		southWest = c;
+	}
+	
 	public void setSaveGameCommand(Character c){
 		saveGame = c;
 	}
@@ -322,6 +354,10 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		south = '2';
 		east = '6';
 		west = '4';
+		northEast = '9';
+		northWest = '7';
+		southEast = '3';
+		southWest = '1';
 		saveGame = 's';
 		loadGame = 'l';
 		newGame = 'n';
