@@ -83,7 +83,7 @@ public class ResourceLoader {
 				fonts.put(key, ret);
 			}
 			catch(IOException e) {
-				LogManager.getInstance().log(e.getMessage(), "ResourceLoader", Message.Type.ERROR);
+				LogManager.getInstance().log("Problem getting font:" + e.getMessage(), "ResourceLoader", Message.Type.ERROR);
 			}
 			catch(FontFormatException e) {
 				LogManager.getInstance().log(e.getMessage(), "ResourceLoader", Message.Type.ERROR);
