@@ -31,7 +31,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		},
 		CANCEL(2) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Cancel", 0, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(getRectangle("Cancel", 5, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		N_ARROW(3) {
@@ -44,7 +44,19 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(-1, 0), new VectorImpl(1, 0), new VectorImpl(0, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		NE_ARROW(5) {
+		
+		E_ARROW(5) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 2), new VectorImpl(1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		
+		W_ARROW(6) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 2), new VectorImpl(-1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		NE_ARROW(7) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(2, 1), new VectorImpl(0, 1), new VectorImpl(2, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
@@ -52,11 +64,6 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		SE_ARROW(8) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(2, 1), new VectorImpl(0, -1), new VectorImpl(2, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		E_ARROW(7) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 2), new VectorImpl(1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		NW_ARROW(9) {
@@ -69,9 +76,49 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(-2, 1), new VectorImpl(-2, -1), new VectorImpl(0, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		W_ARROW(6) {
+		DROP_ITEM(11) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 2), new VectorImpl(-1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(getRectangle("Drop Item", -20, 20), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		EQUIP_ITEM(12) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("Equip Item", -20, 15), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		SAVE_GAME(13) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("Save Game", -20, 10), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		LOAD_GAME(14) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("Load Game", -20, 5), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		NEW_GAME(15) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("New Game", -20, 0), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		INVENTORY_VIEW(16) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("Inventory View", 5, 20), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		STATS_VIEW(17) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("Stats View", 9, 15), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		SKILLS_VIEW(18) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("Skills View", 8, 10), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		DEFAULTS(19) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("Defaults", -5, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		};
 		
@@ -83,7 +130,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		}
 		
 		private static TextRectangle getRectangle(String text, double x, double y) {
-			TextRectangle rect = new TextRectangle(new Text(text, renderer, 0.05f), 10, 3);
+			TextRectangle rect = new TextRectangle(new Text(text, renderer, 0.05f), text.length() + 1, 3);
 			rect.alignText(0.5, 0.5);
 			rect.setXY(x, y);
 			if(!text.equals("OK"))
