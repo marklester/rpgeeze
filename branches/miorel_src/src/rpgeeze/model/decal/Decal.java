@@ -1,7 +1,10 @@
 package rpgeeze.model.decal;
 
-import rpgeeze.view.Drawable;
+import rpgeeze.model.Visitable;
+import rpgeeze.model.Visitor;
 
-public interface Decal extends Drawable {
-
+public class Decal implements Visitable {
+	public void accept(Visitor visitor) {
+		visitor.visitDecal(this);
+	}
 }

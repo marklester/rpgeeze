@@ -43,8 +43,7 @@ public class CreditsView extends View<CreditsView.State> {
 		changeState(State.NEW);
 	}
 	
-	public void render(Point point) {
-		GL gl = new GL();
+	public void render(GL gl, Point point) {
 		setup(gl, point);
 
 		gl.glClearColor(0, MainMenuView.MAX_INTENSITY, MainMenuView.MAX_INTENSITY, 1.0f);
