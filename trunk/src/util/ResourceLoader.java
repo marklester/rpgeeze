@@ -20,6 +20,7 @@ public class ResourceLoader {
 	private final Hashtable<String, String> files;
 	private final Hashtable<String, String> audios;
 	private static ResourceLoader instance = null;
+	public boolean soundFXMuted = false;
 	
 	
 	
@@ -107,9 +108,11 @@ public class ResourceLoader {
 
 	public void playAudioClip(String key) {
 		try {
-			InputStream in = getStream(audios.get(key)); 
-			AudioStream as = new AudioStream(in);
-			AudioPlayer.player.start(as);
+			if (!soundFXMuted) {
+				InputStream in = getStream(audios.get(key)); 
+				AudioStream as = new AudioStream(in);
+				AudioPlayer.player.start(as);
+			}
 		}
 		catch (Exception e) { System.out.println(e); }
 	}

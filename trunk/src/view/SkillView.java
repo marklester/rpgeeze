@@ -30,7 +30,7 @@ public class SkillView {
 	public SkillView() {
 	}
 
-	public void drawSkillView(Graphics2D graphics, LinkedList<Skill> s, int width, int height) {
+	public void drawSkillView(Graphics2D graphics, SkillContainer s, int width, int height) {
 
 		java.util.Iterator<Skill> skills = s.iterator();
 		view_height = height;
