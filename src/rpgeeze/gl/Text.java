@@ -30,6 +30,10 @@ public class Text extends GLObjectImpl {
 	public String getText() {
 		return text;
 	}
+	
+	public void setText(String newText) {
+		text = newText;
+	}
 
 	protected void doRender(GL gl) {
 		renderer.begin3DRendering();

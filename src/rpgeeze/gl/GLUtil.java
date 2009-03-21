@@ -11,7 +11,10 @@ import java.util.List;
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 
+import com.sun.opengl.util.j2d.TextRenderer;
+
 import rpgeeze.dp.Iterator;
+import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.math.Vector;
 import rpgeeze.util.ListIterator;
 
@@ -274,4 +277,25 @@ public class GLUtil {
 		Collections.sort(hitList);
 		return new ListIterator<Hit>(hitList);
 	}
+	
+	public Scene buttonSet(TextRectangle prototype, int rowSize, double horizSpace, double vertSpace, String... names) {
+		Scene scene = new Scene();
+		int row = 0;
+		int curRowSize = 0;
+		for(String name: names) {
+			TextRectangle button = prototype.clone();
+			button.setXY(curRowSize * (prototype.getWidth() + horizSpace), row * (prototype.getHeight() + vertSpace));
+			button.getText().setText(name);
+			button.alignText(0.5, 0);
+			button.getText().setY(prototype.getText().getY());
+			scene.add(button, name);
+			if(++curRowSize > rowSize) {
+				curRowSize = 0;
+				++row;
+			}
+		}
+		return scene;
+	}
+	
+	
 }
