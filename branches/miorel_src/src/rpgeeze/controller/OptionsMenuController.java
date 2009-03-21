@@ -24,9 +24,8 @@ public class OptionsMenuController extends HighlightableViewController<OptionsMe
 	public void mouseClicked(MouseEvent e) {
 		Point p = e.getPoint();
 		if(e.getButton() == MouseEvent.BUTTON1) {
-			Iterator<Integer> iter = getView().pickAll(GLU.getCurrentGL(), p);
-			for(iter.reset(); !iter.isDone(); iter.advance()) {
-				OptionsMenuView.Button button = OptionsMenuView.Button.fromGLName(iter.current());
+			int glName = getView().pickClosest(GLU.getCurrentGL(), p);
+				OptionsMenuView.Button button = OptionsMenuView.Button.fromGLName(glName);
 				if(button != null)
 					switch(	button) {
 					case KEY_BINDINGS:
@@ -42,7 +41,6 @@ public class OptionsMenuController extends HighlightableViewController<OptionsMe
 						getManager().popState();
 						break;			
 					}
-			}
 		}
 	}
 }

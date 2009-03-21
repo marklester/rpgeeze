@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.nio.IntBuffer;
 import java.util.HashSet;
 import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
 
 import rpgeeze.GameManager;
 import rpgeeze.log.LogManager;
@@ -77,7 +76,7 @@ public abstract class View<T extends View.State> {
 	 * @param bufSize size to use for the selection buffer
 	 * @return an iterator over the name constants that registered as hits at the specified point
 	 */
-	public Iterator<Integer> pickAll(GL gl, Point pickPoint) {
+	private Iterator<Integer> pickAll(GL gl, Point pickPoint) {
 		IntBuffer selectBuffer = BufferUtil.newIntBuffer(bufferSize);
 		
 		gl.glSelectBuffer(bufferSize, selectBuffer);
@@ -112,6 +111,19 @@ public abstract class View<T extends View.State> {
 		};
 	}
 
+	/**
+	 * Friendly wrapper for OpenGL "picking" of rendered elements. 
+	 * 
+	 * @param the OpenGL interface to use for picking
+	 * @param pickPoint point around which to set up the picking matrix
+	 * @param bufSize size to use for the selection buffer
+	 * @return the name constant corresponding to the closest object
+	 */
+	public int pickClosest(GL gl, Point pickPoint) {
+		Iterator<Integer> iter = pickAll(gl, pickPoint);
+		iter.reset();
+		return iter.isDone() ? -1 : iter.current();
+	}
 	
 	protected String mapGLNameToString(int glName) {
 		return null;
