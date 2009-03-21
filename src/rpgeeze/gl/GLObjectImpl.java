@@ -2,6 +2,8 @@ package rpgeeze.gl;
 
 import java.awt.Color;
 
+import javax.media.opengl.GL;
+
 public abstract class GLObjectImpl implements Colorable {
 	private double x, y, z;
 	private Color color;
@@ -28,21 +30,20 @@ public abstract class GLObjectImpl implements Colorable {
 		this.color = color;
 	}
 
-	public final void render() {
+	public final void render(GL gl) {
 		if(isVisible()) {
-			GL gl = new GL();
 			gl.glPushMatrix();
 			gl.glTranslated(x, y, z);
 			if(color != null)
 				gl.glColor4f(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f, color.getAlpha() / 255.0f);
 			if(hasName)
 				gl.glLoadName(glName);
-			doRender();
+			doRender(gl);
 			gl.glPopMatrix();
 		}
 	}
 
-	protected abstract void doRender();
+	protected abstract void doRender(GL gl);
 
 	public final Color getColor() {
 		return color;

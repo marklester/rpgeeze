@@ -1,6 +1,6 @@
 package rpgeeze.view.overlay;
 
-import rpgeeze.gl.GL;
+import javax.media.opengl.GL;
 
 /**
  * A related set of OpenGL elements which may be rendered together in a frustum.

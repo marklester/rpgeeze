@@ -6,12 +6,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
 import java.util.Random;
+import javax.media.opengl.GL;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
 import rpgeeze.GameProperties;
-import rpgeeze.gl.GL;
+import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
@@ -116,11 +117,12 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	public void render(GL gl, Point point) {		
 		setup(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
-		gl.clearColor(BACKGROUND_COLOR);
+		GLUtil glutil = new GLUtil(gl);
+		glutil.clearColor(BACKGROUND_COLOR);
 		
 		gl.glTranslated(0, 0, zoom);
 		for(TexturedRectangle rect: occupationImage)
-			rect.render();
+			rect.render(gl);
 			
 		switch(getState()) {
 		case NORMAL:
@@ -128,21 +130,21 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 			gl.glTranslated(0, -9.5, -14.5);
 			
 			Highlightable leftArrow = Button.LEFT_ARROW.getButton();
-			leftArrow.setXY(-14.5 * gl.getViewportAspectRatio() + 3, 8);
+			leftArrow.setXY(-14.5 * glutil.getViewportAspectRatio() + 3, 8);
 			putHighlightable(leftArrow);
 
 			Highlightable rightArrow = Button.RIGHT_ARROW.getButton();
-			rightArrow.setXY(14.5 * gl.getViewportAspectRatio() - 3, 8);
+			rightArrow.setXY(14.5 * glutil.getViewportAspectRatio() - 3, 8);
 			putHighlightable(rightArrow);
 			
-			renderHighlightables();
+			renderHighlightables(gl);
 			gl.glLoadName(-1);
 			
 			// silly K's...
 			String title = (characterName + " the " + occupation[occP]).replaceAll("k", "K");
 			Text characterTitle = new Text(title, renderer, 0.075f);
 			characterTitle.setXY(-characterTitle.getWidth() / 2, 1);
-			characterTitle.render();
+			characterTitle.render(gl);
 			
 			break;
 		case ZOOMING:

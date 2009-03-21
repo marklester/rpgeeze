@@ -4,6 +4,8 @@ import rpgeeze.GameManager;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableSet;
 
+import javax.media.opengl.GL;
+
 public abstract class HighlightableView<T extends View.State> extends View<T> {
 	private HighlightableSet highlightables = new HighlightableSet();
 	
@@ -31,8 +33,8 @@ public abstract class HighlightableView<T extends View.State> extends View<T> {
 		highlightables.remove(glName);
 	}
 
-	protected void renderHighlightables() {
-		highlightables.render();
+	protected void renderHighlightables(GL gl) {
+		highlightables.render(gl);
 	}
 
 	public void unhighlight() {

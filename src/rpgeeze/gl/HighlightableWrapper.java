@@ -1,6 +1,7 @@
 package rpgeeze.gl;
 
 import java.awt.Color;
+import javax.media.opengl.GL;
 
 public class HighlightableWrapper implements Highlightable {
 	private final Color plain;
@@ -45,8 +46,8 @@ public class HighlightableWrapper implements Highlightable {
 		return object.hasGLName();
 	}
 
-	public void render() {
-		object.render();
+	public void render(GL gl) {
+		object.render(gl);
 	}
 
 	public void setColor(Color newColor) {

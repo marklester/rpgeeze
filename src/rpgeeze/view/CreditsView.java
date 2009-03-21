@@ -4,11 +4,13 @@ import java.awt.Font;
 import java.awt.Point;
 import java.util.Random;
 
+import javax.media.opengl.GL;
+
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
 import rpgeeze.GameProperties;
-import rpgeeze.gl.GL;
+import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Text;
 import rpgeeze.util.ResourceLoader;
 
@@ -47,17 +49,18 @@ public class CreditsView extends View<CreditsView.State> {
 	
 	public void render(GL gl, Point point) {
 		setup(gl, point);
+		GLUtil glutil = new GLUtil(gl);
 		
-		gl.clearColor(BACKGROUND_COLOR);
+		glutil.clearColor(BACKGROUND_COLOR);
 		
 		title.setXYZ(-title.getWidth() / 2, 4 - title.getHeight(), -4);
-		title.render();
+		title.render(gl);
 	
 		subtitle.setXYZ(-subtitle.getWidth() / 2, title.getY() - subtitle.getHeight() - 0.1, -4);
-		subtitle.render();
+		subtitle.render(gl);
 		
 		developer.setXYZ(-developer.getWidth() / 2, -developer.getHeight() / 2, -4);
-		developer.render();
+		developer.render(gl);
 		
 		// change this to read property value
 		if(point == null && ++frames >= 80 * SECONDS_PER_DEVELOPER)

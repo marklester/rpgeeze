@@ -2,7 +2,7 @@ package rpgeeze.view.overlay;
 
 import com.sun.opengl.util.texture.Texture;
 
-import rpgeeze.gl.GL;
+import javax.media.opengl.GL;
 
 public class TextureOverlay implements Overlay {
 	private Texture texture;

@@ -1,6 +1,6 @@
 package rpgeeze.gl.geom;
 
-import rpgeeze.gl.GL;
+import javax.media.opengl.GL;
 import rpgeeze.gl.Text;
 
 public class TextRectangle extends Rectangle {
@@ -25,15 +25,14 @@ public class TextRectangle extends Rectangle {
 		text.setXY((getWidth() - text.getWidth()) * horiz, (getHeight() - text.getHeight()) * vert);
 	}
 	
-	public void doRender() {
-		GL gl = new GL();
+	public void doRender(GL gl) {
 		gl.glBegin(GL.GL_QUADS);
 		gl.glVertex2d(0, getHeight());
 		gl.glVertex2i(0, 0);
 		gl.glVertex2d(getWidth(), 0);
 		gl.glVertex2d(getWidth(), getHeight());
 		gl.glEnd();
-		text.render();
+		text.render(gl);
 	}
 	
 	public TextRectangle clone() {

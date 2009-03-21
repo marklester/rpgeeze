@@ -1,6 +1,7 @@
 package rpgeeze.gl;
 
 import java.util.HashMap;
+import javax.media.opengl.GL;
 
 public class HighlightableSet {
 	private HashMap<Integer, Highlightable> hashMap = new HashMap<Integer, Highlightable>();
@@ -38,8 +39,9 @@ public class HighlightableSet {
 		highlighted = null;
 	}
 	
-	public synchronized void render() {
+	
+	public synchronized void render(GL gl) {
 		for(Highlightable h: hashMap.values())
-			h.render();
+			h.render(gl);
 	}
 }

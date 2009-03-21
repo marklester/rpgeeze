@@ -1,6 +1,7 @@
 package rpgeeze.gl.geom;
 
-import rpgeeze.gl.GL;
+import javax.media.opengl.GL;
+
 import rpgeeze.gl.GLObjectImpl;
 
 public class Rectangle extends GLObjectImpl {
@@ -38,8 +39,7 @@ public class Rectangle extends GLObjectImpl {
 		height = newHeight;
 	}
 	
-	protected void doRender() {
-		GL gl = new GL();
+	protected void doRender(GL gl) {
 		gl.glBegin(GL.GL_QUADS);
 		gl.glTranslated(getX(), getY(), getZ());
         gl.glVertex2d(0, getHeight());

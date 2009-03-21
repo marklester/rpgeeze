@@ -1,7 +1,9 @@
 package rpgeeze.gl;
 
+import javax.media.opengl.GL;
+
 public interface GLObject extends Cloneable {
-	public void render();
+	public void render(GL gl);
 	
 	public int getGLName();
 	public void setGLName(int newName);

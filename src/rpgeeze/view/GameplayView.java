@@ -3,11 +3,12 @@ package rpgeeze.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
+import javax.media.opengl.GL;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
-import rpgeeze.gl.GL;
+import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.effect.ClearColorChange;
 import rpgeeze.gl.geom.TexturedRectangle;
@@ -51,13 +52,13 @@ public class GameplayView extends View<GameplayView.State> {
 	public void render(GL gl, Point point) {		
 		setup(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
-		gl.glClearColor(0, 0, 0, 0);
+		GLUtil glutil = new GLUtil(gl);
 
 		// zoom
 		gl.glTranslated(-0.5, -0.5, zoom);
 
 		// get viewport dimensions in tiles that have to be displayed
-		int widthInTiles = (int) Math.ceil(-2 * zoom * gl.getViewportAspectRatio());
+		int widthInTiles = (int) Math.ceil(-2 * zoom * glutil.getViewportAspectRatio());
 		int heightInTiles = (int) Math.ceil(-2 * zoom);
 
 		int minX = (int) Math.floor(1 + widthInTiles / 2);
@@ -68,10 +69,12 @@ public class GameplayView extends View<GameplayView.State> {
 		if(getState() == State.FADING_IN) {
 			if(point == null) {
 				fadeIn.apply(gl);
+				if(fadeIn.isDone())
+					changeState(State.NORMAL);
 			}
 		}
 		else
-			gl.clearColor(fadeIn.getFinalColor());
+			glutil.clearColor(fadeIn.getFinalColor());
 
 		for(int i = minX; i <= maxX; ++i)
 			for(int j = minY; j <= maxY; ++j) {
@@ -79,21 +82,21 @@ public class GameplayView extends View<GameplayView.State> {
 				gl.glPushMatrix();
 				gl.glTranslated(i, j, 0);
 				if(t.getTerrain() instanceof GrassTerrain)
-					grass.render();
+					grass.render(gl);
 				if(t.getTerrain() instanceof MountainTerrain)
-					mountain.render();
+					mountain.render(gl);
 				if(t.getTerrain() instanceof WaterTerrain)
-					water.render();
+					water.render(gl);
 				if(t.getEntity() != null)
-					entity.render();
+					entity.render(gl);
 				gl.glPopMatrix();
 			}
 
 		if(getState() == State.NORMAL) {
 			gl.glLoadIdentity();
 			Text fpsText = new Text(String.format("FPS: %.1f", fps.getValue()), Color.RED, renderer, 0.0025f);
-			fpsText.setXYZ(gl.getViewportAspectRatio() - fpsText.getWidth() - fpsText.getHeight() / 2, 1 - 3 * fpsText.getHeight() / 2, -1);
-			fpsText.render();
+			fpsText.setXYZ(glutil.getViewportAspectRatio() - fpsText.getWidth() - fpsText.getHeight() / 2, 1 - 3 * fpsText.getHeight() / 2, -1);
+			fpsText.render(gl);
 		}
 
 		gl.glFlush();

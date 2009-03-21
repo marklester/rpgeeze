@@ -2,7 +2,7 @@ package rpgeeze.gl.effect;
 
 import java.awt.Color;
 
-import rpgeeze.gl.GL;
+import javax.media.opengl.GL;
 
 public class ClearColorChange implements Effect {
 	private long duration;

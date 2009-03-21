@@ -8,12 +8,13 @@ import static rpgeeze.RunGame.LOGO_Z;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
+import javax.media.opengl.GL;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
 import rpgeeze.GameProperties;
-import rpgeeze.gl.GL;
+import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
@@ -92,15 +93,17 @@ public final class OptionsMenuView extends HighlightableView<OptionsMenuView.Sta
 		boolean pick = point != null;
 		setup(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
-		gl.clearColor(BACKGROUND_COLOR);
 		
-		gl.color(PLAIN);
+		GLUtil glutil = new GLUtil(gl);
+		glutil.clearColor(BACKGROUND_COLOR);
+		
+		glutil.color(PLAIN);
 		gl.glTranslated(0, LOGO_Y, 0);
 		logo.render(gl, LOGO_SIZE, LOGO_SIZE, LOGO_Z, LOGO_Z, pick);
 		gl.glTranslated(0, -LOGO_Y, 0);
 		
 		gl.glTranslated(-5, -9.5, -14.5);
-		renderHighlightables();
+		renderHighlightables(gl);
 		
 		gl.glFlush();
 	}
