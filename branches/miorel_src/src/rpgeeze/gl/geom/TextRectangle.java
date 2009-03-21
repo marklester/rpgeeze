@@ -20,6 +20,10 @@ public class TextRectangle extends Rectangle {
 	public Text getText() {
 		return text;
 	}
+
+	public void setText(Text newText) {
+		text = newText;
+	}
 	
 	public void alignText(double horiz, double vert) {
 		text.setXY((getWidth() - text.getWidth()) * horiz, (getHeight() - text.getHeight()) * vert);
@@ -36,6 +40,8 @@ public class TextRectangle extends Rectangle {
 	}
 	
 	public TextRectangle clone() {
-		return (TextRectangle) super.clone();
+		TextRectangle clone = (TextRectangle) super.clone();
+		clone.text = text.clone();
+		return clone;
 	}
 }

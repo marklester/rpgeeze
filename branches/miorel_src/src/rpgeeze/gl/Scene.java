@@ -1,6 +1,7 @@
 package rpgeeze.gl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.media.opengl.GL;
@@ -9,12 +10,35 @@ import rpgeeze.dp.Iterator;
 import rpgeeze.util.ListIterator;
 
 public class Scene {
-	private final List<String> names = new ArrayList<String>(); 
+	private final HashMap<String, GLObject> nameObj = new HashMap<String, GLObject>();
+	private final HashMap<GLObject, String> objName = new HashMap<GLObject, String>();
 	private final List<GLObject> objects = new ArrayList<GLObject>();
 
 	public void add(GLObject object, String name) {
-		names.add(name);
+		if(nameObj.get(name) == null)
+			nameObj.put(name, object);
+		else
+			throw new RuntimeException("Duplicate names!");
+
+		if(objName.get(object) == null)
+			objName.put(object, name);
+		else
+			throw new RuntimeException("Duplicate objects!");
+		
 		objects.add(object);
+	}
+	
+	public void add(Scene scene) {
+		for(GLObject obj: scene.objects)
+			add(obj, scene.getNameForObject(obj));
+	}
+
+	public String getNameForObject(GLObject object) {
+		return objName.get(object);
+	}
+
+	public GLObject getObjectForName(String name) {
+		return nameObj.get(name);
 	}
 	
 	public void render(GL gl) {
@@ -24,7 +48,6 @@ public class Scene {
 			gl.glLoadName(++glName);
 			iter.current().render(gl);
 		}
-	}
-	
-//	public 
+		gl.glLoadName(-1);
+	} 
 }
