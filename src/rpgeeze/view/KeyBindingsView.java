@@ -114,9 +114,11 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		
 		private final int glName;
 		private Highlightable button;
+		private boolean highlighted;
 		
 		private Button(int glName) {
 			this.glName = glName;
+			this.highlighted = false;
 		}
 		
 		private static TextRectangle getRectangle(String text, double x, double y) {
@@ -136,6 +138,14 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			return button;
 		}
 		
+		public boolean getHighlighted(){
+			return highlighted;
+		}
+		
+		public void setHighlighted(boolean highlighted){
+			this.highlighted = highlighted;
+		}
+		
 		public abstract Highlightable doGetButton();
 		
 		public static Button fromGLName(int glName) {
@@ -144,6 +154,12 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 					return button;
 			return null;
 		}
+		
+		public int getGLName(){
+			return this.glName;
+		}
+		
+	
 	}	
 	
 	public enum State implements View.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
