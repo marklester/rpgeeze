@@ -1,12 +1,12 @@
 package rpgeeze.controller;
 
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import javax.media.opengl.glu.GLU;
 
 import rpgeeze.GameManager;
-import rpgeeze.dp.Iterator;
 import rpgeeze.view.GameplayView;
 import rpgeeze.view.CharacterCreationView;
 import rpgeeze.model.Entity;
@@ -39,8 +39,8 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 			break;
 		default:
 			char c = e.getKeyChar();
-			if(c == ' ' || Character.isLetter(c) || Character.isDigit(c))
-				getView().setCharacterName(getView().getCharacterName() + c);
+		if(c == ' ' || Character.isLetter(c) || Character.isDigit(c))
+			getView().setCharacterName(getView().getCharacterName() + c);
 		}
 	}
 
@@ -48,26 +48,25 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 	 * Executes the action corresponding to the clicked button, if any.
 	 */
 	public void mouseClicked(MouseEvent e) {
+		Point p = e.getPoint();
 		if(e.getButton() == MouseEvent.BUTTON1) {
-			Iterator<Integer> iter = getView().pickAll(GLU.getCurrentGL(), e.getPoint());
-			for(iter.reset(); !iter.isDone(); iter.advance()) {
-				CharacterCreationView.Button button = CharacterCreationView.Button.fromGLName(iter.current());
-				if(button != null)
-					switch(button) {
-					case OK:
-						executeOK();
-						break;
-					case CANCEL:
-						executeCancel();
-						break;
-					case LEFT_ARROW:
-						getView().previousOccupation();
-						break;
-					case RIGHT_ARROW:
-						getView().nextOccupation();
-						break;
-					}
-			}
+			int glName = getView().pickClosest(GLU.getCurrentGL(), p);
+			CharacterCreationView.Button button = CharacterCreationView.Button.fromGLName(glName);
+			if(button != null)
+				switch(button) {
+				case OK:
+					executeOK();
+					break;
+				case CANCEL:
+					executeCancel();
+					break;
+				case LEFT_ARROW:
+					getView().previousOccupation();
+					break;
+				case RIGHT_ARROW:
+					getView().nextOccupation();
+					break;
+				}
 		}
 	}
 
@@ -78,7 +77,7 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 	protected void executeCancel() {
 		getManager().popState();		
 	}
-	
+
 	public void reactToChange() {
 		if(getView().getState() == CharacterCreationView.State.ZOOMED) {
 			Entity avatar = new FiniteMatrixMap().getAvatar();

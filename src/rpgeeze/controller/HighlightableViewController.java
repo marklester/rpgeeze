@@ -7,7 +7,6 @@ import java.awt.event.WindowEvent;
 import javax.media.opengl.glu.GLU;
 
 import rpgeeze.GameManager;
-import rpgeeze.dp.Iterator;
 import rpgeeze.view.HighlightableView;
 
 public abstract class HighlightableViewController<T extends HighlightableView<?>> extends Controller<T> {
@@ -41,9 +40,7 @@ public abstract class HighlightableViewController<T extends HighlightableView<?>
 	
 	private void highlight(Point p) {
 		getView().unhighlight();
-		Iterator<Integer> iter = getView().pickAll(GLU.getCurrentGL(), p);
-		iter.reset();
-		for(iter.reset(); !iter.isDone(); iter.advance())
-			getView().highlight(iter.current());
+		int glName = getView().pickClosest(GLU.getCurrentGL(), p);
+		getView().highlight(glName);
 	}
 }

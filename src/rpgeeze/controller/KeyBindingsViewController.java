@@ -3,19 +3,17 @@ package rpgeeze.controller;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
 
 import javax.media.opengl.glu.GLU;
 
 import rpgeeze.GameManager;
-import rpgeeze.dp.Iterator;
 import rpgeeze.view.KeyBindingsView;
 
 /**
  * Controls the main menu screen.
  */
 public class KeyBindingsViewController extends HighlightableViewController<KeyBindingsView> {
-	
+
 	public KeyBindingsViewController(GameManager manager, KeyBindingsView view) {
 		super(manager, view);
 	}
@@ -23,26 +21,23 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 	/**
 	 * Executes the action corresponding to the clicked button, if any.
 	 */
-	Iterator<Integer> iter;
 	Integer clicked[] = new Integer[1];
 	boolean firstTime = true;
 	KeyBindingsView.Button button;
-	Point p;
+//	Point p;
 	int compare = 0;
 	int mouseMoved = 0;
-	
-	
+
 	public void mouseClicked(MouseEvent e) {
+		Point p = e.getPoint();
 		if(e.getButton() == MouseEvent.BUTTON1) {
-			p = e.getPoint();
-			iter = getView().pickAll(GLU.getCurrentGL(), p);
-			for(iter.reset(); !iter.isDone(); iter.advance()) {
-				button = KeyBindingsView.Button.fromGLName(iter.current());
-				
-				if(button != null){
-					
-					if(compare != button.getGLName() || (compare == button.getGLName() && !button.getHighlighted())){
-					
+			int glName = getView().pickClosest(GLU.getCurrentGL(), p);
+			button = KeyBindingsView.Button.fromGLName(glName);
+
+			if(button != null){
+
+				if(compare != button.getGLName() || (compare == button.getGLName() && !button.getHighlighted())){
+
 					switch(	button) {
 					case OK:
 						getManager().popState();
@@ -114,27 +109,26 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 						highlight(e.getPoint());
 						break;
 					}
-					}
-					else{
-						button.setHighlighted(false);
-						getView().unhighlight();
-					}
+				}
+				else{
+					button.setHighlighted(false);
+					getView().unhighlight();
 				}
 			}
-			}	
+		}	
 		compare = button.getGLName();
 	}
-	
-	
-	
+
+
+
 	public void keyPressed(KeyEvent e) {
 		if(e.getID() == KeyEvent.KEY_PRESSED) {
-				if(button != null && button.getHighlighted())
-					getView().setCommand(button.getGLName(),e.getKeyText(e.getKeyCode()));
-			}
+			if(button != null && button.getHighlighted())
+				getView().setCommand(button.getGLName(),e.getKeyText(e.getKeyCode()));
+		}
 	}
-	
-		
+
+
 	public void mouseMoved(MouseEvent e) {
 		/*p = e.getPoint();
 		iter = getView().pick(e.getPoint());
@@ -152,36 +146,14 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 					highlight(e.getPoint());
 					break;
 				}
-				
+
 				}
 		}*/
 	}
-	
-	public void mouseEntered(MouseEvent e) {
-		
-	}
 
-	public void mouseExited(MouseEvent e) {
-		
-	}
-	
-	public void windowLostFocus(WindowEvent e) {
-		
-	}
-
-	public void windowActivated(WindowEvent e) {
-	
-	}
-
-	public void windowDeactivated(WindowEvent e) {
-		
-	}
-	
 	private void highlight(Point p) {
 		getView().unhighlight();
-		Iterator<Integer> iter = getView().pickAll(GLU.getCurrentGL(), p);
-		iter.reset();
-		for(iter.reset(); !iter.isDone(); iter.advance())
-			getView().highlight(iter.current());
+		int glName = getView().pickClosest(GLU.getCurrentGL(), p);
+		getView().highlight(glName);
 	}
 }
