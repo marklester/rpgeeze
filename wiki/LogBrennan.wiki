@@ -100,5 +100,11 @@
 3/19/09 15:00-17:00
   * Researched text boxes in JOGL
 
-3/19/09  23:00-24:00
+3/19/09 23:00-24:00
   * Created Options Screen and Controller
+
+3/20/09 1:00-5:00
+  *Worked on Key Bindings View
+
+3/20/09 18:00-24:00
+  *Group meeting and worked on Key Bindings View
