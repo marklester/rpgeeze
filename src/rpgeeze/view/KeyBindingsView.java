@@ -21,92 +21,100 @@ import rpgeeze.util.ResourceLoader;
  */
 public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
-	private static final TextRenderer smallRenderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 22);
-	private Character north, south, east, west, northEast, northWest, southEast, southWest, saveGame, loadGame, newGame, inventoryView, statsView, skillsView;
+	private static final TextRenderer smallRenderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 14);
+	private Character north, south, east, west, northEast, northWest, southEast, southWest, saveGame, loadGame, newGame, inventoryView, statsView, skillsView, optionsView;
+	private String[] command = new String[16];
+	
 	public enum Button {
-		OK(1) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("OK", -10, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		CANCEL(2) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Cancel", 5, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		N_ARROW(3) {
+		
+		N_ARROW(1) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(-1, 0), new VectorImpl(1, 0), new VectorImpl(0, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED); 
 			}
 		},
-		S_ARROW(4) {
+		S_ARROW(2) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(-1, 0), new VectorImpl(1, 0), new VectorImpl(0, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		
-		E_ARROW(5) {
+		E_ARROW(3) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 2), new VectorImpl(1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		
-		W_ARROW(6) {
+		W_ARROW(4) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 2), new VectorImpl(-1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		NE_ARROW(7) {
+		NE_ARROW(5) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(2, 1), new VectorImpl(0, 1), new VectorImpl(2, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		SE_ARROW(8) {
+		SE_ARROW(6) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(2, 1), new VectorImpl(0, -1), new VectorImpl(2, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		NW_ARROW(9) {
+		NW_ARROW(7) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(-2, 1), new VectorImpl(-2, -1), new VectorImpl(0, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		SW_ARROW(10) {
+		SW_ARROW(8) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(new Triangle(new VectorImpl(-2, 1), new VectorImpl(-2, -1), new VectorImpl(0, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		SAVE_GAME(11) {
+		SAVE_GAME(9) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(getRectangle("Save Game", -19, 18), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		LOAD_GAME(12) {
+		LOAD_GAME(10) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(getRectangle("Load Game", -19, 10), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		NEW_GAME(13) {
+		NEW_GAME(11) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(getRectangle("New Game", -19, 2), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		INVENTORY_VIEW(14) {
+		INVENTORY_VIEW(12) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(getRectangle("Inventory View", 5, 18), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		STATS_VIEW(15) {
+		STATS_VIEW(13) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(getRectangle("Stats View", 9, 10), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		SKILLS_VIEW(16) {
+		SKILLS_VIEW(14) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(getRectangle("Skills View", 8, 2), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
 		},
-		DEFAULTS(17) {
+		OPTIONS_VIEW(15) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("Options View", -6.5, 2), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		OK(16) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("OK", -10, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		CANCEL(17) {
+			public Highlightable doGetButton() {
+				return new HighlightableWrapper(getRectangle("Cancel", 5, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+			}
+		},
+		DEFAULTS(18) {
 			public Highlightable doGetButton() {
 				return new HighlightableWrapper(getRectangle("Defaults", -5, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 			}
@@ -190,6 +198,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			
 		switch(getState()) {
 		case NORMAL:
+			String buttonText;
 			gl.glLoadIdentity();
 			gl.glTranslated(0, -9.5, -14.5);
 			
@@ -197,23 +206,23 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			northArrow.setXY(0, 14);
 			putHighlightable(northArrow);
 			
-			Text northCommand = new Text(north.toString(), smallRenderer, 0.075f);
-			northCommand.setXY(-0.5, 15.5);
+			Text northCommand = new Text(command[1], smallRenderer, 0.075f);
+			northCommand.setXY(-0.5 - command[1].length()/2, 15.5);
 			northCommand.render();
 			
 			Highlightable southArrow = Button.S_ARROW.getButton();
 			southArrow.setXY(0, 8);
 			putHighlightable(southArrow);
 			
-			Text southCommand = new Text(south.toString().toString(), smallRenderer, 0.075f);
-			southCommand.setXY(-0.5, 5.5);
+			Text southCommand = new Text(command[2], smallRenderer, 0.075f);
+			southCommand.setXY(-0.5 - command[2].length()/2, 5.5);
 			southCommand.render();
 			
 			Highlightable eastArrow = Button.E_ARROW.getButton();
 			eastArrow.setXY(3, 10);
 			putHighlightable(eastArrow);
 			
-			Text eastCommand = new Text(east.toString(), smallRenderer, 0.075f);
+			Text eastCommand = new Text(command[3], smallRenderer, 0.075f);
 			eastCommand.setXY(4.5, 10.5);
 			eastCommand.render();
 			
@@ -221,15 +230,15 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			westArrow.setXY(-3, 10);
 			putHighlightable(westArrow);
 			
-			Text westCommand = new Text(west.toString(), smallRenderer, 0.075f);
-			westCommand.setXY(-5, 10.5);
+			Text westCommand = new Text(command[4], smallRenderer, 0.075f);
+			westCommand.setXY(-5 - command[4].length()/2, 10.5);
 			westCommand.render();
 			
 			Highlightable northeastArrow = Button.NE_ARROW.getButton();
 			northeastArrow.setXY(1, 13);
 			putHighlightable(northeastArrow);
 			
-			Text northEastCommand = new Text(northEast.toString(), smallRenderer, 0.075f);
+			Text northEastCommand = new Text(command[5], smallRenderer, 0.075f);
 			northEastCommand.setXY(3.5, 14);
 			northEastCommand.render();
 			
@@ -237,7 +246,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			southeastArrow.setXY(1, 9);
 			putHighlightable(southeastArrow);
 			
-			Text southEastCommand = new Text(southEast.toString(), smallRenderer, 0.075f);
+			Text southEastCommand = new Text(command[6], smallRenderer, 0.075f);
 			southEastCommand.setXY(3.5, 7);
 			southEastCommand.render();
 			
@@ -245,7 +254,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			northwestArrow.setXY(-1, 13);
 			putHighlightable(northwestArrow);
 			
-			Text northWestCommand = new Text(northWest.toString(), smallRenderer, 0.075f);
+			Text northWestCommand = new Text(command[7], smallRenderer, 0.075f);
 			northWestCommand.setXY(-4, 14);
 			northWestCommand.render();
 			
@@ -253,33 +262,44 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			southwestArrow.setXY(-1, 9);
 			putHighlightable(southwestArrow);
 			
-			Text southWestCommand = new Text(southWest.toString(), smallRenderer, 0.075f);
+			Text southWestCommand = new Text(command[8], smallRenderer, 0.075f);
 			southWestCommand.setXY(-4, 7);
 			southWestCommand.render();
 			
-			Text saveGameCommand = new Text(saveGame.toString(), smallRenderer, 0.075f);
-			saveGameCommand.setXY(-15, 16.5);
+			Text saveGameCommand = new Text(command[9], smallRenderer, 0.075f);
+			buttonText = "SAVE_GAME";
+			saveGameCommand.setXY(-18.5 + (buttonText.length() - command[9].length())/2, 16.5);
 			saveGameCommand.render();
 			
-			Text loadGameCommand = new Text(loadGame.toString(), smallRenderer, 0.075f);
-			loadGameCommand.setXY(-15, 8.5);
+			Text loadGameCommand = new Text(command[10], smallRenderer, 0.075f);
+			buttonText = "LOAD_GAME";
+			loadGameCommand.setXY(-18.5 + (buttonText.length() - command[10].length())/2, 8.5);
 			loadGameCommand.render();
 			
-			Text newGameCommand = new Text(newGame.toString(), smallRenderer, 0.075f);
-			newGameCommand.setXY(-15, 0.5);
+			Text newGameCommand = new Text(command[11], smallRenderer, 0.075f);
+			buttonText = "NEW_GAME";
+			newGameCommand.setXY(-18.5 + (buttonText.length() - command[11].length())/2, 0.5);
 			newGameCommand.render();
 			
-			Text inventoryViewCommand = new Text(inventoryView.toString(), smallRenderer, 0.075f);
-			inventoryViewCommand.setXY(13, 16.5);
+			Text inventoryViewCommand = new Text(command[12], smallRenderer, 0.075f);
+			buttonText = "INVENTORY_VIEW";
+			inventoryViewCommand.setXY(7 + (buttonText.length() - command[12].length())/2, 16.5);
 			inventoryViewCommand.render();
 			
-			Text statsViewCommand = new Text(statsView.toString(), smallRenderer, 0.075f);
-			statsViewCommand.setXY(13, 8.5);
+			Text statsViewCommand = new Text(command[13], smallRenderer, 0.075f);
+			buttonText = "STATS_VIEW";
+			statsViewCommand.setXY(10.5 + (buttonText.length() - command[13].length())/2, 8.5);
 			statsViewCommand.render();
 			
-			Text skillsViewCommand = new Text(skillsView.toString(), smallRenderer, 0.075f);
-			skillsViewCommand.setXY(13, 0.5);
+			Text skillsViewCommand = new Text(command[14], smallRenderer, 0.075f);
+			buttonText = "SKILLS_VIEW";
+			skillsViewCommand.setXY(8.5 + (buttonText.length() - command[14].length())/2, 0.5);
 			skillsViewCommand.render();
+			
+			Text optionsViewCommand = new Text(command[15], smallRenderer, 0.075f);
+			buttonText = "OPTIONS_VIEW";
+			optionsViewCommand.setXY(-5.5 + (buttonText.length() - command[15].length())/2, 0.5);
+			optionsViewCommand.render();
 			
 			
 			
@@ -309,76 +329,26 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			changeState(State.ZOOMING);
 	}
 	
-	public void setNorthCommand(Character c){
-		north = c;
-	}
-	
-	public void setSouthCommand(Character c){
-		south = c;
-	}
-	
-	public void setEastCommand(Character c){
-		east = c;
-	}
-	
-	public void setWestCommand(Character c){
-		west = c;
-	}
-	
-	public void setNorthEastCommand(Character c){
-		northEast = c;
-	}
-	
-	public void setNorthWestCommand(Character c){
-		northWest = c;
-	}
-	
-	public void setSouthEastCommand(Character c){
-		southEast =c;
-	}
-	
-	public void setSouthWestCommand(Character c){
-		southWest = c;
-	}
-	
-	public void setSaveGameCommand(Character c){
-		saveGame = c;
-	}
-	
-	public void setLoadGameCommand(Character c){
-		loadGame = c;
-	}
-	
-	public void setNewGameCommand(Character c){
-		newGame = c;
-	}
-	
-	public void setInventoryView(Character c){
-		inventoryView = c;
-	}
-	
-	public void setStatsView(Character c){
-		statsView = c;
-	}
-	
-	public void setSkillsView(Character c){
-		skillsView = c;
+	public void setCommand(int i, String comm){
+		command[i] = comm; 
 	}
 	
 	public void defaults(){
-		north = '8';
-		south = '2';
-		east = '6';
-		west = '4';
-		northEast = '9';
-		northWest = '7';
-		southEast = '3';
-		southWest = '1';
-		saveGame = 's';
-		loadGame = 'l';
-		newGame = 'n';
-		inventoryView = 'i';
-		statsView = 'q';
-		skillsView = 'w';
+		command[0] ="";
+		command[1] = "8"; //north
+		command[2] = "2"; //south
+		command[3] = "6"; //east
+		command[4] = "4"; //west
+		command[5] = "9"; //ne
+		command[6] = "3"; //se
+		command[7] = "7"; //nw
+		command[8] = "1"; //sw
+		command[9] = "S"; //save
+		command[10] = "L"; //load
+		command[11] = "N"; //new
+		command[12] = "I"; //inventory
+		command[13] = "Q"; //stats
+		command[14] = "W"; //skills
+		command[15] = "O"; //options
 	}
 }
