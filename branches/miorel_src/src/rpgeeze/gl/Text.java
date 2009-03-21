@@ -8,7 +8,7 @@ import com.sun.opengl.util.j2d.TextRenderer;
 import com.sun.opengl.util.j2d.TextRenderer.DefaultRenderDelegate;
 import com.sun.opengl.util.j2d.TextRenderer.RenderDelegate;
 
-public class Text extends GLObjectImpl {
+public class Text extends GLObjectImpl implements Colorable {
 	private Color color;
 	private String text;
 	private TextRenderer renderer;
@@ -37,7 +37,8 @@ public class Text extends GLObjectImpl {
 
 	protected void doRender(GL gl) {
 		renderer.begin3DRendering();
-		renderer.setColor(getColor());
+		if(getColor() != null)
+			renderer.setColor(getColor());
 		renderer.draw3D(getText(), 0, 0, 0, scaleFactor);
 		renderer.end3DRendering();
 	}

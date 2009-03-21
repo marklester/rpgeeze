@@ -29,41 +29,39 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 	public void mouseClicked(MouseEvent e) {
 		Point p = e.getPoint();
 		if(e.getButton() == MouseEvent.BUTTON1) {
-			int glName = getView().pickClosest(GLU.getCurrentGL(), p);
-			MainMenuView.Button button = MainMenuView.Button.fromGLName(glName);
-			if(button != null)
-				switch(	button) {
-				case NEW_GAME:
+			String name = getView().pickClosest(GLU.getCurrentGL(), p);
+			if(name != null) {
+				if(name.equals("New Game")) {
 					CharacterCreationView ccv = new CharacterCreationView(getManager());
 					CharacterCreationController ccc = new CharacterCreationController(getManager(), ccv);
 					getManager().pushState(ccv, ccc);
-					break;
-				case LOAD_GAME:
+				}
+				else if(name.equals("Load Game")) {
 					JFileChooser chooser = new JFileChooser();
 					chooser.addChoosableFileFilter(new FileNameExtensionFilter("XML files", "xml"));
 					int status = chooser.showOpenDialog(null);
 					LogManager.getInstance().log("File chooser returned status " + status, "CONTROLLER");
-					break;
-				case OPTIONS:
+				}
+				else if(name.equals("Options")) {
 					OptionsMenuView omv = new OptionsMenuView(getManager());
 					OptionsMenuController omc = new OptionsMenuController(getManager(), omv);
 					getManager().pushState(omv, omc);
-					break;
-				case HELP:
+				}
+				else if(name.equals("Help")) {
 					HelpView hv = new HelpView(getManager());
 					HelpViewController hc = new HelpViewController(getManager(), hv);
 					getManager().pushState(hv, hc);
-					break;
-				case CREDITS:
+				}
+				else if(name.equals("Credits")) {
 					CreditsView cv = new CreditsView(getManager());
 					CreditsController cc = new CreditsController(getManager(), cv);
-					getManager().pushState(cv, cc);
-					break;
-				case QUIT:
+					getManager().pushState(cv, cc);		
+				}
+				else if(name.equals("Quit")) {
 					getManager().stop();
 					System.exit(0);
-					break;			
 				}
+			}
 		}
 	}
 }

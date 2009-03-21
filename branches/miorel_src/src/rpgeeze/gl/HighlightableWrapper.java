@@ -13,15 +13,13 @@ public class HighlightableWrapper implements Highlightable {
 
 	private final Color plain;
 	private final Color highlighted;
-	private GLObject object;
-
-	private boolean hi;
+	private Colorable object;
 	
-	public HighlightableWrapper(GLObject object, Color plain, Color highlighted) {
+	public HighlightableWrapper(Colorable object, Color plain, Color highlighted) {
 		this.plain = plain;
 		this.highlighted = highlighted;
 		this.object = object;
-		hi = false;
+		unhighlight();
 	}
 	
 	public Pair<Double, Vector> getPostTranslateRotation() {
@@ -43,15 +41,11 @@ public class HighlightableWrapper implements Highlightable {
 	}
 
 	public void highlight() {
-		hi = true;
+		object.setColor(highlighted);
 	}
 
 	public void unhighlight() {
-		hi = false;
-	}
-
-	public int getGLName() {
-		return object.getGLName();
+		object.setColor(plain);
 	}
 
 	public double getX() {
@@ -66,22 +60,8 @@ public class HighlightableWrapper implements Highlightable {
 		return object.getZ();
 	}
 
-	public boolean hasGLName() {
-		return object.hasGLName();
-	}
-
 	public void render(GL gl) {
-		GLUtil glutil = new GLUtil(gl);
-		glutil.color(hi ? highlighted : plain);
 		object.render(gl);
-	}
-
-	public void setGLName(int newName) {
-		object.setGLName(newName);
-	}
-
-	public void removeGLName() {
-		object.removeGLName();
 	}
 
 	public void setX(double newX) {

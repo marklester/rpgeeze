@@ -152,7 +152,7 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 		}*/
 	}
 
-	private void highlight(Point p) {
+	protected void highlight(Point p) {
 		getView().unhighlight();
 		int glName = getView().pickClosest(GLU.getCurrentGL(), p);
 		getView().highlight(glName);

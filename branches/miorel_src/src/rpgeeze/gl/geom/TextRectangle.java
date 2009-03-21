@@ -1,6 +1,8 @@
 package rpgeeze.gl.geom;
 
 import javax.media.opengl.GL;
+
+import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Text;
 
 public class TextRectangle extends Rectangle {
@@ -30,6 +32,10 @@ public class TextRectangle extends Rectangle {
 	}
 	
 	public void doRender(GL gl) {
+		if(getColor() != null) {
+			GLUtil glutil = new GLUtil(gl);
+			glutil.color(getColor());
+		}
 		gl.glBegin(GL.GL_QUADS);
 		gl.glVertex2d(0, getHeight());
 		gl.glVertex2i(0, 0);

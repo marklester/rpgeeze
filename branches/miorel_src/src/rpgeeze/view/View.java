@@ -76,7 +76,7 @@ public abstract class View<T extends View.State> {
 	 * @param bufSize size to use for the selection buffer
 	 * @return an iterator over the name constants that registered as hits at the specified point
 	 */
-	private Iterator<Integer> pickAll(GL gl, Point pickPoint) {
+	public Iterator<String> pickAll(GL gl, Point pickPoint) {
 		IntBuffer selectBuffer = BufferUtil.newIntBuffer(bufferSize);
 		
 		gl.glSelectBuffer(bufferSize, selectBuffer);
@@ -92,13 +92,13 @@ public abstract class View<T extends View.State> {
 		GLUtil glutil = new GLUtil(gl);
 		final Iterator<GLUtil.Hit> iter = glutil.hitsFromBuffer(selectBuffer, hits);
 		
-		return new Iterator<Integer>() {
+		return new Iterator<String>() {
 			public void advance() {
 				iter.advance();
 			}
 
-			public Integer current() {
-				return iter.current().getGLName();
+			public String current() {
+				return getNameForGLName(iter.current().getGLName());
 			}
 
 			public boolean isDone() {
@@ -119,15 +119,13 @@ public abstract class View<T extends View.State> {
 	 * @param bufSize size to use for the selection buffer
 	 * @return the name constant corresponding to the closest object
 	 */
-	public int pickClosest(GL gl, Point pickPoint) {
-		Iterator<Integer> iter = pickAll(gl, pickPoint);
+	public String pickClosest(GL gl, Point pickPoint) {
+		Iterator<String> iter = pickAll(gl, pickPoint);
 		iter.reset();
-		return iter.isDone() ? -1 : iter.current();
+		return iter.isDone() ? null : iter.current();
 	}
-	
-	protected String mapGLNameToString(int glName) {
-		return null;
-	}
+
+	protected abstract String getNameForGLName(int glName);
 	
 	/**
 	 * Renders this view in the current OpenGL context. If the argument is not

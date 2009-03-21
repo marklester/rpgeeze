@@ -84,4 +84,8 @@ public class CreditsView extends View<CreditsView.State> {
 		nextDeveloper();
 		changeState(State.NORMAL);
 	}
+
+	protected String getNameForGLName(int glName) {
+		return null;
+	}
 }

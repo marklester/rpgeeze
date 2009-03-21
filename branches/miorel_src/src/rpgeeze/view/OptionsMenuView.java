@@ -1,123 +1,98 @@
 package rpgeeze.view;
 
-import static rpgeeze.RunGame.BACKGROUND_COLOR;
-import static rpgeeze.RunGame.LOGO_SIZE;
-import static rpgeeze.RunGame.LOGO_Y;
-import static rpgeeze.RunGame.LOGO_Z;
-
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
+
 import javax.media.opengl.GL;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
 import rpgeeze.GameProperties;
+import rpgeeze.gl.ButtonSet;
 import rpgeeze.gl.GLUtil;
-import rpgeeze.gl.Highlightable;
-import rpgeeze.gl.HighlightableWrapper;
+import rpgeeze.gl.Scene;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.util.ResourceLoader;
-import rpgeeze.view.overlay.Overlay;
 import rpgeeze.view.overlay.TextureOverlay;
+
+import static rpgeeze.RunGame.BACKGROUND_COLOR;
+import static rpgeeze.RunGame.LOGO_Y;
+import static rpgeeze.RunGame.LOGO_Z;
+import static rpgeeze.RunGame.LOGO_SIZE;
 
 /**
  * The main menu screen.
  */
-public final class OptionsMenuView extends HighlightableView<OptionsMenuView.State> {
-	public static final Color PLAIN = new Color(1.0f, 1.0f, 1.0f, 0.0f);
-	public static final Color HIGHLIGHTED = new Color(1.0f, 1.0f, 1.0f, 0.25f);
-
-	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);	
-	private Overlay logo;
-
-	public enum Button {
-		KEY_BINDINGS("Key Bindings", 1, -6, 0),
-		SOUND_OPTIONS("Sound Options", 2, 6, 0),
-		VIDEO_OPTIONS("Video Options", 3, -6, -3),
-		BACK("Back", 4, 6, -3);
-
-		private final String text;
-		private final int glName;
-		private final double x, y;
-
-		private Button(String text, int glName, double x, double y) {
-			this.text = text;
-			this.glName = glName;
-			this.x = x;
-			this.y = y;
-		}
-
-		private TextRectangle getRectangle() {
-			TextRectangle rect = new TextRectangle(new Text(text, renderer, 0.05f), 12, 3);
-			rect.setGLName(glName);
-			rect.alignText(0.5, 0.5);
-			rect.setXY(x, y);
-			if(this != KEY_BINDINGS)
-				rect.getText().setY(KEY_BINDINGS.getRectangle().getText().getY());
-			return rect;
-		}
-		
-		public Highlightable getButton() {
-			return new HighlightableWrapper(getRectangle(), PLAIN, HIGHLIGHTED);
-		}
-		
-		public static Button fromGLName(int glName) {
-			for(Button button: values())
-				if(button.glName == glName)
-					return button;
-			return null;
-		}
-	}
-
-	public enum State implements View.State { NEW, FADING_IN, NORMAL, HIDDEN; }
+public class OptionsMenuView extends HighlightableView<OptionsMenuView.State> {
+	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
+	
+	private TextureOverlay logo;
+	
+	public enum State implements View.State { NEW, NORMAL, HIDDEN; }
+	
+	private Scene pickables;
+	private ButtonSet buttons;
 	
 	public OptionsMenuView(GameManager manager) {
 		super(manager);
-		ResourceLoader loader = ResourceLoader.getInstance();	
+		ResourceLoader loader = ResourceLoader.getInstance();
 		GameProperties prop = GameProperties.getInstance();
 	
 		logo = new TextureOverlay(loader.getTexture(prop.getProperty("img.logo")));
 		
-		for(Button button: Button.values())
-			putHighlightable(button.getButton());
+		pickables = new Scene();
+		TextRectangle prototype = new TextRectangle(new Text("X", renderer, 0.05f), 15, 3);
+		prototype.setXYZ(-15, -12.5, -14.5);
+		prototype.alignText(0.5, 0.5);
+		buttons = new ButtonSet(prototype, MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED, 2, 0, 0, "Sound Options", "Back", "Video Options", "Key Bindings");
+		buttons.addTo(pickables);
+		
 		changeState(State.NEW);
 	}
 
+	public void unhighlight() {
+		buttons.unhighlight();
+	}
+	
+	public void highlight(String name) {
+		buttons.highlight(name);
+	}
+	
 	/**
-	 * Renders the options menu screen.
+	 * Renders the main menu screen.
 	 */
 	public void render(GL gl, Point point) {
 		GLUtil glutil = new GLUtil(gl);
 		glutil.standardFrustum(gl, point);
-		glutil.clearColor(BACKGROUND_COLOR);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
+		
+		glutil.clearColor(BACKGROUND_COLOR);
 		
 		boolean pick = point != null;
 		
-		glutil.color(PLAIN);
+		glutil.color(MainMenuView.PLAIN);
 		gl.glTranslated(0, LOGO_Y, 0);
 		logo.render(gl, LOGO_SIZE, LOGO_SIZE, LOGO_Z, LOGO_Z, pick);
 		gl.glTranslated(0, -LOGO_Y, 0);
 		
-		gl.glTranslated(-5, -9.5, -14.5);
-		renderHighlightables(gl);
+		pickables.render(gl);
 		
 		gl.glFlush();
 	}
 
 	public void changeFrom() {
-		super.changeFrom();
+		unhighlight();
 		changeState(State.HIDDEN);
 	}
 	
 	public void changeTo() {
-		super.changeTo();
-		if(getState() == State.NEW)
-			changeState(State.FADING_IN);
-		else
-			changeState(State.NORMAL);		
+		unhighlight();
+		changeState(State.NORMAL);		
+	}
+
+	protected String getNameForGLName(int glName) {
+		return pickables.getNameForGLName(glName);
 	}
 }

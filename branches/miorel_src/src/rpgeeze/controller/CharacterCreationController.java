@@ -50,23 +50,17 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 	public void mouseClicked(MouseEvent e) {
 		Point p = e.getPoint();
 		if(e.getButton() == MouseEvent.BUTTON1) {
-			int glName = getView().pickClosest(GLU.getCurrentGL(), p);
-			CharacterCreationView.Button button = CharacterCreationView.Button.fromGLName(glName);
-			if(button != null)
-				switch(button) {
-				case OK:
+			String name = getView().pickClosest(GLU.getCurrentGL(), p);
+			if(name != null) {
+				if(name.equals("OK"))
 					executeOK();
-					break;
-				case CANCEL:
+				else if(name.equals("Cancel"))
 					executeCancel();
-					break;
-				case LEFT_ARROW:
+				else if(name.equals("Left Arrow"))
 					getView().previousOccupation();
-					break;
-				case RIGHT_ARROW:
+				else if(name.equals("Right Arrow"))
 					getView().nextOccupation();
-					break;
-				}
+			}
 		}
 	}
 

@@ -1,12 +1,17 @@
 package rpgeeze.gl.geom;
 
+import java.awt.Color;
+
 import javax.media.opengl.GL;
 
+import rpgeeze.gl.Colorable;
 import rpgeeze.gl.GLObjectImpl;
+import rpgeeze.gl.GLUtil;
 
-public class Rectangle extends GLObjectImpl {
+public class Rectangle extends GLObjectImpl implements Colorable {
 	private double width;
 	private double height;
+	private Color color;
 	
 	public Rectangle() {
 		this(1, 1);
@@ -40,6 +45,10 @@ public class Rectangle extends GLObjectImpl {
 	}
 	
 	protected void doRender(GL gl) {
+		if(getColor() != null) {
+			GLUtil glutil = new GLUtil(gl);
+			glutil.color(getColor());
+		}
 		gl.glBegin(GL.GL_QUADS);
 		gl.glTranslated(getX(), getY(), getZ());
         gl.glVertex2d(0, getHeight());
@@ -47,5 +56,17 @@ public class Rectangle extends GLObjectImpl {
         gl.glVertex2d(getWidth(), 0);
         gl.glVertex2d(getWidth(), getHeight());
 		gl.glEnd();
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color newColor) {
+		color = newColor;
+	}
+	
+	public Rectangle clone() {
+		return (Rectangle) super.clone();
 	}
 }
