@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 public class SkillContainer {
 	
-	private static final Pattern skillContainerPattern = Pattern.compile("<skillContainer>(.*?)</skillContainer>");
 	private static final Pattern skillPattern = Pattern.compile("(<skill>.*?</skill>)");	
 	private LinkedList<Skill> skills;
 	
@@ -55,11 +54,8 @@ public class SkillContainer {
 	}
 	
 	public static SkillContainer fromXml(String xml) {
-		//Matcher skillContainerMatcher = skillContainerPattern.matcher(xml);
 		SkillContainer ret = new SkillContainer();
-		//if(!skillContainerMatcher.matches())
-			//throw new RuntimeException("Bad XML for Skill");
-		Matcher skillMatcher = skillPattern.matcher(xml);//skillContainerMatcher.group(1));
+		Matcher skillMatcher = skillPattern.matcher(xml);
 		while(skillMatcher.find()) {
 			Skill skill = Skill.fromXml(skillMatcher.group());
 			ret.add(skill);
