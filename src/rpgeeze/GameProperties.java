@@ -11,11 +11,11 @@ import rpgeeze.util.ResourceLoader;
 
 // WARNING! This file is auto-generated! Any changes will be overwritten.
 // To add an option configurable via the command line, edit res/properties/opts.properties
-// To add a constant, edit res/properties/const.properties
+// To add a constant, edit rpgeeze/RunGame.java
 // To add a key-value pair, edit res/properties/keyval.properties
 
 /**
- * Holds constants needed throughout the game.
+ * Holds options and properties needed throughout the game.
  *
  */
 public class GameProperties {
@@ -74,12 +74,6 @@ public class GameProperties {
 	public boolean getFullScreen() {
 		return fullScreen;
 	}
-
-	public static final double LOGO_Z = -100;
-
-	public static final double LOGO_Y = -LOGO_Z/5;
-
-	public static final double LOGO_SIZE = -LOGO_Z*1.7;
 
 	private HashMap<String, String> map = new HashMap<String, String>();
 	public String getProperty(String key) {

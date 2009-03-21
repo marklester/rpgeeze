@@ -1,17 +1,17 @@
 package rpgeeze.math;
 
 /**
- * Simple <code>Vector</code> interface implementation.
+ * A vector that does not change over time.
  * 
  */
-public class VectorImpl implements Vector {
+public class StaticVector implements Vector {
 	private final double x, y, z;
 
 	/**
 	 * Constructs a zero vector;
 	 * 
 	 */
-	public VectorImpl() {
+	public StaticVector() {
 		this(0, 0, 0);
 	}
 	
@@ -24,7 +24,7 @@ public class VectorImpl implements Vector {
 	 * @param y
 	 *            the y-coordinate
 	 */
-	public VectorImpl(double x, double y) {
+	public StaticVector(double x, double y) {
 		this(x, y, 0);
 	}
 
@@ -38,7 +38,7 @@ public class VectorImpl implements Vector {
 	 * @param z
 	 *            the z-coordinate
 	 */
-	public VectorImpl(double x, double y, double z) {
+	public StaticVector(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -54,23 +54,5 @@ public class VectorImpl implements Vector {
 
 	public double getZ() {
 		return z;
-	}
-
-	public boolean equals(Object o) {
-		boolean ret = false;
-		if(o instanceof Vector) {
-			Vector v = (Vector) o;
-			ret = getX() == v.getX() && getY() == v.getY()
-					&& getZ() == v.getZ();
-		}
-		return ret;
-	}
-
-	public int hashCode() {
-		return (int) (getX() + getY() + getZ());
-	}
-
-	public String toString() {
-		return String.format("(%.2f, %.2f, %.2f)", getX(), getY(), getZ());
 	}
 }

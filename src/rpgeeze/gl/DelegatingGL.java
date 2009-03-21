@@ -9,7 +9,7 @@ import java.nio.LongBuffer;
 import java.nio.ShortBuffer;
 
 /**
- * OpenGL interface object that delegates to another object.
+ * OpenGL interface object that delegates to another interface object.
  * 
  */
 public abstract class DelegatingGL implements javax.media.opengl.GL {

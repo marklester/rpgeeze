@@ -1,5 +1,7 @@
 package rpgeeze.view;
 
+import static rpgeeze.RunGame.BACKGROUND_COLOR;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
@@ -16,7 +18,7 @@ import rpgeeze.gl.Text;
 import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.gl.geom.Triangle;
-import rpgeeze.math.VectorImpl;
+import rpgeeze.math.StaticVector;
 import rpgeeze.util.ResourceLoader;
 
 /**
@@ -38,12 +40,12 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 		},
 		LEFT_ARROW(3) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 8), new VectorImpl(-2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED); 
+				return new HighlightableWrapper(new Triangle(new StaticVector(0, 0), new StaticVector(0, 8), new StaticVector(-2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED); 
 			}
 		},
 		RIGHT_ARROW(4) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 8), new VectorImpl(2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(new Triangle(new StaticVector(0, 0), new StaticVector(0, 8), new StaticVector(2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		};
 		
@@ -114,7 +116,7 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	public void render(GL gl, Point point) {		
 		setup(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
-		gl.glClearColor(0, MainMenuView.MAX_INTENSITY, MainMenuView.MAX_INTENSITY, 1.0f);
+		gl.clearColor(BACKGROUND_COLOR);
 		
 		gl.glTranslated(0, 0, zoom);
 		for(TexturedRectangle rect: occupationImage)

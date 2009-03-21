@@ -12,6 +12,8 @@ import rpgeeze.gl.GL;
 import rpgeeze.gl.Text;
 import rpgeeze.util.ResourceLoader;
 
+import static rpgeeze.RunGame.BACKGROUND_COLOR;
+
 public class CreditsView extends View<CreditsView.State> {
 	private Font plain = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.PLAIN, 100);
 	private Font italic = plain.deriveFont(Font.ITALIC);
@@ -45,8 +47,8 @@ public class CreditsView extends View<CreditsView.State> {
 	
 	public void render(GL gl, Point point) {
 		setup(gl, point);
-
-		gl.glClearColor(0, MainMenuView.MAX_INTENSITY, MainMenuView.MAX_INTENSITY, 1.0f);
+		
+		gl.clearColor(BACKGROUND_COLOR);
 		
 		title.setXYZ(-title.getWidth() / 2, 4 - title.getHeight(), -4);
 		title.render();

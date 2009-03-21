@@ -11,8 +11,9 @@ package rpgeeze.dp;
  * }
  * </pre>
  * 
+ * @param <T>
+ *            the type over which this iterator iterates
  */
-
 public interface Iterator<T> {
 	/**
 	 * Resets this iterator. Should be explicitly called since this Iterator may
