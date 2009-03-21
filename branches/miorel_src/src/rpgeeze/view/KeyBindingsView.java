@@ -1,11 +1,12 @@
 package rpgeeze.view;
 
 import static rpgeeze.RunGame.BACKGROUND_COLOR;
+import static rpgeeze.RunGame.keyControls;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
-
+import java.util.Set;
 import javax.media.opengl.GL;
 
 import com.sun.opengl.util.j2d.TextRenderer;
@@ -19,6 +20,8 @@ import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.gl.geom.Triangle;
 import rpgeeze.math.StaticVector;
 import rpgeeze.util.ResourceLoader;
+import java.util.Iterator;
+import java.lang.StringBuilder;
 
 import java.util.HashMap;
 
@@ -28,7 +31,7 @@ import java.util.HashMap;
 public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	private static final TextRenderer smallRenderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 14);
-	private HashMap<String,String> keyControls;
+	//private HashMap<String,String> keyControls;
 	private String message = "";
 	
 	public enum Button {
@@ -190,6 +193,10 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		changeState(State.NEW);
 		defaults();
 	}
+	
+	public HashMap<String,String> getkeyControls(){
+		return keyControls;
+	}
 
 	/**
 	 * Renders the key bindings screen.
@@ -333,19 +340,26 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	
 	public void setCommand(String key, String value){
 		if(keyControls.containsValue(value)){
-			message = "Key Already Used";
+			Set s = keyControls.entrySet();
+			Iterator a =  s.iterator();
+			
+			while(a.hasNext()){
+				StringBuilder tempKey = new StringBuilder(a.next().toString());
+				tempKey = tempKey.delete(tempKey.length()-2,tempKey.length());
+		    
+				if(value.equals((keyControls.get(tempKey.toString())))){
+				  keyControls.put(tempKey.toString(), keyControls.get(key));
+				}
+			}
+			
 		}
-		else {
 			keyControls.remove(key);
 			keyControls.put(key, value);
-			message = "";
-		}
-	
+			System.out.println(keyControls.isEmpty());
 		}
 	
 	
 	public void defaults(){
-		keyControls = new HashMap<String,String>();
 		keyControls.put("N_ARROW", "8");
 		keyControls.put("S_ARROW", "2");
 		keyControls.put("E_ARROW", "6");
