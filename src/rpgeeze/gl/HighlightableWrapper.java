@@ -15,12 +15,13 @@ public class HighlightableWrapper implements Highlightable {
 	private final Color highlighted;
 	private GLObject object;
 
-	private boolean hi = false;
+	private boolean hi;
 	
 	public HighlightableWrapper(GLObject object, Color plain, Color highlighted) {
 		this.plain = plain;
 		this.highlighted = highlighted;
-		this.object = object.clone();
+		this.object = object;
+		hi = false;
 	}
 	
 	public Pair<Double, Vector> getPostTranslateRotation() {

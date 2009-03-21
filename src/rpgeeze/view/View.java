@@ -30,6 +30,25 @@ public abstract class View<T extends View.State> {
 	private T state;
 	private GameManager manager;
 
+	private class Hit implements Comparable<Hit> {
+		private final int glName;
+		private final Float z;
+		
+		public Hit(int glName, int z) {
+			this.glName = glName;
+			this.z = (float) z / 0x7fffffff;
+		}
+		
+		public int getGLName() {
+			return glName;
+		}
+		
+		public int compareTo(Hit h) {
+			return z.compareTo(h.z);
+		}
+	}
+	
+	
 	/**
 	 * Label for types which represent a state.
 	 *
@@ -91,7 +110,7 @@ public abstract class View<T extends View.State> {
 
 		gl.glSelectBuffer(bufSize, selectBuffer);
 		gl.glRenderMode(GL.GL_SELECT);
-
+		
 		gl.glInitNames();
 		gl.glPushName(-1);
 
@@ -100,6 +119,10 @@ public abstract class View<T extends View.State> {
 		final int hits = gl.glRenderMode(GL.GL_RENDER);
 		
 		selectBuffer.get(selectBuf);
+		
+		LogManager.getInstance().log(java.util.Arrays.toString(selectBuf), "");
+		
+		
 		
 		return new Iterator<Integer>() {
 			private int hit;

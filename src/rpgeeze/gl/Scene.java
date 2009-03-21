@@ -25,4 +25,6 @@ public class Scene {
 			iter.current().render(gl);
 		}
 	}
+	
+//	public 
 }
