@@ -274,4 +274,18 @@ public class GLUtil {
 		Collections.sort(hitList);
 		return new ListIterator<Hit>(hitList);
 	}
+	
+	public <T extends GLObject> Iterator<T> objectGrid(T prototype, int rows, int cols, double horizSpace, double vertSpace) {
+		List<T> ret = new ArrayList<T>();
+		for(int i = 0; i < rows; ++i) {
+			for(int j = 0; j < cols; ++j) {
+				T clone = (T) prototype.clone();
+				double xOffset = prototype.getX();
+				double yOffset = prototype.getY();
+				clone.setXY(xOffset + j * horizSpace, yOffset + i * vertSpace);
+				ret.add(clone);
+			}
+		}
+		return new ListIterator<T>(ret);
+	}
 }

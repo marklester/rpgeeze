@@ -2,13 +2,19 @@ package rpgeeze.view;
 
 import java.awt.Point;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+
 import javax.media.opengl.GL;
 
 import rpgeeze.GameManager;
 import rpgeeze.log.LogManager;
+import rpgeeze.util.ListIterator;
 import rpgeeze.dp.Iterator;
 import rpgeeze.dp.Observer;
+import rpgeeze.gl.GLObject;
 import rpgeeze.gl.GLUtil;
 
 import com.sun.opengl.util.BufferUtil;
@@ -30,6 +36,12 @@ public abstract class View<T extends View.State> {
 	private T state;
 	private GameManager manager;
 
+	private final HashMap<String, GLObject> nameObj = new HashMap<String, GLObject>();
+	private final HashMap<GLObject, String> objName = new HashMap<GLObject, String>();
+	
+	private final List<GLObject> objects = new ArrayList<GLObject>();
+	
+	
 	private final int bufferSize;
 	
 	/**
@@ -122,10 +134,11 @@ public abstract class View<T extends View.State> {
 	public String pickClosest(GL gl, Point pickPoint) {
 		Iterator<String> iter = pickAll(gl, pickPoint);
 		iter.reset();
-		return iter.isDone() ? null : iter.current();
+		String ret = iter.isDone() ? null : iter.current();
+		if(ret != null)
+			LogManager.getInstance().log("Picked object: " + ret, "VIEW");
+		return ret;
 	}
-
-	protected abstract String getNameForGLName(int glName);
 	
 	/**
 	 * Renders this view in the current OpenGL context. If the argument is not
@@ -205,5 +218,39 @@ public abstract class View<T extends View.State> {
 	 */
 	public String toString() {
 		return getClass().getSimpleName();
+	}
+
+	protected String getNameForGLName(int glName) {
+		String ret = null;
+		if(glName > 0 && glName <= objects.size())
+			ret = objName.get(objects.get(glName - 1));
+		return ret;
+	}
+
+	protected void put(GLObject object, String name) {
+		if(name != null) {
+			if(!nameObj.containsKey(name))
+				nameObj.put(name, object);
+			else
+				throw new RuntimeException("Duplicate names!");
+		}
+
+		if(!objName.containsKey(object))
+			objName.put(object, name);
+		else
+			throw new RuntimeException("Duplicate objects!");
+		
+		objects.add(object);
+	}
+	
+	protected void renderObjects(GL gl) {
+		Iterator<GLObject> iter = new ListIterator<GLObject>(objects);
+		int glName = 0;
+		for(iter.reset(); !iter.isDone(); iter.advance()) {
+			++glName;
+			gl.glLoadName(objName.get(iter.current()) == null ? -1 : glName);
+			iter.current().render(gl);
+		}
+		gl.glFlush();
 	}
 }

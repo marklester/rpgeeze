@@ -1,13 +1,30 @@
 package rpgeeze.view;
 
 import rpgeeze.GameManager;
+import rpgeeze.gl.Highlightable;
+import rpgeeze.gl.HighlightableSet;
 
 public abstract class HighlightableView<T extends View.State> extends View<T> {
+	private HighlightableSet set;
+	
 	public HighlightableView(GameManager manager) {
 		super(manager);
+		set = new HighlightableSet();
 	}
 	
-	public abstract void highlight(String name);
+	protected void putHighlightable(Highlightable h, String name) {
+		set.put(h, name);
+	}
+	
+	public void hover(String name) {
+		set.hover(name);
+	}
 
-	public abstract void unhighlight();
+	public void activate(String name) {
+		set.activate(name);
+	}
+	
+	public void clearAll() {
+		set.clearAll();
+	}
 }

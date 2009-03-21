@@ -12,16 +12,16 @@ import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
 import rpgeeze.GameProperties;
-import rpgeeze.gl.ButtonSet;
+import rpgeeze.dp.Iterator;
 import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
-import rpgeeze.gl.Scene;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.gl.geom.Triangle;
 import rpgeeze.math.StaticVector;
+import rpgeeze.util.ArrayIterator;
 import rpgeeze.util.ResourceLoader;
 
 /**
@@ -31,10 +31,9 @@ import rpgeeze.util.ResourceLoader;
 public class CharacterCreationView extends HighlightableView<CharacterCreationView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 
-	private Scene pickables;
-	private ButtonSet buttons;
 	private Highlightable leftArrow;
 	private Highlightable rightArrow;	
+	private Text characterTitle = new Text("", renderer, 0.075f);
 	
 	public enum State implements View.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
 	
@@ -55,18 +54,31 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	public CharacterCreationView(GameManager manager) {
 		super(manager);
 		
-		pickables = new Scene();
-		TextRectangle prototype = new TextRectangle(new Text("X", renderer, 0.05f), 10, 3);
-		prototype.setXY(-10, -3);
-		prototype.alignText(0.5, 0.5);
-		buttons = new ButtonSet(prototype, MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED, 3, 0, 0, "OK", "Cancel");
-		buttons.addTo(pickables);
+		TextRectangle rect = new TextRectangle(new Text("X", renderer, 0.05f), 10, 3);
+		rect.setXYZ(-10, -3, 0);
+		rect.alignText(0.5, 0.5);
 		
-		leftArrow = new HighlightableWrapper(new Triangle(new StaticVector(0, 0), new StaticVector(0, 8), new StaticVector(-2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED);
-		rightArrow = new HighlightableWrapper(new Triangle(new StaticVector(0, 0), new StaticVector(0, 8), new StaticVector(2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+		HighlightableWrapper<TextRectangle> prototype = new HighlightableWrapper<TextRectangle>(rect, MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+		GLUtil glutil = new GLUtil();
+		Iterator<HighlightableWrapper<TextRectangle>> obj = glutil.objectGrid(prototype, 1, 2, rect.getWidth(), rect.getHeight());
+		Iterator<String> names = new ArrayIterator<String>("OK", "Cancel");
 		
-		pickables.add(leftArrow, "Left Arrow");
-		pickables.add(rightArrow, "Right Arrow");
+		for(obj.reset(), names.reset(); !obj.isDone(); obj.advance(), names.advance()) {
+			put(obj.current(), names.current());
+			putHighlightable(obj.current(), names.current());
+			obj.current().getWrappedObject().getText().setText(names.current());
+			obj.current().getWrappedObject().alignText(0.5, 0.5);
+			obj.current().getWrappedObject().getText().setY(prototype.getWrappedObject().getText().getY());
+		}
+		
+		leftArrow = new HighlightableWrapper<Triangle>(new Triangle(new StaticVector(0, 0), new StaticVector(0, 8), new StaticVector(-2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+		rightArrow = new HighlightableWrapper<Triangle>(new Triangle(new StaticVector(0, 0), new StaticVector(0, 8), new StaticVector(2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+		
+		putHighlightable(leftArrow, "Left Arrow");
+		put(leftArrow, "Left Arrow");
+		putHighlightable(rightArrow, "Right Arrow");
+		put(rightArrow, "Right Arrow");
+		put(characterTitle, null);		
 		
 		changeState(State.NEW);
 	}
@@ -91,15 +103,13 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 			
 			leftArrow.setXY(-14.5 * glutil.getViewportAspectRatio() + 3, 8);
 			rightArrow.setXY(14.5 * glutil.getViewportAspectRatio() - 3, 8);
-	
-//			gl.glTranslated(-15, -3, 0);
-			pickables.render(gl);
 			
 			// silly K's...
 			String title = (characterName + " the " + occupation[occP]).replaceAll("k", "K");
-			Text characterTitle = new Text(title, renderer, 0.075f);
+			characterTitle.setText(title);
 			characterTitle.setXY(-characterTitle.getWidth() / 2, 1);
-			characterTitle.render(gl);
+		
+			renderObjects(gl);
 			
 			break;
 		case ZOOMING:
@@ -112,11 +122,7 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 				}
 			}
 			break;
-		case ZOOMED:
-			break;
 		}
-		
-		gl.glFlush();
 	}
 	
 	public void nextOccupation() {
@@ -154,12 +160,12 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	}
 	
 	public void changeFrom() {
-		unhighlight();
+		clearAll();
 		changeState(State.HIDDEN);
 	}
 	
 	public void changeTo() {
-		unhighlight();
+		clearAll();
 		Random rnd = new Random();
 		setOccupation(rnd.nextInt(occupation.length));
 		randomName();
@@ -172,25 +178,5 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	public void startZoom() {
 		if(getState() != State.ZOOMING && getState() != State.ZOOMED)
 			changeState(State.ZOOMING);
-	}
-
-	public void highlight(String name) {
-		buttons.highlight(name);
-		if(name != null) {
-			if(name.equals("Left Arrow"))
-				leftArrow.highlight();
-			else if(name.equals("Right Arrow"))
-				rightArrow.highlight();
-		}
-	}
-
-	public void unhighlight() {
-		buttons.unhighlight();
-		leftArrow.unhighlight();
-		rightArrow.unhighlight();
-	}
-
-	protected String getNameForGLName(int glName) {
-		return pickables.getNameForGLName(glName);
 	}
 }

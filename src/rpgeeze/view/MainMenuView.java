@@ -10,12 +10,13 @@ import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
 import rpgeeze.GameProperties;
-import rpgeeze.gl.ButtonSet;
+import rpgeeze.dp.Iterator;
 import rpgeeze.gl.GLUtil;
-import rpgeeze.gl.Scene;
+import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.effect.ClearColorChange;
 import rpgeeze.gl.geom.TextRectangle;
+import rpgeeze.util.ArrayIterator;
 import rpgeeze.util.ResourceLoader;
 import rpgeeze.view.overlay.TextureOverlay;
 
@@ -34,13 +35,9 @@ public class MainMenuView extends HighlightableView<MainMenuView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	
 	private TextureOverlay logo;
-
 	private ClearColorChange fadeIn;
 	
 	public enum State implements View.State { NEW, FADING_IN, NORMAL, HIDDEN; }
-	
-	private Scene pickables;
-	private ButtonSet buttons;
 	
 	public MainMenuView(GameManager manager) {
 		super(manager);
@@ -51,24 +48,26 @@ public class MainMenuView extends HighlightableView<MainMenuView.State> {
 		
 		fadeIn = new ClearColorChange(Color.BLACK, BACKGROUND_COLOR, 1);
 		
-		pickables = new Scene();
-		TextRectangle prototype = new TextRectangle(new Text("X", renderer, 0.05f), 10, 3);
-		prototype.setXYZ(-15, -12.5, -14.5);
-		prototype.alignText(0.5, 0.5);
-		buttons = new ButtonSet(prototype, PLAIN, HIGHLIGHTED, 3, 0, 0, "Help", "Credits", "Quit", "New Game", "Load Game", "Options");
-		buttons.addTo(pickables);
+		TextRectangle rect = new TextRectangle(new Text("X", renderer, 0.05f), 10, 3);
+		rect.setXYZ(-15, -12.5, -14.5);
+		rect.alignText(0.5, 0.5);
+		
+		HighlightableWrapper<TextRectangle> prototype = new HighlightableWrapper<TextRectangle>(rect, PLAIN, HIGHLIGHTED);
+		GLUtil glutil = new GLUtil();
+		Iterator<HighlightableWrapper<TextRectangle>> obj = glutil.objectGrid(prototype, 2, 3, rect.getWidth(), rect.getHeight());
+		Iterator<String> names = new ArrayIterator<String>("Help", "Credits", "Quit", "New Game", "Load Game", "Options");
+		
+		for(obj.reset(), names.reset(); !obj.isDone(); obj.advance(), names.advance()) {
+			put(obj.current(), names.current());
+			putHighlightable(obj.current(), names.current());
+			obj.current().getWrappedObject().getText().setText(names.current());
+			obj.current().getWrappedObject().alignText(0.5, 0.5);
+			obj.current().getWrappedObject().getText().setY(prototype.getWrappedObject().getText().getY());
+		}
 		
 		changeState(State.NEW);
 	}
 
-	public void unhighlight() {
-		buttons.unhighlight();
-	}
-	
-	public void highlight(String name) {
-		buttons.highlight(name);
-	}
-	
 	/**
 	 * Renders the main menu screen.
 	 */
@@ -94,25 +93,21 @@ public class MainMenuView extends HighlightableView<MainMenuView.State> {
 		logo.render(gl, LOGO_SIZE, LOGO_SIZE, LOGO_Z, LOGO_Z, pick);
 		gl.glTranslated(0, -LOGO_Y, 0);
 		
-		pickables.render(gl);
+		renderObjects(gl);
 		
 		gl.glFlush();
 	}
 
 	public void changeFrom() {
-		unhighlight();
+		clearAll();
 		changeState(State.HIDDEN);
 	}
 	
 	public void changeTo() {
-		unhighlight();
+		clearAll();
 		if(getState() == State.NEW)
 			changeState(State.FADING_IN);
 		else
 			changeState(State.NORMAL);		
-	}
-
-	protected String getNameForGLName(int glName) {
-		return pickables.getNameForGLName(glName);
 	}
 }
