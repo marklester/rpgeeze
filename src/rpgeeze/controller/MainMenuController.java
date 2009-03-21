@@ -8,6 +8,7 @@ import rpgeeze.log.LogManager;
 import rpgeeze.view.CreditsView;
 import rpgeeze.view.MainMenuView;
 import rpgeeze.view.CharacterCreationView;
+import rpgeeze.view.HelpView;
 
 import javax.media.opengl.glu.GLU;
 import javax.swing.JFileChooser;
@@ -49,6 +50,9 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 					getManager().pushState(omv, omc);
 					break;
 				case HELP:
+					HelpView hv = new HelpView(getManager());
+					HelpViewController hc = new HelpViewController(getManager(), hv);
+					getManager().pushState(hv, hc);
 					break;
 				case CREDITS:
 					CreditsView cv = new CreditsView(getManager());
