@@ -114,9 +114,10 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 					button.setHighlighted(false);
 					getView().unhighlight();
 				}
+				compare = button.getGLName();
 			}
 		}	
-		compare = button.getGLName();
+		
 	}
 
 
@@ -124,7 +125,7 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 	public void keyPressed(KeyEvent e) {
 		if(e.getID() == KeyEvent.KEY_PRESSED) {
 			if(button != null && button.getHighlighted())
-				getView().setCommand(button.getGLName(),e.getKeyText(e.getKeyCode()));
+				getView().setCommand(button.toString(),e.getKeyText(e.getKeyCode()));
 		}
 	}
 
