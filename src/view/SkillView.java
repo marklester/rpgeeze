@@ -13,7 +13,6 @@ import java.util.LinkedList;
 import model.Model;
 import model.Command;
 import model.skill.*;
-import model.skill.visitor.UseSkillVisitor;;
 
 public class SkillView {
 	
