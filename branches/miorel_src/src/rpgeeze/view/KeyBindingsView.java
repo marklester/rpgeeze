@@ -27,6 +27,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	private static final TextRenderer smallRenderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 14);
 	private String[] command = new String[16];
+	private String message = "";
 	
 	public enum Button {
 		
@@ -296,6 +297,10 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			optionsViewCommand.setXY(-0.5 - 0.5*(command[15].length()/2), 0.5);
 			optionsViewCommand.render(gl);
 			
+			Text errorMessage = new Text(message, smallRenderer, 0.075f);
+			errorMessage.setXY(-6.5, 19);
+			errorMessage.render(gl);
+			
 
 			renderHighlightables(gl);
 			gl.glLoadName(-1);
@@ -324,8 +329,22 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	}
 	
 	public void setCommand(int i, String comm){
-		command[i] = comm; 
-	}
+		boolean duplicate = false;
+		for(int j = 0; j < command.length; j++){
+			if(comm.equals(command[j])){
+				duplicate = true;
+				message = "Duplicate Key Controls";
+				command[j] = "";
+			}
+			
+		}
+	
+			command[i] = comm;
+			if(!duplicate){
+			message = "";
+			}
+		}
+	
 	
 	public void defaults(){
 		command[0] ="";
