@@ -1,6 +1,6 @@
 package model.skill;
 
-import model.skill.visitor.Visitor;
+import model.skill.Visitor;
 
 public class RangedWeapon extends Skill implements UsableSkill {
 
