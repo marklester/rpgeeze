@@ -20,12 +20,13 @@ public class SoundOptionsController extends HighlightableViewController<SoundOpt
 			String name = getView().pickClosest(GLU.getCurrentGL(), p);
 			if(name != null) {
 				if(name.equals("Mute All")) {
-					
+					//mute all audio threads
 				}
 				else if(name.equals("Mute Background")) {	
-				
+					//mute background audio threads
 				}
 				else if(name.equals("Mute Effects")) {
+					//mute area effects audio threads
 				}
 			}
 		}
