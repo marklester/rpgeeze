@@ -12,8 +12,6 @@ import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.effect.BrushColorChange;
 import rpgeeze.gl.geom.TexturedRectangle;
-import rpgeeze.log.LogManager;
-import rpgeeze.math.Scalar;
 import rpgeeze.math.StaticVector;
 import rpgeeze.model.Entity;
 import rpgeeze.model.Tile;
@@ -28,7 +26,6 @@ public class GameplayView extends View<GameplayView.State> {
 	private TexturedRectangle entity = new TexturedRectangle(ResourceLoader.getInstance().getTexture("entity/entity.png"), 1, 1);;
 
 	private TextRenderer renderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.PLAIN, 24), true, true);
-	private Scalar fps;
 
 	private final static double ZOOM_MIN = -64;
 	private final static double ZOOM_MAX = -2;
@@ -45,7 +42,6 @@ public class GameplayView extends View<GameplayView.State> {
 	public GameplayView(GameManager manager, Entity avatar) {
 		super(manager);
 		this.avatar = avatar;
-		fps = getManager().getFPS();
 		fadeIn = new BrushColorChange(new Color(0, 0, 0, 1f), new Color(1, 1, 1, 1f), 1);
 		changeState(State.NEW);
 	}
@@ -95,11 +91,11 @@ public class GameplayView extends View<GameplayView.State> {
 				if(t.getEntity() != null)
 					entity.render(gl);
 				gl.glPopMatrix();
-			}/**/
+			}
 
 		if(getState() == State.NORMAL) {
 			gl.glLoadIdentity();
-			Text fpsText = new Text(String.format("FPS: %.1f", fps.getValue()), Color.RED, renderer, 0.0025f);
+			Text fpsText = new Text(String.format("FPS: %.1f", getManager().getFPS()), Color.RED, renderer, 0.0025f);
 			fpsText.setXYZ(glutil.getViewportAspectRatio() - fpsText.getWidth() - fpsText.getHeight() / 2, 1 - 3 * fpsText.getHeight() / 2, -1);
 			fpsText.render(gl);
 		}

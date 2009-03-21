@@ -14,7 +14,6 @@ import com.sun.opengl.util.FPSAnimator;
 
 import rpgeeze.controller.Controller;
 import rpgeeze.controller.MainMenuController;
-import rpgeeze.math.Scalar;
 import rpgeeze.util.DelegatingEventAdapter;
 import rpgeeze.util.EventAdapter;
 import rpgeeze.util.Pair;
@@ -289,15 +288,11 @@ public class GameManager extends DelegatingEventAdapter
 	}
 	
 	/**
-	 * Returns a magic scalar whose value is always the current FPS.
+	 * Returns the current FPS.
 	 * 
 	 * @return the current FPS
 	 */
-	public Scalar getFPS() {
-		return new Scalar() {
-			public double getValue() {
-				return fpsTimer.marksPerSecond();
-			}
-		};
+	public double getFPS() {
+		return fpsTimer.marksPerSecond();
 	}
 }

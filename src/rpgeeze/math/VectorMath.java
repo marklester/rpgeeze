@@ -65,30 +65,17 @@ public class VectorMath {
 	 * @return s * v
 	 */
 	public Vector multiply(final Vector v, final double s) {
-		return multiply(v, new StaticScalar(s));
-	}
-
-	/**
-	 * Multiplies a vector by a scalar.
-	 * 
-	 * @param v
-	 *            the vector
-	 * @param s
-	 *            the scalar
-	 * @return s * v
-	 */
-	public Vector multiply(final Vector v, final Scalar s) {
 		return new Vector() {
 			public double getX() {
-				return s.getValue() * v.getX();
+				return s * v.getX();
 			}
 
 			public double getY() {
-				return s.getValue() * v.getY();
+				return s * v.getY();
 			}
 
 			public double getZ() {
-				return s.getValue() * v.getZ();
+				return s * v.getZ();
 			}
 		};
 	}
