@@ -22,10 +22,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import model.Occupation;
-import model.Smasher;
-import model.Summoner;
-import model.Sneak;
+import model.entity.Occupation;
+import model.entity.Smasher;
+import model.entity.Sneak;
+import model.entity.Summoner;
 import util.ResourceLoader;
 
 public class WelcomeScreen extends JFrame {

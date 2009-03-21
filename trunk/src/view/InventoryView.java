@@ -9,7 +9,7 @@ import java.awt.Point;
 import util.Iterator;
 import util.ResourceLoader;
 
-import model.Entity;
+import model.entity.Entity;
 import model.item.Item;
 import model.Model;
 import model.Command;
@@ -85,7 +85,7 @@ public class InventoryView {
 		}
 	}
 
-	public void drawEquippedItems(Graphics2D graphics, model.Entity e)
+	public void drawEquippedItems(Graphics2D graphics, model.entity.Entity e)
 	{
 		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f));
 		//Equip Area

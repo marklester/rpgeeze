@@ -1,4 +1,4 @@
-package model;
+package model.entity;
 
 /*
  * An inventory is a set of items carried by an entity. 

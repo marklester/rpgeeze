@@ -1,6 +1,6 @@
 package model.skill;
 
-import model.Stats;
+import model.entity.Stats;
 
 public class OneHandedWeapon extends Skill implements PermanentSkill {
 

@@ -1,7 +1,7 @@
-import model.Entity;
 import model.Map;
 import model.Model;
-import model.Occupation;
+import model.entity.Entity;
+import model.entity.Occupation;
 import view.Time;
 import view.View;
 import controller.WelcomeScreen;

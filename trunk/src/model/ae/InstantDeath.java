@@ -3,8 +3,8 @@ import java.awt.Color;
 
 import util.ResourceLoader;
 import view.Console;
-import model.Entity;
-import model.Stats;
+import model.entity.Entity;
+import model.entity.Stats;
 
 public class InstantDeath extends AreaEffect {
 

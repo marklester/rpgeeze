@@ -1,4 +1,5 @@
-package model;
+package model.entity;
+
 
 public class Summoner extends Occupation {
 	public Summoner() {

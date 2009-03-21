@@ -4,8 +4,8 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 import util.ResourceLoader;
 import javazoom.jl.player.Player;
-import model.Entity;
 import model.Model;
+import model.entity.Entity;
 import util.Observer;
 import util.Subject;
 

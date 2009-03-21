@@ -6,7 +6,7 @@ package model.item;
  */
 
 import view.Drawer;
-import model.Entity;
+import model.entity.Entity;
 
 public class PotionLife extends TakeableItem {
 

@@ -1,6 +1,6 @@
 package model.ae;
 
-import model.Entity;
+import model.entity.Entity;
 
 import java.util.Hashtable;
 import java.util.regex.Matcher;

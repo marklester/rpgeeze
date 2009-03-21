@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import model.item.Item;
 import model.decal.Decal;
+import model.entity.Entity;
 import model.ae.AreaEffect;
 import view.Drawer;
 
@@ -51,7 +52,7 @@ public class Tile implements Cloneable {
 	}
 
 	// package level so that nobody outside Model can mess with this
-	void setItem(Item item) {
+	public void setItem(Item item) {
 		this.item = item;
 	}
 

@@ -5,7 +5,7 @@ package model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
-import model.Entity;
+import model.entity.Entity;
 import view.Drawer;
 
 public class Boots extends TakeableItem {

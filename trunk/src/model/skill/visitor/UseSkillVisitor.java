@@ -4,8 +4,8 @@ import java.awt.Color;
 
 import util.ResourceLoader;
 import view.Console;
+import model.entity.Entity;
 import model.skill.*;
-import model.Entity;
 import model.Location;
 
 
@@ -39,6 +39,6 @@ public class UseSkillVisitor implements Visitor {
 			Console.getInstance().writeLine("You do not have enough mana...", Color.RED);
 	}
 	
-	//public void visit(RangedWeapon sk) {}
+	public void visit(RangedWeapon sk) {}
 
 }

@@ -6,6 +6,9 @@ import java.util.Queue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import model.entity.Entity;
+import model.entity.Occupation;
+
 import util.Observer;
 
 public class Model implements util.Subject {
