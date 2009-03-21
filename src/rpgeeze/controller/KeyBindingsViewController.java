@@ -51,6 +51,7 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 						getView().defaults();
 						break;
 					case N_ARROW:
+						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;
 					case S_ARROW:
@@ -102,6 +103,10 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 						highlight(e.getPoint());
 						break;
 					case SKILLS_VIEW:
+						button.setHighlighted(true);
+						highlight(e.getPoint());
+						break;
+					case OPTIONS_VIEW:
 						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;
@@ -121,57 +126,10 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 	
 	public void keyPressed(KeyEvent e) {
 		if(e.getID() == KeyEvent.KEY_PRESSED) {
-			for(iter.reset(); !iter.isDone(); iter.advance()) {
-				KeyBindingsView.Button button = KeyBindingsView.Button.fromGLName(iter.current());
-				char c = e.getKeyChar();
-				if(button != null && (c == ' ' || Character.isLetter(c) || Character.isDigit(c)) && button.getHighlighted())
-					switch(	button) {
-					case N_ARROW:
-						getView().setNorthCommand(c);
-						break;
-					case S_ARROW:
-						getView().setSouthCommand(c);
-						break;	
-					case E_ARROW:
-						getView().setEastCommand(c);
-						break;
-					case W_ARROW:
-						getView().setWestCommand(c);
-						break;
-					case NE_ARROW:
-						getView().setNorthEastCommand(c);
-						break;
-					case NW_ARROW:
-						getView().setNorthWestCommand(c);
-						break;
-					case SE_ARROW:
-						getView().setSouthEastCommand(c);
-						break;
-					case SW_ARROW:
-						getView().setSouthWestCommand(c);
-						break;
-					case SAVE_GAME:
-						getView().setSaveGameCommand(c);
-						break;
-					case LOAD_GAME:
-						getView().setLoadGameCommand(c);
-						break;
-					case NEW_GAME:
-						getView().setNewGameCommand(c);
-						break;
-					case INVENTORY_VIEW:
-						getView().setInventoryView(c);
-						break;
-					case STATS_VIEW:
-						getView().setStatsView(c);
-						break;
-					case SKILLS_VIEW:
-						getView().setSkillsView(c);
-						break;
-					
-					}
+				if(button != null && button.getHighlighted())
+					getView().setCommand(button.getGLName(),e.getKeyText(e.getKeyCode()));
 			}
-		}
+		
 	
 	}
 	
@@ -232,9 +190,6 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 						getView().unhighlight();
 						break;
 					case DEFAULTS:
-						getView().unhighlight();
-						break;
-					default:
 						getView().unhighlight();
 						break;
 					}
