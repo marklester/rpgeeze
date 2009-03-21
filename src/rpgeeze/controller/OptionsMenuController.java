@@ -8,6 +8,7 @@ import javax.media.opengl.glu.GLU;
 import rpgeeze.GameManager;
 import rpgeeze.view.KeyBindingsView;
 import rpgeeze.view.OptionsMenuView;
+import rpgeeze.view.SoundOptionsView;
 
 /**
  * Controls the options menu screen.
@@ -29,6 +30,7 @@ public class OptionsMenuController extends HighlightableViewController<OptionsMe
 					keyBindingsView();
 				}
 				else if(name.equals("Sound Options")) {	
+					soundOptionsView();
 				}
 				else if(name.equals("Video Options")) {
 				}
@@ -43,5 +45,11 @@ public class OptionsMenuController extends HighlightableViewController<OptionsMe
 		KeyBindingsView kbv = new KeyBindingsView(getManager());
 		KeyBindingsViewController kbc = new KeyBindingsViewController(getManager(), kbv);
 		getManager().pushState(kbv,kbc);	
+	}
+	
+	protected void soundOptionsView(){
+		SoundOptionsView sov = new SoundOptionsView(getManager());
+		SoundOptionsController soc = new SoundOptionsController(getManager(), sov);
+		getManager().pushState(sov,soc);
 	}
 }
