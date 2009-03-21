@@ -26,9 +26,7 @@ public class OptionsMenuController extends HighlightableViewController<OptionsMe
 			String name = getView().pickClosest(GLU.getCurrentGL(), p);
 			if(name != null) {
 				if(name.equals("Key Bindings")) {
-					KeyBindingsView kbv = new KeyBindingsView(getManager());
-					KeyBindingsViewController kbc = new KeyBindingsViewController(getManager(), kbv);
-					getManager().pushState(kbv,kbc);					
+					keyBindingsView();
 				}
 				else if(name.equals("Sound Options")) {	
 				}
@@ -39,5 +37,11 @@ public class OptionsMenuController extends HighlightableViewController<OptionsMe
 				}
 			}
 		}
+	}
+	
+	protected void keyBindingsView(){
+		KeyBindingsView kbv = new KeyBindingsView(getManager());
+		KeyBindingsViewController kbc = new KeyBindingsViewController(getManager(), kbv);
+		getManager().pushState(kbv,kbc);	
 	}
 }
