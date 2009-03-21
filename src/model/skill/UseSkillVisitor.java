@@ -5,7 +5,7 @@ import java.awt.Color;
 import util.ResourceLoader;
 import view.Console;
 import model.skill.*;
-import model.Entity;
+import model.entity.Entity;
 import model.Location;
 
 
