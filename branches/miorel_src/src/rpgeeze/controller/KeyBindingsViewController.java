@@ -30,7 +30,6 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 	
 	public void mouseClicked(MouseEvent e) {
 		if(e.getButton() == MouseEvent.BUTTON1) {
-			//getView().unhighlight();
 			p = e.getPoint();
 			iter = getView().pick(e.getPoint());
 			for(iter.reset(); !iter.isDone(); iter.advance()) {
