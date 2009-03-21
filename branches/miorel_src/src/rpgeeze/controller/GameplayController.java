@@ -1,9 +1,15 @@
 package rpgeeze.controller;
 
+import static rpgeeze.RunGame.keyControls;
+
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent;
+import java.util.Iterator;
+import java.util.Set;
 
 import rpgeeze.GameManager;
 import rpgeeze.view.GameplayView;
+
 
 public class GameplayController extends Controller<GameplayView> {
 	private MouseEvent prev = null;
@@ -12,6 +18,8 @@ public class GameplayController extends Controller<GameplayView> {
 	
 	public GameplayController(GameManager manager, GameplayView view) {
 		super(manager, view);
+		
+		
 	}
 	
 	public void mouseReleased(MouseEvent e) {
@@ -29,5 +37,26 @@ public class GameplayController extends Controller<GameplayView> {
 			getView().zoom(dy * ZOOM_STEP);
 			prev = e;
 		}
+	}
+	
+	public void keyPressed(KeyEvent e){
+		
+		if(e.getID() == KeyEvent.KEY_PRESSED) {
+			String action = e.getKeyText(e.getKeyCode());
+			
+			Set s = keyControls.entrySet();
+			Iterator a =  s.iterator();
+			
+			while(a.hasNext()){
+				StringBuilder tempKey = new StringBuilder(a.next().toString());
+				String key = tempKey.substring(tempKey.length()-1);
+				
+				if(action.equals(key)) {
+					System.out.println(tempKey.delete(tempKey.length()-2,tempKey.length()));//prints action for now
+				}
+			}
+			
+		}
+		
 	}
 }
