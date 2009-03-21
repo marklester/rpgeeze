@@ -1,6 +1,6 @@
 package model.skill;
 
-import model.Entity;
+import model.entity.Entity;
 import model.skill.visitor.Visitor;
 
 public interface UsableSkill {

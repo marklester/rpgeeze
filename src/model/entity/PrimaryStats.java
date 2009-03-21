@@ -1,4 +1,4 @@
-package model;
+package model.entity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,28 +8,28 @@ public class PrimaryStats implements Cloneable {
 	
 	// how many more times the entity can die before the game is over.
 	// Start the game with 3 lives
-	int livesLeft;
+	public int livesLeft;
 
 	// primary attribute of the Smasher
 	// Everyone starts w/ 20, except smasher, who starts with 40
-	int strength;
+	public int strength;
 
 	// primary attribute of the Sneak
 	// Everyone starts w/ 20, except sneak, who starts with 40
-	int agility;
+	public int agility;
 
 	// primary attribute of the Summoner
 	// Everyone starts w/ 20, except summoner, who starts with 40
-	int intellect;
+	public int intellect;
 
 	// measures how resistant a character is to physical abuse
 	// Scale is 0-1 (a double) All start with .2
-	double hardiness;
+	public double hardiness;
 
 	// measures how much an entity knows about her occupation; earned by
 	// adventuring, solving problems, etc.
 	// Scale is 0-100
-	int experience;
+	public int experience;
 
 	// Generic stats
 	public PrimaryStats() {

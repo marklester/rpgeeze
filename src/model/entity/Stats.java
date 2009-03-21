@@ -1,7 +1,8 @@
-package model;
+package model.entity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 public class Stats implements Cloneable {
 	private static final Pattern pattern = Pattern.compile("<stats><level>(.*)</level><life>(.*)</life><mana>(.*)</mana><offensiveRating>(.*)</offensiveRating><defensiveRating>(.*)</defensiveRating><armorRating>(.*)</armorRating><movement>(.*)</movement>(<primaryStats>.*</primaryStats>)</stats>");
@@ -12,31 +13,31 @@ public class Stats implements Cloneable {
 
 	// how close the entity is to death; based upon hardiness and level
 	// between 0-100
-	int life;
+	public int life;
 
 	// how much energy the entity has to fuel her spells; based on intellect and
 	// level
 	// between 0-100 - play starts with 20
-	int mana;
+	public int mana;
 
 	// damage dealt when attacking;based on the equipped weapon,strength and
 	// level
 	// between 0-110
-	int offensiveRating;
+	public int offensiveRating;
 
 	// how difficult it is to successfully attack this entity;based on agility
 	// and level
 	// between 0-110
-	int defensiveRating;
+	public int defensiveRating;
 
 	// armor absorbs a fixed amount of damage;based on equipped armor and
 	// hardiness
 	// between 0-110
-	int armorRating;
+	public int armorRating;
 
 	// the max. distance an entity may move over ideal terrain per unit time
 	// 1 unit for now... Portal, here we come
-	int movement;
+	public int movement;
 
 	PrimaryStats primaryStats;
 	private boolean visible = true;

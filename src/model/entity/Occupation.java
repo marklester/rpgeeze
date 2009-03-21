@@ -1,8 +1,9 @@
-package model;
+package model.entity;
 
 import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import model.skill.*;
 import java.util.LinkedList;
 

@@ -7,7 +7,7 @@ package model.item;
 
 import java.awt.Color;
 
-import model.Entity;
+import model.entity.Entity;
 import view.Console;
 import view.Drawer;
 

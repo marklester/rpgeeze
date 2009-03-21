@@ -3,8 +3,8 @@ package model.item;
 import util.ResourceLoader;
 import view.Drawer;
 import view.Console;
-import model.Entity;
 import model.Location;
+import model.entity.Entity;
 
 public class PortalItem extends InteractiveItem {
 	private Location where;

@@ -1,5 +1,6 @@
 package model;
 
+import model.entity.Entity;
 import view.Drawer;
 
 public class MountainTerrain extends Terrain {

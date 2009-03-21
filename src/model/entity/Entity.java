@@ -1,7 +1,12 @@
-package model;
+package model.entity;
 
 import java.awt.Color;
 
+import model.Direction;
+import model.Equipment;
+import model.Location;
+import model.Map;
+import model.Tile;
 import model.item.Item;
 import model.item.OneShotItem;
 import model.item.InteractiveItem;
@@ -56,7 +61,7 @@ public class Entity implements Subject, Drawable, Cloneable {
 		return this.tile;
 	}
 
-	void setTile(Tile tile) {
+	public void setTile(Tile tile) {
 		// UUUUUUUUUUUUUUUGGGGGGGGGGGGGLLLLLLLLYYYYYYYYYY
 		this.tile = tile;
 		// Check if there is an item on this tile. If so, add it to inventory,

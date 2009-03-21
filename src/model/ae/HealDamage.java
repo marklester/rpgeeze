@@ -1,7 +1,7 @@
 package model.ae;
 import java.awt.Color;
 
-import model.Entity;
+import model.entity.Entity;
 
 import view.Console;
 

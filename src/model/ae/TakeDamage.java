@@ -1,8 +1,8 @@
 package model.ae;
 import java.awt.Color;
 
-import model.Entity;
-import model.Stats;
+import model.entity.Entity;
+import model.entity.Stats;
 
 import view.Console;
 
