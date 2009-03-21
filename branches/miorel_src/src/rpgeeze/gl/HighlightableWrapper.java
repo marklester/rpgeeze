@@ -6,20 +6,24 @@ import javax.media.opengl.GL;
 import rpgeeze.math.Vector;
 import rpgeeze.util.Pair;
 
-public class HighlightableWrapper implements Highlightable {
+public class HighlightableWrapper<T extends Colorable> implements Highlightable {
 	public Vector getXYZ() {
 		return object.getXYZ();
 	}
 
 	private final Color plain;
 	private final Color highlighted;
-	private Colorable object;
+	private T object;
 	
-	public HighlightableWrapper(Colorable object, Color plain, Color highlighted) {
+	public HighlightableWrapper(T object, Color plain, Color highlighted) {
 		this.plain = plain;
 		this.highlighted = highlighted;
 		this.object = object;
 		unhighlight();
+	}
+	
+	public T getWrappedObject() {
+		return object;
 	}
 	
 	public Pair<Double, Vector> getPostTranslateRotation() {
@@ -84,14 +88,14 @@ public class HighlightableWrapper implements Highlightable {
 		object.setZ(newZ);
 	}
 	
-	public HighlightableWrapper clone() {
-		HighlightableWrapper ret = null;
+	public HighlightableWrapper<T> clone() {
+		HighlightableWrapper<T> ret = null;
 		try {
-			ret = (HighlightableWrapper) super.clone();
+			ret = (HighlightableWrapper<T>) super.clone();
 		}
 		catch (CloneNotSupportedException e) {
 		}
-		ret.object = object.clone();
+		ret.object = (T) object.clone();
 		return ret;
 	}
 }
