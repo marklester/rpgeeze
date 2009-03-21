@@ -6,7 +6,7 @@ public interface Visitor {
 	
 	
 	public void visit(BindWounds skill);
-	public void visit(RangedWeapon skill);
+	//public void visit(RangedWeapon skill);
 	
 	/*
 	--
