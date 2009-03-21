@@ -31,17 +31,10 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 		if(e.getButton() == MouseEvent.BUTTON1) {
 			String name = getView().pickClosest(GLU.getCurrentGL(), p);
 			if(name != null) {
-				if(name.equals("New Game")) {
-					CharacterCreationView ccv = new CharacterCreationView(getManager());
-					CharacterCreationController ccc = new CharacterCreationController(getManager(), ccv);
-					getManager().pushState(ccv, ccc);
-				}
-				else if(name.equals("Load Game")) {
-					JFileChooser chooser = new JFileChooser();
-					chooser.addChoosableFileFilter(new FileNameExtensionFilter("XML files", "xml"));
-					int status = chooser.showOpenDialog(null);
-					LogManager.getInstance().log("File chooser returned status " + status, "CONTROLLER");
-				}
+				if(name.equals("New Game"))
+					newGame();
+				else if(name.equals("Load Game"))
+					loadGame();
 				else if(name.equals("Options")) {
 					OptionsMenuView omv = new OptionsMenuView(getManager());
 					OptionsMenuController omc = new OptionsMenuController(getManager(), omv);
@@ -63,5 +56,18 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 				}
 			}
 		}
+	}
+	
+	protected void newGame() {
+		CharacterCreationView ccv = new CharacterCreationView(getManager());
+		CharacterCreationController ccc = new CharacterCreationController(getManager(), ccv);
+		getManager().pushState(ccv, ccc);		
+	}
+	
+	protected void loadGame() {
+		JFileChooser chooser = new JFileChooser();
+		chooser.addChoosableFileFilter(new FileNameExtensionFilter("XML files", "xml"));
+		int status = chooser.showOpenDialog(null);
+		LogManager.getInstance().log("File chooser returned status " + status, "CONTROLLER");
 	}
 }
