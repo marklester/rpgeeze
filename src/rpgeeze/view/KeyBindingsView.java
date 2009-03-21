@@ -26,7 +26,6 @@ import rpgeeze.util.ResourceLoader;
 public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	private static final TextRenderer smallRenderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 14);
-	private Character north, south, east, west, northEast, northWest, southEast, southWest, saveGame, loadGame, newGame, inventoryView, statsView, skillsView, optionsView;
 	private String[] command = new String[16];
 	
 	public enum Button {
@@ -202,7 +201,6 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		
 		switch(getState()) {
 		case NORMAL:
-			String buttonText;
 			gl.glLoadIdentity();
 			gl.glTranslated(0, -9.5, -14.5);
 			
@@ -211,7 +209,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			putHighlightable(northArrow);
 			
 			Text northCommand = new Text(command[1], smallRenderer, 0.075f);
-			northCommand.setXY(-0.5 - command[1].length()/2, 15.5);
+			northCommand.setXY(-0.25 - 0.5*(command[1].length()/2), 15.5);
 			northCommand.render(gl);
 			
 			Highlightable southArrow = Button.S_ARROW.getButton();
@@ -219,7 +217,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			putHighlightable(southArrow);
 			
 			Text southCommand = new Text(command[2], smallRenderer, 0.075f);
-			southCommand.setXY(-0.5 - command[2].length()/2, 5.5);
+			southCommand.setXY(-0.25 - 0.5*(command[2].length()/2), 5.5);
 			southCommand.render(gl);
 			
 			Highlightable eastArrow = Button.E_ARROW.getButton();
@@ -235,7 +233,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			putHighlightable(westArrow);
 			
 			Text westCommand = new Text(command[4], smallRenderer, 0.075f);
-			westCommand.setXY(-5 - command[4].length()/2, 10.5);
+			westCommand.setXY(-6 - 0.75 *(command[4].length()/2), 10.5);
 			westCommand.render(gl);
 			
 			Highlightable northeastArrow = Button.NE_ARROW.getButton();
@@ -243,7 +241,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			putHighlightable(northeastArrow);
 			
 			Text northEastCommand = new Text(command[5], smallRenderer, 0.075f);
-			northEastCommand.setXY(3.5, 14);
+			northEastCommand.setXY(3.5 - 0.5*(command[5].length()/2), 14.25);
 			northEastCommand.render(gl);
 			
 			Highlightable southeastArrow = Button.SE_ARROW.getButton();
@@ -251,7 +249,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			putHighlightable(southeastArrow);
 			
 			Text southEastCommand = new Text(command[6], smallRenderer, 0.075f);
-			southEastCommand.setXY(3.5, 7);
+			southEastCommand.setXY(3.5 - 0.5*(command[6].length()/2), 6.75);
 			southEastCommand.render(gl);
 			
 			Highlightable northwestArrow = Button.NW_ARROW.getButton();
@@ -259,7 +257,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			putHighlightable(northwestArrow);
 			
 			Text northWestCommand = new Text(command[7], smallRenderer, 0.075f);
-			northWestCommand.setXY(-4, 14);
+			northWestCommand.setXY(-4 - 0.5*(command[7].length()/2), 14.25);
 			northWestCommand.render(gl);
 			
 			Highlightable southwestArrow = Button.SW_ARROW.getButton();
@@ -267,42 +265,35 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			putHighlightable(southwestArrow);
 			
 			Text southWestCommand = new Text(command[8], smallRenderer, 0.075f);
-			southWestCommand.setXY(-4, 7);
+			southWestCommand.setXY(-4 - 0.5*(command[8].length()/2), 7);
 			southWestCommand.render(gl);
 			
 			Text saveGameCommand = new Text(command[9], smallRenderer, 0.075f);
-			buttonText = "SAVE_GAME";
-			saveGameCommand.setXY(-18.5 + (buttonText.length() - command[9].length())/2, 16.5);
+			saveGameCommand.setXY(-14.5 - 0.5*(command[9].length()/2), 16.5);
 			saveGameCommand.render(gl);
 			
 			Text loadGameCommand = new Text(command[10], smallRenderer, 0.075f);
-			buttonText = "LOAD_GAME";
-			loadGameCommand.setXY(-18.5 + (buttonText.length() - command[10].length())/2, 8.5);
+			loadGameCommand.setXY(-14.5 - 0.5*(command[10].length()/2), 8.5);
 			loadGameCommand.render(gl);
 			
 			Text newGameCommand = new Text(command[11], smallRenderer, 0.075f);
-			buttonText = "NEW_GAME";
-			newGameCommand.setXY(-18.5 + (buttonText.length() - command[11].length())/2, 0.5);
+			newGameCommand.setXY(-15 - 0.5*(command[11].length()/2), 0.5);
 			newGameCommand.render(gl);
 			
 			Text inventoryViewCommand = new Text(command[12], smallRenderer, 0.075f);
-			buttonText = "INVENTORY_VIEW";
-			inventoryViewCommand.setXY(7 + (buttonText.length() - command[12].length())/2, 16.5);
+			inventoryViewCommand.setXY(12 - 0.5*(command[12].length()/2), 16.5);
 			inventoryViewCommand.render(gl);
 			
 			Text statsViewCommand = new Text(command[13], smallRenderer, 0.075f);
-			buttonText = "STATS_VIEW";
-			statsViewCommand.setXY(10.5 + (buttonText.length() - command[13].length())/2, 8.5);
+			statsViewCommand.setXY(14 - 0.5*(command[13].length()/2), 8.5);
 			statsViewCommand.render(gl);
 			
 			Text skillsViewCommand = new Text(command[14], smallRenderer, 0.075f);
-			buttonText = "SKILLS_VIEW";
-			skillsViewCommand.setXY(8.5 + (buttonText.length() - command[14].length())/2, 0.5);
+			skillsViewCommand.setXY(13.5 - 0.5*(command[14].length()/2), 0.5);
 			skillsViewCommand.render(gl);
 			
 			Text optionsViewCommand = new Text(command[15], smallRenderer, 0.075f);
-			buttonText = "OPTIONS_VIEW";
-			optionsViewCommand.setXY(-5.5 + (buttonText.length() - command[15].length())/2, 0.5);
+			optionsViewCommand.setXY(-0.5 - 0.5*(command[15].length()/2), 0.5);
 			optionsViewCommand.render(gl);
 			
 
