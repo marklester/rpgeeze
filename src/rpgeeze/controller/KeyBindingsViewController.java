@@ -3,6 +3,7 @@ package rpgeeze.controller;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
@@ -26,6 +27,7 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 	KeyBindingsView.Button button;
 	Point p;
 	int compare = 0;
+	int mouseMoved = 0;
 	
 	
 	public void mouseClicked(MouseEvent e) {
@@ -128,38 +130,15 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 				if(button != null && button.getHighlighted())
 					getView().setCommand(button.getGLName(),e.getKeyText(e.getKeyCode()));
 			}
-		
-	
 	}
 	
-	public void mouseEntered(MouseEvent e) {
-			p = e.getPoint();
-			iter = getView().pick(e.getPoint());
-			for(iter.reset(); !iter.isDone(); iter.advance()) {
-				KeyBindingsView.Button button = KeyBindingsView.Button.fromGLName(iter.current());
-				if(button != null)
-					switch(	button) {
-					case OK:
-						highlight(e.getPoint());
-						break;
-					case CANCEL:
-						highlight(e.getPoint());
-						break;
-					case DEFAULTS:
-						highlight(e.getPoint());
-						break;
-					}
-			}
-	}
 		
-	
-
 	public void mouseMoved(MouseEvent e) {
-		p = e.getPoint();
+		/*p = e.getPoint();
 		iter = getView().pick(e.getPoint());
 		for(iter.reset(); !iter.isDone(); iter.advance()) {
 			KeyBindingsView.Button button = KeyBindingsView.Button.fromGLName(iter.current());
-			if(button != null)
+			if(button != null){
 				switch(	button) {
 				case OK:
 					highlight(e.getPoint());
@@ -171,28 +150,29 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 					highlight(e.getPoint());
 					break;
 				}
-		}
+				
+				}
+		}*/
+	}
+	
+	public void mouseEntered(MouseEvent e) {
 		
 	}
 
 	public void mouseExited(MouseEvent e) {
-			p = e.getPoint();
-			iter = getView().pick(e.getPoint());
-			for(iter.reset(); !iter.isDone(); iter.advance()) {
-				KeyBindingsView.Button button = KeyBindingsView.Button.fromGLName(iter.current());
-				if(button != null)
-					switch(	button) {
-					case OK:
-						getView().unhighlight();
-						break;
-					case CANCEL:
-						getView().unhighlight();
-						break;
-					case DEFAULTS:
-						getView().unhighlight();
-						break;
-					}
-			}
+		
+	}
+	
+	public void windowLostFocus(WindowEvent e) {
+		
+	}
+
+	public void windowActivated(WindowEvent e) {
+	
+	}
+
+	public void windowDeactivated(WindowEvent e) {
+		
 	}
 	
 	private void highlight(Point p) {
