@@ -2,7 +2,6 @@ package rpgeeze.gl;
 
 import javax.media.opengl.GL;
 
-import rpgeeze.math.Scalar;
 import rpgeeze.math.Vector;
 import rpgeeze.util.Pair;
 
@@ -24,9 +23,9 @@ public interface GLObject extends Cloneable {
 	public void setXYZ(double newX, double newY, double newZ);
 	public Vector getXYZ();
 	
-	public Pair<Scalar, Vector> getPreTranslateRotation();
+	public Pair<Double, Vector> getPreTranslateRotation();
 	public void setPreTranslationRotation(double angle, double x, double y, double z);
-	public Pair<Scalar, Vector> getPostTranslateRotation();
+	public Pair<Double, Vector> getPostTranslateRotation();
 	public void setPostTranslationRotation(double angle, double x, double y, double z);
 	
 	public GLObject clone();

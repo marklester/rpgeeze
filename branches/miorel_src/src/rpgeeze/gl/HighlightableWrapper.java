@@ -3,7 +3,6 @@ package rpgeeze.gl;
 import java.awt.Color;
 import javax.media.opengl.GL;
 
-import rpgeeze.math.Scalar;
 import rpgeeze.math.Vector;
 import rpgeeze.util.Pair;
 
@@ -24,11 +23,11 @@ public class HighlightableWrapper implements Highlightable {
 		this.object = object.clone();
 	}
 	
-	public Pair<Scalar, Vector> getPostTranslateRotation() {
+	public Pair<Double, Vector> getPostTranslateRotation() {
 		return object.getPostTranslateRotation();
 	}
 
-	public Pair<Scalar, Vector> getPreTranslateRotation() {
+	public Pair<Double, Vector> getPreTranslateRotation() {
 		return object.getPreTranslateRotation();
 	}
 

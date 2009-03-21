@@ -2,7 +2,6 @@ package rpgeeze.gl;
 
 import javax.media.opengl.GL;
 
-import rpgeeze.math.Scalar;
 import rpgeeze.math.Vector;
 import rpgeeze.util.Pair;
 
@@ -103,13 +102,9 @@ public abstract class GLObjectImpl implements GLObject {
 		};
 	}
 
-	public Pair<Scalar, Vector> getPostTranslateRotation() {
-		return new Pair<Scalar, Vector>(
-				new Scalar() {
-					public double getValue() {
-						return postAngle;
-					}
-				},
+	public Pair<Double, Vector> getPostTranslateRotation() {
+		return new Pair<Double, Vector>(
+				postAngle,
 				new Vector() {
 					public double getX() {
 						return postX;
@@ -125,13 +120,9 @@ public abstract class GLObjectImpl implements GLObject {
 				});
 	}
 
-	public Pair<Scalar, Vector> getPreTranslateRotation() {
-		return new Pair<Scalar, Vector>(
-				new Scalar() {
-					public double getValue() {
-						return preAngle;
-					}
-				},
+	public Pair<Double, Vector> getPreTranslateRotation() {
+		return new Pair<Double, Vector>(
+				preAngle,
 				new Vector() {
 					public double getX() {
 						return preX;
