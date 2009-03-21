@@ -102,10 +102,9 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	
 	public CharacterCreationView(GameManager manager) {
 		super(manager);
-		for(TexturedRectangle rect: occupationImage) {
-			rect.setColor(MainMenuView.PLAIN);
-			rect.setVisible(false);
-		}
+//		for(TexturedRectangle rect: occupationImage)
+//			rect.setColor(MainMenuView.PLAIN);
+//			rect.setVisible(false);
 		for(Button button: Button.values())
 			putHighlightable(button.getButton());
 		changeState(State.NEW);
@@ -114,15 +113,15 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	/**
 	 * Renders the occupation selection screen.
 	 */
-	public void render(GL gl, Point point) {		
-		setup(gl, point);
-		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
+	public void render(GL gl, Point point) {
 		GLUtil glutil = new GLUtil(gl);
+		glutil.standardFrustum(gl, point);
 		glutil.clearColor(BACKGROUND_COLOR);
+		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);		
 		
 		gl.glTranslated(0, 0, zoom);
-		for(TexturedRectangle rect: occupationImage)
-			rect.render(gl);
+		glutil.color(MainMenuView.PLAIN);
+		occupationImage[occP].render(gl);
 			
 		switch(getState()) {
 		case NORMAL:
@@ -173,9 +172,9 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	}
 	
 	private void setOccupation(int newOccupation) {
-		occupationImage[occP].setVisible(false);
+		//occupationImage[occP].setVisible(false);
 		occP = newOccupation;
-		occupationImage[newOccupation].setVisible(true);
+		//occupationImage[newOccupation].setVisible(true);
 	}
 	
 	public void randomName() {

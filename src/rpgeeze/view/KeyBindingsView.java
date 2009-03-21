@@ -193,10 +193,10 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	 * Renders the key bindings screen.
 	 */
 	public void render(GL gl, Point point) {
-		setup(gl, point);
-		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		GLUtil glutil = new GLUtil(gl);
+		glutil.standardFrustum(gl, point);
 		glutil.clearColor(BACKGROUND_COLOR);
+		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		
 		gl.glTranslated(0, 0, zoom);
 		

@@ -48,9 +48,8 @@ public class CreditsView extends View<CreditsView.State> {
 	}
 	
 	public void render(GL gl, Point point) {
-		setup(gl, point);
 		GLUtil glutil = new GLUtil(gl);
-		
+		glutil.standardFrustum(gl, point);
 		glutil.clearColor(BACKGROUND_COLOR);
 		
 		title.setXYZ(-title.getWidth() / 2, 4 - title.getHeight(), -4);

@@ -10,8 +10,9 @@ import com.sun.opengl.util.j2d.TextRenderer;
 import rpgeeze.GameManager;
 import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Text;
-import rpgeeze.gl.effect.ClearColorChange;
+import rpgeeze.gl.effect.BrushColorChange;
 import rpgeeze.gl.geom.TexturedRectangle;
+import rpgeeze.log.LogManager;
 import rpgeeze.math.Scalar;
 import rpgeeze.math.StaticVector;
 import rpgeeze.model.Entity;
@@ -33,7 +34,7 @@ public class GameplayView extends View<GameplayView.State> {
 	private final static double ZOOM_MAX = -2;
 	private double zoom = -8;
 
-	private ClearColorChange fadeIn;
+	private BrushColorChange fadeIn;
 	
 	// currently public so the Controller can access it easily 
 	// later someone will tell the Controller about the avatar differently
@@ -45,27 +46,16 @@ public class GameplayView extends View<GameplayView.State> {
 		super(manager);
 		this.avatar = avatar;
 		fps = getManager().getFPS();
-		fadeIn = new ClearColorChange(Color.BLACK, Color.WHITE, 1);
+		fadeIn = new BrushColorChange(new Color(0, 0, 0, 1f), new Color(1, 1, 1, 1f), 1);
 		changeState(State.NEW);
 	}
 
 	public void render(GL gl, Point point) {		
-		setup(gl, point);
-		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 		GLUtil glutil = new GLUtil(gl);
-
-		// zoom
-		gl.glTranslated(-0.5, -0.5, zoom);
-
-		// get viewport dimensions in tiles that have to be displayed
-		int widthInTiles = (int) Math.ceil(-2 * zoom * glutil.getViewportAspectRatio());
-		int heightInTiles = (int) Math.ceil(-2 * zoom);
-
-		int minX = (int) Math.floor(1 + widthInTiles / 2);
-		int maxX = (int) Math.ceil(1 + widthInTiles / 2);
-		int minY = (int) Math.floor(1 + heightInTiles / 2);
-		int maxY = (int) Math.ceil(1 + heightInTiles / 2);
-
+		glutil.standardFrustum(gl, point);
+		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+		gl.glClearColor(0, 0, 0, 0);
+		
 		if(getState() == State.FADING_IN) {
 			if(point == null) {
 				fadeIn.apply(gl);
@@ -74,7 +64,22 @@ public class GameplayView extends View<GameplayView.State> {
 			}
 		}
 		else
-			glutil.clearColor(fadeIn.getFinalColor());
+			glutil.color(fadeIn.getFinalColor());
+		
+		// zoom
+		gl.glTranslated(-0.5, -0.5, zoom);
+		
+		// get viewport dimensions in tiles that have to be displayed
+		int widthInTiles = (int) Math.ceil(-2 * zoom * glutil.getViewportAspectRatio());
+		int heightInTiles = (int) Math.ceil(-2 * zoom);
+
+		double centerX = 0;
+		double centerY = 0;
+		
+		int minX = (int) Math.floor(centerX - (1 + widthInTiles / 2));
+		int maxX = (int) Math.ceil(centerY + (1 + widthInTiles / 2));
+		int minY = (int) Math.floor(centerX - (1 + heightInTiles / 2));
+		int maxY = (int) Math.ceil(centerY + (1 + heightInTiles / 2));
 
 		for(int i = minX; i <= maxX; ++i)
 			for(int j = minY; j <= maxY; ++j) {
@@ -90,7 +95,7 @@ public class GameplayView extends View<GameplayView.State> {
 				if(t.getEntity() != null)
 					entity.render(gl);
 				gl.glPopMatrix();
-			}
+			}/**/
 
 		if(getState() == State.NORMAL) {
 			gl.glLoadIdentity();

@@ -1,116 +1,166 @@
 package rpgeeze.gl;
 
-import java.awt.Color;
-
 import javax.media.opengl.GL;
 
-public abstract class GLObjectImpl implements Colorable {
+import rpgeeze.math.Scalar;
+import rpgeeze.math.Vector;
+import rpgeeze.util.Pair;
+
+public abstract class GLObjectImpl implements GLObject {
 	private double x, y, z;
-	private Color color;
+	private double preAngle, preX, preY, preZ;
+	private double postAngle, postX, postY, postZ;
 	private int glName = -1;
 	private boolean hasName = false;
-	private boolean visible = true;
 
 	public GLObjectImpl() {
-		this(0, 0, 0, null);
-	}
-
-	public GLObjectImpl(Color color) {
-		this(0, 0, 0, color);
+		this(0, 0, 0);
 	}
 
 	public GLObjectImpl(double x, double y, double z) {
-		this(x, y, z, null);
-	}	
-
-	public GLObjectImpl(double x, double y, double z, Color color) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.color = color;
+		setXYZ(x, y, z);
 	}
 
 	public final void render(GL gl) {
-		if(isVisible()) {
-			gl.glPushMatrix();
-			gl.glTranslated(x, y, z);
-			if(color != null)
-				gl.glColor4f(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f, color.getAlpha() / 255.0f);
-			if(hasName)
-				gl.glLoadName(glName);
-			doRender(gl);
-			gl.glPopMatrix();
-		}
+		gl.glPushMatrix();
+		GLUtil glutil = new GLUtil(gl);
+		gl.glRotated(preAngle, preX, preY, preZ);
+		glutil.translate(getXYZ());
+		gl.glRotated(postAngle, postX, postY, postZ);
+		if(hasName)
+			gl.glLoadName(glName);
+		doRender(gl);
+		gl.glPopMatrix();
 	}
 
 	protected abstract void doRender(GL gl);
 
-	public final Color getColor() {
-		return color;
-	}
-
-	public final void setColor(Color newColor) {
-		color = newColor;
-	}
-
-	public final int getGLName() {
+	public int getGLName() {
 		return glName;
 	}
 
-	public final void setGLName(int newGLName) {
+	public void setGLName(int newGLName) {
 		glName = newGLName;
 		hasName = true;
 	}
 
-	public final boolean hasGLName() {
+	public boolean hasGLName() {
 		return hasName;
 	}
 
-	public final void removeGLName() {
+	public void removeGLName() {
 		hasName = false;
 	}
 
-	public final double getX() {
+	public double getX() {
 		return x;
 	}
 
-	public final void setX(double newX) {
+	public void setX(double newX) {
 		x = newX;
 	}
 
-	public final double getY() {
+	public double getY() {
 		return y;
 	}
 
-	public final void setY(double newY) {
+	public void setY(double newY) {
 		y = newY;
 	}
 
-	public final double getZ() {
+	public double getZ() {
 		return z;
 	}
 
-	public final void setZ(double newZ) {
+	public void setZ(double newZ) {
 		z = newZ;
 	}
 
-	public final void setXY(double newX, double newY) {
+	public void setXY(double newX, double newY) {
 		setX(newX);
 		setY(newY);
 	}
 
-	public final void setXYZ(double newX, double newY, double newZ) {
+	public void setXYZ(double newX, double newY, double newZ) {
 		setX(newX);
 		setY(newY);
 		setZ(newZ);
 	}
 
-	public final boolean isVisible() {
-		return visible;
+	public Vector getXYZ() {
+		return new Vector() {
+			public double getX() {
+				return GLObjectImpl.this.getX();
+			}
+
+			public double getY() {
+				return GLObjectImpl.this.getY();
+			}
+
+			public double getZ() {
+				return GLObjectImpl.this.getZ();
+			}
+		};
 	}
 
-	public final void setVisible(boolean vis) {
-		visible = vis;
+	public Pair<Scalar, Vector> getPostTranslateRotation() {
+		return new Pair<Scalar, Vector>(
+				new Scalar() {
+					public double getValue() {
+						return postAngle;
+					}
+				},
+				new Vector() {
+					public double getX() {
+						return postX;
+					}
+
+					public double getY() {
+						return postY;
+					}
+
+					public double getZ() {
+						return postZ;
+					}
+				});
+	}
+
+	public Pair<Scalar, Vector> getPreTranslateRotation() {
+		return new Pair<Scalar, Vector>(
+				new Scalar() {
+					public double getValue() {
+						return preAngle;
+					}
+				},
+				new Vector() {
+					public double getX() {
+						return preX;
+					}
+
+					public double getY() {
+						return preY;
+					}
+
+					public double getZ() {
+						return preZ;
+					}
+				});
+	}
+
+	public void setPostTranslationRotation(double angle, double x, double y,
+			double z) {
+		postAngle = angle;
+		postX = x;
+		postY = y;
+		postZ = z;
+	}
+
+	public void setPreTranslationRotation(double angle, double x, double y,
+			double z) {
+		preAngle = angle;
+		preX = x;
+		preY = y;
+		preZ = z;
 	}
 
 	public GLObjectImpl clone() {

@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import javax.media.opengl.GL;
 
-public class ClearColorChange implements Effect {
+public class BrushColorChange implements Effect {
 	private long duration;
 	private long startTime;
 	private boolean started;
@@ -14,7 +14,7 @@ public class ClearColorChange implements Effect {
 	private final Color end;
 
 	/**
-	 * Constructs an effect which changes the OpenGL clear color over the
+	 * Constructs an effect which changes the OpenGL brush color over the
 	 * specified number of seconds from the moment it's first applied.
 	 * 
 	 * @param begin
@@ -24,7 +24,7 @@ public class ClearColorChange implements Effect {
 	 * @param seconds
 	 *            the duration of the pause in seconds
 	 */
-	public ClearColorChange(Color begin, Color end, double seconds) {
+	public BrushColorChange(Color begin, Color end, double seconds) {
 		duration = (long) (seconds * 1e9);
 		started = false;
 		done = false;
@@ -67,8 +67,8 @@ public class ClearColorChange implements Effect {
 			double r = begin.getRed() * beginFactor + end.getRed() * endFactor;
 			double g = begin.getGreen() * beginFactor + end.getGreen() 	* endFactor;
 			double b = begin.getBlue() * beginFactor + end.getBlue() * endFactor;
-			double a = begin.getAlpha() * beginFactor + end.getAlpha() * endFactor;
-			gl.glClearColor((float) r / 255, (float) g / 255, (float) b / 255, (float) a / 255);
+			double a = begin.getAlpha() * beginFactor + end.getAlpha() 	* endFactor;
+			gl.glColor4f((float) r / 255, (float) g / 255, (float) b / 255, (float) a / 255);
 		}
 	}
 

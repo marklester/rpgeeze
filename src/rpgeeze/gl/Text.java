@@ -9,6 +9,7 @@ import com.sun.opengl.util.j2d.TextRenderer.DefaultRenderDelegate;
 import com.sun.opengl.util.j2d.TextRenderer.RenderDelegate;
 
 public class Text extends GLObjectImpl {
+	private Color color;
 	private String text;
 	private TextRenderer renderer;
 	private float scaleFactor;
@@ -20,10 +21,10 @@ public class Text extends GLObjectImpl {
 	}
 	
 	public Text(String text, Color color, TextRenderer renderer, float scaleFactor) {
-		super(color);
 		this.text = text;
 		this.renderer = renderer;
 		this.scaleFactor = scaleFactor;
+		setColor(color);
 	}
 	
 	public String getText() {
@@ -53,5 +54,13 @@ public class Text extends GLObjectImpl {
 	
 	public Text clone() {
 		return (Text) super.clone();
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color newColor) {
+		color = newColor;
 	}
 }

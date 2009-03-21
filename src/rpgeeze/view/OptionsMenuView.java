@@ -90,12 +90,12 @@ public final class OptionsMenuView extends HighlightableView<OptionsMenuView.Sta
 	 * Renders the options menu screen.
 	 */
 	public void render(GL gl, Point point) {
-		boolean pick = point != null;
-		setup(gl, point);
+		GLUtil glutil = new GLUtil(gl);
+		glutil.standardFrustum(gl, point);
+		glutil.clearColor(BACKGROUND_COLOR);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		
-		GLUtil glutil = new GLUtil(gl);
-		glutil.clearColor(BACKGROUND_COLOR);
+		boolean pick = point != null;
 		
 		glutil.color(PLAIN);
 		gl.glTranslated(0, LOGO_Y, 0);

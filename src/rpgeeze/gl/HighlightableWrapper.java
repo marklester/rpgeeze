@@ -3,27 +3,51 @@ package rpgeeze.gl;
 import java.awt.Color;
 import javax.media.opengl.GL;
 
+import rpgeeze.math.Scalar;
+import rpgeeze.math.Vector;
+import rpgeeze.util.Pair;
+
 public class HighlightableWrapper implements Highlightable {
+	public Vector getXYZ() {
+		return object.getXYZ();
+	}
+
 	private final Color plain;
 	private final Color highlighted;
-	private Colorable object;
+	private GLObject object;
+
+	private boolean hi = false;
 	
-	public HighlightableWrapper(Colorable object, Color plain, Color highlighted) {
+	public HighlightableWrapper(GLObject object, Color plain, Color highlighted) {
 		this.plain = plain;
 		this.highlighted = highlighted;
 		this.object = object.clone();
 	}
 	
+	public Pair<Scalar, Vector> getPostTranslateRotation() {
+		return object.getPostTranslateRotation();
+	}
+
+	public Pair<Scalar, Vector> getPreTranslateRotation() {
+		return object.getPreTranslateRotation();
+	}
+
+	public void setPostTranslationRotation(double angle, double x, double y,
+			double z) {
+		object.setPostTranslationRotation(angle, x, y, z);
+	}
+
+	public void setPreTranslationRotation(double angle, double x, double y,
+			double z) {
+		object.setPreTranslationRotation(angle, x, y, z);
+	}
+
 	public void highlight() {
-		object.setColor(highlighted);
+		hi = true;
 	}
 
 	public void unhighlight() {
-		object.setColor(plain);
-	}
-	
-	public Color getColor() {
-		return object.getColor();
+		hi = false;
 	}
 
 	public int getGLName() {
@@ -47,11 +71,9 @@ public class HighlightableWrapper implements Highlightable {
 	}
 
 	public void render(GL gl) {
+		GLUtil glutil = new GLUtil(gl);
+		glutil.color(hi ? highlighted : plain);
 		object.render(gl);
-	}
-
-	public void setColor(Color newColor) {
-		object.setColor(newColor);
 	}
 
 	public void setGLName(int newName) {
@@ -80,15 +102,6 @@ public class HighlightableWrapper implements Highlightable {
 
 	public void setZ(double newZ) {
 		object.setZ(newZ);
-	}
-
-	public boolean isVisible() {
-		return object.isVisible();
-	}
-
-	@Override
-	public void setVisible(boolean vis) {
-		object.setVisible(vis);
 	}
 	
 	public HighlightableWrapper clone() {

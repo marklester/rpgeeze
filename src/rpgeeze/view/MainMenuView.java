@@ -101,10 +101,9 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 	 * Renders the main menu screen.
 	 */
 	public void render(GL gl, Point point) {
-		boolean pick = point != null;
-		setup(gl, point);
-		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		GLUtil glutil = new GLUtil(gl);
+		glutil.standardFrustum(gl, point);
+		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		
 		if(getState() == State.FADING_IN) {
 			if(point == null) {
@@ -116,6 +115,7 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 		else
 			glutil.clearColor(fadeIn.getFinalColor());
 		
+		boolean pick = point != null;
 		
 		glutil.color(PLAIN);
 		gl.glTranslated(0, LOGO_Y, 0);
