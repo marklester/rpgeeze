@@ -1,6 +1,9 @@
 package rpgeeze.controller;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
+
+import javax.media.opengl.glu.GLU;
 
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
@@ -19,8 +22,9 @@ public class OptionsMenuController extends HighlightableViewController<OptionsMe
 	 * Executes the action corresponding to the clicked button, if any.
 	 */
 	public void mouseClicked(MouseEvent e) {
+		Point p = e.getPoint();
 		if(e.getButton() == MouseEvent.BUTTON1) {
-			Iterator<Integer> iter = getView().pick(e.getPoint());
+			Iterator<Integer> iter = getView().pickAll(GLU.getCurrentGL(), p);
 			for(iter.reset(); !iter.isDone(); iter.advance()) {
 				OptionsMenuView.Button button = OptionsMenuView.Button.fromGLName(iter.current());
 				if(button != null)

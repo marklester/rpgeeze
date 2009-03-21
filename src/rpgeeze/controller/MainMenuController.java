@@ -1,5 +1,6 @@
 package rpgeeze.controller;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 
 import rpgeeze.GameManager;
@@ -8,6 +9,8 @@ import rpgeeze.log.LogManager;
 import rpgeeze.view.CreditsView;
 import rpgeeze.view.MainMenuView;
 import rpgeeze.view.CharacterCreationView;
+
+import javax.media.opengl.glu.GLU;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import rpgeeze.view.OptionsMenuView;
@@ -24,8 +27,9 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 	 * Executes the action corresponding to the clicked button, if any.
 	 */
 	public void mouseClicked(MouseEvent e) {
+		Point p = e.getPoint();
 		if(e.getButton() == MouseEvent.BUTTON1) {
-			Iterator<Integer> iter = getView().pick(e.getPoint());
+			Iterator<Integer> iter = getView().pickAll(GLU.getCurrentGL(), p);
 			for(iter.reset(); !iter.isDone(); iter.advance()) {
 				MainMenuView.Button button = MainMenuView.Button.fromGLName(iter.current());
 				if(button != null)

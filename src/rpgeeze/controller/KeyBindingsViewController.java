@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 
+import javax.media.opengl.glu.GLU;
+
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.view.KeyBindingsView;
@@ -33,7 +35,7 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 	public void mouseClicked(MouseEvent e) {
 		if(e.getButton() == MouseEvent.BUTTON1) {
 			p = e.getPoint();
-			iter = getView().pick(e.getPoint());
+			iter = getView().pickAll(GLU.getCurrentGL(), p);
 			for(iter.reset(); !iter.isDone(); iter.advance()) {
 				button = KeyBindingsView.Button.fromGLName(iter.current());
 				
@@ -177,7 +179,7 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 	
 	private void highlight(Point p) {
 		getView().unhighlight();
-		Iterator<Integer> iter = getView().pick(p);
+		Iterator<Integer> iter = getView().pickAll(GLU.getCurrentGL(), p);
 		iter.reset();
 		for(iter.reset(); !iter.isDone(); iter.advance())
 			getView().highlight(iter.current());

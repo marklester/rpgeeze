@@ -70,17 +70,6 @@ public abstract class View<T extends View.State> {
 	}
 	
 	/**
-	 * OpenGL "picking" with a (small) default buffer size and the current context's OpenGL interface. An error in this
-	 * method most likely means that a large buffer size is necessary.
-	 * 
-	 * @param pickPoint point around which to set up the picking matrix
-	 * @return an iterator over the name constants that registered as hits at the specified point
-	 */
-	public Iterator<Integer> pick(Point pickPoint) {
-		return pick(GLU.getCurrentGL(), pickPoint);
-	}
-
-	/**
 	 * Friendly wrapper for OpenGL "picking" of rendered elements. 
 	 * 
 	 * @param the OpenGL interface to use for picking
@@ -88,7 +77,7 @@ public abstract class View<T extends View.State> {
 	 * @param bufSize size to use for the selection buffer
 	 * @return an iterator over the name constants that registered as hits at the specified point
 	 */
-	public Iterator<Integer> pick(GL gl, Point pickPoint) {
+	public Iterator<Integer> pickAll(GL gl, Point pickPoint) {
 		IntBuffer selectBuffer = BufferUtil.newIntBuffer(bufferSize);
 		
 		gl.glSelectBuffer(bufferSize, selectBuffer);

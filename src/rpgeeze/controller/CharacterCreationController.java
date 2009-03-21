@@ -3,6 +3,8 @@ package rpgeeze.controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import javax.media.opengl.glu.GLU;
+
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.view.GameplayView;
@@ -47,7 +49,7 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 	 */
 	public void mouseClicked(MouseEvent e) {
 		if(e.getButton() == MouseEvent.BUTTON1) {
-			Iterator<Integer> iter = getView().pick(e.getPoint());
+			Iterator<Integer> iter = getView().pickAll(GLU.getCurrentGL(), e.getPoint());
 			for(iter.reset(); !iter.isDone(); iter.advance()) {
 				CharacterCreationView.Button button = CharacterCreationView.Button.fromGLName(iter.current());
 				if(button != null)
