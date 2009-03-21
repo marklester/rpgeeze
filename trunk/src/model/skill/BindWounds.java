@@ -1,6 +1,5 @@
 package model.skill;
 
-import model.skill.visitor.Visitor;
 
 
 public class BindWounds extends Skill implements UsableSkill {
