@@ -2,6 +2,8 @@ package rpgeeze.gl.geom;
 
 import javax.media.opengl.GL;
 
+import rpgeeze.gl.GLUtil;
+
 import com.sun.opengl.util.texture.Texture;
 
 public class TexturedRectangle extends Rectangle {
@@ -18,6 +20,10 @@ public class TexturedRectangle extends Rectangle {
 	}
 
 	public void doRender(GL gl) {
+		if(getColor() != null) {
+			GLUtil glutil = new GLUtil(gl);
+			glutil.color(getColor());
+		}
 		gl.glEnable(GL.GL_TEXTURE_2D);
 		texture.bind();
 		gl.glBegin(GL.GL_QUADS);

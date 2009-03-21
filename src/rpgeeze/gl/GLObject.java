@@ -8,11 +8,6 @@ import rpgeeze.util.Pair;
 public interface GLObject extends Cloneable {
 	public void render(GL gl);
 	
-	public int getGLName();
-	public void setGLName(int newName);
-	public boolean hasGLName();
-	public void removeGLName();
-	
 	public double getX();
 	public void setX(double newX);
 	public double getY();

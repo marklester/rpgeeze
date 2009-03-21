@@ -38,9 +38,9 @@ public abstract class HighlightableViewController<T extends HighlightableView<?>
 		getView().unhighlight();
 	}
 	
-	private void highlight(Point p) {
+	protected void highlight(Point p) {
 		getView().unhighlight();
-		int glName = getView().pickClosest(GLU.getCurrentGL(), p);
-		getView().highlight(glName);
+		String name = getView().pickClosest(GLU.getCurrentGL(), p);
+		getView().highlight(name);
 	}
 }

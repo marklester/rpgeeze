@@ -121,4 +121,8 @@ public class GameplayView extends View<GameplayView.State> {
 		else
 			changeState(State.NORMAL);
 	}
+
+	protected String getNameForGLName(int glName) {
+		return null;
+	}
 }

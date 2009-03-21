@@ -33,6 +33,13 @@ public class Scene {
 			add(obj, scene.getNameForObject(obj));
 	}
 
+	public String getNameForGLName(int glName) {
+		String ret = null;
+		if(glName > 0 && glName <= objects.size())
+			return objName.get(objects.get(glName - 1));
+		return ret;
+	}
+	
 	public String getNameForObject(GLObject object) {
 		return objName.get(object);
 	}

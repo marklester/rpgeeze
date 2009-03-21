@@ -12,9 +12,11 @@ import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
 import rpgeeze.GameProperties;
+import rpgeeze.gl.ButtonSet;
 import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
+import rpgeeze.gl.Scene;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.gl.geom.TexturedRectangle;
@@ -24,65 +26,15 @@ import rpgeeze.util.ResourceLoader;
 
 /**
  * The character creation screen.
+ * 
  */
 public class CharacterCreationView extends HighlightableView<CharacterCreationView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
-	
-	public enum Button {
-		OK(1) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("OK", -10, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		CANCEL(2) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Cancel", 0, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		LEFT_ARROW(3) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new StaticVector(0, 0), new StaticVector(0, 8), new StaticVector(-2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED); 
-			}
-		},
-		RIGHT_ARROW(4) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new StaticVector(0, 0), new StaticVector(0, 8), new StaticVector(2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED);
-			}
-		};
-		
-		private final int glName;
-		private Highlightable button;
-		
-		private Button(int glName) {
-			this.glName = glName;
-		}
-		
-		private static TextRectangle getRectangle(String text, double x, double y) {
-			TextRectangle rect = new TextRectangle(new Text(text, renderer, 0.05f), 10, 3);
-			rect.alignText(0.5, 0.5);
-			rect.setXY(x, y);
-			if(!text.equals("OK"))
-				rect.getText().setY(getRectangle("OK", 0, 0).getText().getY());
-			return rect;
-		}
-		
-		public Highlightable getButton() {
-			if(button == null) {
-				button = doGetButton();
-				button.setGLName(glName);
-			}
-			return button;
-		}
-		
-		public abstract Highlightable doGetButton();
-		
-		public static Button fromGLName(int glName) {
-			for(Button button: values())
-				if(button.glName == glName)
-					return button;
-			return null;
-		}
-	}	
+
+	private Scene pickables;
+	private ButtonSet buttons;
+	private Highlightable leftArrow;
+	private Highlightable rightArrow;	
 	
 	public enum State implements View.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
 	
@@ -102,11 +54,20 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	
 	public CharacterCreationView(GameManager manager) {
 		super(manager);
-//		for(TexturedRectangle rect: occupationImage)
-//			rect.setColor(MainMenuView.PLAIN);
-//			rect.setVisible(false);
-		for(Button button: Button.values())
-			putHighlightable(button.getButton());
+		
+		pickables = new Scene();
+		TextRectangle prototype = new TextRectangle(new Text("X", renderer, 0.05f), 10, 3);
+		prototype.setXY(-10, -3);
+		prototype.alignText(0.5, 0.5);
+		buttons = new ButtonSet(prototype, MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED, 3, 0, 0, "OK", "Cancel");
+		buttons.addTo(pickables);
+		
+		leftArrow = new HighlightableWrapper(new Triangle(new StaticVector(0, 0), new StaticVector(0, 8), new StaticVector(-2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+		rightArrow = new HighlightableWrapper(new Triangle(new StaticVector(0, 0), new StaticVector(0, 8), new StaticVector(2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+		
+		pickables.add(leftArrow, "Left Arrow");
+		pickables.add(rightArrow, "Right Arrow");
+		
 		changeState(State.NEW);
 	}
 
@@ -128,16 +89,11 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 			gl.glLoadIdentity();
 			gl.glTranslated(0, -9.5, -14.5);
 			
-			Highlightable leftArrow = Button.LEFT_ARROW.getButton();
 			leftArrow.setXY(-14.5 * glutil.getViewportAspectRatio() + 3, 8);
-			putHighlightable(leftArrow);
-
-			Highlightable rightArrow = Button.RIGHT_ARROW.getButton();
 			rightArrow.setXY(14.5 * glutil.getViewportAspectRatio() - 3, 8);
-			putHighlightable(rightArrow);
-			
-			renderHighlightables(gl);
-			gl.glLoadName(-1);
+	
+//			gl.glTranslated(-15, -3, 0);
+			pickables.render(gl);
 			
 			// silly K's...
 			String title = (characterName + " the " + occupation[occP]).replaceAll("k", "K");
@@ -172,9 +128,7 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	}
 	
 	private void setOccupation(int newOccupation) {
-		//occupationImage[occP].setVisible(false);
 		occP = newOccupation;
-		//occupationImage[newOccupation].setVisible(true);
 	}
 	
 	public void randomName() {
@@ -200,12 +154,12 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	}
 	
 	public void changeFrom() {
-		super.changeFrom();
+		unhighlight();
 		changeState(State.HIDDEN);
 	}
 	
 	public void changeTo() {
-		super.changeTo();
+		unhighlight();
 		Random rnd = new Random();
 		setOccupation(rnd.nextInt(occupation.length));
 		randomName();
@@ -218,5 +172,25 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	public void startZoom() {
 		if(getState() != State.ZOOMING && getState() != State.ZOOMED)
 			changeState(State.ZOOMING);
+	}
+
+	public void highlight(String name) {
+		buttons.highlight(name);
+		if(name != null) {
+			if(name.equals("Left Arrow"))
+				leftArrow.highlight();
+			else if(name.equals("Right Arrow"))
+				rightArrow.highlight();
+		}
+	}
+
+	public void unhighlight() {
+		buttons.unhighlight();
+		leftArrow.unhighlight();
+		rightArrow.unhighlight();
+	}
+
+	protected String getNameForGLName(int glName) {
+		return pickables.getNameForGLName(glName);
 	}
 }

@@ -10,9 +10,9 @@ import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
 import rpgeeze.GameProperties;
+import rpgeeze.gl.ButtonSet;
 import rpgeeze.gl.GLUtil;
-import rpgeeze.gl.Highlightable;
-import rpgeeze.gl.HighlightableWrapper;
+import rpgeeze.gl.Scene;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.effect.ClearColorChange;
 import rpgeeze.gl.geom.TextRectangle;
@@ -27,12 +27,9 @@ import static rpgeeze.RunGame.LOGO_SIZE;
 /**
  * The main menu screen.
  */
-public final class MainMenuView extends HighlightableView<MainMenuView.State> {
+public class MainMenuView extends HighlightableView<MainMenuView.State> {
 	public static final Color PLAIN = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 	public static final Color HIGHLIGHTED = new Color(1.0f, 1.0f, 1.0f, 0.25f);
-
-	public final static float MIN_INTENSITY = 0.0f;
-	public final static float MAX_INTENSITY = 0.75f;
 
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	
@@ -40,48 +37,10 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 
 	private ClearColorChange fadeIn;
 	
-	public enum Button {
-		NEW_GAME("New Game", 1, -10, 0),
-		LOAD_GAME("Load Game", 2, 0, 0),
-		OPTIONS("Options", 3, 10, 0),
-		HELP("Help", 4, -10, -3),
-		CREDITS("Credits", 5, 0, -3),
-		QUIT("Quit", 6, 10, -3);
-
-		private final String text;
-		private final int glName;
-		private final double x, y;
-
-		private Button(String text, int glName, double x, double y) {
-			this.text = text;
-			this.glName = glName;
-			this.x = x;
-			this.y = y;
-		}
-
-		private TextRectangle getRectangle() {
-			TextRectangle rect = new TextRectangle(new Text(text, renderer, 0.05f), 10, 3);
-			rect.setGLName(glName);
-			rect.alignText(0.5, 0.5);
-			rect.setXY(x, y);
-			if(this != NEW_GAME)
-				rect.getText().setY(NEW_GAME.getRectangle().getText().getY());
-			return rect;
-		}
-		
-		public Highlightable getButton() {
-			return new HighlightableWrapper(getRectangle(), PLAIN, HIGHLIGHTED);
-		}
-		
-		public static Button fromGLName(int glName) {
-			for(Button button: values())
-				if(button.glName == glName)
-					return button;
-			return null;
-		}
-	}
-
 	public enum State implements View.State { NEW, FADING_IN, NORMAL, HIDDEN; }
+	
+	private Scene pickables;
+	private ButtonSet buttons;
 	
 	public MainMenuView(GameManager manager) {
 		super(manager);
@@ -90,13 +49,26 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 	
 		logo = new TextureOverlay(loader.getTexture(prop.getProperty("img.logo")));
 		
-		for(Button button: Button.values())
-			putHighlightable(button.getButton());
-		changeState(State.NEW);
-		
 		fadeIn = new ClearColorChange(Color.BLACK, BACKGROUND_COLOR, 1);
+		
+		pickables = new Scene();
+		TextRectangle prototype = new TextRectangle(new Text("X", renderer, 0.05f), 10, 3);
+		prototype.setXYZ(-15, -12.5, -14.5);
+		prototype.alignText(0.5, 0.5);
+		buttons = new ButtonSet(prototype, PLAIN, HIGHLIGHTED, 3, 0, 0, "Help", "Credits", "Quit", "New Game", "Load Game", "Options");
+		buttons.addTo(pickables);
+		
+		changeState(State.NEW);
 	}
 
+	public void unhighlight() {
+		buttons.unhighlight();
+	}
+	
+	public void highlight(String name) {
+		buttons.highlight(name);
+	}
+	
 	/**
 	 * Renders the main menu screen.
 	 */
@@ -122,22 +94,25 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 		logo.render(gl, LOGO_SIZE, LOGO_SIZE, LOGO_Z, LOGO_Z, pick);
 		gl.glTranslated(0, -LOGO_Y, 0);
 		
-		gl.glTranslated(-5, -9.5, -14.5);
-		renderHighlightables(gl);
+		pickables.render(gl);
 		
 		gl.glFlush();
 	}
 
 	public void changeFrom() {
-		super.changeFrom();
+		unhighlight();
 		changeState(State.HIDDEN);
 	}
 	
 	public void changeTo() {
-		super.changeTo();
+		unhighlight();
 		if(getState() == State.NEW)
 			changeState(State.FADING_IN);
 		else
 			changeState(State.NORMAL);		
+	}
+
+	protected String getNameForGLName(int glName) {
+		return pickables.getNameForGLName(glName);
 	}
 }

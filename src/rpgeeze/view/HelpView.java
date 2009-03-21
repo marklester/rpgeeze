@@ -8,7 +8,6 @@ import javax.media.opengl.GL;
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
-import rpgeeze.GameProperties;
 import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Text;
 import rpgeeze.util.ResourceLoader;
@@ -127,6 +126,10 @@ public class HelpView extends View<HelpView.State> {
 	
 	public void changeTo() {
 		changeState(State.NORMAL);
+	}
+
+	protected String getNameForGLName(int glName) {
+		return null;
 	}
 }
 
