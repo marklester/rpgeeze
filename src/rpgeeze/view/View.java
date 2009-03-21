@@ -10,6 +10,7 @@ import rpgeeze.GameManager;
 import rpgeeze.log.LogManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.dp.Observer;
+import rpgeeze.gl.GLUtil;
 
 import com.sun.opengl.util.BufferUtil;
 
@@ -30,24 +31,7 @@ public abstract class View<T extends View.State> {
 	private T state;
 	private GameManager manager;
 
-	private class Hit implements Comparable<Hit> {
-		private final int glName;
-		private final Float z;
-		
-		public Hit(int glName, int z) {
-			this.glName = glName;
-			this.z = (float) z / 0x7fffffff;
-		}
-		
-		public int getGLName() {
-			return glName;
-		}
-		
-		public int compareTo(Hit h) {
-			return z.compareTo(h.z);
-		}
-	}
-	
+	private final int bufferSize;
 	
 	/**
 	 * Label for types which represent a state.
@@ -57,12 +41,23 @@ public abstract class View<T extends View.State> {
 	}
 	
 	/**
-	 * Constructs a view that answers to the specified game manager.
+	 * Constructs a view that answers to the specified game manager and uses the specified buffer size for OpenGL selecting.
+	 * 
+	 * @param manager the game manager
+	 * @param bufferSize the selection buffer size
+	 */
+	public View(GameManager manager, int bufferSize) {
+		this.manager = manager;
+		this.bufferSize = bufferSize;
+	}
+
+	/**
+	 * Constructs a view that answers to the specified game manager and uses a default buffer size for OpenGL selecting.
 	 * 
 	 * @param manager the game manager
 	 */
 	public View(GameManager manager) {
-		this.manager = manager;
+		this(manager, 16);
 	}
 	
 	/**
@@ -82,18 +77,7 @@ public abstract class View<T extends View.State> {
 	 * @return an iterator over the name constants that registered as hits at the specified point
 	 */
 	public Iterator<Integer> pick(Point pickPoint) {
-		return pick(GLU.getCurrentGL(), pickPoint, 16);
-	}
-	
-	/**
-	 * OpenGL "picking" with a (small) default buffer size and the specified OpenGL interface. An error in this
-	 * method most likely means that a large buffer size is necessary.
-	 * 
-	 * @param pickPoint point around which to set up the picking matrix
-	 * @return an iterator over the name constants that registered as hits at the specified point
-	 */
-	public Iterator<Integer> pick(GL gl, Point pickPoint) {
-		return pick(gl, pickPoint, 16);
+		return pick(GLU.getCurrentGL(), pickPoint);
 	}
 
 	/**
@@ -104,11 +88,10 @@ public abstract class View<T extends View.State> {
 	 * @param bufSize size to use for the selection buffer
 	 * @return an iterator over the name constants that registered as hits at the specified point
 	 */
-	public Iterator<Integer> pick(GL gl, Point pickPoint, int bufSize) {
-		final int[] selectBuf = new int[bufSize];
-		IntBuffer selectBuffer = BufferUtil.newIntBuffer(bufSize);
-
-		gl.glSelectBuffer(bufSize, selectBuffer);
+	public Iterator<Integer> pick(GL gl, Point pickPoint) {
+		IntBuffer selectBuffer = BufferUtil.newIntBuffer(bufferSize);
+		
+		gl.glSelectBuffer(bufferSize, selectBuffer);
 		gl.glRenderMode(GL.GL_SELECT);
 		
 		gl.glInitNames();
@@ -118,42 +101,33 @@ public abstract class View<T extends View.State> {
 
 		final int hits = gl.glRenderMode(GL.GL_RENDER);
 		
-		selectBuffer.get(selectBuf);
-		
-		LogManager.getInstance().log(java.util.Arrays.toString(selectBuf), "");
-		
-		
+		GLUtil glutil = new GLUtil(gl);
+		final Iterator<GLUtil.Hit> iter = glutil.hitsFromBuffer(selectBuffer, hits);
 		
 		return new Iterator<Integer>() {
-			private int hit;
-			private int name;
-			private int ptr;
-			
 			public void advance() {
-				++name;
-				if(name == selectBuf[ptr]) {
-					++hit;
-					ptr += 3 + selectBuf[ptr];
-					name = 0;
-				}
+				iter.advance();
 			}
 
 			public Integer current() {
-				return selectBuf[ptr + 3 + name];
+				return iter.current().getGLName();
 			}
 
 			public boolean isDone() {
-				return hit == hits;
+				return iter.isDone();
 			}
 
 			public void reset() {
-				hit = 0;
-				name = 0;
-				ptr = 0;
+				iter.reset();
 			}
 		};
 	}
 
+	
+	protected String mapGLNameToString(int glName) {
+		return null;
+	}
+	
 	/**
 	 * Renders this view in the current OpenGL context. If the argument is not
 	 * null, sets up a pick matrix around the specified location, for use in

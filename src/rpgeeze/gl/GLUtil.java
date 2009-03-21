@@ -3,11 +3,17 @@ package rpgeeze.gl;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 
+import rpgeeze.dp.Iterator;
 import rpgeeze.math.Vector;
+import rpgeeze.util.ListIterator;
 
 /**
  * Utility class for accomplishing common OpenGL tasks not provided in the
@@ -16,6 +22,28 @@ import rpgeeze.math.Vector;
  */
 public class GLUtil {
 	private final GL gl; 
+
+	public class Hit implements Comparable<Hit> {
+		private final int glName;
+		private final Float depth;
+		
+		public Hit(int glName, int depth) {
+			this.glName = glName;
+			this.depth = (float) depth / 0x7fffffff;
+		}
+		
+		public int getGLName() {
+			return glName;
+		}
+		
+		public float getDepth() {
+			return depth;
+		}
+		
+		public int compareTo(Hit h) {
+			return depth.compareTo(h.depth);
+		}
+	}
 	
 	/**
 	 * Constructs a <code>GLUtil</code> which acts on the current OpenGL
@@ -201,5 +229,49 @@ public class GLUtil {
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 
 		gl.glLoadIdentity();
+	}
+	
+	public Iterator<Hit> hitsFromBuffer(IntBuffer buffer, int hits) {
+		int[] buf = new int[buffer.capacity()];
+		buffer.get(buf);
+		return hitsFromBuffer(buf, hits);
+	}
+	
+	public Iterator<Hit> hitsFromBuffer(final int[] buffer, final int hits) {
+		Iterator<Hit> unsortedIter = new Iterator<Hit>() {
+			private int hit;
+			private int name;
+			private int ptr;
+			
+			public void advance() {
+				++name;
+				if(name == buffer[ptr]) {
+					++hit;
+					ptr += 3 + buffer[ptr];
+					name = 0;
+				}
+			}
+
+			public Hit current() {
+				int glName = buffer[ptr + 3 + name];
+				int depth = buffer[ptr + 2 + name];
+				return new Hit(glName, depth);
+			}
+
+			public boolean isDone() {
+				return hit == hits;
+			}
+
+			public void reset() {
+				hit = 0;
+				name = 0;
+				ptr = 0;
+			}
+		};
+		List<Hit> hitList = new ArrayList<Hit>();
+		for(unsortedIter.reset(); !unsortedIter.isDone(); unsortedIter.advance())
+			hitList.add(unsortedIter.current());
+		Collections.sort(hitList);
+		return new ListIterator<Hit>(hitList);
 	}
 }
