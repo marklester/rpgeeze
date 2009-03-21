@@ -3,7 +3,6 @@ package rpgeeze.controller;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
 
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
@@ -22,16 +21,25 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 	 * Executes the action corresponding to the clicked button, if any.
 	 */
 	Iterator<Integer> iter;
+	Integer clicked[] = new Integer[1];
+	boolean firstTime = true;
+	KeyBindingsView.Button button;
 	Point p;
+	int compare = 0;
+	
+	
 	public void mouseClicked(MouseEvent e) {
-		
 		if(e.getButton() == MouseEvent.BUTTON1) {
-			getView().unhighlight();
+			//getView().unhighlight();
 			p = e.getPoint();
 			iter = getView().pick(e.getPoint());
 			for(iter.reset(); !iter.isDone(); iter.advance()) {
-				KeyBindingsView.Button button = KeyBindingsView.Button.fromGLName(iter.current());
-				if(button != null)
+				button = KeyBindingsView.Button.fromGLName(iter.current());
+				
+				if(button != null){
+					
+					if(compare != button.getGLName() || (compare == button.getGLName() && !button.getHighlighted())){
+					
 					switch(	button) {
 					case OK:
 						getManager().popState();
@@ -46,55 +54,77 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 						highlight(e.getPoint());
 						break;
 					case S_ARROW:
+						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;	
 					case E_ARROW:
+						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;
 					case W_ARROW:
+						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;
 					case NE_ARROW:
+						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;
 					case NW_ARROW:
+						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;
 					case SE_ARROW:
+						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;
 					case SW_ARROW:
+						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;
 					case SAVE_GAME:
+						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;
 					case LOAD_GAME:
+						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;
 					case NEW_GAME:
+						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;
 					case INVENTORY_VIEW:
+						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;
 					case STATS_VIEW:
+						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;
 					case SKILLS_VIEW:
+						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;
 					}
+					}
+					else{
+						button.setHighlighted(false);
+						getView().unhighlight();
+					}
+				}
 			}
-		}
+			}	
+		compare = button.getGLName();
 	}
+	
+	
 	
 	public void keyPressed(KeyEvent e) {
 		if(e.getID() == KeyEvent.KEY_PRESSED) {
 			for(iter.reset(); !iter.isDone(); iter.advance()) {
 				KeyBindingsView.Button button = KeyBindingsView.Button.fromGLName(iter.current());
 				char c = e.getKeyChar();
-				if(button != null && (c == ' ' || Character.isLetter(c) || Character.isDigit(c)))
+				if(button != null && (c == ' ' || Character.isLetter(c) || Character.isDigit(c)) && button.getHighlighted())
 					switch(	button) {
 					case N_ARROW:
 						getView().setNorthCommand(c);
@@ -142,6 +172,73 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 					}
 			}
 		}
+	
+	}
+	
+	public void mouseEntered(MouseEvent e) {
+			p = e.getPoint();
+			iter = getView().pick(e.getPoint());
+			for(iter.reset(); !iter.isDone(); iter.advance()) {
+				KeyBindingsView.Button button = KeyBindingsView.Button.fromGLName(iter.current());
+				if(button != null)
+					switch(	button) {
+					case OK:
+						highlight(e.getPoint());
+						break;
+					case CANCEL:
+						highlight(e.getPoint());
+						break;
+					case DEFAULTS:
+						highlight(e.getPoint());
+						break;
+					}
+			}
+	}
+		
+	
+
+	public void mouseMoved(MouseEvent e) {
+		p = e.getPoint();
+		iter = getView().pick(e.getPoint());
+		for(iter.reset(); !iter.isDone(); iter.advance()) {
+			KeyBindingsView.Button button = KeyBindingsView.Button.fromGLName(iter.current());
+			if(button != null)
+				switch(	button) {
+				case OK:
+					highlight(e.getPoint());
+					break;
+				case CANCEL:
+					highlight(e.getPoint());
+					break;
+				case DEFAULTS:
+					highlight(e.getPoint());
+					break;
+				}
+		}
+		
+	}
+
+	public void mouseExited(MouseEvent e) {
+			p = e.getPoint();
+			iter = getView().pick(e.getPoint());
+			for(iter.reset(); !iter.isDone(); iter.advance()) {
+				KeyBindingsView.Button button = KeyBindingsView.Button.fromGLName(iter.current());
+				if(button != null)
+					switch(	button) {
+					case OK:
+						getView().unhighlight();
+						break;
+					case CANCEL:
+						getView().unhighlight();
+						break;
+					case DEFAULTS:
+						getView().unhighlight();
+						break;
+					default:
+						getView().unhighlight();
+						break;
+					}
+			}
 	}
 	
 	private void highlight(Point p) {
@@ -150,29 +247,5 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 		iter.reset();
 		for(iter.reset(); !iter.isDone(); iter.advance())
 			getView().highlight(iter.current());
-	}
-	
-	public void mouseEntered(MouseEvent e) {
-		
-	}
-
-	public void mouseMoved(MouseEvent e) {
-		
-	}
-
-	public void mouseExited(MouseEvent e) {
-		
-	}
-
-	public void windowLostFocus(WindowEvent e) {
-		
-	}
-
-	public void windowActivated(WindowEvent e) {
-		
-	}
-
-	public void windowDeactivated(WindowEvent e) {
-		
 	}
 }
