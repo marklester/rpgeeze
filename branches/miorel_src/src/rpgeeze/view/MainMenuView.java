@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
 
+import javax.media.opengl.GL;
+
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
 import rpgeeze.GameProperties;
-import rpgeeze.gl.GL;
+import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
@@ -102,6 +104,7 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 		boolean pick = point != null;
 		setup(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
+		GLUtil glutil = new GLUtil(gl);
 		
 		if(getState() == State.FADING_IN) {
 			if(point == null) {
@@ -111,16 +114,16 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 			}
 		}
 		else
-			gl.clearColor(fadeIn.getFinalColor());
+			glutil.clearColor(fadeIn.getFinalColor());
 		
 		
-		gl.color(PLAIN);
+		glutil.color(PLAIN);
 		gl.glTranslated(0, LOGO_Y, 0);
 		logo.render(gl, LOGO_SIZE, LOGO_SIZE, LOGO_Z, LOGO_Z, pick);
 		gl.glTranslated(0, -LOGO_Y, 0);
 		
 		gl.glTranslated(-5, -9.5, -14.5);
-		renderHighlightables();
+		renderHighlightables(gl);
 		
 		gl.glFlush();
 	}

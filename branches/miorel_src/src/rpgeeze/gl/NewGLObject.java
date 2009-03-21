@@ -1,5 +1,7 @@
 package rpgeeze.gl;
 
+import javax.media.opengl.GL;
+
 import rpgeeze.math.Vector;
 import rpgeeze.util.Pair;
 

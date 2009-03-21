@@ -14,7 +14,6 @@ import com.sun.opengl.util.FPSAnimator;
 
 import rpgeeze.controller.Controller;
 import rpgeeze.controller.MainMenuController;
-import rpgeeze.gl.GL;
 import rpgeeze.math.Scalar;
 import rpgeeze.util.DelegatingEventAdapter;
 import rpgeeze.util.EventAdapter;
@@ -77,7 +76,7 @@ public class GameManager extends DelegatingEventAdapter
 		View<?> view = getState().getFirst();
 		fpsTimer.mark();
 		if(view != null)
-			view.render(new GL(drawable.getGL()), null);
+			view.render(drawable.getGL(), null);
 	}
 
 	/**

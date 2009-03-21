@@ -1,6 +1,6 @@
 package rpgeeze.gl.geom;
 
-import rpgeeze.gl.GL;
+import javax.media.opengl.GL;
 
 import com.sun.opengl.util.texture.Texture;
 
@@ -17,8 +17,7 @@ public class TexturedRectangle extends Rectangle {
 		this.texture = texture;
 	}
 
-	public void doRender() {
-		GL gl = new GL();
+	public void doRender(GL gl) {
 		gl.glEnable(GL.GL_TEXTURE_2D);
 		texture.bind();
 		gl.glBegin(GL.GL_QUADS);

@@ -1,6 +1,7 @@
 package rpgeeze.gl.geom;
 
-import rpgeeze.gl.GL;
+import javax.media.opengl.GL;
+
 import rpgeeze.gl.GLObjectImpl;
 import rpgeeze.math.Vector;
 
@@ -11,8 +12,7 @@ public class Triangle extends GLObjectImpl {
 		vertex = new Vector[] {v0, v1, v2};
 	}
 	
-	protected void doRender() {
-		GL gl = new GL();
+	protected void doRender(GL gl) {
 		gl.glBegin(GL.GL_TRIANGLES);
 		gl.glTranslated(getX(), getY(), getZ());
 		for(Vector v: vertex)

@@ -1,7 +1,7 @@
 package rpgeeze.gl.effect;
 
 import rpgeeze.dp.Iterator;
-import rpgeeze.gl.GL;
+import javax.media.opengl.GL;
 import rpgeeze.util.ArrayIterator;
 
 /**

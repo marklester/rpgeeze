@@ -2,6 +2,7 @@ package rpgeeze.gl;
 
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
+import javax.media.opengl.GL;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 import com.sun.opengl.util.j2d.TextRenderer.DefaultRenderDelegate;
@@ -29,7 +30,7 @@ public class Text extends GLObjectImpl {
 		return text;
 	}
 
-	protected void doRender() {
+	protected void doRender(GL gl) {
 		renderer.begin3DRendering();
 		renderer.setColor(getColor());
 		renderer.draw3D(getText(), 0, 0, 0, scaleFactor);

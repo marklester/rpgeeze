@@ -1,6 +1,6 @@
 package rpgeeze.gl.effect;
 
-import rpgeeze.gl.GL;
+import javax.media.opengl.GL;
 
 /**
  * A dynamic set of related OpenGL commands that combine to create an effect.

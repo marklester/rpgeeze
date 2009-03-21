@@ -3,12 +3,14 @@ package rpgeeze.view;
 import java.awt.Point;
 import java.nio.IntBuffer;
 import java.util.HashSet;
+import javax.media.opengl.GL;
+import javax.media.opengl.glu.GLU;
 
 import rpgeeze.GameManager;
-import rpgeeze.gl.GL;
 import rpgeeze.log.LogManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.dp.Observer;
+import rpgeeze.gl.GLUtil;
 
 import com.sun.opengl.util.BufferUtil;
 
@@ -53,16 +55,16 @@ public abstract class View<T extends View.State> {
 	protected GameManager getManager() {
 		return manager;
 	}
-
+	
 	/**
-	 * OpenGL "picking" with a (small) default buffer size and a new OpenGL interface. An error in this
+	 * OpenGL "picking" with a (small) default buffer size and the current context's OpenGL interface. An error in this
 	 * method most likely means that a large buffer size is necessary.
 	 * 
 	 * @param pickPoint point around which to set up the picking matrix
 	 * @return an iterator over the name constants that registered as hits at the specified point
 	 */
 	public Iterator<Integer> pick(Point pickPoint) {
-		return pick(new GL(), pickPoint, 16);
+		return pick(GLU.getCurrentGL(), pickPoint, 16);
 	}
 	
 	/**
@@ -163,10 +165,13 @@ public abstract class View<T extends View.State> {
 
 		gl.glMatrixMode(GL.GL_PROJECTION);
 		gl.glLoadIdentity();
+		
+		GLUtil glutil = new GLUtil();
+		
 		if(point != null)
-			gl.pickMatrix(point.getX(), gl.getViewportHeight() - point.getY());
+			glutil.pickMatrix(point.getX(), glutil.getViewportHeight() - point.getY());
 
-		double aspectRatio = gl.getViewportAspectRatio();
+		double aspectRatio = glutil.getViewportAspectRatio();
 		gl.glFrustum(-aspectRatio, aspectRatio, -1, 1, 1, 128);
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 

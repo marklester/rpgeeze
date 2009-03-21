@@ -1,6 +1,6 @@
 package rpgeeze.gl.effect;
 
-import rpgeeze.gl.GL;
+import javax.media.opengl.GL;
 
 /**
  * A pause effect. Probably useless by itself, this effect could be interesting

@@ -10,8 +10,8 @@ import java.awt.FontFormatException;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import javax.media.opengl.GL;
 
-import rpgeeze.gl.GL;
 import rpgeeze.log.LogManager;
 import rpgeeze.log.Message;
 
