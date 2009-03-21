@@ -21297,5 +21297,7 @@
 				<y>0</y>
 			</location>
 		</facing>
+		<skillContainer> 
+		</skillContainer>
 	</entity>
 </model>

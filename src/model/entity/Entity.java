@@ -24,12 +24,12 @@ import util.Subject;
 import model.skill.*;
 
 public class Entity implements Subject, Drawable, Cloneable {
-	private static final Pattern pattern = Pattern.compile("<entity>(<stats>.*</stats>)(<occupation>.*</occupation>)(<inventory>.*</inventory>)(<equipment>.*</equipment>)(<tile>.*</tile>)<facing>(.*)</facing></entity>");
+	private static final Pattern pattern = Pattern.compile("<entity>(<stats>.*</stats>)(<occupation>.*</occupation>)(<inventory>.*</inventory>)(<equipment>.*</equipment>)(<tile>.*</tile>)<facing>(.*)</facing><skillContainer>(.*)</skillContainer></entity>");
 	
 	private Map map;
 	private Stats stats;
 	private Occupation occupation;
-	private LinkedList<Skill> skills;
+	private SkillContainer skills;
 	private Inventory inventory;
 	private Tile tile = null;
 	private Equipment equipment;
@@ -312,6 +312,7 @@ public class Entity implements Subject, Drawable, Cloneable {
 		sb.append(indent + "\t<facing>\n");
 		sb.append(facing.toLocation().toXml(indent + "\t\t") + "\n");
 		sb.append(indent + "\t</facing>\n");
+		sb.append(skills.toXml(indent + "\t") + "\n");
 		sb.append(indent + "</entity>");
 		return sb.toString();
 	}
@@ -321,14 +322,16 @@ public class Entity implements Subject, Drawable, Cloneable {
 		if(!mat.matches())
 			throw new RuntimeException("Bad XML for Entity");
 		Entity ret = new Entity();
-		ret.stats = Stats.fromXml(mat.group(1));
-		ret.occupation = Occupation.fromXml(mat.group(2));
-		ret.inventory = Inventory.fromXml(mat.group(3));
-		ret.equipment = Equipment.fromXml(mat.group(4));
-		ret.tile = Tile.fromXml(mat.group(5));
-		ret.facing = Location.fromXml(mat.group(6)).closestDirection();
+		ret.stats 		= Stats.fromXml(mat.group(1));
+		ret.occupation 	= Occupation.fromXml(mat.group(2));
+		ret.inventory 	= Inventory.fromXml(mat.group(3));
+		ret.equipment 	= Equipment.fromXml(mat.group(4));
+		ret.tile 		= Tile.fromXml(mat.group(5));
+		ret.facing 		= Location.fromXml(mat.group(6)).closestDirection();
+		ret.skills 		= SkillContainer.fromXml(mat.group(7));
 		return ret;
 	}
+	
 
 	public static Entity fromXml(Occupation occ, Map map, String xml) {
 		Entity ret = fromXml(xml);
@@ -355,7 +358,7 @@ public class Entity implements Subject, Drawable, Cloneable {
 		this.observers.remove(o);
 	}
 	
-	public LinkedList<Skill> getSkills() {
+	public SkillContainer getSkills() {
 		return skills;
 	}
 	

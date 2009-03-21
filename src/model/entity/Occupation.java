@@ -23,16 +23,16 @@ public abstract class Occupation implements Cloneable {
 	
 	protected final String name;
 	protected Stats stats;
-	protected LinkedList<Skill> skills;
+	protected SkillContainer skills;
 
 	protected Occupation(String name, Stats stats) {
 		this.name = name;
 		this.stats = stats;
-		skills = new LinkedList<Skill>();
+		skills = new SkillContainer();
 		populateSkills();
 	}
 	
-	protected Occupation(String name, Stats stats, LinkedList<Skill> skills) {
+	protected Occupation(String name, Stats stats, SkillContainer skills) {
 		this.name = name;
 		this.stats = stats;
 		this.skills = skills;
