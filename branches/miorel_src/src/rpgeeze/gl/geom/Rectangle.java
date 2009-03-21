@@ -7,7 +7,7 @@ import rpgeeze.gl.GLObjectImpl;
 public class Rectangle extends GLObjectImpl {
 	private double width;
 	private double height;
-
+	
 	public Rectangle() {
 		this(1, 1);
 	}

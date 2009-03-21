@@ -10,7 +10,6 @@ import rpgeeze.GameManager;
 import rpgeeze.log.LogManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.dp.Observer;
-import rpgeeze.gl.GLUtil;
 
 import com.sun.opengl.util.BufferUtil;
 
@@ -140,43 +139,6 @@ public abstract class View<T extends View.State> {
 	 * @param point coordinates to pick around
 	 */
 	public abstract void render(GL gl, Point point);
-
-	/**
-	 * Sets up a depth buffer, enables blending, sets up a picking matrix and a
-	 * frustum view, then loads the identity modelview matrix.
-	 * 
-	 * @param gl OpenGL interface to use
-	 * @param point coordinates to pick around
-	 */
-	protected void setup(GL gl, Point point) {
-		gl.glShadeModel(GL.GL_SMOOTH);
-
-		// depth buffer
-		gl.glClearDepth(1.0f);
-		gl.glEnable(GL.GL_DEPTH_TEST);
-		gl.glDepthFunc(GL.GL_LEQUAL);
-
-		// blending
-		gl.glEnable(GL.GL_BLEND);
-
-		gl.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
-
-		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-
-		gl.glMatrixMode(GL.GL_PROJECTION);
-		gl.glLoadIdentity();
-		
-		GLUtil glutil = new GLUtil();
-		
-		if(point != null)
-			glutil.pickMatrix(point.getX(), glutil.getViewportHeight() - point.getY());
-
-		double aspectRatio = glutil.getViewportAspectRatio();
-		gl.glFrustum(-aspectRatio, aspectRatio, -1, 1, 1, 128);
-		gl.glMatrixMode(GL.GL_MODELVIEW);
-
-		gl.glLoadIdentity();
-	}
 	
 	/**
 	 * Prepares this view for no longer being displayed. This method is invoked
