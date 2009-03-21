@@ -36,23 +36,16 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 				else if(name.equals("Load Game"))
 					loadGame();
 				else if(name.equals("Options")) {
-					OptionsMenuView omv = new OptionsMenuView(getManager());
-					OptionsMenuController omc = new OptionsMenuController(getManager(), omv);
-					getManager().pushState(omv, omc);
+					optionsMenu();
 				}
 				else if(name.equals("Help")) {
-					HelpView hv = new HelpView(getManager());
-					HelpViewController hc = new HelpViewController(getManager(), hv);
-					getManager().pushState(hv, hc);
+					helpView();
 				}
 				else if(name.equals("Credits")) {
-					CreditsView cv = new CreditsView(getManager());
-					CreditsController cc = new CreditsController(getManager(), cv);
-					getManager().pushState(cv, cc);		
+					creditsView();			
 				}
 				else if(name.equals("Quit")) {
-					getManager().stop();
-					System.exit(0);
+					quit();
 				}
 			}
 		}
@@ -69,5 +62,28 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 		chooser.addChoosableFileFilter(new FileNameExtensionFilter("XML files", "xml"));
 		int status = chooser.showOpenDialog(null);
 		LogManager.getInstance().log("File chooser returned status " + status, "CONTROLLER");
+	}
+	
+	protected void optionsMenu(){
+		OptionsMenuView omv = new OptionsMenuView(getManager());
+		OptionsMenuController omc = new OptionsMenuController(getManager(), omv);
+		getManager().pushState(omv, omc);
+	}
+	
+	protected void helpView(){
+		HelpView hv = new HelpView(getManager());
+		HelpViewController hc = new HelpViewController(getManager(), hv);
+		getManager().pushState(hv, hc);
+	}
+	
+	protected void creditsView(){
+		CreditsView cv = new CreditsView(getManager());
+		CreditsController cc = new CreditsController(getManager(), cv);
+		getManager().pushState(cv, cc);
+	}
+	
+	protected void quit(){
+		getManager().stop();
+		System.exit(0);
 	}
 }
