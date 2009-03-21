@@ -20,13 +20,15 @@ import rpgeeze.gl.geom.Triangle;
 import rpgeeze.math.StaticVector;
 import rpgeeze.util.ResourceLoader;
 
+import java.util.HashMap;
+
 /**
  * The key bindings screen.
  */
 public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 	private static final TextRenderer smallRenderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 14);
-	private String[] command = new String[16];
+	private HashMap<String,String> keyControls;
 	private String message = "";
 	
 	public enum Button {
@@ -202,30 +204,31 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		
 		switch(getState()) {
 		case NORMAL:
+			
 			gl.glLoadIdentity();
 			gl.glTranslated(0, -9.5, -14.5);
 			
-			Highlightable northArrow = Button.N_ARROW.getButton();
-			northArrow.setXY(0, 14);
-			putHighlightable(northArrow);
+			Highlightable N_ARROWArrow = Button.N_ARROW.getButton();
+			N_ARROWArrow.setXY(0, 14);
+			putHighlightable(N_ARROWArrow);
 			
-			Text northCommand = new Text(command[1], smallRenderer, 0.075f);
-			northCommand.setXY(-0.25 - 0.5*(command[1].length()/2), 15.5);
-			northCommand.render(gl);
+			Text N_ARROWCommand = new Text(keyControls.get("N_ARROW"), smallRenderer, 0.075f);
+			N_ARROWCommand.setXY(-0.25 - 0.5*(keyControls.get("N_ARROW").length()/2), 15.5);
+			N_ARROWCommand.render(gl);
 			
 			Highlightable southArrow = Button.S_ARROW.getButton();
 			southArrow.setXY(0, 8);
 			putHighlightable(southArrow);
 			
-			Text southCommand = new Text(command[2], smallRenderer, 0.075f);
-			southCommand.setXY(-0.25 - 0.5*(command[2].length()/2), 5.5);
+			Text southCommand = new Text(keyControls.get("S_ARROW"), smallRenderer, 0.075f);
+			southCommand.setXY(-0.25 - 0.5*(keyControls.get("S_ARROW").length()/2), 5.5);
 			southCommand.render(gl);
 			
 			Highlightable eastArrow = Button.E_ARROW.getButton();
 			eastArrow.setXY(3, 10);
 			putHighlightable(eastArrow);
 			
-			Text eastCommand = new Text(command[3], smallRenderer, 0.075f);
+			Text eastCommand = new Text(keyControls.get("E_ARROW"), smallRenderer, 0.075f);
 			eastCommand.setXY(4.5, 10.5);
 			eastCommand.render(gl);
 			
@@ -233,72 +236,72 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			westArrow.setXY(-3, 10);
 			putHighlightable(westArrow);
 			
-			Text westCommand = new Text(command[4], smallRenderer, 0.075f);
-			westCommand.setXY(-6 - 0.75 *(command[4].length()/2), 10.5);
+			Text westCommand = new Text(keyControls.get("W_ARROW"), smallRenderer, 0.075f);
+			westCommand.setXY(-6 - 0.75 *(keyControls.get("W_ARROW").length()/2), 10.5);
 			westCommand.render(gl);
 			
-			Highlightable northeastArrow = Button.NE_ARROW.getButton();
-			northeastArrow.setXY(1, 13);
-			putHighlightable(northeastArrow);
+			Highlightable N_ARROWeastArrow = Button.NE_ARROW.getButton();
+			N_ARROWeastArrow.setXY(1, 13);
+			putHighlightable(N_ARROWeastArrow);
 			
-			Text northEastCommand = new Text(command[5], smallRenderer, 0.075f);
-			northEastCommand.setXY(3.5 - 0.5*(command[5].length()/2), 14.25);
+			Text northEastCommand = new Text(keyControls.get("NE_ARROW"), smallRenderer, 0.075f);
+			northEastCommand.setXY(3.5 - 0.5*(keyControls.get("NE_ARROW").length()/2), 14.25);
 			northEastCommand.render(gl);
 			
 			Highlightable southeastArrow = Button.SE_ARROW.getButton();
 			southeastArrow.setXY(1, 9);
 			putHighlightable(southeastArrow);
 			
-			Text southEastCommand = new Text(command[6], smallRenderer, 0.075f);
-			southEastCommand.setXY(3.5 - 0.5*(command[6].length()/2), 6.75);
+			Text southEastCommand = new Text(keyControls.get("SE_ARROW"), smallRenderer, 0.075f);
+			southEastCommand.setXY(3.5 - 0.5*(keyControls.get("SE_ARROW").length()/2), 6.75);
 			southEastCommand.render(gl);
 			
-			Highlightable northwestArrow = Button.NW_ARROW.getButton();
-			northwestArrow.setXY(-1, 13);
-			putHighlightable(northwestArrow);
+			Highlightable northWestArrow = Button.NW_ARROW.getButton();
+			northWestArrow.setXY(-1, 13);
+			putHighlightable(northWestArrow);
 			
-			Text northWestCommand = new Text(command[7], smallRenderer, 0.075f);
-			northWestCommand.setXY(-4 - 0.5*(command[7].length()/2), 14.25);
+			Text northWestCommand = new Text(keyControls.get("NW_ARROW"), smallRenderer, 0.075f);
+			northWestCommand.setXY(-4 - 0.5*(keyControls.get("NW_ARROW").length()/2), 14.25);
 			northWestCommand.render(gl);
 			
 			Highlightable southwestArrow = Button.SW_ARROW.getButton();
 			southwestArrow.setXY(-1, 9);
 			putHighlightable(southwestArrow);
 			
-			Text southWestCommand = new Text(command[8], smallRenderer, 0.075f);
-			southWestCommand.setXY(-4 - 0.5*(command[8].length()/2), 7);
+			Text southWestCommand = new Text(keyControls.get("SW_ARROW"), smallRenderer, 0.075f);
+			southWestCommand.setXY(-4 - 0.5*(keyControls.get("SW_ARROW").length()/2), 7);
 			southWestCommand.render(gl);
 			
-			Text saveGameCommand = new Text(command[9], smallRenderer, 0.075f);
-			saveGameCommand.setXY(-14.5 - 0.5*(command[9].length()/2), 16.5);
+			Text saveGameCommand = new Text(keyControls.get("SAVE_GAME"), smallRenderer, 0.075f);
+			saveGameCommand.setXY(-14.5 - 0.5*(keyControls.get("SAVE_GAME").length()/2), 16.5);
 			saveGameCommand.render(gl);
 			
-			Text loadGameCommand = new Text(command[10], smallRenderer, 0.075f);
-			loadGameCommand.setXY(-14.5 - 0.5*(command[10].length()/2), 8.5);
+			Text loadGameCommand = new Text(keyControls.get("LOAD_GAME"), smallRenderer, 0.075f);
+			loadGameCommand.setXY(-14.5 - 0.5*(keyControls.get("LOAD_GAME").length()/2), 8.5);
 			loadGameCommand.render(gl);
 			
-			Text newGameCommand = new Text(command[11], smallRenderer, 0.075f);
-			newGameCommand.setXY(-15 - 0.5*(command[11].length()/2), 0.5);
+			Text newGameCommand = new Text(keyControls.get("NEW_GAME"), smallRenderer, 0.075f);
+			newGameCommand.setXY(-15 - 0.5*(keyControls.get("NEW_GAME").length()/2), 0.5);
 			newGameCommand.render(gl);
 			
-			Text inventoryViewCommand = new Text(command[12], smallRenderer, 0.075f);
-			inventoryViewCommand.setXY(12 - 0.5*(command[12].length()/2), 16.5);
+			Text inventoryViewCommand = new Text(keyControls.get("INVENTORY_VIEW"), smallRenderer, 0.075f);
+			inventoryViewCommand.setXY(12 - 0.5*(keyControls.get("INVENTORY_VIEW").length()/2), 16.5);
 			inventoryViewCommand.render(gl);
 			
-			Text statsViewCommand = new Text(command[13], smallRenderer, 0.075f);
-			statsViewCommand.setXY(14 - 0.5*(command[13].length()/2), 8.5);
+			Text statsViewCommand = new Text(keyControls.get("STATS_VIEW"), smallRenderer, 0.075f);
+			statsViewCommand.setXY(14 - 0.5*(keyControls.get("STATS_VIEW").length()/2), 8.5);
 			statsViewCommand.render(gl);
 			
-			Text skillsViewCommand = new Text(command[14], smallRenderer, 0.075f);
-			skillsViewCommand.setXY(13.5 - 0.5*(command[14].length()/2), 0.5);
+			Text skillsViewCommand = new Text(keyControls.get("SKILLS_VIEW"), smallRenderer, 0.075f);
+			skillsViewCommand.setXY(13.5 - 0.5*(keyControls.get("SKILLS_VIEW").length()/2), 0.5);
 			skillsViewCommand.render(gl);
 			
-			Text optionsViewCommand = new Text(command[15], smallRenderer, 0.075f);
-			optionsViewCommand.setXY(-0.5 - 0.5*(command[15].length()/2), 0.5);
+			Text optionsViewCommand = new Text(keyControls.get("OPTIONS_VIEW"), smallRenderer, 0.075f);
+			optionsViewCommand.setXY(-0.5 - 0.5*(keyControls.get("OPTIONS_VIEW").length()/2), 0.5);
 			optionsViewCommand.render(gl);
 			
 			Text errorMessage = new Text(message, smallRenderer, 0.075f);
-			errorMessage.setXY(-6.5, 19);
+			errorMessage.setXY(-5, 19);
 			errorMessage.render(gl);
 			
 
@@ -328,40 +331,35 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			changeState(State.ZOOMING);
 	}
 	
-	public void setCommand(int i, String comm){
-		boolean duplicate = false;
-		for(int j = 0; j < command.length; j++){
-			if(comm.equals(command[j])){
-				duplicate = true;
-				message = "Duplicate Key Controls";
-				command[j] = "";
-			}
-			
+	public void setCommand(String key, String value){
+		if(keyControls.containsValue(value)){
+			message = "Key Already Used";
+		}
+		else {
+			keyControls.remove(key);
+			keyControls.put(key, value);
+			message = "";
 		}
 	
-			command[i] = comm;
-			if(!duplicate){
-			message = "";
-			}
 		}
 	
 	
 	public void defaults(){
-		command[0] ="";
-		command[1] = "8"; //north
-		command[2] = "2"; //south
-		command[3] = "6"; //east
-		command[4] = "4"; //west
-		command[5] = "9"; //ne
-		command[6] = "3"; //se
-		command[7] = "7"; //nw
-		command[8] = "1"; //sw
-		command[9] = "S"; //save
-		command[10] = "L"; //load
-		command[11] = "N"; //new
-		command[12] = "I"; //inventory
-		command[13] = "Q"; //stats
-		command[14] = "W"; //skills
-		command[15] = "O"; //options
+		keyControls = new HashMap<String,String>();
+		keyControls.put("N_ARROW", "8");
+		keyControls.put("S_ARROW", "2");
+		keyControls.put("E_ARROW", "6");
+		keyControls.put("W_ARROW","4");
+		keyControls.put("NE_ARROW", "9");
+		keyControls.put("SE_ARROW", "3");
+		keyControls.put("NW_ARROW", "7");
+		keyControls.put("SW_ARROW", "1");
+		keyControls.put("SAVE_GAME", "S");
+		keyControls.put("LOAD_GAME", "L");
+		keyControls.put("NEW_GAME", "N");
+		keyControls.put("INVENTORY_VIEW", "I");
+		keyControls.put("STATS_VIEW", "Q");
+		keyControls.put("SKILLS_VIEW", "W");
+		keyControls.put("OPTIONS_VIEW", "O");
 	}
 }
