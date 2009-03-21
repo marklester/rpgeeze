@@ -4,6 +4,10 @@ import java.awt.Color;
 
 import javax.media.opengl.GL;
 
+/**
+ * Change the OpenGL brush color over a specified period of time.
+ *
+ */
 public class BrushColorChange implements Effect {
 	private long duration;
 	private long startTime;

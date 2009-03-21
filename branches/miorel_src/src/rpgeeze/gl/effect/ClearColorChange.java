@@ -4,6 +4,10 @@ import java.awt.Color;
 
 import javax.media.opengl.GL;
 
+/**
+ * Change the OpenGL clear color over a specified period of time.
+ *
+ */
 public class ClearColorChange implements Effect {
 	private long duration;
 	private long startTime;
