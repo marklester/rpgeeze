@@ -95,7 +95,6 @@ public abstract class Skill implements Cloneable{
 		Matcher mat = pattern.matcher(xml);
 		if(!mat.matches())
 			throw new RuntimeException("Bad XML for Skill");
-		System.out.println(mat.group(1));
 		Skill ret = prototypes.get(mat.group(1)).clone();
 		ret.setPoints(Integer.parseInt(mat.group(2)));
 		//ret.setAttributesFromXml(mat.group(2));
