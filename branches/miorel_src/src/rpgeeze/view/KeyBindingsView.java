@@ -1,5 +1,7 @@
 package rpgeeze.view;
 
+import static rpgeeze.RunGame.BACKGROUND_COLOR;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
@@ -13,7 +15,7 @@ import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.gl.geom.Triangle;
-import rpgeeze.math.VectorImpl;
+import rpgeeze.math.StaticVector;
 import rpgeeze.util.ResourceLoader;
 
 /**
@@ -29,44 +31,44 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		
 		N_ARROW(1) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new VectorImpl(-1, 0), new VectorImpl(1, 0), new VectorImpl(0, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED); 
+				return new HighlightableWrapper(new Triangle(new StaticVector(-1, 0), new StaticVector(1, 0), new StaticVector(0, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED); 
 			}
 		},
 		S_ARROW(2) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new VectorImpl(-1, 0), new VectorImpl(1, 0), new VectorImpl(0, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(new Triangle(new StaticVector(-1, 0), new StaticVector(1, 0), new StaticVector(0, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		
 		E_ARROW(3) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 2), new VectorImpl(1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(new Triangle(new StaticVector(0, 0), new StaticVector(0, 2), new StaticVector(1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		
 		W_ARROW(4) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new VectorImpl(0, 0), new VectorImpl(0, 2), new VectorImpl(-1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(new Triangle(new StaticVector(0, 0), new StaticVector(0, 2), new StaticVector(-1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		NE_ARROW(5) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new VectorImpl(2, 1), new VectorImpl(0, 1), new VectorImpl(2, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(new Triangle(new StaticVector(2, 1), new StaticVector(0, 1), new StaticVector(2, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		SE_ARROW(6) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new VectorImpl(2, 1), new VectorImpl(0, -1), new VectorImpl(2, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(new Triangle(new StaticVector(2, 1), new StaticVector(0, -1), new StaticVector(2, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		NW_ARROW(7) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new VectorImpl(-2, 1), new VectorImpl(-2, -1), new VectorImpl(0, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(new Triangle(new StaticVector(-2, 1), new StaticVector(-2, -1), new StaticVector(0, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		SW_ARROW(8) {
 			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new VectorImpl(-2, 1), new VectorImpl(-2, -1), new VectorImpl(0, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+				return new HighlightableWrapper(new Triangle(new StaticVector(-2, 1), new StaticVector(-2, -1), new StaticVector(0, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 			}
 		},
 		SAVE_GAME(9) {
@@ -191,11 +193,10 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	public void render(GL gl, Point point) {
 		setup(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
-		gl.glClearColor(0, MainMenuView.MAX_INTENSITY, MainMenuView.MAX_INTENSITY, 1.0f);
+		gl.clearColor(BACKGROUND_COLOR);
 		
 		gl.glTranslated(0, 0, zoom);
 		
-			
 		switch(getState()) {
 		case NORMAL:
 			String buttonText;

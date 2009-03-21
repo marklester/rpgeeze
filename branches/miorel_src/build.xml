@@ -47,11 +47,11 @@ import ${ant.project.name}.util.ResourceLoader;
 
 // WARNING! This file is auto-generated! Any changes will be overwritten.
 // To add an option configurable via the command line, edit ${res.dir}/${opts.file}
-// To add a constant, edit ${res.dir}/${const.file}
+// To add a constant, edit ${ant.project.name}/${src.main}.java
 // To add a key-value pair, edit ${res.dir}/${keyval.file}
 
 /**
- * Holds constants needed throughout the game.
+ * Holds options and properties needed throughout the game.
  *
  */
 public class ${generate.class} {
@@ -102,7 +102,6 @@ public class ${generate.class} {
 	    >
 			<arg value="${ant.project.name}"/>
 	    	<arg value="${res.dir}/${opts.file}"/>
-	    	<arg value="${res.dir}/${const.file}"/>
 	    	<arg value="${generate.header}"/>
 	    	<arg value="${generate.footer}"/>
     	</java>

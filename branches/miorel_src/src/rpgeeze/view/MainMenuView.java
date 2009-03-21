@@ -12,13 +12,15 @@ import rpgeeze.gl.GL;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
+import rpgeeze.gl.effect.ClearColorChange;
 import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.util.ResourceLoader;
 import rpgeeze.view.overlay.TextureOverlay;
 
-import static rpgeeze.GameProperties.LOGO_SIZE;
-import static rpgeeze.GameProperties.LOGO_Y;
-import static rpgeeze.GameProperties.LOGO_Z;
+import static rpgeeze.RunGame.BACKGROUND_COLOR;
+import static rpgeeze.RunGame.LOGO_Y;
+import static rpgeeze.RunGame.LOGO_Z;
+import static rpgeeze.RunGame.LOGO_SIZE;
 
 /**
  * The main menu screen.
@@ -31,11 +33,11 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 	public final static float MAX_INTENSITY = 0.75f;
 
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
-
-	private float intensity = MIN_INTENSITY;
 	
 	private TextureOverlay logo;
 
+	private ClearColorChange fadeIn;
+	
 	public enum Button {
 		NEW_GAME("New Game", 1, -10, 0),
 		LOAD_GAME("Load Game", 2, 0, 0),
@@ -89,6 +91,8 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 		for(Button button: Button.values())
 			putHighlightable(button.getButton());
 		changeState(State.NEW);
+		
+		fadeIn = new ClearColorChange(Color.BLACK, BACKGROUND_COLOR, 1);
 	}
 
 	/**
@@ -100,15 +104,14 @@ public final class MainMenuView extends HighlightableView<MainMenuView.State> {
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		
 		if(getState() == State.FADING_IN) {
-			gl.glClearColor(0, intensity, intensity, 1.0f);
 			if(point == null) {
-				intensity += 0.01f;
-				if(intensity > MAX_INTENSITY)
+				fadeIn.apply(gl);
+				if(fadeIn.isDone())
 					changeState(State.NORMAL);
 			}
 		}
 		else
-			gl.glClearColor(0, MAX_INTENSITY, MAX_INTENSITY, 1.0f);
+			gl.clearColor(fadeIn.getFinalColor());
 		
 		
 		gl.color(PLAIN);

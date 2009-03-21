@@ -15,9 +15,12 @@ import com.sun.opengl.util.FPSAnimator;
 import rpgeeze.controller.Controller;
 import rpgeeze.controller.MainMenuController;
 import rpgeeze.gl.GL;
+import rpgeeze.math.Scalar;
 import rpgeeze.util.DelegatingEventAdapter;
 import rpgeeze.util.EventAdapter;
 import rpgeeze.util.Pair;
+import rpgeeze.util.SimpleMovingAverageTimer;
+import rpgeeze.util.Timer;
 import rpgeeze.view.MainMenuView;
 import rpgeeze.view.View;
 
@@ -38,7 +41,8 @@ public class GameManager extends DelegatingEventAdapter
 	private GLCanvas canvas;
 	private FPSAnimator animator;
 	private GLContext spareContext;
-
+	private Timer fpsTimer;
+	
 	/**
 	 * Constructs a game manager that will display in the specified
 	 * <code>Frame</code>.
@@ -57,6 +61,7 @@ public class GameManager extends DelegatingEventAdapter
 		canvas.setFocusTraversalKeysEnabled(false);
 		replaceContext(canvas);
 		frame.add(canvas);
+		fpsTimer = new SimpleMovingAverageTimer();
 		animator = new FPSAnimator(canvas, GameProperties.getInstance().getGoalFPS());
 	}
 
@@ -70,6 +75,7 @@ public class GameManager extends DelegatingEventAdapter
 	 */
 	public void display(GLAutoDrawable drawable) {
 		View<?> view = getState().getFirst();
+		fpsTimer.mark();
 		if(view != null)
 			view.render(new GL(drawable.getGL()), null);
 	}
@@ -103,7 +109,7 @@ public class GameManager extends DelegatingEventAdapter
 
 		if(!initialized) {
 			initialized = true;
-
+			
 			MainMenuView mmv = new MainMenuView(this);
 			MainMenuController mmc = new MainMenuController(this, mmv);
 			pushState(mmv, mmc);
@@ -139,8 +145,7 @@ public class GameManager extends DelegatingEventAdapter
 	 * @return the current state of this game manager
 	 */
 	protected Pair<View<?>, Controller<? extends View<?>>> getState() {
-		
-		synchronized (stateStack) {
+		synchronized(stateStack) {
 			return stateStack.isEmpty()
 					? new Pair<View<?>, Controller<? extends View<?>>>(null, null)
 					: stateStack.peek();
@@ -169,7 +174,7 @@ public class GameManager extends DelegatingEventAdapter
 	 *            the new state
 	 */
 	public void pushState(Pair<View<?>, Controller<? extends View<?>>> newState) {
-		synchronized (stateStack) {
+		synchronized(stateStack) {
 			Pair<View<?>, Controller<? extends View<?>>> oldState = popState();
 
 			View<?> newView = newState.getFirst();
@@ -190,7 +195,7 @@ public class GameManager extends DelegatingEventAdapter
 	 */
 	public Pair<View<?>, Controller<? extends View<?>>> popState() {
 		Pair<View<?>, Controller<? extends View<?>>> ret = null;
-		synchronized (stateStack) {
+		synchronized(stateStack) {
 			if(!stateStack.isEmpty()) {
 				ret = stateStack.pop();
 				View<?> view = ret.getFirst();
@@ -202,8 +207,8 @@ public class GameManager extends DelegatingEventAdapter
 	}
 
 	/**
-	 * Signs up as an event listener, starts an animator, and displays the game
-	 * <code>Frame</code>.
+	 * Starts the managed game. Signs up as an event listener, starts an
+	 * animator and a FPS timer, and displays the game <code>Frame</code>.
 	 * 
 	 */
 	public void start() {
@@ -214,21 +219,23 @@ public class GameManager extends DelegatingEventAdapter
 		canvas.addMouseMotionListener(this);
 		canvas.addMouseWheelListener(this);
 		canvas.addGLEventListener(this);
+		fpsTimer.start();
 		animator.start();
 		canvas.requestFocus();
 		frame.setVisible(true);
 	}
 
 	/**
-	 * Stops the backing animator, destroys the spare OpenGL context, and
-	 * disposes of the <code>Frame</code> that was used for the game.
+	 * Stops the managed game. Stops the backing animator and FPS timer,
+	 * destroys the spare OpenGL context, and disposes of the <code>Frame</code>
+	 * that was used for the game.
 	 * 
 	 */
 	public void stop() {
 		animator.stop();
+		fpsTimer.stop();
 		frame.setVisible(false);
-		GraphicsEnvironment.getLocalGraphicsEnvironment()
-				.getDefaultScreenDevice().setFullScreenWindow(null);
+		GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(null);
 		frame.dispose();
 		replaceContext(null);
 	}
@@ -280,5 +287,18 @@ public class GameManager extends DelegatingEventAdapter
 			spareContext = drawable.createContext(current);
 		else
 			spareContext = null;
+	}
+	
+	/**
+	 * Returns a magic scalar whose value is always the current FPS.
+	 * 
+	 * @return the current FPS
+	 */
+	public Scalar getFPS() {
+		return new Scalar() {
+			public double getValue() {
+				return fpsTimer.marksPerSecond();
+			}
+		};
 	}
 }

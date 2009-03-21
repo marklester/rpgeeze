@@ -1,8 +1,9 @@
 package rpgeeze.view;
 
-import static rpgeeze.GameProperties.LOGO_SIZE;
-import static rpgeeze.GameProperties.LOGO_Y;
-import static rpgeeze.GameProperties.LOGO_Z;
+import static rpgeeze.RunGame.BACKGROUND_COLOR;
+import static rpgeeze.RunGame.LOGO_SIZE;
+import static rpgeeze.RunGame.LOGO_Y;
+import static rpgeeze.RunGame.LOGO_Z;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -28,13 +29,7 @@ public final class OptionsMenuView extends HighlightableView<OptionsMenuView.Sta
 	public static final Color PLAIN = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 	public static final Color HIGHLIGHTED = new Color(1.0f, 1.0f, 1.0f, 0.25f);
 
-	public final static float MIN_INTENSITY = 0.0f;
-	public final static float MAX_INTENSITY = 0.75f;
-
-	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
-
-	private float intensity = MIN_INTENSITY;
-	
+	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);	
 	private Overlay logo;
 
 	public enum Button {
@@ -97,17 +92,7 @@ public final class OptionsMenuView extends HighlightableView<OptionsMenuView.Sta
 		boolean pick = point != null;
 		setup(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
-		
-		if(getState() == State.NORMAL) {
-			gl.glClearColor(0, intensity, intensity, 1.0f);
-			if(point == null) {
-				intensity += 0.01f;
-				if(intensity > MAX_INTENSITY)
-					changeState(State.NORMAL);
-			}
-		}
-		else
-			gl.glClearColor(0, MAX_INTENSITY, MAX_INTENSITY, 1.0f);
+		gl.clearColor(BACKGROUND_COLOR);
 		
 		gl.color(PLAIN);
 		gl.glTranslated(0, LOGO_Y, 0);
