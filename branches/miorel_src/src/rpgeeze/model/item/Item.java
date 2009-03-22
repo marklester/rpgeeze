@@ -28,6 +28,11 @@ public abstract class Item implements Visitable, Cloneable {
 	
 	public abstract void activate(Entity entity);
 	
+	public void deActivate(Entity e)
+    {
+    }
+
+	
 	public Item clone() {
          Item ret = null;
          try {
