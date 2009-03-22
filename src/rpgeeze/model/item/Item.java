@@ -44,10 +44,6 @@ public abstract class Item implements Visitable, Cloneable {
 	public Hashtable<String,String> getProperties(){
          return properties;
 	}
-
-	public boolean isPassable() {
-		return true;
-	}
 	
 	public static Item getItem(String key){
         return (Item)prototypes.get(key).clone();
