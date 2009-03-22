@@ -45,17 +45,19 @@ public class Rectangle extends GLObjectImpl implements Colorable {
 	}
 	
 	protected void doRender(GL gl) {
-		if(getColor() != null) {
-			GLUtil glutil = new GLUtil(gl);
-			glutil.color(getColor());
+		if(getVisible()) {
+			if(getColor() != null) {
+				GLUtil glutil = new GLUtil(gl);
+				glutil.color(getColor());
+			}
+			gl.glBegin(GL.GL_QUADS);
+			gl.glTranslated(getX(), getY(), getZ());
+	        gl.glVertex2d(0, getHeight());
+	        gl.glVertex2i(0, 0);
+	        gl.glVertex2d(getWidth(), 0);
+	        gl.glVertex2d(getWidth(), getHeight());
+			gl.glEnd();
 		}
-		gl.glBegin(GL.GL_QUADS);
-		gl.glTranslated(getX(), getY(), getZ());
-        gl.glVertex2d(0, getHeight());
-        gl.glVertex2i(0, 0);
-        gl.glVertex2d(getWidth(), 0);
-        gl.glVertex2d(getWidth(), getHeight());
-		gl.glEnd();
 	}
 
 	public Color getColor() {

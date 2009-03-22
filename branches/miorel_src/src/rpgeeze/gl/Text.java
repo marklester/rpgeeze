@@ -36,11 +36,13 @@ public class Text extends GLObjectImpl implements Colorable {
 	}
 
 	protected void doRender(GL gl) {
-		renderer.begin3DRendering();
-		if(getColor() != null)
-			renderer.setColor(getColor());
-		renderer.draw3D(getText(), 0, 0, 0, scaleFactor);
-		renderer.end3DRendering();
+		if(getVisible()) {
+			renderer.begin3DRendering();
+			if(getColor() != null)
+				renderer.setColor(getColor());
+			renderer.draw3D(getText(), 0, 0, 0, scaleFactor);
+			renderer.end3DRendering();
+		}
 	}
 	
 	public double getWidth() {
