@@ -8,10 +8,12 @@ import java.util.regex.Pattern;
 
 import model.entity.Entity;
 import model.entity.Occupation;
+import model.xml.GameVisitor;
+import model.xml.ModelElement;
 
 import util.Observer;
 
-public class Model implements util.Subject {
+public class Model implements util.Subject,ModelElement {
 	private final static Pattern pattern = Pattern.compile("<model>(<map>.*</map>)(<entity>.*</entity>)</model>");
 
 	protected final Queue<Command> commands = new LinkedList<Command>();
@@ -33,7 +35,6 @@ public class Model implements util.Subject {
 		Tile tile = map.getTile(avatarStart);
 		tile.accept(avatar);
 	}
-
 	public Map getMap() {
 		return this.map;
 	}
@@ -156,5 +157,13 @@ public class Model implements util.Subject {
 		Map map = Map.fromXml(mat.group(1));
 		Entity avatar = Entity.fromXml(occ, map, mat.group(2));
 		return new Model(map, avatar);
+	}
+
+	@Override
+	public void accept(GameVisitor visitor) {
+		visitor.visit(map);
+		//Visit Entities here
+		//foreach(entityhandler in entity handlerset)
+		//visitor.visis(entityhandler)
 	}
 }
