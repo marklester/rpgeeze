@@ -28,6 +28,7 @@ public class ResourceLoader {
 	private final HashMap<String, BufferedImage> images = new HashMap<String, BufferedImage>();
 	private final HashMap<String, Texture> textures = new HashMap<String, Texture>();
 	private final HashMap<String, Font> fonts = new HashMap<String, Font>();
+	private final HashMap<String, InputStream> audios = new HashMap<String, InputStream>();
 	
 	private static ResourceLoader instance = null;	
 
@@ -90,6 +91,21 @@ public class ResourceLoader {
 			}
 		}
 		return ret == null ? null : ret.deriveFont(size).deriveFont(style);
+	}
+	
+	public InputStream getAudio(String key){
+		InputStream ret = audios.get(key);
+		if(ret == null){
+			try{
+				ret = getStream("audio/" + key);
+				audios.put(key, ret);
+			}
+			catch(Exception e){
+				LogManager.getInstance().log("Problem getting audio:" + e.getMessage(), "ResourceLoader", Message.Type.ERROR);
+			}
+		}
+		
+		return ret;
 	}
 	
 	public TextRenderer getTextRenderer(String key, int style, float size) {
