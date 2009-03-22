@@ -44,8 +44,6 @@ public abstract class AreaEffect implements Visitable, Cloneable {
     }
     public abstract void apply(Entity entity);
     
-    public abstract void applyEffect(Entity e);
-    
     public void setMessageSentFlag(boolean flag){
         messageSent = flag;
     }
