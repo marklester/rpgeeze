@@ -34,8 +34,10 @@ public class Tile implements Visitable {
 	
 	public void setEntity(Entity entity) {
 		if(this.entity != null && entity != null) {
-			// somebody is already here
 			throw new IllegalMoveException("Destination tile already occupied");
+		}
+		else if(!this.terrain.isPassable(entity)) {
+			throw new IllegalMoveException("Entity may not traverse destination terrain");
 		}
 		this.entity = entity;
 	}
