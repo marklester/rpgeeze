@@ -7,7 +7,7 @@ import rpgeeze.model.terrain.GrassTerrain;
 import rpgeeze.model.terrain.Terrain;
 import rpgeeze.model.terrain.WaterTerrain;
 
-public class FiniteMatrixMap implements Map {
+public class FiniteMatrixMap extends Map {
 	private TileImpl[][] matrix;
 	private Entity avatar;
 	

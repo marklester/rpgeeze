@@ -67,12 +67,12 @@ public class GameplayView extends View<GameplayView.State> {
 			glutil.color(fadeIn.getFinalColor());
 		
 		// zoom
-		double myZoom = zoom;
-		gl.glTranslated(-0.5, -0.5, myZoom);
+//		double myZoom = zoom;
+//		gl.glTranslated(-0.5, -0.5, myZoom);
 		
 		// get viewport dimensions in tiles that have to be displayed
-		int widthInTiles = (int) Math.ceil(-2 * myZoom * glutil.getViewportAspectRatio());
-		int heightInTiles = (int) Math.ceil(-2 * myZoom);
+		int widthInTiles = (int) Math.ceil(-2 * zoom * glutil.getViewportAspectRatio());
+		int heightInTiles = (int) Math.ceil(-2 * zoom);
 
 		double centerX = 0;
 		double centerY = 0;
@@ -100,7 +100,7 @@ public class GameplayView extends View<GameplayView.State> {
 			}
 		*/
 
-		gl.glTranslated(0.5, 0.5, -myZoom);
+		gl.glTranslated(0.5, 0.5, -zoom);
 		
 		fpsText.setVisible(getState() == State.NORMAL);
 		if(getState() == State.NORMAL) {
@@ -112,11 +112,13 @@ public class GameplayView extends View<GameplayView.State> {
 	}
 
 	public void zoom(double dz) {
+/*
 		zoom += dz;
 		if(zoom > ZOOM_MAX)
 			zoom = ZOOM_MAX;
 		else if(zoom < ZOOM_MIN)
 			zoom = ZOOM_MIN;
+			*/
 	}
 
 	public void changeFrom() {
