@@ -77,8 +77,16 @@ public class Tile implements Cloneable, ModelElement, Visitable {
 	public void setItem(Item newItem) {
 		item = newItem;
 	}
+	
+	public boolean hasItem() {
+		return getItem() != null;
+	}
 
-	public AreaEffect getAreaEffect() {
+	public boolean hasAE() {
+		return getAE() != null;
+	}
+	
+	public AreaEffect getAE() {
 		return ae;
 	}
 
