@@ -12,6 +12,7 @@ import javax.swing.KeyStroke;
 import model.Command;
 import model.Direction;
 import model.Model;
+import model.xml.XMLWriterVisitor;
 import view.View;
 
 import java.awt.Point;
@@ -154,7 +155,9 @@ public class Controller extends JComponent implements MouseListener {
 					catch(FileNotFoundException e) {
 					}
 					if(writer != null) {
-						writer.println(model.toXml());
+						XMLWriterVisitor xmler = new XMLWriterVisitor();
+						xmler.visit(model);
+						writer.println(xmler.toString());
 						writer.flush();
 						writer.close();
 					}
