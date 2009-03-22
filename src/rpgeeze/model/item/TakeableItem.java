@@ -2,7 +2,16 @@ package rpgeeze.model.item;
 
 import rpgeeze.model.Entity;
 
+/**
+ * An Item that is added to an Entity's Inventory on touch.
+ */
+
 public abstract class TakeableItem extends Item {
+	
+	public TakeableItem(String name) {
+        super(name);
+	}
+
 	public void activate(Entity entity) {
 		// add self to entity's inventory
 		
