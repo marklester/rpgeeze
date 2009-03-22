@@ -3777,6 +3777,11 @@
 				<x>36</x>
 				<y>7</y>
 			</location>
+			<decal>Trampoline</decal>
+			<ae>
+				<name>Launch AE</name>
+				<rate>10</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -6579,6 +6584,11 @@
 				<x>11</x>
 				<y>13</y>
 			</location>
+			<decal>Trampoline</decal>
+			<ae>
+				<name>Launch AE</name>
+				<rate>10</rate>
+			</ae>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>

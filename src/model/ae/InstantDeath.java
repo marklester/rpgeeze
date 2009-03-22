@@ -1,6 +1,6 @@
 package model.ae;
 import java.awt.Color;
-
+import util.AudioThread;
 import util.ResourceLoader;
 import view.Console;
 import model.entity.StatsModifiable;
@@ -16,7 +16,7 @@ public class InstantDeath extends AreaEffect {
 	}
 	
 	public void applyEffect(StatsModifiable sm) {
-		ResourceLoader.getInstance().playAudioClip(this.name);
+		AudioThread.getInstance().playAudioClip(this.name);
 		sm.addHealth(sm.maxHealth());
 		Console.getInstance().writeLine("You just got Knocked The Hack Out", Color.RED);
 	}
