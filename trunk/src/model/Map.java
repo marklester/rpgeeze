@@ -7,9 +7,12 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import model.xml.GameVisitor;
+import model.xml.ModelElement;
+
 import util.Iterator;
  
-public class Map {
+public class Map implements ModelElement{
 	protected static final Pattern mapPattern = Pattern.compile("<map>(.*?)</map>");
 	protected static final Pattern tilePattern = Pattern.compile("(<tile>.*?</tile>)");
 	
@@ -173,5 +176,14 @@ public class Map {
 			matrix[loc.getY()][loc.getX()] = tile;
 		}
 		return new Map(matrix);
+	}
+
+	@Override
+	public void accept(GameVisitor visitor) {
+		Iterator<Tile> iter = getTiles();
+		for(iter.reset(); !iter.isDone(); iter.advance()) {
+			Tile tile = iter.current();
+			visitor.visit(tile);
+		}
 	}
 }

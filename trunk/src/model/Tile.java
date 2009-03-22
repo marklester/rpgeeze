@@ -4,12 +4,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import model.item.Item;
+import model.xml.GameVisitor;
+import model.xml.ModelElement;
 import model.decal.Decal;
 import model.entity.Entity;
 import model.ae.AreaEffect;
 import view.Drawer;
 
-public class Tile implements Cloneable {
+public class Tile implements Cloneable, ModelElement{
 	private static final Pattern pattern = Pattern.compile("<tile>(<terrain>.*</terrain>)(<location>.*</location>)(<decal>.*</decal>|)(<item>.*</item>|)(<ae>.*</ae>|)</tile>");
 	
 	private final Terrain terrain;
@@ -155,5 +157,15 @@ public class Tile implements Cloneable {
 		Item item = mat.group(4).length() == 0 ? null : Item.fromXml(mat.group(4));
 		AreaEffect ae = mat.group(5).length() == 0 ? null : AreaEffect.fromXml(mat.group(5));
 		return new Tile(terrain, location, decal, item, ae);
+	}
+
+	@Override
+	//Visitor Patter Operation For Saving and Reading,etc
+	public void accept(GameVisitor visitor) {
+		visitor.visit(terrain);
+		visitor.visit(location);
+		if(decal != null)visitor.visit(decal);
+		if(item != null)visitor.visit(item);
+		if(ae != null)visitor.visit(ae);
 	}
 }
