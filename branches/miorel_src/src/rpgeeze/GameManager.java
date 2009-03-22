@@ -15,9 +15,13 @@ import com.sun.opengl.util.FPSAnimator;
 import rpgeeze.controller.Controller;
 import rpgeeze.controller.MainMenuController;
 import rpgeeze.log.LogManager;
+import rpgeeze.model.Entity;
+import rpgeeze.model.Map;
 import rpgeeze.model.Model;
 import rpgeeze.model.ModelThread;
+import rpgeeze.model.Tile;
 import rpgeeze.model.occupation.Occupation;
+import rpgeeze.model.terrain.GrassTerrain;
 import rpgeeze.util.DelegatingEventAdapter;
 import rpgeeze.util.EventAdapter;
 import rpgeeze.util.Pair;
@@ -360,7 +364,22 @@ public class GameManager extends DelegatingEventAdapter
 	
 	public void createModel(Occupation occupation) {
 		LogManager.getInstance().log("Creating model using " + occupation.getName() + " occupation", "MANAGER");
-		model = new Model(null, null);
+		
+		// this needs to be nice
+		Tile[][] matrix = new Tile[10][10];
+		for(int i = 0; i != 10; ++i) {
+			for(int j = 0; j != 10; ++j) {
+				matrix[i][j] = new Tile(GrassTerrain.getInstance(), j, i);
+			}
+		}
+		Map map = new Map(matrix);
+		Entity avatar = new Entity(occupation, map);
+		Tile pos = matrix[3][2];
+		avatar.setTile(pos);
+		pos.setEntity(avatar);
+		model = new Model(map, avatar);
+		// end of stuff that needs to be nice
+		
 		thread = new ModelThread(model);
 		thread.start();
 	}

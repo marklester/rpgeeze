@@ -26,6 +26,10 @@ public class Model {
 		lm = LogManager.getInstance();
 	}
 
+	public Entity getAvatar() {
+		return avatar;
+	}
+	
 	public synchronized boolean isPaused() {
 		return paused;
 	}

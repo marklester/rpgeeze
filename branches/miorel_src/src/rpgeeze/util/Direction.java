@@ -2,7 +2,7 @@ package rpgeeze.util;
 
 import rpgeeze.math.Vector;
 
-public enum Direction implements Vector {
+public enum Direction {
 	NORTH(0, 1),
 	SOUTH(0, -1),
 	EAST(1, 0),
@@ -23,15 +23,11 @@ public enum Direction implements Vector {
 		this.y = y;
 	}
 	
-	public double getX() {
+	public int getX() {
 		return x;
 	}
 
-	public double getY() {
+	public int getY() {
 		return y;
-	}
-
-	public double getZ() {
-		return 0;
 	}
 }
