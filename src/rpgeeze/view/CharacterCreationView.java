@@ -19,6 +19,8 @@ import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
+import rpgeeze.gl.effect.Effect;
+import rpgeeze.gl.effect.TranslateEffect;
 import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.gl.geom.Triangle;
@@ -46,18 +48,23 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	private final List<TexturedRectangle> occupationImage = new ArrayList<TexturedRectangle>();
 	private int occP;
 	
+	private Effect zoom;
+	
 	public CharacterCreationView(GameManager manager) {
 		super(manager);
 
 		TextRenderer titleRenderer = new TextRenderer(font, true, true);
 		characterTitle = new Text("", titleRenderer, 0.03f);
-		put(characterTitle, null);
 		
 		Iterator<Occupation> occIter = Occupation.getPlayerOccupations();
 		for(occIter.reset(); !occIter.isDone(); occIter.advance()) {
 			occupation.add(occIter.current());
 			String img = GameProperties.getInstance().getProperty("img.occupation." + occIter.current().getName().toLowerCase());
-			occupationImage.add(new TexturedRectangle(ResourceLoader.getInstance().getTexture(img), 100, 100));
+			TexturedRectangle tr = new TexturedRectangle(ResourceLoader.getInstance().getTexture(img), 100, 100);
+			occupationImage.add(tr);
+			tr.setXYZ(-50, -30, -80);
+			tr.setVisible(false);
+			put(tr, null);
 		}
 		
 		GLUtil glutil = new GLUtil();
@@ -92,6 +99,7 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 		
 		grid.reset();
 		characterTitle.setXYZ(0, grid.current().getY() + grid.current().getWrappedObject().getHeight() + 0.8, -14.8);
+		put(characterTitle, null);
 		
 		changeState(State.NEW);
 	}
@@ -106,22 +114,17 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		gl.glTranslated(0, Y_SHIFT, 0);
 		glutil.color(MainMenuView.PLAIN);
-		
-		
-		switch(getState()) {
-		case NORMAL:
-			double disp = 14.5 * glutil.getViewportAspectRatio() - 3;
-			for(wheel.reset(); !wheel.isDone(); wheel.advance())
-				wheel.current().setX(disp);
-			
-			// silly K's...
-			
-			break;
-		case ZOOMING:
-			if(point == null) {
-			}
-			break;
+
+		double disp = 14.5 * glutil.getViewportAspectRatio() - 3;
+		for(wheel.reset(); !wheel.isDone(); wheel.advance())
+			wheel.current().setX(disp);
+
+		if(getState() == State.ZOOMING) {
+			zoom.apply(gl);
+			if(zoom.isDone())
+				changeState(State.ZOOMED);
 		}
+		
 		renderObjects(gl);
 	}
 	
@@ -134,7 +137,9 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	}
 	
 	private void setOccupation(int newOccupation) {
+		occupationImage.get(occP).setVisible(false);
 		occP = newOccupation;
+		occupationImage.get(occP).setVisible(true);
 		setCharacterName(getCharacterName());
 	}
 	
@@ -177,7 +182,13 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	}
 	
 	public void startZoom() {
-		if(getState() != State.ZOOMING && getState() != State.ZOOMED)
+		if(getState() != State.ZOOMING && getState() != State.ZOOMED) {
+			zoom  = new TranslateEffect(occupationImage.get(occP), new StaticVector(-50, -30, -80), new StaticVector(-50, -50, -1), 2);
+			Iterator<Highlightable> hi = getHighlightables();
+			for(hi.reset(); !hi.isDone(); hi.advance())
+				hi.current().setVisible(false);
+			characterTitle.setVisible(false);
 			changeState(State.ZOOMING);
+		}
 	}
 }
