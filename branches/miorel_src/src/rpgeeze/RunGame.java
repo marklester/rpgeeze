@@ -28,7 +28,25 @@ public class RunGame {
 	public final static double LOGO_Y = -LOGO_Z / 5;
 	public final static double LOGO_SIZE = -LOGO_Z * 1.7;
 	
-	public final static HashMap<String,String> keyControls = new HashMap<String,String>();
+	public final static HashMap<String, String> KEY_CONTROLS = new HashMap<String, String>();
+	static {
+		KEY_CONTROLS.put("Move North", "8");
+		KEY_CONTROLS.put("Move South", "2");
+		KEY_CONTROLS.put("Move East", "6");
+		KEY_CONTROLS.put("Move West","4");
+		KEY_CONTROLS.put("Move Northeast", "9");
+		KEY_CONTROLS.put("Move Southeast", "3");
+		KEY_CONTROLS.put("Move Northwest", "7");
+		KEY_CONTROLS.put("Move Southwest", "1");
+		KEY_CONTROLS.put("Save Game", "S");
+		KEY_CONTROLS.put("Load Game", "L");
+		KEY_CONTROLS.put("New Game", "N");
+		KEY_CONTROLS.put("Show Inventory", "I");
+		KEY_CONTROLS.put("Show Stats", "Q");
+		KEY_CONTROLS.put("Show Skills", "W");
+		KEY_CONTROLS.put("Options", "O");
+		KEY_CONTROLS.put("Help", "F1");
+	}
 	
 	public final static Color BACKGROUND_COLOR = new Color(0.0f, 0.75f, 0.0f, 1.0f);
 	

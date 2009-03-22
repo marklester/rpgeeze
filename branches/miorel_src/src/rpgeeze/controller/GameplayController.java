@@ -1,6 +1,6 @@
 package rpgeeze.controller;
 
-import static rpgeeze.RunGame.keyControls;
+import static rpgeeze.RunGame.KEY_CONTROLS;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyEvent;
@@ -44,7 +44,7 @@ public class GameplayController extends Controller<GameplayView> {
 		if(e.getID() == KeyEvent.KEY_PRESSED) {
 			String action = e.getKeyText(e.getKeyCode());
 			
-			Set s = keyControls.entrySet();
+			Set s = KEY_CONTROLS.entrySet();
 			Iterator a =  s.iterator();
 			
 			while(a.hasNext()){
