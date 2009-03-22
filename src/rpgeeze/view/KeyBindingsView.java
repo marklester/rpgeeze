@@ -6,7 +6,7 @@ import static rpgeeze.RunGame.BACKGROUND_COLOR;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
-import java.util.Set;
+
 import javax.media.opengl.GL;
 
 import com.sun.opengl.util.j2d.TextRenderer;
@@ -25,7 +25,7 @@ import rpgeeze.log.LogManager;
 import rpgeeze.math.StaticVector;
 import rpgeeze.util.ArrayIterator;
 import rpgeeze.util.ResourceLoader;
-import java.lang.StringBuilder;
+
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -44,6 +44,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	
 	private HashMap<String, String> keyControls;
 	private HashMap<String, Text> strText = new HashMap<String, Text>();
+
 	
 	private final Font font = ResourceLoader.getInstance().getFont(GameProperties.getInstance().getProperty("app.font"), Font.PLAIN, 100);
 	
@@ -116,6 +117,9 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			for(Entry<String, String> entry: keyControls.entrySet()) {
 				if(entry.getValue().equals(value))
 					entry.setValue(keyControls.get(key));
+
+				System.out.println(entry + " " + entry.getKey() + " " + entry.getValue());
+
 			}
 		}
 		keyControls.put(key, value);
@@ -146,12 +150,31 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			if(value != null) {
 				Text text = strText.get(key);
 				text.setText(value);
+
 				if(!key.matches("Move .+"))
 					text.setXYZ(iter.current().getX() + 7 - text.getWidth() / 2, iter.current().getY() - 2, iter.current().getZ());
+
 			}
 		}
+		int i;
+		for(wheel.reset(), i = 0; !wheel.isDone(); i++, wheel.advance()){
+			String key = getNameForObject(wheel.current());
+			String value = keyControls.get(key); 
+			Text text = strText.get(key);
+			text.setText(value);
+			
+			gl.glPushMatrix();
+			gl.glRotated(i/8 * 360, 0, 0, 1);				
+			gl.glTranslated(10, 0, 0);
+			gl.glRotated(-i/8 * 360, 0, 0, 1);
+			text.setPreTranslationRotation(360.0 * i/8, 0, 0, 1);
+			text.setPostTranslationRotation(360.0 * -i/8, 0, 0, 1);
+			text.setXYZ(10, 0, -25);
+			gl.glPopMatrix();
+		}
 		
-		int i = 0;
+
+		i = 0;
 		for(wheel.reset(); !wheel.isDone(); wheel.advance(), ++i) {
 			String key = getNameForObject(wheel.current());
 			String value = keyControls.get(key);			
@@ -161,10 +184,11 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			text.setXYZ(12 * Math.cos(angle) - text.getWidth() / 2, 12 * Math.sin(angle) - text.getHeight() / 2, -25);
 		}
 		
+
 		glutil.color(MainMenuView.PLAIN);
 		renderObjects(gl);
 	}
-
+		
 	
 
 	/**
