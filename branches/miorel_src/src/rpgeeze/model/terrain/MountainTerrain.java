@@ -1,5 +1,7 @@
 package rpgeeze.model.terrain;
 
+import rpgeeze.model.Entity;
+
 public class MountainTerrain extends Terrain {
 	private static Terrain instance;
 	
@@ -10,6 +12,10 @@ public class MountainTerrain extends Terrain {
 		if(instance == null)
 			instance = new MountainTerrain();
 		return instance;
+	}
+	
+	public boolean isPassable(Entity e) {
+		return false;
 	}
 	
 	public String getName() {
