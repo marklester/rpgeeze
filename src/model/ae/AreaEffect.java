@@ -40,7 +40,9 @@ public abstract class AreaEffect implements Cloneable {
 	public void setRate(int rate) {
 		this.rate = rate;
 	}
-
+	public int getRate(){
+		return rate;
+	}
 	public AreaEffect clone() {
 		AreaEffect ret = null;
 		try {
