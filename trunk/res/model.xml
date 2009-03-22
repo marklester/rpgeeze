@@ -53,10 +53,8 @@
 			</location>
 			<item>
 				<type>Portal Item</type>
-				<location>
-					<x>5</x>
-					<y>5</y>
-				</location>			</item>
+				<property name="location" value="5,5"/>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -16399,10 +16397,8 @@
 			</location>
 			<item>
 				<type>Portal Item</type>
-				<location>
-					<x>-3</x>
-					<y>3</y>
-				</location>			</item>
+				<property name="location" value="-3,3"/>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -20282,10 +20278,8 @@
 			</location>
 			<item>
 				<type>Portal Item</type>
-				<location>
-					<x>9</x>
-					<y>-9</y>
-				</location>			</item>
+				<property name="location" value="9,-9"/>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Water Terrain</terrain>
