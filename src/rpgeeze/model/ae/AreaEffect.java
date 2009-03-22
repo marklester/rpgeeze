@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import rpgeeze.model.Entity;
 import rpgeeze.model.Visitable;
 import rpgeeze.model.Visitor;
+import rpgeeze.model.entity.
 
 public abstract class AreaEffect implements Visitable, Cloneable {
 	
@@ -42,7 +43,8 @@ public abstract class AreaEffect implements Visitable, Cloneable {
     public int getRate(){
         return rate;
     }
-    public abstract void apply(Entity entity);
+    
+		public abstract void applyEffect(StatsModifiable sm);
     
     public void setMessageSentFlag(boolean flag){
         messageSent = flag;
