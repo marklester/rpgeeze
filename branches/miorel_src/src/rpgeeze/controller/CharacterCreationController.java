@@ -74,8 +74,9 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 
 	public void reactToChange() {
 		if(getView().getState() == CharacterCreationView.State.ZOOMED) {
-			Entity avatar = new FiniteMatrixMap().getAvatar();
-			GameplayView gv = new GameplayView(getManager(), avatar);
+			getManager().createModel(getView().getOccupation());
+			//Entity avatar = new FiniteMatrixMap().getAvatar();
+			GameplayView gv = new GameplayView(getManager());
 			GameplayController gc = new GameplayController(getManager(), gv);
 			getManager().pushState(gv, gc);
 		}

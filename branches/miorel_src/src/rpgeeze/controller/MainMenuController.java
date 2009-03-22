@@ -72,7 +72,7 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 	
 	protected void helpView(){
 		HelpView hv = new HelpView(getManager());
-		HelpViewController hc = new HelpViewController(getManager(), hv);
+		HelpController hc = new HelpController(getManager(), hv);
 		getManager().pushState(hv, hc);
 	}
 	

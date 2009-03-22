@@ -32,17 +32,19 @@ public class GameplayView extends View<GameplayView.State> {
 	private double zoom = -8;
 
 	private BrushColorChange fadeIn;
+	private Text fpsText;
 	
 	// currently public so the Controller can access it easily 
 	// later someone will tell the Controller about the avatar differently
-	public Entity avatar;
+	//public Entity avatar;
 
 	public enum State implements View.State { NEW, FADING_IN, NORMAL, HIDDEN; }
 
-	public GameplayView(GameManager manager, Entity avatar) {
+	public GameplayView(GameManager manager) {//, Entity avatar) {
 		super(manager);
-		this.avatar = avatar;
+	//	this.avatar = avatar;
 		fadeIn = new BrushColorChange(new Color(0, 0, 0, 1f), new Color(1, 1, 1, 1f), 1);
+		fpsText = new Text("", Color.RED, renderer, 0.0025f);
 		changeState(State.NEW);
 	}
 
@@ -77,6 +79,7 @@ public class GameplayView extends View<GameplayView.State> {
 		int minY = (int) Math.floor(centerX - (1 + heightInTiles / 2));
 		int maxY = (int) Math.ceil(centerY + (1 + heightInTiles / 2));
 
+		/*
 		for(int i = minX; i <= maxX; ++i)
 			for(int j = minY; j <= maxY; ++j) {
 				Tile t = avatar.getTile().getTile(new StaticVector(i, j, 0));
@@ -92,15 +95,17 @@ public class GameplayView extends View<GameplayView.State> {
 					entity.render(gl);
 				gl.glPopMatrix();
 			}
+		*/
 
+		gl.glTranslated(0.5, 0.5, zoom);
+		
+		fpsText.setVisible(getState() == State.NORMAL);
 		if(getState() == State.NORMAL) {
-			gl.glLoadIdentity();
-			Text fpsText = new Text(String.format("FPS: %.1f", getManager().getFPS()), Color.RED, renderer, 0.0025f);
+			fpsText.setText(String.format("FPS: %.1f", getManager().getFPS()));
 			fpsText.setXYZ(glutil.getViewportAspectRatio() - fpsText.getWidth() - fpsText.getHeight() / 2, 1 - 3 * fpsText.getHeight() / 2, -1);
-			fpsText.render(gl);
 		}
 
-		gl.glFlush();
+		renderObjects(gl);
 	}
 
 	public void zoom(double dz) {
@@ -120,9 +125,5 @@ public class GameplayView extends View<GameplayView.State> {
 			changeState(State.FADING_IN);
 		else
 			changeState(State.NORMAL);
-	}
-
-	protected String getNameForGLName(int glName) {
-		return null;
 	}
 }
