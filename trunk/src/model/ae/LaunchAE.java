@@ -2,6 +2,7 @@ package model.ae;
 
 import model.entity.Entity;
 import model.Location;
+import model.entity.StatsModifiable;
 
 public class LaunchAE extends AreaEffect {
 
@@ -14,7 +15,7 @@ public class LaunchAE extends AreaEffect {
 	}
 	
 	@Override
-	public void applyEffect(Entity e) {
+	public void applyEffect(StatsModifiable e) {
 		System.out.println("Launching Your Ass Now!");
 		
 		/*
