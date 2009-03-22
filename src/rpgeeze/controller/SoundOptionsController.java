@@ -28,6 +28,9 @@ public class SoundOptionsController extends HighlightableViewController<SoundOpt
 				else if(name.equals("Mute Effects")) {
 					//mute area effects audio threads
 				}
+				else if(name.equals("Back")){
+			      getManager().popState();
+				}
 			}
 		}
 	}
