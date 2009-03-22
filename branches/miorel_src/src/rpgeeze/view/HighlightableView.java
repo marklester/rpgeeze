@@ -1,6 +1,7 @@
 package rpgeeze.view;
 
 import rpgeeze.GameManager;
+import rpgeeze.dp.Iterator;
 import rpgeeze.gl.Highlightable;
 import rpgeeze.gl.HighlightableSet;
 
@@ -30,5 +31,9 @@ public abstract class HighlightableView<T extends View.State> extends View<T> {
 	
 	public String getActivated() {
 		return set.getActivated();
+	}
+	
+	protected Iterator<Highlightable> getHighlightables() {
+		return set.getHighlightables();
 	}
 }

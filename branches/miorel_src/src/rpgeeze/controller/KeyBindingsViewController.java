@@ -17,6 +17,13 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 		super(manager, view);
 	}
 
+	public void keyPressed(KeyEvent e) {
+//		if(e.getID() == KeyEvent.KEY_PRESSED) {
+		String activated = getView().getActivated();
+		if(activated != null) // && button.getHighlighted())
+			getView().setCommand(activated, KeyEvent.getKeyText(e.getKeyCode()));
+//		}
+	}
 	
 	/**
 	 * Executes the action corresponding to the clicked button, if any.

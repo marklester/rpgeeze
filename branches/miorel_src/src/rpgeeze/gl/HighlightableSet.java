@@ -1,6 +1,11 @@
 package rpgeeze.gl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import rpgeeze.dp.Iterator;
+import rpgeeze.util.ListIterator;
 
 public class HighlightableSet {
 	private HashMap<String, Highlightable> map;
@@ -46,5 +51,11 @@ public class HighlightableSet {
 	
 	public String getActivated() {
 		return activatedStr;
+	}
+	
+	public Iterator<Highlightable> getHighlightables() {
+		List<Highlightable> list = new ArrayList<Highlightable>();
+		list.addAll(map.values());
+		return new ListIterator<Highlightable>(list);
 	}
 }

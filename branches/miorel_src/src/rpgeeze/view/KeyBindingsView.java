@@ -21,12 +21,14 @@ import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.gl.geom.Triangle;
+import rpgeeze.log.LogManager;
 import rpgeeze.math.StaticVector;
 import rpgeeze.util.ArrayIterator;
 import rpgeeze.util.ResourceLoader;
 import java.lang.StringBuilder;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 /**
  * The key bindings screen.
@@ -36,7 +38,10 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	private static final double X_SHIFT = 18;
 	private static final double ARROW_DISPLACE = 4;
 	
+	private TextRenderer renderer;
+	
 	private HashMap<String, String> keyControls;
+	private HashMap<String, Text> strText = new HashMap<String, Text>();
 	
 	private final Font font = ResourceLoader.getInstance().getFont(GameProperties.getInstance().getProperty("app.font"), Font.PLAIN, 100);
 	
@@ -48,7 +53,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		TextRectangle rect;
 		Iterator<HighlightableWrapper<TextRectangle>> grid;
 		
-		TextRenderer renderer = new TextRenderer(font.deriveFont(36f), true, true);
+		renderer = new TextRenderer(font.deriveFont(36f), true, true);
 		rect = new TextRectangle(new Text("X", renderer, 0.05f), 10, 3);
 		rect.alignText(0.5, 0.5);
 		
@@ -75,6 +80,9 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			grid.current().getWrappedObject().getText().setText(names.current());
 			grid.current().getWrappedObject().alignText(0.5, 0.5);
 			grid.current().getWrappedObject().getText().setY(button.getWrappedObject().getText().getY());
+			Text text = new Text("", renderer, 0.05f);
+			strText.put(names.current(), text);
+			put(text, null);
 		}
 		
 		Highlightable arrow = new HighlightableWrapper<Triangle>(new Triangle(new StaticVector(0, -1.5), new StaticVector(0, 1.5), new StaticVector(1.5, 0)), Color.BLACK, MainMenuView.HIGHLIGHTED);
@@ -86,6 +94,9 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			wheel.current().setX(ARROW_DISPLACE);
 			put(wheel.current(), names.current());
 			putHighlightable(wheel.current(), names.current());
+			Text text = new Text("", renderer, 0.05f);
+			strText.put(names.current(), text);
+			put(text, null);
 		}
 	}
 
@@ -93,6 +104,27 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 
 	public HashMap<String,String> getkeyControls(){
 		return keyControls;
+	}
+	
+	public void setCommand(String key, String value){
+		LogManager lm = LogManager.getInstance();
+		if(keyControls.containsValue(value)) {
+			lm.log("Duplicate value, swapping", "VIEW");
+			
+			for(Entry<String, String> entry: keyControls.entrySet()) {
+				if(entry.getValue().equals(value))
+					entry.setValue(keyControls.get(key));
+				System.out.println(entry + " " + entry.getKey() + " " + entry.getValue());
+/*				StringBuilder tempKey = new StringBuilder(entry.toString());
+				tempKey = tempKey.delete(tempKey.length()-2,tempKey.length());
+
+				if(value.equals((keyControls.get(tempKey.toString())))){
+					keyControls.put(tempKey.toString(), keyControls.get(key));
+				}*/
+			}
+		}
+		keyControls.put(key, value);
+		lm.log("Setting " + key + " to " + value, "VIEW");
 	}
 	
 	public void changeFrom() {
@@ -111,35 +143,33 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);		
 		glutil.color(MainMenuView.PLAIN);
 		gl.glTranslated(0, Y_SHIFT, 0);
+		
+		Iterator<Highlightable> iter = getHighlightables();
+		for(iter.reset(); !iter.isDone(); iter.advance()) {
+			String key = getNameForObject(iter.current());
+			String value = keyControls.get(key);
+			if(value != null) {
+				Text text = strText.get(key);
+				text.setText(value);
+				if(key.matches("Move .+")) {
+					
+				}
+				else {
+					text.setXYZ(iter.current().getX() + 7 - text.getWidth() / 2, iter.current().getY() - 2, iter.current().getZ());
+				}
+			}
+		}
+		
+		glutil.color(MainMenuView.PLAIN);
 		renderObjects(gl);
 	}
 
 	
-	
-	//	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
-//	private static final TextRenderer smallRenderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 14);
-	//private HashMap<String,String> keyControls;
-//	private String message = "";
-		
-/*
- * 
- * public KeyBindingsView(GameManager manager) {
- *
-		super(manager);
-		for(Button button: Button.values())
-			putHighlightable(button.getButton());
-		changeState(State.NEW);
-		defaults();
-	}
-	
-	public HashMap<String,String> getkeyControls(){
-		return keyControls;
-	}
 
 	/**
 	 * Renders the key bindings screen.
 	 */
-//	public void render(GL gl, Point point) {
+/*	public void render(GL gl, Point point) {
 //		GLUtil glutil = new GLUtil(gl);
 //		glutil.standardFrustum(gl, point);
 //		glutil.clearColor(BACKGROUND_COLOR);
@@ -261,57 +291,9 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		
 		gl.glFlush();
 	}
-	public void changeFrom() {
-		super.changeFrom();
-		changeState(State.HIDDEN);
-	}
 	
-	public void changeTo() {
-		super.changeTo();
-		changeState(State.NORMAL);
-	}
-	
-	public void startZoom() {
-		if(getState() != State.ZOOMING && getState() != State.ZOOMED)
-			changeState(State.ZOOMING);
-	}
-	
-	public void setCommand(String key, String value){
-		if(keyControls.containsValue(value)){
-			Set s = keyControls.entrySet();
-			Iterator a =  s.iterator();
-			
-			while(a.hasNext()){
-				StringBuilder tempKey = new StringBuilder(a.next().toString());
-				tempKey = tempKey.delete(tempKey.length()-2,tempKey.length());
-		    
-				if(value.equals((keyControls.get(tempKey.toString())))){
-				  keyControls.put(tempKey.toString(), keyControls.get(key));
-				}
-			}
-			
-		}
-			keyControls.remove(key);
-			keyControls.put(key, value);
-			System.out.println(keyControls.isEmpty());
-		}
+
 	
 	
-	public void defaults(){
-		keyControls.put("N_ARROW", "8");
-		keyControls.put("S_ARROW", "2");
-		keyControls.put("E_ARROW", "6");
-		keyControls.put("W_ARROW","4");
-		keyControls.put("NE_ARROW", "9");
-		keyControls.put("SE_ARROW", "3");
-		keyControls.put("NW_ARROW", "7");
-		keyControls.put("SW_ARROW", "1");
-		keyControls.put("SAVE_GAME", "S");
-		keyControls.put("LOAD_GAME", "L");
-		keyControls.put("NEW_GAME", "N");
-		keyControls.put("INVENTORY_VIEW", "I");
-		keyControls.put("STATS_VIEW", "Q");
-		keyControls.put("SKILLS_VIEW", "W");
-		keyControls.put("OPTIONS_VIEW", "O");
-	}*/
+*/
 }
