@@ -5,17 +5,16 @@ import static rpgeeze.RunGame.KEY_CONTROLS;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
 import java.util.Map.Entry;
 
 import rpgeeze.GameManager;
-import rpgeeze.RunGame;
 import rpgeeze.dp.Command;
 import rpgeeze.log.LogManager;
+import rpgeeze.model.Entity;
+import rpgeeze.model.Model;
+import rpgeeze.util.Direction;
 import rpgeeze.view.GameplayView;
 import rpgeeze.view.OptionsMenuView;
-
 
 public class GameplayController extends Controller<GameplayView> {
 	private MouseEvent prev = null;
@@ -43,8 +42,26 @@ public class GameplayController extends Controller<GameplayView> {
 				getManager().pushState(omv, omc);
 			}
 		});
+		actions.put("Move North", moveEncapsulate(Direction.NORTH));
+		actions.put("Move South", moveEncapsulate(Direction.SOUTH));
+		actions.put("Move East", moveEncapsulate(Direction.EAST));
+		actions.put("Move West", moveEncapsulate(Direction.WEST));
+		actions.put("Move Northeast", moveEncapsulate(Direction.NORTHEAST));
+		actions.put("Move Northwest", moveEncapsulate(Direction.NORTHWEST));
+		actions.put("Move Southeast", moveEncapsulate(Direction.SOUTHEAST));
+		actions.put("Move Southwest", moveEncapsulate(Direction.SOUTHWEST));
 	}
 
+	protected Command moveEncapsulate(final Direction direction) {
+		return new Command() {
+			public void execute() {
+				Model model = getManager().getModel();
+				Entity avatar = model.getAvatar();
+				model.queueCommand(new MoveCommand(avatar, direction));
+			}
+		};
+	}
+	
 	public void reactToChange() {
 		switch(getView().getState()) {
 		case NORMAL:
@@ -80,7 +97,7 @@ public class GameplayController extends Controller<GameplayView> {
 		LogManager lm = LogManager.getInstance();
 		String keyPress = KeyEvent.getKeyText(e.getKeyCode());
 		String action = null;
-		for(Entry<String, String> entry: RunGame.KEY_CONTROLS.entrySet())
+		for(Entry<String, String> entry: KEY_CONTROLS.entrySet())
 			if(entry.getValue().equals(keyPress)) {
 				action = entry.getKey();
 				break;

@@ -12,26 +12,14 @@ import rpgeeze.dp.Iterator;
 import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.effect.BrushColorChange;
-import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.log.LogManager;
-import rpgeeze.math.StaticVector;
 import rpgeeze.model.Entity;
 import rpgeeze.model.Tile;
-import rpgeeze.model.terrain.*;
-import rpgeeze.util.ResourceLoader;
 
 public class GameplayView extends View<GameplayView.State> {
-//	private TexturedRectangle grass = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/grass.png"), 1, 1);
-//	private TexturedRectangle mountain = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/mountain.png"), 1, 1);;
-//	private TexturedRectangle water = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/water.png"), 1, 1);
-	
-	private TexturedRectangle entity = new TexturedRectangle(ResourceLoader.getInstance().getTexture("entity/entity.png"), 1, 1);;
+//	private TexturedRectangle entity = new TexturedRectangle(ResourceLoader.getInstance().getTexture("entity/entity.png"), 1, 1);;
 
 	private TextRenderer renderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.PLAIN, 24), true, true);
-
-//	private final static double ZOOM_MIN = -64;
-//	private final static double ZOOM_MAX = -2;
-	//private volatile double zoom = -8;
 
 	private final static double MAP_Z = -8;
 	
@@ -40,15 +28,10 @@ public class GameplayView extends View<GameplayView.State> {
 
 	private Drawer drawer = new Drawer();
 	
-	// currently public so the Controller can access it easily 
-	// later someone will tell the Controller about the avatar differently
-	//public Entity avatar;
-
 	public enum State implements View.State { NEW, FADING_IN, NORMAL, HIDDEN; }
 
-	public GameplayView(GameManager manager) {//, Entity avatar) {
+	public GameplayView(GameManager manager) {
 		super(manager);
-	//	this.avatar = avatar;
 		fadeIn = new BrushColorChange(new Color(0, 0, 0, 1f), new Color(1, 1, 1, 1f), 1);
 		fpsText = new Text("", Color.RED, renderer, 0.0025f);
 		put(fpsText, null);
