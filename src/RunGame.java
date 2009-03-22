@@ -59,7 +59,7 @@ public class RunGame {
 					}
 				}
 				Thread t = newGame(welcome.getOccupation(), ResourceLoader.getInstance().getScanner("model.xml"));
-				at.run();
+				at.start();
 				welcome.setVisible(false);		
 				welcome.dispose();
 				try {
@@ -117,7 +117,7 @@ public class RunGame {
 		Model model = Model.fromXml(occ, xml.toString());
 		
 		//Register the AudioThread in order to keep track of the Entity and his locatio
-		model.getAvatar().register(at);
+		//model.getAvatar().register(at);
 		
 		View view = new View(model);
 		Time time = new Time(model, view);
