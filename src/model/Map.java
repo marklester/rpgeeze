@@ -18,7 +18,8 @@ public class Map implements ModelElement{
 	
 	private final Matrix matrix;
 
-	public class Matrix implements Cloneable {
+	public class Matrix implements Cloneable{
+
 		private volatile Tile[][] map;
 
 		public Matrix(Tile[][] map) {
@@ -130,6 +131,11 @@ public class Map implements ModelElement{
 		// return matrix.getTiles(minX, minY, maxX, maxY);
 	}
 
+	public Iterator<Tile> iterator()
+	{
+		return getTiles();
+	}
+	
 	public Iterator<Tile> getTiles() {
 		// Matrix m = null;
 		// try
@@ -178,8 +184,13 @@ public class Map implements ModelElement{
 			Location loc = tile.getLocation();
 			matrix[loc.getY()][loc.getX()] = tile;
 		}
-		return new Map(matrix);
+		Map m = new Map(matrix);
+		Iterator<Tile> iter = m.iterator();
+		for(;!iter.isDone();iter.advance())
+			iter.current().setMap(m);
+		return m;
 	}
+
 
 	@Override
 	public void accept(GameVisitor visitor) {
@@ -189,4 +200,5 @@ public class Map implements ModelElement{
 			visitor.visit(tile);
 		}
 	}
+
 }

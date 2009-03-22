@@ -5,7 +5,7 @@ package model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
-import model.entity.Entity;
+import model.entity.PC;
 import view.Drawer;
 
 public class Shield extends TakeableItem {
@@ -13,13 +13,8 @@ public class Shield extends TakeableItem {
 		super("Shield");
 	}
 
-	public void activate(Entity e) {
-		use(e);
-	}
 
-	public void use(Entity e) {
-		e.equipAuxiliary(this);
-		if(e.getEquipment().auxiliary == this)
-			view.Console.getInstance().writeLine("Shield has been equipped.");
+	public void use(PC pc) {
+		pc.equipAuxiliary(this);
 	}
 }

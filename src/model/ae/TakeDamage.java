@@ -1,8 +1,8 @@
 package model.ae;
 import java.awt.Color;
 
-import model.entity.Entity;
 import model.entity.Stats;
+import model.entity.StatsModifiable;
 
 import view.Console;
 
@@ -16,9 +16,11 @@ public class TakeDamage extends AreaEffect {
 		super(rate, "Take Damage");
 	}
 
-	public void applyEffect(Entity e) {
+	public void applyEffect(StatsModifiable sm) {
 		if(--counter == 0) {
-			e.getStats().decLife(rate);
+			//e.getStats().decLife(rate);
+			sm.addHealth(0 - rate);
+			
 			counter = UPDATE_RATE; //reset
 			if(!messageSent) {
 				Console.getInstance().writeLine("Yo dog, you're dying", Color.red);

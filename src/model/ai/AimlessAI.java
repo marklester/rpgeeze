@@ -1,5 +1,5 @@
 package model.ai;
 
-public class AimlessAI {
+public class AimlessAI implements ArtificialIntelligence{
 
 }

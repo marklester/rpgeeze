@@ -39,7 +39,7 @@ public class ModelConstructor{
 	
 	public Model createModel(Occupation occ) {//new Game
 		Map map =  createMaps();
-		Entity avatar = new Entity(occ,map);
+		model.entity.PC avatar = new model.entity.PC(occ,map);
 		avatar.setTile(map.getTile(0,0));
 		return new Model(map,avatar);
 		//List<EntityHandler> ehs= createEntityHandlers();

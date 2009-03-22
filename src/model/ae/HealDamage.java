@@ -1,9 +1,7 @@
 package model.ae;
-import java.awt.Color;
-
-import model.entity.Entity;
 
 import view.Console;
+import model.entity.*;
 
 public class HealDamage extends AreaEffect {
 
@@ -15,17 +13,18 @@ public class HealDamage extends AreaEffect {
 		super(rate, "Heal Damage");
 	}
 	
-	public void applyEffect(Entity e) {
+	public void applyEffect(StatsModifiable sm) {
 		if(--counter == 0) {
-			int life = e.getStats().getLife();
-			e.getStats().incLife(rate);
-			//if(life != e.getStats().getLife()) { 
+			sm.addHealth(rate);
+//			int life = e.getStats().getLife();
+//			e.getStats().incLife(rate);
+			//e.addHealth(rate);
+//			if(life != e.getStats().getLife()) { 
 			counter = UPDATE_RATE; //reset
 			if(!messageSent) {
-				Console.getInstance().writeLine("Congrats. Enjoy some life.", Color.GREEN);
+				Console.getInstance().writeItemEvent("Congrats. Enjoy some life.");
 				messageSent = true;
 			}
-			//}
 		}
 	}
 }

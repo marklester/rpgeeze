@@ -23,6 +23,16 @@ public class Console {
 		return instance;
 	}
 
+	public void writeItemEvent(String s) {
+		writeLine(s, Color.YELLOW);
+	}
+	public void writeLifeEvent(String s) {
+		writeLine(s, Color.GREEN);
+	}
+	public void writeHarmfulEvent(String s){
+		writeLine(s, Color.RED);
+	}
+	
 	public synchronized void writeLine(String s,Color c) {
 		this.list.addFirst(new ConsoleMessage(s,c,timer_default));
 	}

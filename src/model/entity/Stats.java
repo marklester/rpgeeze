@@ -42,13 +42,14 @@ public class Stats implements Cloneable {
 	PrimaryStats primaryStats;
 	private boolean visible = true;
 	
-	public static final int MAX_LIFE 	= 100;
-	public static final int MAX_LEVEL 	= 5;
+	public int MAX_LIFE = 100;
+	public int MAX_MP = 100;
+	public static final int MAX_LEVEL 	= 10;
 
 	public Stats() {
 		this.level = 1;
 		this.life = MAX_LIFE;
-		this.mana = 20;
+		this.mana = MAX_MP;
 		this.offensiveRating = 1;
 		this.defensiveRating = 1;
 		this.armorRating = 1;
@@ -163,11 +164,46 @@ public class Stats implements Cloneable {
 	public void setMovement(int movement) {
 		this.movement = movement;
 	}
+	
+	
 
 	public int getMovement() {
 		return this.movement;
 	}
 
+	public void addHealth(int value)
+	{
+		life += value;
+		if( life < 0)
+		{
+			life = 0;
+			//TODO: alert someone that the character has died
+		}
+		if ( life > 0)
+			life = MAX_LIFE;
+	}
+	
+	public void addMovement(int value)
+	{
+		movement += value;
+	}
+	
+	public void addMana(int value)
+	{
+		mana += value;
+		if( mana < 0)
+			mana = 0;
+		if(mana > MAX_MP)
+			mana = MAX_MP;
+	}
+	
+	public void addLevel(int value)
+	{
+		this.level += value;
+		if( level < 0)
+			level = 0;
+	}
+	
 	public Stats clone()  {
 		Stats s = new Stats();
 		try {

@@ -6,13 +6,13 @@ package model.item;
  * (e.g., puzzle).
  */
 
-import model.entity.Entity;
+import model.entity.PC;
 
 public abstract class InteractiveItem extends Item {
 	public InteractiveItem(String name) {
 		super(name);
 	}
 
-	public void activate(Entity e) {
+	public void activate(PC pc) {
 	}	
 }

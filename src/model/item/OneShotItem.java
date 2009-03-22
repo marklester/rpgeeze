@@ -5,17 +5,17 @@ package model.item;
  * Entity.
  */
 
-import model.entity.Entity;
+import model.entity.PC;
 
 public abstract class OneShotItem extends Item {
 	public OneShotItem(String name) {
 		super(name);
 	}
 	
-	public void activate(Entity e) {
-		use(e);
+	public void activate(PC pc) {
+		use(pc);
 	}
-
-	public void use(Entity e)	{
+	
+	public void use(PC pc)	{
 	}
 }

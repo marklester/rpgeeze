@@ -9,20 +9,15 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import model.Direction;
-import model.decal.*;
-import model.entity.Entity;
 import model.entity.Occupation;
 import model.entity.Smasher;
 import model.entity.Sneak;
 import model.entity.Summoner;
-import model.GrassTerrain;
+import model.entity.PC;
 import model.Location;
 import model.Map;
 import model.Model;
-import model.MountainTerrain;
 import model.Tile;
-import model.WaterTerrain;
-import model.item.*;
 import util.ContinuousIterator;
 import util.Iterator;
 import util.MultiplyIterator;
@@ -100,7 +95,7 @@ public class Drawer implements Observer {
 	}
 	
 	public void doDraw(Graphics g, Model model, int width, int height) {
-		Entity avatar = model.getAvatar();
+		PC avatar = model.getAvatar();
 		this.graphics = (Graphics2D) g;
 		int horizOffset = (width - tileWidth) / 2 - avatar.getTile().getLocation().getX() * tileWidth;
 		int vertOffset = (height - tileHeight) / 2 - avatar.getTile().getLocation().getY() * tileHeight;
@@ -159,11 +154,17 @@ public class Drawer implements Observer {
 		doDrawImage(ResourceLoader.getInstance().getItemImage(name));
 	}
 			
-	public void drawEntity(Entity entity) {
+	public void drawEntity(PC entity) {
 		Iterator<Image> iter = avatar.get(new Pair<Occupation, Direction>(entity.getOccupation(), entity.getFacingDirection()));
 		doDrawImage(iter.current());
 		iter.advance();
 	}
+	
+//	public void drawEntity(Entity entity) {
+//		Iterator<Image> iter = avatar.get(new Pair<Occupation, Direction>(entity.getOccupation(), entity.getFacingDirection()));
+//		doDrawImage(iter.current());
+//		iter.advance();
+//	}
 	
 	public boolean isOnInventory(Point p) {
 		return inventoryView.isOnInventory(p);

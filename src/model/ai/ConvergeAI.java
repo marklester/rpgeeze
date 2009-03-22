@@ -1,5 +1,5 @@
 package model.ai;
 
-public class ConvergeAI {
+public class ConvergeAI implements ArtificialIntelligence{
 
 }

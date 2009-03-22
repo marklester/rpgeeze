@@ -5,21 +5,20 @@ package model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
-import model.entity.Entity;
-import view.Drawer;
+import model.entity.PC;
 
 public class CrossBow extends TakeableItem {
 	public CrossBow() {
 		super("Crossbow");
 	}
 
-	public void activate(Entity e) {
-		use(e);
+	public void activate(PC pc) {
+		use(pc);
 	}
 
-	public void use(Entity e) {
-		e.equipWeapon(this);
-		e.unequipAuxiliary();
+	public void use(PC pc) {
+		pc.equipWeapon(this);
+		pc.unequipAuxiliary();
 		view.Console.getInstance().writeLine("Cross Bow has been equipped.");
 	}
 }

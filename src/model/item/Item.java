@@ -10,7 +10,7 @@ import java.util.Hashtable;
 
 import view.Drawable;
 import view.Drawer;
-import model.entity.Entity;
+import model.entity.*;
 
 public abstract class Item implements Drawable, Cloneable {
 	protected final String name;
@@ -63,9 +63,13 @@ public abstract class Item implements Drawable, Cloneable {
 	public String toString() {
 		return this.name;
 	}
-	public abstract void activate(Entity e);
-	public void deActivate(Entity e)
+	public abstract void activate(PC pc);
+	
+	public abstract void use(PC pc);
+	
+	public void deActivate(PC pc)
 	{
+		
 	}
 
 	public String toXml() {
