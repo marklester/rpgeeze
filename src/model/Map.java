@@ -107,6 +107,9 @@ public class Map implements ModelElement{
 			sb.append(scan.nextLine());
 		return fromXml(sb.toString());
 	}
+	public static Map fromTiles(Tile[][] tiles){
+		return new Map(tiles);
+	}
 	
 	public Tile getTile(int x, int y) {
 		return this.matrix.getTile(x, y);
