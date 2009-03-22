@@ -66,10 +66,7 @@ public class GameplayView extends View<GameplayView.State> {
 		Entity avatar = getManager().getModel().getAvatar();
 		int centerX = avatar.getTile().getX();
 		int centerY = avatar.getTile().getY();
-		
-		//System.out.println("Centering on " + centerX + " " + centerY);
-		//gl.glTranslated(-centerX, -centerY, 0);
-		
+				
 		int minX = (int) Math.floor(centerX - (1 + 0.5 * widthInTiles));
 		int maxX = (int) Math.ceil(centerX + (1 + 0.5 * widthInTiles));
 		int minY = (int) Math.floor(centerY - (1 + 0.5 * heightInTiles));
@@ -79,7 +76,10 @@ public class GameplayView extends View<GameplayView.State> {
 		for(iter.reset(); !iter.isDone(); iter.advance()) {
 			Tile tile = iter.current();
 			gl.glPushMatrix();
-			gl.glTranslated(tile.getX() - centerX, tile.getY() - centerY, MAP_Z);
+			double dx = tile.getX() - centerX - 0.5;
+			double dy = tile.getY() - centerY - 0.5;
+//			LogManager.getInstance().log("Translate " + tile.getX() + " " + tile.getY(), "VIEW");
+			gl.glTranslated(dx, dy, MAP_Z);
 			tile.accept(drawer);
 			gl.glPopMatrix();
 		}
