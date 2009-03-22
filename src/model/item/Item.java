@@ -14,6 +14,8 @@ import model.entity.Entity;
 
 public abstract class Item implements Drawable, Cloneable {
 	protected final String name;
+
+	protected Hashtable<String, String> properties;
 	
 	private static Pattern pattern = Pattern.compile("<item><type>(.*)</type>(.*)</item>");
 	private static Hashtable<String, Item> prototypes = new Hashtable<String, Item>();
@@ -39,7 +41,12 @@ public abstract class Item implements Drawable, Cloneable {
 	public Item(String name) {
 		this.name = name;
 	}
-
+	public void setProperties(Hashtable<String,String> properties){
+		this.properties=properties;
+	}
+	public Hashtable<String,String> getProperties(){
+		return properties;
+	}
 	public Item clone() {
 		Item ret = null;
 		try {
@@ -56,7 +63,6 @@ public abstract class Item implements Drawable, Cloneable {
 	public String toString() {
 		return this.name;
 	}
-	
 	public abstract void activate(Entity e);
 	public void deActivate(Entity e)
 	{
@@ -87,7 +93,9 @@ public abstract class Item implements Drawable, Cloneable {
 		if(xml.length() > 0)
 			throw new RuntimeException("Bad XML for Item");
 	}
-	
+	public static Item getItem(String key){
+		return (Item)prototypes.get(key).clone();
+	}
 	public void draw(Drawer d) {
 		d.drawMe(name);
 	}
