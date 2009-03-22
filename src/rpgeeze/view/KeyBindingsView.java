@@ -35,10 +35,12 @@ import java.util.Map.Entry;
  */
 public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	private static final double Y_SHIFT = 3;
-	private static final double X_SHIFT = 18;
+	private static final double X_SHIFT = 22;
 	private static final double ARROW_DISPLACE = 4;
 	
 	private TextRenderer renderer;
+
+	private Iterator<Highlightable> wheel;
 	
 	private HashMap<String, String> keyControls;
 	private HashMap<String, Text> strText = new HashMap<String, Text>();
@@ -87,7 +89,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		
 		Highlightable arrow = new HighlightableWrapper<Triangle>(new Triangle(new StaticVector(0, -1.5), new StaticVector(0, 1.5), new StaticVector(1.5, 0)), Color.BLACK, MainMenuView.HIGHLIGHTED);
 		arrow.setZ(-14.5);
-		Iterator<Highlightable> wheel = glutil.objectWheel(arrow, 8);
+		wheel = glutil.objectWheel(arrow, 8);
 		names = new ArrayIterator<String>("Move East", "Move Northeast", "Move North", "Move Northwest", "Move West", "Move Southwest", "Move South", "Move Southeast");
 
 		for(wheel.reset(), names.reset(); !wheel.isDone(); wheel.advance(), names.advance()) {
@@ -114,13 +116,6 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			for(Entry<String, String> entry: keyControls.entrySet()) {
 				if(entry.getValue().equals(value))
 					entry.setValue(keyControls.get(key));
-				System.out.println(entry + " " + entry.getKey() + " " + entry.getValue());
-/*				StringBuilder tempKey = new StringBuilder(entry.toString());
-				tempKey = tempKey.delete(tempKey.length()-2,tempKey.length());
-
-				if(value.equals((keyControls.get(tempKey.toString())))){
-					keyControls.put(tempKey.toString(), keyControls.get(key));
-				}*/
 			}
 		}
 		keyControls.put(key, value);
@@ -151,13 +146,19 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			if(value != null) {
 				Text text = strText.get(key);
 				text.setText(value);
-				if(key.matches("Move .+")) {
-					
-				}
-				else {
+				if(!key.matches("Move .+"))
 					text.setXYZ(iter.current().getX() + 7 - text.getWidth() / 2, iter.current().getY() - 2, iter.current().getZ());
-				}
 			}
+		}
+		
+		int i = 0;
+		for(wheel.reset(); !wheel.isDone(); wheel.advance(), ++i) {
+			String key = getNameForObject(wheel.current());
+			String value = keyControls.get(key);			
+			Text text = strText.get(key);
+			text.setText(value);
+			double angle = Math.PI * 2 * i / 8;
+			text.setXYZ(12 * Math.cos(angle) - text.getWidth() / 2, 12 * Math.sin(angle) - text.getHeight() / 2, -25);
 		}
 		
 		glutil.color(MainMenuView.PLAIN);
