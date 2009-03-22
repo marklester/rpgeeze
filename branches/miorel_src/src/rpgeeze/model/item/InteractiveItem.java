@@ -1,11 +1,23 @@
 package rpgeeze.model.item;
 
+import rpgeeze.model.Entity;
+
+
+/**
+ * An Item that is (potentially) activated on touch. Activation may require
+ * possession of a specific Item or completion of a sequence of actions
+ * (e.g., puzzle).
+ */
+
 public abstract class InteractiveItem extends Item {
-	/* 
-	 *  activate() will do whatever this item is supposed to do when it comes in contact with the entity
-	 *  
-	 *  Example:
-	 *  doorway = will check if you have key; will let you pass if you do; otherwise throw InaccessibleAreaException
-	 *  
-	 */
+	
+	public InteractiveItem(String name) {
+		super(name);
+	}
+
+	public void activate(Entity e) {
+	        
+	}       
+
+
 }
