@@ -1,7 +1,6 @@
 package model.ae;
 
 import model.entity.Entity;
-
 import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -75,7 +74,9 @@ public abstract class AreaEffect implements Cloneable {
 		sb.append(indent + "</ae>");
 		return sb.toString();
 	}
-	
+	public static AreaEffect getAreaEffect(String key){
+		return (AreaEffect)prototypes.get(key).clone();
+	}
 	public static AreaEffect fromXml(String xml) {
 		Matcher mat = pattern.matcher(xml);
 		if(!mat.matches())
