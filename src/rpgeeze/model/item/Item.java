@@ -15,16 +15,16 @@ public abstract class Item implements Visitable, Cloneable {
 		for(Item i: new Item[] {
 			new Sword(),
 			new Boulder(),
-			new CrossBow(),
-			new PotionLife(),
+			new Crossbow(),
+			new HealthPotion(),
 			new Shield(),
 			new RedArmor(),
 			new Boots(),
 			new Arrows(),
-			new Mana(),
+			new ManaPotion(),
 			new HealthPack(),
 			new Helmet(),
-			new PortalItem()
+			new Portal()
 		})
 			prototypes.put(i.toString(), i);
 	}
@@ -65,6 +65,10 @@ public abstract class Item implements Visitable, Cloneable {
         return (Item)prototypes.get(key).clone();
 	}
 
+	public String getName() {
+		return name;
+	}
+	
 	public String toString() {
 		return this.name;
 	}

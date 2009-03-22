@@ -7,10 +7,10 @@ import rpgeeze.model.Entity;
  */
 
 
-public class PotionLife extends TakeableItem {
+public class HealthPotion extends TakeableItem {
 
-	public PotionLife() {
-		super("Potion Life");
+	public HealthPotion() {
+		super("Health Potion");
 	}
 	
 	public void activate(Entity e) {

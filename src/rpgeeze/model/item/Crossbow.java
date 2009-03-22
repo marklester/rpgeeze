@@ -7,8 +7,8 @@ import rpgeeze.model.Entity;
  * should document it (i.e. I am too lazy to do it.)
  */
 
-public class CrossBow extends TakeableItem {
-	public CrossBow() {
+public class Crossbow extends TakeableItem {
+	public Crossbow() {
 		super("Crossbow");
 	}
 
