@@ -1,23 +1,49 @@
 package rpgeeze.model;
 
+import rpgeeze.model.Map;
+import rpgeeze.model.Tile;
+import rpgeeze.model.entity.PC;
+import rpgeeze.model.xml.GameVisitor;
+import rpgeeze.model.Location;
+import rpgeeze.model.xml.ModelElement;
 import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
 import rpgeeze.model.item.Item;
 import rpgeeze.model.terrain.Terrain;
 
-public class Tile implements Visitable {
+public class Tile implements Cloneable, ModelElement, Visitable {
 	private Terrain terrain;
 	private Entity entity;
 	private Item item;
-	private AreaEffect areaEffect;
+	private AreaEffect ae;
 	private Decal decal;
+	private Location location;
+	private Map map;
 	
-	private int x, y;
-	
-	public Tile(Terrain terrain, int x, int y) {
+	public Tile(Terrain terrain, Location location, Decal decal, Item item, AreaEffect ae) {
 		this.terrain = terrain;
-		this.x = x;
-		this.y = y;
+		this.location = location;
+		this.decal = decal;
+		this.item = item;
+		this.ae = ae;
+		//this.adjacentTiles = new Tile[3][3];
+	}
+	
+	public Tile(Terrain terrain, Location location, Item item) {
+		this(terrain, location, null, item, null);
+	}
+	
+	public Tile(Terrain terrain, Location location) {
+		this(terrain, location, null, null, null);
+	}
+	
+	public void setMap(Map map)
+	{
+		this.map = map;
+	}
+
+	public Location getLocation() {
+		return this.location;
 	}
 	
 	public Terrain getTerrain() {
@@ -53,11 +79,11 @@ public class Tile implements Visitable {
 	}
 
 	public AreaEffect getAreaEffect() {
-		return areaEffect;
+		return ae;
 	}
 
 	public void setAreaEffect(AreaEffect newAreaEffect) {
-		areaEffect = newAreaEffect;
+		ae = newAreaEffect;
 	}
 
 	public void setDecal(Decal newDecal) {
@@ -68,8 +94,8 @@ public class Tile implements Visitable {
 		visitor.visitTile(this);
 		if(terrain != null)
 			terrain.accept(visitor);
-		if(areaEffect != null)
-			areaEffect.accept(visitor);
+		if(ae != null)
+			ae.accept(visitor);
 		if(decal != null)
 			decal.accept(visitor);
 		if(item != null)
@@ -78,11 +104,65 @@ public class Tile implements Visitable {
 			entity.accept(visitor);
 	}
 	
-	public int getX() {
-		return x;
+	public void releaseEntity() {
+		setEntity(null);
+	}
+	
+
+	public Tile getAbsoluteTile(Location l)
+	{
+		return map.getTile(l);
+	}
+	public Tile getAbsoluteTile(int x, int y)
+	{
+		return map.getTile(x, y);
+	}
+	
+	public Tile getRelativeTile(Location l)
+	{
+		//return map.getTile(l);
+		return getRelativeTile(l.getX(), l.getY());
+	}
+	public Tile getRelativeTile(int x, int y)
+	{
+//		if(x > 2 || x < 0 || y > 2 || y < 0)
+//			return null;
+//		return adjacentTiles[x+1][y+1];
+		return map.getTile(location.getX() + x, location.getY() + y);
+	}
+	
+	public String toString() {
+		return "Tile at " + this.location+"["+this.terrain+","+this.decal
+		+","+this.item+","+this.ae+"]";
+	}
+	
+	public void collectItem(PC pc)
+	{
+		if(item != null) {
+			//OneShotItem need to be removed from the Tile
+			item.activate(pc);
+		}
 	}
 
-	public int getY() {
-		return y;
+	public Tile clone() {
+		Tile tile = new Tile(
+			terrain,
+			location,
+			decal == null ? null: decal.clone(),
+			item == null ? null : item.clone(),
+			ae == null ? null : ae.clone()
+		);
+		tile.entity = (entity == null ? null : entity.clone());
+		return tile;
+	}
+	
+	@Override
+	//Visitor Patter Operation For Saving and Reading,etc
+	public void accept(GameVisitor visitor) {
+		visitor.visit(terrain);
+		visitor.visit(location);
+		if(decal != null)visitor.visit(decal);
+		if(item != null)visitor.visit(item);
+		if(ae != null)visitor.visit(ae);
 	}
 }
