@@ -22,6 +22,9 @@ public interface GLObject extends Cloneable {
 	public void setPreTranslationRotation(double angle, double x, double y, double z);
 	public Pair<Double, Vector> getPostTranslateRotation();
 	public void setPostTranslationRotation(double angle, double x, double y, double z);
+
+	public boolean getVisible();
+	public void setVisible(boolean newVisible);
 	
 	public GLObject clone();
 }

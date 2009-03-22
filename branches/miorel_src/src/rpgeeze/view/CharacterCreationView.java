@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Point;
 import java.util.Random;
 import javax.media.opengl.GL;
+import javax.media.opengl.glu.GLU;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
@@ -29,11 +30,12 @@ import rpgeeze.util.ResourceLoader;
  * 
  */
 public class CharacterCreationView extends HighlightableView<CharacterCreationView.State> {
+	private static double Y_SHIFT = 2;
+	
 	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 
-	private Highlightable leftArrow;
-	private Highlightable rightArrow;	
 	private Text characterTitle = new Text("", renderer, 0.075f);
+	private Iterator<Highlightable> wheel;
 	
 	public enum State implements View.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
 	
@@ -46,38 +48,39 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	};
 	private int occP;
 	
-	private static final double ZOOM_MIN = -60;
-	private static final double ZOOM_MAX = -1.1;
-	private static final double ZOOM_STEP = 0.25; 
-	private double zoom = ZOOM_MIN;
-	
 	public CharacterCreationView(GameManager manager) {
 		super(manager);
 		
+		GLUtil glutil = new GLUtil();
+		glutil.standardFrustum(GLU.getCurrentGL(), null);
+		Iterator<String> names;
+		
 		TextRectangle rect = new TextRectangle(new Text("X", renderer, 0.05f), 10, 3);
-		rect.setXYZ(-10, -3, 0);
+		rect.setXYZ(-10, -12.5 - Y_SHIFT, -14.5);
 		rect.alignText(0.5, 0.5);
 		
-		HighlightableWrapper<TextRectangle> prototype = new HighlightableWrapper<TextRectangle>(rect, MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-		GLUtil glutil = new GLUtil();
-		Iterator<HighlightableWrapper<TextRectangle>> obj = glutil.objectGrid(prototype, 1, 2, rect.getWidth(), rect.getHeight());
-		Iterator<String> names = new ArrayIterator<String>("OK", "Cancel");
+		HighlightableWrapper<TextRectangle> button = new HighlightableWrapper<TextRectangle>(rect, MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+		Iterator<HighlightableWrapper<TextRectangle>> grid = glutil.objectGrid(button, 1, 2, rect.getWidth(), rect.getHeight());
+		names = new ArrayIterator<String>("OK", "Cancel");
 		
-		for(obj.reset(), names.reset(); !obj.isDone(); obj.advance(), names.advance()) {
-			put(obj.current(), names.current());
-			putHighlightable(obj.current(), names.current());
-			obj.current().getWrappedObject().getText().setText(names.current());
-			obj.current().getWrappedObject().alignText(0.5, 0.5);
-			obj.current().getWrappedObject().getText().setY(prototype.getWrappedObject().getText().getY());
+		for(grid.reset(), names.reset(); !grid.isDone(); grid.advance(), names.advance()) {
+			put(grid.current(), names.current());
+			putHighlightable(grid.current(), names.current());
+			grid.current().getWrappedObject().getText().setText(names.current());
+			grid.current().getWrappedObject().alignText(0.5, 0.5);
+			grid.current().getWrappedObject().getText().setY(button.getWrappedObject().getText().getY());
 		}
 		
-		leftArrow = new HighlightableWrapper<Triangle>(new Triangle(new StaticVector(0, 0), new StaticVector(0, 8), new StaticVector(-2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED);
-		rightArrow = new HighlightableWrapper<Triangle>(new Triangle(new StaticVector(0, 0), new StaticVector(0, 8), new StaticVector(2, 4)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+		Highlightable arrow = new HighlightableWrapper<Triangle>(new Triangle(new StaticVector(0, -4), new StaticVector(0, 4), new StaticVector(2, 0)), Color.BLACK, MainMenuView.HIGHLIGHTED);
+		arrow.setZ(-14.5);
+		wheel = glutil.objectWheel(arrow, 2);
+		names = new ArrayIterator<String>("Right Arrow", "Left Arrow");
 		
-		putHighlightable(leftArrow, "Left Arrow");
-		put(leftArrow, "Left Arrow");
-		putHighlightable(rightArrow, "Right Arrow");
-		put(rightArrow, "Right Arrow");
+		for(wheel.reset(), names.reset(); !wheel.isDone(); wheel.advance(), names.advance()) {
+			put(wheel.current(), names.current());
+			putHighlightable(wheel.current(), names.current());
+		}
+		
 		put(characterTitle, null);		
 		
 		changeState(State.NEW);
@@ -91,18 +94,16 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 		glutil.standardFrustum(gl, point);
 		glutil.clearColor(BACKGROUND_COLOR);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);		
+		gl.glTranslated(0, Y_SHIFT, 0);
 		
-		gl.glTranslated(0, 0, zoom);
 		glutil.color(MainMenuView.PLAIN);
-		occupationImage[occP].render(gl);
+		//occupationImage[occP].render(gl);
 			
 		switch(getState()) {
 		case NORMAL:
-			gl.glLoadIdentity();
-			gl.glTranslated(0, -9.5, -14.5);
-			
-			leftArrow.setXY(-14.5 * glutil.getViewportAspectRatio() + 3, 8);
-			rightArrow.setXY(14.5 * glutil.getViewportAspectRatio() - 3, 8);
+			double disp = 14.5 * glutil.getViewportAspectRatio() - 3;
+			for(wheel.reset(); !wheel.isDone(); wheel.advance())
+				wheel.current().setX(disp);
 			
 			// silly K's...
 			String title = (characterName + " the " + occupation[occP]).replaceAll("k", "K");
@@ -114,12 +115,6 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 			break;
 		case ZOOMING:
 			if(point == null) {
-				zoom += ZOOM_STEP;
-				occupationImage[occP].setY(occupationImage[occP].getY() + ZOOM_STEP * 18 / (ZOOM_MIN - ZOOM_MAX));
-				if(zoom > ZOOM_MAX) {
-					zoom = ZOOM_MAX;
-					changeState(State.ZOOMED);
-				}
 			}
 			break;
 		}
@@ -169,9 +164,9 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 		Random rnd = new Random();
 		setOccupation(rnd.nextInt(occupation.length));
 		randomName();
-		zoom = ZOOM_MIN;
-		for(TexturedRectangle rect: occupationImage)
-			rect.setXYZ(-50, -32, 0);
+//		zoom = ZOOM_MIN;
+//		for(TexturedRectangle rect: occupationImage)
+//			rect.setXYZ(-50, -32, 0);
 		changeState(State.NORMAL);
 	}
 	

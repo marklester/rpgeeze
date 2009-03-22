@@ -37,10 +37,8 @@ public abstract class View<T extends View.State> {
 	private GameManager manager;
 
 	private final HashMap<String, GLObject> nameObj = new HashMap<String, GLObject>();
-	private final HashMap<GLObject, String> objName = new HashMap<GLObject, String>();
-	
-	private final List<GLObject> objects = new ArrayList<GLObject>();
-	
+	private final HashMap<GLObject, String> objName = new HashMap<GLObject, String>();	
+	private final List<GLObject> objects = new ArrayList<GLObject>();	
 	
 	private final int bufferSize;
 	

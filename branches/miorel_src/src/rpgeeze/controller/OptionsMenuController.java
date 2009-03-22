@@ -8,6 +8,7 @@ import javax.media.opengl.glu.GLU;
 import rpgeeze.GameManager;
 import rpgeeze.view.KeyBindingsView;
 import rpgeeze.view.OptionsMenuView;
+import rpgeeze.view.VideoOptionsView;
 import rpgeeze.view.SoundOptionsView;
 
 /**
@@ -26,14 +27,13 @@ public class OptionsMenuController extends HighlightableViewController<OptionsMe
 		if(e.getButton() == MouseEvent.BUTTON1) {
 			String name = getView().pickClosest(GLU.getCurrentGL(), p);
 			if(name != null) {
-				if(name.equals("Key Bindings")) {
+				if(name.equals("Key Bindings"))
 					keyBindingsView();
-				}
 				else if(name.equals("Sound Options")) {	
 					soundOptionsView();
 				}
-				else if(name.equals("Video Options")) {
-				}
+				else if(name.equals("Video Options"))
+					videoOptionsView();
 				else if(name.equals("Back")) {
 					getManager().popState();
 				}
@@ -47,9 +47,15 @@ public class OptionsMenuController extends HighlightableViewController<OptionsMe
 		getManager().pushState(kbv,kbc);	
 	}
 	
-	protected void soundOptionsView(){
+	protected void videoOptionsView(){
+		VideoOptionsView vov = new VideoOptionsView(getManager());
+		VideoOptionsController voc = new VideoOptionsController(getManager(), vov);
+		getManager().pushState(vov, voc);	
+	}
+	
+	protected void soundOptionsView() {
 		SoundOptionsView sov = new SoundOptionsView(getManager());
 		SoundOptionsController soc = new SoundOptionsController(getManager(), sov);
-		getManager().pushState(sov,soc);
+		getManager().pushState(sov, soc);
 	}
 }

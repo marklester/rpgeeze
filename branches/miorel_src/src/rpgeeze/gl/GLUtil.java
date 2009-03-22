@@ -106,30 +106,6 @@ public class GLUtil {
 	}
 
 	/**
-	 * Gets a magic vector whose x coordinate will always be the viewport aspect
-	 * ratio at the time of the method call. Such a vector can be used in
-	 * combination with <code>VectorMath</code> to get vectors that update with
-	 * the vieport!
-	 * 
-	 * @return the vector (aspectRatio, 0, 0)
-	 */
-	public Vector getAspectRatioVector() {
-		return new Vector() {
-			public double getX() {
-				return new GLUtil().getViewportAspectRatio();
-			}
-
-			public double getY() {
-				return 0;
-			}
-
-			public double getZ() {
-				return 0;
-			}
-		};
-	}
-
-	/**
 	 * Gets the width to height ratio of the current viewport.
 	 * 
 	 * @return the aspect ratio
@@ -285,6 +261,16 @@ public class GLUtil {
 				clone.setXY(xOffset + j * horizSpace, yOffset + i * vertSpace);
 				ret.add(clone);
 			}
+		}
+		return new ListIterator<T>(ret);
+	}
+
+	public <T extends GLObject> Iterator<T> objectWheel(T prototype, int count) {
+		List<T> ret = new ArrayList<T>();
+		for(int i = 0; i < count; ++i) {
+			T clone = (T) prototype.clone();
+			clone.setPreTranslationRotation(i * 360.0 / count, 0, 0, 1);
+			ret.add(clone);
 		}
 		return new ListIterator<T>(ret);
 	}
