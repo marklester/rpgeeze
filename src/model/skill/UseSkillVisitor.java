@@ -11,10 +11,10 @@ import util.AudioThread;
 
 public class UseSkillVisitor implements Visitor {
 	
-	StatsModifiable sm;
+	PC sm;
 	
-	public UseSkillVisitor(StatsModifiable sm) {
-		this.sm = sm;
+	public UseSkillVisitor(PC pc) {
+		this.sm = pc;
 	}
 
 	public void visit(BindWounds sk) {
@@ -23,10 +23,10 @@ public class UseSkillVisitor implements Visitor {
 			AudioThread.getInstance().playAudioClip(sk.toString());
 			//Console.getInstance().writeLine("Life is invigorating", Color.WHITE);
 			Console.getInstance().writeLifeEvent("Life is invigorating");
-			//int life = e.getStats().getLife();
-			//double perc = 0;
-			
-			//int points = sk.getPoints();
+//			int life = e.getStats().getLife();
+//			double perc = 0;
+//			
+//			int points = sk.getPoints();
 //			if (points > 20)
 //				perc = points * .01;
 //			else

@@ -21,7 +21,6 @@ public abstract class Entity extends Subject implements Drawable, Cloneable {
 		
 		int newX = from.getLocation().getX() + l.getX();
 		int newY = from.getLocation().getY() + l.getY();
-		System.out.println("X:" + newX + " Y:" + newY);
 		
 		//Tile to = map.getTile(newX, newY);
 		
