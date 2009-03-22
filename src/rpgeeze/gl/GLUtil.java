@@ -122,7 +122,7 @@ public class GLUtil {
 	 */
 	public void pickMatrix(double x, double y) {
 		GLU glu = new GLU();
-		glu.gluPickMatrix(x, y, 1e-3, 1e-3, getViewportDimensionsAsArray(), 0);
+		glu.gluPickMatrix(x, y, 1e-2, 1e-2, getViewportDimensionsAsArray(), 0);
 	}
 
 	/**

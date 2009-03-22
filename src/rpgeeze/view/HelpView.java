@@ -8,14 +8,15 @@ import javax.media.opengl.GL;
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
+import rpgeeze.GameProperties;
 import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Text;
+import rpgeeze.util.ResourceLoader;
 
-import static rpgeeze.RunGame.APP_FONT;
 import static rpgeeze.RunGame.BACKGROUND_COLOR;
 
 public class HelpView extends View<HelpView.State> {
-	private Font plain = APP_FONT.deriveFont(100f);
+	private Font plain = ResourceLoader.getInstance().getFont(GameProperties.getInstance().getProperty("app.font"), Font.PLAIN, 100);
 	private Font italic = plain.deriveFont(Font.ITALIC);
 
 	private TextRenderer plainRenderer = new TextRenderer(plain, true, true);

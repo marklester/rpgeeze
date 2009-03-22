@@ -24,7 +24,11 @@ public abstract class HighlightableView<T extends View.State> extends View<T> {
 		set.activate(name);
 	}
 	
-	public void clearAll() {
-		set.clearAll();
+	public void clear() {
+		set.clear();
+	}
+	
+	public String getActivated() {
+		return set.getActivated();
 	}
 }
