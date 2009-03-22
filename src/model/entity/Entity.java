@@ -1,5 +1,7 @@
 package model.entity;
 
+import java.util.Hashtable;
+
 import model.Direction;
 import model.Location;
 import model.Tile;
@@ -7,11 +9,18 @@ import view.Drawable;
 import util.Subject;
 
 public abstract class Entity extends Subject implements Drawable, Cloneable {
+	private static Hashtable<String, Entity> prototypes = new Hashtable<String, Entity>();
+	static {
+		for(Entity d: new Entity[] {
+			new PC()
+		})
+		prototypes.put(d.toString(), d);
+	}
 	private Direction dir;
 	private int speed;	
 	private Location l;
 	private Tile tile;
-	
+	private String entityType;
 	public void move(Location l)
 	{
 		Tile from = this.getTile();
@@ -54,7 +63,9 @@ public abstract class Entity extends Subject implements Drawable, Cloneable {
 	public void setTile(Tile tile) {
 		this.tile = tile;
 	}	
-	
+	public static Entity getEntityPrototype(String key){
+		return (Entity)prototypes.get(key).clone();
+	}
 	public Entity clone()
 	{
 		Entity e = null;
@@ -63,7 +74,12 @@ public abstract class Entity extends Subject implements Drawable, Cloneable {
 		}catch(CloneNotSupportedException ce) {}		
 		return e;		
 	}
-	
+	public void setEntityType(String type){
+		this.entityType = type;
+	}
+	public String getEntityType(){
+		return entityType;
+	}
 	public abstract boolean isAlive();
 	public abstract void update();
 		
