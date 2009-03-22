@@ -1,12 +1,25 @@
 package rpgeeze.model.item;
 
+import rpgeeze.model.Entity;
+
+/**
+ * An Item that is activated and removed from the Map when touched by an
+ * Entity.
+ */
+
+
 public abstract class OneShotItem extends Item {
-	/* 
-	 *  activate() will do whatever this item is supposed to do when it comes in contact with the entity
-	 *  
-	 *  It MUST additionally remove the item from the map.
-	 *  
-	 *  Otherwise, I guess this would just be an interactive item.
-	 *  
-	 */
+	
+        public OneShotItem(String name) {
+                super(name);
+        }
+        
+        public void activate(Entity e) {
+                use(e);
+        }
+
+        public void use(Entity e)       {
+        }
 }
+
+
