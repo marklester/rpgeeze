@@ -9,8 +9,8 @@ import javax.media.opengl.glu.GLU;
 import rpgeeze.GameManager;
 import rpgeeze.view.HelpView;
 
-public class HelpViewController extends HighlightableViewController<HelpView> {
-	public HelpViewController(GameManager manager, HelpView view) {
+public class HelpController extends HighlightableViewController<HelpView> {
+	public HelpController(GameManager manager, HelpView view) {
 		super(manager, view);
 	}
 

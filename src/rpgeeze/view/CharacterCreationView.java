@@ -142,6 +142,10 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 		occupationImage.get(occP).setVisible(true);
 		setCharacterName(getCharacterName());
 	}
+
+	public Occupation getOccupation() {
+		return occupation.get(occP);
+	}
 	
 	public void randomName() {
 		String names = GameProperties.getInstance().getProperty("game.names");

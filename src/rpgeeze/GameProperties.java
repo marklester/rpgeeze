@@ -60,7 +60,7 @@ public class GameProperties {
 		}
 	}
 
-	private int goalUPS = 80;
+	private int goalUPS = 5;
 	public int getGoalUPS() {
 		return goalUPS;
 	}

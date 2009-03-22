@@ -14,6 +14,10 @@ import com.sun.opengl.util.FPSAnimator;
 
 import rpgeeze.controller.Controller;
 import rpgeeze.controller.MainMenuController;
+import rpgeeze.log.LogManager;
+import rpgeeze.model.Model;
+import rpgeeze.model.ModelThread;
+import rpgeeze.model.occupation.Occupation;
 import rpgeeze.util.DelegatingEventAdapter;
 import rpgeeze.util.EventAdapter;
 import rpgeeze.util.Pair;
@@ -40,6 +44,9 @@ public class GameManager extends DelegatingEventAdapter
 	private FPSAnimator animator;
 	private GLContext spareContext;
 	private Timer fpsTimer;
+
+	private Model model;
+	private ModelThread thread;
 	
 	/**
 	 * Constructs a game manager that will display in the specified
@@ -230,6 +237,8 @@ public class GameManager extends DelegatingEventAdapter
 	 * 
 	 */
 	public void stop() {
+		if(model != null)
+			model.stop();
 		animator.stop();
 		fpsTimer.stop();
 		frame.setVisible(false);
@@ -294,5 +303,16 @@ public class GameManager extends DelegatingEventAdapter
 	 */
 	public double getFPS() {
 		return fpsTimer.marksPerSecond();
+	}
+	
+	public void createModel(Occupation occupation) {
+		LogManager.getInstance().log("Creating model using " + occupation.getName() + " occupation", "MANAGER");
+		model = new Model(null, null);
+		thread = new ModelThread(model);
+		thread.start();
+	}
+	
+	public Model getModel() {
+		return model;
 	}
 }

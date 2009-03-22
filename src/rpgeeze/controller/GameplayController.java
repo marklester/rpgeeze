@@ -18,10 +18,15 @@ public class GameplayController extends Controller<GameplayView> {
 	
 	public GameplayController(GameManager manager, GameplayView view) {
 		super(manager, view);
-		
-		
 	}
 	
+	public void reactToChange() {
+		if(getView().getState() == GameplayView.State.NORMAL) {
+			getManager().getModel().start();
+			getManager().getModel().setPaused(false);
+		}
+	}
+
 	public void mouseReleased(MouseEvent e) {
 		prev = null;
 	}
