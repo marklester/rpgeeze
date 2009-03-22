@@ -22,8 +22,9 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 
 	public void keyPressed(KeyEvent e) {
 		String activated = getView().getActivated();
-		if(activated != null) // && button.getHighlighted())
-			getView().setCommand(activated, KeyEvent.getKeyText(e.getKeyCode()));
+		String value = KeyEvent.getKeyText(e.getKeyCode());
+		if(activated != null && (value.length() <= 5 || value.toLowerCase().matches("numpad.*")))
+			getView().setCommand(activated, value);
 	}
 	
 	/**

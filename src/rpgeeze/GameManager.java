@@ -61,7 +61,6 @@ public class GameManager extends DelegatingEventAdapter
 		frame.add(canvas);
 		fpsTimer = new SimpleMovingAverageTimer();
 		animator = new FPSAnimator(canvas, GameProperties.getInstance().getGoalFPS());
-		System.out.println("Hello");
 	}
 
 	/**

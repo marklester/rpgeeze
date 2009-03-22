@@ -149,7 +149,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			String value = keyControls.get(key);
 			if(value != null) {
 				Text text = strText.get(key);
-				text.setText(value);
+				text.setText(value.replaceAll("pad", ""));
 
 				if(!key.matches("Move .+"))
 					text.setXYZ(iter.current().getX() + 7 - text.getWidth() / 2, iter.current().getY() - 2, iter.current().getZ());
@@ -161,7 +161,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 			String key = getNameForObject(wheel.current());
 			String value = keyControls.get(key);			
 			Text text = strText.get(key);
-			text.setText(value);
+			text.setText(value.replaceAll("pad", ""));
 			double angle = Math.PI * 2 * i / 8;
 			text.setXYZ(12 * Math.cos(angle) - text.getWidth() / 2, 12 * Math.sin(angle) - text.getHeight() / 2 + 2.3, -25);
 		}
