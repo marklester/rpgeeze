@@ -11,4 +11,8 @@ public class GrassTerrain extends Terrain {
 			instance = new GrassTerrain();
 		return instance;
 	}
+
+	public String getName() {
+		return "Grass Terrain";
+	}
 }

@@ -8,6 +8,7 @@ import javax.media.opengl.GL;
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
+import rpgeeze.dp.Iterator;
 import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.effect.BrushColorChange;
@@ -20,20 +21,24 @@ import rpgeeze.model.terrain.*;
 import rpgeeze.util.ResourceLoader;
 
 public class GameplayView extends View<GameplayView.State> {
-	private TexturedRectangle grass = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/grass.png"), 1, 1);
-	private TexturedRectangle mountain = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/mountain.png"), 1, 1);;
-	private TexturedRectangle water = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/water.png"), 1, 1);
-
+//	private TexturedRectangle grass = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/grass.png"), 1, 1);
+//	private TexturedRectangle mountain = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/mountain.png"), 1, 1);;
+//	private TexturedRectangle water = new TexturedRectangle(ResourceLoader.getInstance().getTexture("terrain/water.png"), 1, 1);
+	
 	private TexturedRectangle entity = new TexturedRectangle(ResourceLoader.getInstance().getTexture("entity/entity.png"), 1, 1);;
 
 	private TextRenderer renderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.PLAIN, 24), true, true);
 
-	private final static double ZOOM_MIN = -64;
-	private final static double ZOOM_MAX = -2;
-	private volatile double zoom = -8;
+//	private final static double ZOOM_MIN = -64;
+//	private final static double ZOOM_MAX = -2;
+	//private volatile double zoom = -8;
 
+	private final static double MAP_Z = -8;
+	
 	private BrushColorChange fadeIn;
 	private Text fpsText;
+
+	private Drawer drawer = new Drawer();
 	
 	// currently public so the Controller can access it easily 
 	// later someone will tell the Controller about the avatar differently
@@ -66,22 +71,37 @@ public class GameplayView extends View<GameplayView.State> {
 		else
 			glutil.color(fadeIn.getFinalColor());
 		
+		drawer.setGL(gl);
+		drawer.setSize(1);
+		
 		// zoom
 //		double myZoom = zoom;
 //		gl.glTranslated(-0.5, -0.5, myZoom);
 		
 		// get viewport dimensions in tiles that have to be displayed
-		int widthInTiles = (int) Math.ceil(-2 * zoom * glutil.getViewportAspectRatio());
-		int heightInTiles = (int) Math.ceil(-2 * zoom);
+		double widthInTiles = Math.ceil(-2 * MAP_Z * glutil.getViewportAspectRatio());
+		double heightInTiles = Math.ceil(-2 * MAP_Z);
 
-		double centerX = 0;
-		double centerY = 0;
+		Entity avatar = getManager().getModel().getAvatar();
+		int centerX = avatar.getTile().getX();
+		int centerY = avatar.getTile().getY();
 		
-		int minX = (int) Math.floor(centerX - (1 + widthInTiles / 2));
-		int maxX = (int) Math.ceil(centerY + (1 + widthInTiles / 2));
-		int minY = (int) Math.floor(centerX - (1 + heightInTiles / 2));
-		int maxY = (int) Math.ceil(centerY + (1 + heightInTiles / 2));
-
+		gl.glTranslated(-centerX, -centerY, 0);
+		
+		int minX = (int) Math.floor(centerX - (1 + 0.5 * widthInTiles));
+		int maxX = (int) Math.ceil(centerY + (1 + 0.5 * widthInTiles));
+		int minY = (int) Math.floor(centerX - (1 + 0.5 * heightInTiles));
+		int maxY = (int) Math.ceil(centerY + (1 + 0.5 * heightInTiles));
+		
+		Iterator<Tile> iter = getManager().getModel().getMap().getTiles(minX, minY, maxX, maxY);
+		for(iter.reset(); !iter.isDone(); iter.advance()) {
+			Tile tile = iter.current();
+			gl.glPushMatrix();
+			gl.glTranslated(tile.getX(), tile.getY(), MAP_Z);
+			tile.accept(drawer);
+			gl.glPopMatrix();
+		}
+		
 		/*
 		for(int i = minX; i <= maxX; ++i)
 			for(int j = minY; j <= maxY; ++j) {
@@ -99,8 +119,6 @@ public class GameplayView extends View<GameplayView.State> {
 				gl.glPopMatrix();
 			}
 		*/
-
-		gl.glTranslated(0.5, 0.5, -zoom);
 		
 		fpsText.setVisible(getState() == State.NORMAL);
 		if(getState() == State.NORMAL) {

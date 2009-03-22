@@ -11,4 +11,8 @@ public class MountainTerrain extends Terrain {
 			instance = new MountainTerrain();
 		return instance;
 	}
+	
+	public String getName() {
+		return "Mountain Terrain";
+	}
 }

@@ -6,4 +6,6 @@ public abstract class Terrain {
 	public void accept(Visitor visitor) {
 		visitor.visitTerrain(this);
 	}
+	
+	public abstract String getName();
 }

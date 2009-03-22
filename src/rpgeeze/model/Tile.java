@@ -33,6 +33,10 @@ public class Tile implements Visitable {
 	}
 	
 	public void setEntity(Entity entity) {
+		if(this.entity != null && entity != null) {
+			// somebody is already here
+			throw new IllegalMoveException("Destination tile already occupied");
+		}
 		this.entity = entity;
 	}
 
@@ -68,5 +72,13 @@ public class Tile implements Visitable {
 			item.accept(visitor);
 		if(entity != null)
 			entity.accept(visitor);
+	}
+	
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
 	}
 }

@@ -18,10 +18,6 @@ public class Map {
 			ret = matrix[y][x];
 		return ret;
 	}
-	
-//	public Entity getAvatar() {
-//		return null;
-//	}
 
 	public Iterator<Tile> getTiles() {
 		return getTiles(0, 0, matrix[0].length - 1, matrix.length - 1);
@@ -34,7 +30,7 @@ public class Map {
 			public void advance() {
 				if(++x > maxX) {
 					++y;
-					x = 0;
+					x = minX;
 				}
 			}
 
@@ -47,8 +43,8 @@ public class Map {
 			}
 
 			public void reset() {
-				x = 0;
-				y = 0;
+				x = minX;
+				y = minY;
 			}
 		};
 	}

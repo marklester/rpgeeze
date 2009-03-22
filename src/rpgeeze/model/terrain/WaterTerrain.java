@@ -11,4 +11,8 @@ public class WaterTerrain extends Terrain {
 			instance = new WaterTerrain();
 		return instance;
 	}
+	
+	public String getName() {
+		return "Water Terrain";
+	}
 }
