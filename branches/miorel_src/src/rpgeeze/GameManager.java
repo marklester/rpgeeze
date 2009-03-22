@@ -20,6 +20,7 @@ import rpgeeze.model.Map;
 import rpgeeze.model.Model;
 import rpgeeze.model.ModelThread;
 import rpgeeze.model.Tile;
+import rpgeeze.model.decal.*;
 import rpgeeze.model.item.*;
 import rpgeeze.model.occupation.Occupation;
 import rpgeeze.model.terrain.GrassTerrain;
@@ -390,8 +391,10 @@ public class GameManager extends DelegatingEventAdapter
 		matrix[1][8].setItem(new RedArmor());
 		matrix[1][9].setItem(new Shield());
 		matrix[2][9].setItem(new Sword());
-		
-		
+		matrix[2][9].setDecal(new GoldStar());
+		matrix[5][7].setDecal(new Fire());
+		matrix[5][8].setDecal(new SkullAndCrossbones());
+		matrix[5][8].setDecal(new RedCross());
 		
 		model = new Model(map, avatar);
 		// end of stuff that needs to be nice

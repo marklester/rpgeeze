@@ -12,5 +12,4 @@ public class SkullAndCrossbones extends Decal {
 			instance = new SkullAndCrossbones();
 		return instance;
 	}
-
 }
