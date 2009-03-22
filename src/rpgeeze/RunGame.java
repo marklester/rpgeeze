@@ -30,10 +30,10 @@ public class RunGame {
 	
 	public final static HashMap<String, String> DEFAULT_KEY_CONTROLS = new HashMap<String, String>();
 	static {
-		DEFAULT_KEY_CONTROLS.put("Move North", "8");
-		DEFAULT_KEY_CONTROLS.put("Move South", "2");
-		DEFAULT_KEY_CONTROLS.put("Move East", "6");
-		DEFAULT_KEY_CONTROLS.put("Move West","4");
+		DEFAULT_KEY_CONTROLS.put("Move North", "Up");
+		DEFAULT_KEY_CONTROLS.put("Move South", "Down");
+		DEFAULT_KEY_CONTROLS.put("Move East", "Right");
+		DEFAULT_KEY_CONTROLS.put("Move West","Left");
 		DEFAULT_KEY_CONTROLS.put("Move Northeast", "9");
 		DEFAULT_KEY_CONTROLS.put("Move Southeast", "3");
 		DEFAULT_KEY_CONTROLS.put("Move Northwest", "7");

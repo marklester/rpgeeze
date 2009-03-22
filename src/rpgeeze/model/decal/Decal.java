@@ -13,7 +13,7 @@ public class Decal implements Visitable {
 			new GoldStar(),
 			new RedCross(),
 			new SkullAndCrossbones(),
-			new FireDecal()
+			new Fire()
 		})
 			prototypes.put(d.toString(), d);
 	}
@@ -41,6 +41,6 @@ public class Decal implements Visitable {
 	}
 	
 	public String toString() {
-		return this.name;
+		return name;
 	}
 }
