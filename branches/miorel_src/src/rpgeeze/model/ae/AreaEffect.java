@@ -5,7 +5,7 @@ import java.util.Hashtable;
 import rpgeeze.model.Entity;
 import rpgeeze.model.Visitable;
 import rpgeeze.model.Visitor;
-import rpgeeze.model.entity.
+import rpgeeze.model.entity.StatsModifiable;
 
 public abstract class AreaEffect implements Visitable, Cloneable {
 	
