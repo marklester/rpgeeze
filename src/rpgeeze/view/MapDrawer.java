@@ -20,13 +20,12 @@ import rpgeeze.model.item.Item;
 import rpgeeze.model.terrain.Terrain;
 import rpgeeze.util.ResourceLoader;
 
-public class Drawer implements Visitor {
+public class MapDrawer implements Visitor {
 	private GL gl;
 	private double size;
 
 	private HashMap<String, Texture> terrains = new HashMap<String, Texture>();
 	private HashMap<String, Texture> items = new HashMap<String, Texture>();
-	private HashMap<String, Texture> decals = new HashMap<String, Texture>();
 	
 	public void setSize(double size) {
 		this.size = size;
@@ -39,12 +38,15 @@ public class Drawer implements Visitor {
 	public void visitAreaEffect(AreaEffect area_effect) {
 	}
 
+	public void visitDecal(Decal decal) {
+	}
+
 	public void visitEntity(Entity entity) {
 //		LogManager.getInstance().log("Drawing entity", "VIEW");
 		new TexturedRectangle(ResourceLoader.getInstance().getTexture("entity/entity.png"), size, size).render(gl);
 	}
 
-	public void visitItem(Item item) {
+	public Texture textureForItem(Item item) {
 		Texture texture = items.get(item.getName());
 		if(texture == null) {
 			String key = "img.item." + item.getName().toLowerCase().replaceAll(" ", "_");
@@ -52,20 +54,13 @@ public class Drawer implements Visitor {
 			texture = ResourceLoader.getInstance().getTexture(imgKey);
 			terrains.put(item.getName(), texture);
 		}
-		new TexturedRectangle(texture, size, size).render(gl);
-	}
-
-	public void visitDecal(Decal decal) {
-		Texture texture = decals.get(decal.getName());
-		if(texture == null) {
-			String key = "img.decal." + decal.getName().toLowerCase().replaceAll(" ", "_");
-			String imgKey = GameProperties.getInstance().getProperty(key);
-			texture = ResourceLoader.getInstance().getTexture(imgKey);
-			terrains.put(decal.getName(), texture);
-		}
-		new TexturedRectangle(texture, size, size).render(gl);
+		return texture;
 	}
 	
+	public void visitItem(Item item) {
+		new TexturedRectangle(textureForItem(item), size, size).render(gl);
+	}
+
 	public void visitMap(Map map) {
 	}
 

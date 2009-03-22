@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import javax.media.opengl.glu.GLU;
+
 import rpgeeze.GameManager;
 import rpgeeze.dp.Command;
 import rpgeeze.log.LogManager;
@@ -81,8 +83,14 @@ public class GameplayController extends Controller<GameplayView> {
 	}
 
 	public void mousePressed(MouseEvent e) {
-		if(e.getButton() == MouseEvent.BUTTON3)
+		switch(e.getButton()) {
+		case MouseEvent.BUTTON1:
+			getView().pickClosest(GLU.getCurrentGL(), e.getPoint());
+			break;
+		case MouseEvent.BUTTON3:
 			prev = e;
+			break;
+		}
 	}
 
 	public void mouseDragged(MouseEvent e) {
