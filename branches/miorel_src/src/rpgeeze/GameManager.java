@@ -166,10 +166,8 @@ public class GameManager extends DelegatingEventAdapter
 	 * @param newController
 	 *            the new state's <code>Controller</code>
 	 */
-	public void pushState(View<?> newView,
-			Controller<? extends View<?>> newController) {
-		pushState(new Pair<View<?>, Controller<? extends View<?>>>(newView,
-				newController));
+	public void pushState(View<?> newView, Controller<? extends View<?>> newController) {
+		pushState(new Pair<View<?>, Controller<? extends View<?>>>(newView, newController));
 	}
 
 	/**
@@ -180,18 +178,59 @@ public class GameManager extends DelegatingEventAdapter
 	 */
 	public void pushState(Pair<View<?>, Controller<? extends View<?>>> newState) {
 		synchronized(stateStack) {
-			Pair<View<?>, Controller<? extends View<?>>> oldState = popState();
-
+			LogManager.getInstance().log("State stack is " + stateStack, "MANAGER");
+			LogManager.getInstance().log("Pushing state " + newState, "MANAGER");
+			
+			Pair<View<?>, Controller<? extends View<?>>> oldState = null;
+			if(!stateStack.isEmpty())
+				oldState = stateStack.peek();
+			if(oldState != null) {
+				View<?> oldView = oldState.getFirst();	
+				if(oldView != null)
+					oldView.changeFrom();
+			}
+			
 			View<?> newView = newState.getFirst();
 			if(newView != null)
 				newView.changeTo();
 
-			if(oldState != null)
-				stateStack.push(oldState);
 			stateStack.push(newState);
+			
+			LogManager.getInstance().log("State stack is " + stateStack, "MANAGER");
 		}
 	}
 
+	
+	public void replaceState(View<?> newView, Controller<? extends View<?>> newController) {
+		replaceState(new Pair<View<?>, Controller<? extends View<?>>>(newView, newController));
+	}
+	
+	public void replaceState(Pair<View<?>, Controller<? extends View<?>>> newState) {
+		synchronized(stateStack) {
+			LogManager.getInstance().log("State stack is " + stateStack, "MANAGER");
+			LogManager.getInstance().log("Replacing top state with " + newState, "MANAGER");
+			
+			Pair<View<?>, Controller<? extends View<?>>> oldState = null;
+			if(!stateStack.isEmpty())
+				oldState = stateStack.pop();
+			if(oldState != null) {
+				View<?> oldView = oldState.getFirst();	
+				if(oldView != null)
+					oldView.changeFrom();
+			}
+			
+			View<?> newView = newState.getFirst();
+			if(newView != null)
+				newView.changeTo();
+
+			stateStack.push(newState);
+			
+			LogManager.getInstance().log("State stack is " + stateStack, "MANAGER");
+		}
+	}
+	
+	
+	
 	/**
 	 * Removes the top state from the state stack. If the state stack is empty,
 	 * does nothing.
@@ -201,12 +240,26 @@ public class GameManager extends DelegatingEventAdapter
 	public Pair<View<?>, Controller<? extends View<?>>> popState() {
 		Pair<View<?>, Controller<? extends View<?>>> ret = null;
 		synchronized(stateStack) {
+			LogManager.getInstance().log("State stack is " + stateStack, "MANAGER");
+			LogManager.getInstance().log("Popping state", "MANAGER");
+			
 			if(!stateStack.isEmpty()) {
 				ret = stateStack.pop();
-				View<?> view = ret.getFirst();
-				if(view != null)
-					view.changeFrom();
+				View<?> oldView = ret.getFirst();
+				if(oldView != null)
+					oldView.changeFrom();
+				
+				Pair<View<?>, Controller<? extends View<?>>> newState = null;
+				if(!stateStack.isEmpty())
+					newState = stateStack.peek();
+				if(newState != null) {
+					View<?> newView = newState.getFirst();	
+					if(newView != null)
+						newView.changeTo();
+				}
 			}
+			
+			LogManager.getInstance().log("State stack is " + stateStack, "MANAGER");
 		}
 		return ret;
 	}

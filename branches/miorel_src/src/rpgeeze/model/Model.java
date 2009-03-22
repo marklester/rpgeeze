@@ -29,7 +29,7 @@ public class Model {
 	}
 	
 	public synchronized void setPaused(boolean value) {
-		lm.log("Setting model paused value to " + value, "MODEL");
+		lm.log("Setting model paused state to " + value, "MODEL");
 		paused = value;
 		if(!isPaused())
 			notifyAll();

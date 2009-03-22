@@ -30,4 +30,8 @@ public class Pair<T, U> {
 		}
 		return ret;
 	}
+	
+	public String toString() {
+		return getFirst() + "+" + getSecond();
+	}
 }

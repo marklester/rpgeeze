@@ -12,6 +12,7 @@ import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.effect.BrushColorChange;
 import rpgeeze.gl.geom.TexturedRectangle;
+import rpgeeze.log.LogManager;
 import rpgeeze.math.StaticVector;
 import rpgeeze.model.Entity;
 import rpgeeze.model.Tile;
@@ -45,6 +46,7 @@ public class GameplayView extends View<GameplayView.State> {
 	//	this.avatar = avatar;
 		fadeIn = new BrushColorChange(new Color(0, 0, 0, 1f), new Color(1, 1, 1, 1f), 1);
 		fpsText = new Text("", Color.RED, renderer, 0.0025f);
+		put(fpsText, null);
 		changeState(State.NEW);
 	}
 
@@ -65,7 +67,7 @@ public class GameplayView extends View<GameplayView.State> {
 			glutil.color(fadeIn.getFinalColor());
 		
 		// zoom
-		gl.glTranslated(-0.5, -0.5, zoom);
+//		gl.glTranslated(-0.5, -0.5, zoom);
 		
 		// get viewport dimensions in tiles that have to be displayed
 		int widthInTiles = (int) Math.ceil(-2 * zoom * glutil.getViewportAspectRatio());
@@ -97,7 +99,7 @@ public class GameplayView extends View<GameplayView.State> {
 			}
 		*/
 
-		gl.glTranslated(0.5, 0.5, zoom);
+//		gl.glTranslated(0.5, 0.5, zoom);
 		
 		fpsText.setVisible(getState() == State.NORMAL);
 		if(getState() == State.NORMAL) {
@@ -117,10 +119,12 @@ public class GameplayView extends View<GameplayView.State> {
 	}
 
 	public void changeFrom() {
+		LogManager.getInstance().log(this + " had changeFrom() invoked, current state " + getState(), "VIEW");
 		changeState(State.HIDDEN);
 	}
 
 	public void changeTo() {
+		LogManager.getInstance().log(this + " has state " + getState(), "VIEW");
 		if(getState() == State.NEW)
 			changeState(State.FADING_IN);
 		else

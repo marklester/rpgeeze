@@ -63,4 +63,8 @@ public abstract class Controller<T extends View<?>> extends EventAdapter impleme
 	 */
 	public void reactToChange() {
 	}
+
+	public String toString() {
+		return getClass().getSimpleName();
+	}
 }
