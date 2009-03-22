@@ -1,5 +1,7 @@
 package model.xml;
 import java.io.StringWriter;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 import model.Location;
 import model.Map;
@@ -126,9 +128,19 @@ public class XMLWriterVisitor implements GameVisitor{
 		Text nameValue = doc.createTextNode(""+item.toString());
 		name.appendChild(nameValue);
 		itemElement.appendChild(name);
+		
+		//Save Item Properties
+		Hashtable<String,String> props = item.getProperties();
+		Enumeration<String> keys = props.keys();
+		while(keys.hasMoreElements()){
+			String key = keys.nextElement();
+			Element p = doc.createElement("property");
+			p.setAttribute("name",key);
+			p.setAttribute("value",  props.get(key));
+			itemElement.appendChild(p);
+		}
 		//Append Item Effect to Tile
 		currentElement.appendChild(itemElement);
-		
 	}
 
 	
