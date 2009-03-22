@@ -128,7 +128,8 @@ public class Tile implements Cloneable, ModelElement{
 	}
 
 	public String toString() {
-		return "Tile at " + this.location;
+		return "Tile at " + this.location+"["+this.terrain+","+this.decal
+		+","+this.item+","+this.ae+"]";
 	}
 	
 	public String toXml() {
