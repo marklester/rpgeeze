@@ -78,7 +78,7 @@ public class CharacterCreationController extends HighlightableViewController<Cha
 			//Entity avatar = new FiniteMatrixMap().getAvatar();
 			GameplayView gv = new GameplayView(getManager());
 			GameplayController gc = new GameplayController(getManager(), gv);
-			getManager().pushState(gv, gc);
+			getManager().replaceState(gv, gc);
 		}
 	}
 }

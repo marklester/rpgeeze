@@ -35,9 +35,8 @@ public class MainMenuController extends HighlightableViewController<MainMenuView
 					newGame();
 				else if(name.equals("Load Game"))
 					loadGame();
-				else if(name.equals("Options")) {
+				else if(name.equals("Options"))
 					optionsMenu();
-				}
 				else if(name.equals("Help")) {
 					helpView();
 				}
