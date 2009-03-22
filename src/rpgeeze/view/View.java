@@ -218,6 +218,10 @@ public abstract class View<T extends View.State> {
 		return getClass().getSimpleName();
 	}
 
+	protected String getNameForObject(GLObject object) {
+		return objName.get(object);
+	}
+	
 	protected String getNameForGLName(int glName) {
 		String ret = null;
 		if(glName > 0 && glName <= objects.size())
