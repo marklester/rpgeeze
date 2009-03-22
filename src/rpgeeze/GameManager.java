@@ -20,6 +20,7 @@ import rpgeeze.model.Map;
 import rpgeeze.model.Model;
 import rpgeeze.model.ModelThread;
 import rpgeeze.model.Tile;
+import rpgeeze.model.item.*;
 import rpgeeze.model.occupation.Occupation;
 import rpgeeze.model.terrain.GrassTerrain;
 import rpgeeze.util.DelegatingEventAdapter;
@@ -377,6 +378,21 @@ public class GameManager extends DelegatingEventAdapter
 		Tile pos = matrix[8][6];
 		avatar.setTile(pos);
 		pos.setEntity(avatar);
+		
+		matrix[2][2].setItem(new Arrows());
+		matrix[3][2].setItem(new Boots());
+		matrix[3][3].setItem(new Boulder());
+		matrix[2][3].setItem(new Crossbow());
+		matrix[5][5].setItem(new HealthPack());
+		matrix[2][6].setItem(new HealthPotion());
+		matrix[1][6].setItem(new ManaPotion());
+		matrix[1][0].setItem(new Portal());
+		matrix[1][8].setItem(new RedArmor());
+		matrix[1][9].setItem(new Shield());
+		matrix[2][9].setItem(new Sword());
+		
+		
+		
 		model = new Model(map, avatar);
 		// end of stuff that needs to be nice
 		

@@ -48,7 +48,10 @@ public class ResourceLoader {
 	 * I'll do it.
 	 */
 	public InputStream getStream(String key) {
-		return loader.getResourceAsStream("res/" + key);
+		InputStream ret = loader.getResourceAsStream("res/" + key);
+		if(ret == null)
+			LogManager.getInstance().log("Couldn't find resource " + key, "LOADER", Message.Type.ERROR);
+		return ret;
 	}
 	
 	public BufferedImage getImage(String key) {
