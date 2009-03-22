@@ -50,6 +50,10 @@ public abstract class Terrain implements Drawable {
 	public String toXml() {
 		return toXml("");
 	}
+	//Used to get a Terrain Prototype
+	public static Terrain getTerrain(String key){
+		return (Terrain)prototypes.get(key);
+	}
 	
 	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
