@@ -1,5 +1,7 @@
 package model.item;
 
+import java.util.Hashtable;
+
 import util.ResourceLoader;
 import view.Drawer;
 import view.Console;
@@ -12,7 +14,6 @@ public class PortalItem extends InteractiveItem {
 	public PortalItem() {
 		this(null);
 	}
-	
 	public PortalItem(Location loc) {
 		super("Portal Item");
 		this.where = loc;
@@ -23,6 +24,7 @@ public class PortalItem extends InteractiveItem {
 	}
 	
 	public void use(Entity e) {
+		
 		e.getTile().releaseEntity();
 		ResourceLoader.getInstance().playAudioClip(this.name);
 		if(where != null) {
@@ -43,5 +45,15 @@ public class PortalItem extends InteractiveItem {
 		sb.append(where == null ? "" : where.toXml("\t" + indent));
 		sb.append(indent + "</item>");
 		return sb.toString();
+	}
+	@Override
+	public void setProperties(Hashtable<String, String> properties) {
+		//Use Properties in Hash Map here
+		super.setProperties(properties);//makes sure save can save properties
+		System.out.println("Portal"+properties.get("location"));
+		String[] loc = properties.get("location").split(",");
+		int x = Integer.parseInt(loc[0]);
+		int y = Integer.parseInt(loc[1]);
+		where = new Location(x,y);
 	}
 }
