@@ -8,6 +8,7 @@ import com.sun.opengl.util.texture.Texture;
 
 import rpgeeze.GameProperties;
 import rpgeeze.gl.geom.TexturedRectangle;
+import rpgeeze.log.LogManager;
 import rpgeeze.model.Entity;
 import rpgeeze.model.Map;
 import rpgeeze.model.Model;
@@ -40,6 +41,7 @@ public class Drawer implements Visitor {
 	}
 
 	public void visitEntity(Entity entity) {
+//		LogManager.getInstance().log("Drawing entity", "VIEW");
 		new TexturedRectangle(ResourceLoader.getInstance().getTexture("entity/entity.png"), size, size).render(gl);
 	}
 
@@ -53,6 +55,7 @@ public class Drawer implements Visitor {
 	}
 
 	public void visitTerrain(Terrain terrain) {
+//		LogManager.getInstance().log("Drawing terrain", "VIEW");
 		Texture texture = terrains.get(terrain.getName());
 		if(texture == null) {
 			String key = "img.terrain." + terrain.getName().toLowerCase().replaceAll(" .*$", "");

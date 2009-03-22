@@ -28,8 +28,9 @@ public class Entity implements Visitable {
 		Tile destination = map.getTile(tile.getX() + xOffset, tile.getY() + yOffset);
 		try {
 			destination.setEntity(this);
+			Tile oldTile = tile;
 			tile = destination;
-			tile.setEntity(null);
+			oldTile.setEntity(null);
 		}
 		catch(IllegalMoveException e) {
 			LogManager.getInstance().log("Entity move request refused: " + e.getMessage(), "MODEL");
