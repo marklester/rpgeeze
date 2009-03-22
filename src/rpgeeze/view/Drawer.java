@@ -40,6 +40,7 @@ public class Drawer implements Visitor {
 	}
 
 	public void visitEntity(Entity entity) {
+		new TexturedRectangle(ResourceLoader.getInstance().getTexture("entity/entity.png"), size, size).render(gl);
 	}
 
 	public void visitItem(Item item) {

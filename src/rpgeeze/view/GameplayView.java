@@ -17,8 +17,6 @@ import rpgeeze.model.Entity;
 import rpgeeze.model.Tile;
 
 public class GameplayView extends View<GameplayView.State> {
-//	private TexturedRectangle entity = new TexturedRectangle(ResourceLoader.getInstance().getTexture("entity/entity.png"), 1, 1);;
-
 	private TextRenderer renderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.PLAIN, 24), true, true);
 
 	private final static double MAP_Z = -8;
@@ -42,7 +40,7 @@ public class GameplayView extends View<GameplayView.State> {
 		GLUtil glutil = new GLUtil(gl);
 		glutil.standardFrustum(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
-		gl.glClearColor(0, 0, 0, 0);
+		//gl.glClearColor(0, 0, 0, 1);
 		
 		if(getState() == State.FADING_IN) {
 			if(point == null) {
@@ -69,40 +67,24 @@ public class GameplayView extends View<GameplayView.State> {
 		int centerX = avatar.getTile().getX();
 		int centerY = avatar.getTile().getY();
 		
-		gl.glTranslated(-centerX, -centerY, 0);
+		//System.out.println("Centering on " + centerX + " " + centerY);
+		//gl.glTranslated(-centerX, -centerY, 0);
 		
 		int minX = (int) Math.floor(centerX - (1 + 0.5 * widthInTiles));
-		int maxX = (int) Math.ceil(centerY + (1 + 0.5 * widthInTiles));
-		int minY = (int) Math.floor(centerX - (1 + 0.5 * heightInTiles));
+		int maxX = (int) Math.ceil(centerX + (1 + 0.5 * widthInTiles));
+		int minY = (int) Math.floor(centerY - (1 + 0.5 * heightInTiles));
 		int maxY = (int) Math.ceil(centerY + (1 + 0.5 * heightInTiles));
 		
 		Iterator<Tile> iter = getManager().getModel().getMap().getTiles(minX, minY, maxX, maxY);
 		for(iter.reset(); !iter.isDone(); iter.advance()) {
 			Tile tile = iter.current();
 			gl.glPushMatrix();
-			gl.glTranslated(tile.getX(), tile.getY(), MAP_Z);
+			gl.glTranslated(tile.getX() - centerX, tile.getY() - centerY, MAP_Z);
 			tile.accept(drawer);
 			gl.glPopMatrix();
 		}
 		
-		/*
-		for(int i = minX; i <= maxX; ++i)
-			for(int j = minY; j <= maxY; ++j) {
-				Tile t = avatar.getTile().getTile(new StaticVector(i, j, 0));
-				gl.glPushMatrix();
-				gl.glTranslated(i, j, 0);
-				if(t.getTerrain() instanceof GrassTerrain)
-					grass.render(gl);
-				if(t.getTerrain() instanceof MountainTerrain)
-					mountain.render(gl);
-				if(t.getTerrain() instanceof WaterTerrain)
-					water.render(gl);
-				if(t.getEntity() != null)
-					entity.render(gl);
-				gl.glPopMatrix();
-			}
-		*/
-		
+		gl.glTranslated(centerX, centerY, 0);
 		fpsText.setVisible(getState() == State.NORMAL);
 		if(getState() == State.NORMAL) {
 			fpsText.setText(String.format("FPS: %.1f", getManager().getFPS()));

@@ -374,7 +374,7 @@ public class GameManager extends DelegatingEventAdapter
 		}
 		Map map = new Map(matrix);
 		Entity avatar = new Entity(occupation, map);
-		Tile pos = matrix[3][2];
+		Tile pos = matrix[8][6];
 		avatar.setTile(pos);
 		pos.setEntity(avatar);
 		model = new Model(map, avatar);
