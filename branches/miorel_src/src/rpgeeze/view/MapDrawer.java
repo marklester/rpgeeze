@@ -26,6 +26,7 @@ public class MapDrawer implements Visitor {
 
 	private HashMap<String, Texture> terrains = new HashMap<String, Texture>();
 	private HashMap<String, Texture> items = new HashMap<String, Texture>();
+	private HashMap<String, Texture> decals = new HashMap<String, Texture>();
 	
 	public void setSize(double size) {
 		this.size = size;
@@ -39,6 +40,14 @@ public class MapDrawer implements Visitor {
 	}
 
 	public void visitDecal(Decal decal) {
+		Texture texture = decals.get(decal.getName());
+		if(texture == null) {
+			String key = "img.decal." + decal.getName().toLowerCase().replaceAll(" ", "_");
+			String imgKey = GameProperties.getInstance().getProperty(key);
+			texture = ResourceLoader.getInstance().getTexture(imgKey);
+			decals.put(decal.getName(), texture);
+		}
+		new TexturedRectangle(texture, size, size).render(gl);
 	}
 
 	public void visitEntity(Entity entity) {
@@ -52,7 +61,7 @@ public class MapDrawer implements Visitor {
 			String key = "img.item." + item.getName().toLowerCase().replaceAll(" ", "_");
 			String imgKey = GameProperties.getInstance().getProperty(key);
 			texture = ResourceLoader.getInstance().getTexture(imgKey);
-			terrains.put(item.getName(), texture);
+			items.put(item.getName(), texture);
 		}
 		return texture;
 	}
