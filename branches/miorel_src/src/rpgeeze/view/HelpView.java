@@ -58,6 +58,7 @@ public class HelpView extends HighlightableView<HelpView.State> {
 		rect.setXYZ(-8, -9.25 - Y_SHIFT, -14.5);
 		grid = glutil.objectGrid(button, 1, 1, rect.getWidth(), rect.getHeight());
 		names = new ArrayIterator<String>("Back");
+		
 		for(grid.reset(), names.reset(); !grid.isDone(); grid.advance(), names.advance()) {
 			put(grid.current(), names.current());
 			putHighlightable(grid.current(), names.current());
@@ -98,9 +99,6 @@ public class HelpView extends HighlightableView<HelpView.State> {
 														   new Text("- SouthEast 3", italicRenderer, 0.005f),
 														   new Text("- SouthWest 1", italicRenderer, 0.005f));
 												                
-		
-		
-		
 		controls.setXYZ(-controls.getWidth() / 2, title.getY() - controls.getHeight() - 0.1, -4);
 		controls.render(gl);
 		
