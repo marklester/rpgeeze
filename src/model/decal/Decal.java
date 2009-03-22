@@ -56,7 +56,9 @@ public abstract class Decal implements Drawable, Cloneable {
 		sb.append(indent + "<decal>" + name + "</decal>");
 		return sb.toString();
 	}
-	
+	public static Decal getDecal(String key){
+		return (Decal)prototypes.get(key);
+	}
 	public static Decal fromXml(String xml) {
 		Matcher mat = pattern.matcher(xml);
 		if(!mat.matches())
