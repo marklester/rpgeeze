@@ -3,8 +3,17 @@ package rpgeeze.model.ae;
 import rpgeeze.model.Entity;
 
 public class InstantDeath extends AreaEffect {
-	public void apply(Entity entity) {
-		// kill the entity
+	
+	public InstantDeath() {
+        super("Instant Death");
+    }
+
+    public InstantDeath(int rate) {
+        super(rate, "Instant Death");
+    }
+
+    public void apply(Entity e) {
+// kill the entity
 		
 		/*
 		 * Idea: deal "infinite damage" to the entity
@@ -12,5 +21,9 @@ public class InstantDeath extends AreaEffect {
 		 * whatever death mechanism it has: respawn, end game, simply disappear, etc. 
 		 * 
 		 */
-	}
+        //ResourceLoader.getInstance().playAudioClip(this.name);
+        //e.getStats().decLife(Stats.MAX_LIFE);
+        //Console.getInstance().writeLine("You just got Knocked The Hack Out", Color.RED);
+    }
 }
+
