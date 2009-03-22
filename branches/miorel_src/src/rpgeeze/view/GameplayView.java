@@ -3,6 +3,9 @@ package rpgeeze.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.media.opengl.GL;
 
 import com.sun.opengl.util.j2d.TextRenderer;
@@ -10,37 +13,72 @@ import com.sun.opengl.util.j2d.TextRenderer;
 import rpgeeze.GameManager;
 import rpgeeze.dp.Iterator;
 import rpgeeze.gl.GLUtil;
+import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
 import rpgeeze.gl.effect.BrushColorChange;
+import rpgeeze.gl.geom.Rectangle;
+import rpgeeze.gl.geom.TextRectangle;
+import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.log.LogManager;
 import rpgeeze.model.Entity;
 import rpgeeze.model.Tile;
+import rpgeeze.model.item.Item;
+import rpgeeze.util.ArrayIterator;
+import rpgeeze.util.ListIterator;
 
 public class GameplayView extends View<GameplayView.State> {
 	private TextRenderer renderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.PLAIN, 24), true, true);
 
 	private final static double MAP_Z = -8;
+	private final static double INVENTORY_Z = -5;
+	private final static double INV_ITEM_SIZE = 0.6;
 	
 	private BrushColorChange fadeIn;
 	private Text fpsText;
 
-	private Drawer drawer = new Drawer();
+	private MapDrawer mapDrawer = new MapDrawer();
 	
 	public enum State implements View.State { NEW, FADING_IN, NORMAL, HIDDEN; }
-
+	
+	public Iterator<TexturedRectangle> inventory; 
+	
 	public GameplayView(GameManager manager) {
 		super(manager);
 		fadeIn = new BrushColorChange(new Color(0, 0, 0, 1f), new Color(1, 1, 1, 1f), 1);
 		fpsText = new Text("", Color.RED, renderer, 0.0025f);
+		
+		TexturedRectangle prototype = new TexturedRectangle(null, INV_ITEM_SIZE, INV_ITEM_SIZE);
+		prototype.setColor(Color.WHITE);
+		prototype.setXYZ(0, 0, INVENTORY_Z);
+		
+		GLUtil glutil = new GLUtil();
+		inventory = glutil.objectGrid(prototype, 5, 5, 1.2 * prototype.getWidth(), -1.2 * prototype.getHeight());
+		List<String> invList = new ArrayList<String>();
+		for(int i = 0; i < 25; ++i)
+			invList.add("Inventory Item " + i);
+		Iterator<String> names = new ListIterator<String>(invList);
+		
+		for(inventory.reset(), names.reset(); !inventory.isDone(); inventory.advance(), names.advance()) {
+			put(inventory.current(), names.current());
+//			TexturedRectangle clone = inventory.current().clone();
+			//clone.setColor(new Color(1f, 1f, 1f, 0.8f));
+//			put(clone, null);
+//			putHighlightable(obj.current(), names.current());
+//			obj.current().getWrappedObject().getText().setText(names.current());
+//			obj.current().getWrappedObject().alignText(0.5, 0.5);
+//			obj.current().getWrappedObject().getText().setY(prototype.getWrappedObject().getText().getY());
+		}
+		
 		put(fpsText, null);
+		
 		changeState(State.NEW);
 	}
 
-	public void render(GL gl, Point point) {		
+	public void render(GL gl, Point point) {
 		GLUtil glutil = new GLUtil(gl);
 		glutil.standardFrustum(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
-		//gl.glClearColor(0, 0, 0, 1);
+		gl.glClearColor(0, 0, 0, 0);
 		
 		if(getState() == State.FADING_IN) {
 			if(point == null) {
@@ -52,8 +90,8 @@ public class GameplayView extends View<GameplayView.State> {
 		else
 			glutil.color(fadeIn.getFinalColor());
 		
-		drawer.setGL(gl);
-		drawer.setSize(1);
+		mapDrawer.setGL(gl);
+		mapDrawer.setSize(1);
 		
 		// zoom
 //		double myZoom = zoom;
@@ -78,13 +116,29 @@ public class GameplayView extends View<GameplayView.State> {
 			gl.glPushMatrix();
 			double dx = tile.getX() - centerX - 0.5;
 			double dy = tile.getY() - centerY - 0.5;
-//			LogManager.getInstance().log("Translate " + tile.getX() + " " + tile.getY(), "VIEW");
 			gl.glTranslated(dx, dy, MAP_Z);
-			tile.accept(drawer);
+			tile.accept(mapDrawer);
 			gl.glPopMatrix();
 		}
+
+		//gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
+		Iterator<Item> items = getManager().getModel().getAvatar().getInventory().iterator();
+		for(items.reset(), inventory.reset(); !items.isDone(); items.advance(), inventory.advance()) {
+			inventory.current().setTexture(mapDrawer.textureForItem(items.current()));
+			//gl.glPushMatrix();
+			//double dx = inventory.current().getX();
+			//double dy = inventory.current().getY();
+			//gl.glTranslated(dx, dy, INVENTORY_Z);
+			//items.current().accept(mapDrawer);
+			//inventory.current().setVisible(false);
+			//gl.glPopMatrix();
+		}
 		
-		gl.glTranslated(centerX, centerY, 0);
+		while(!inventory.isDone()) {
+			inventory.current().setTexture(null);
+			inventory.advance();
+		}
+		
 		fpsText.setVisible(getState() == State.NORMAL);
 		if(getState() == State.NORMAL) {
 			fpsText.setText(String.format("FPS: %.1f", getManager().getFPS()));
