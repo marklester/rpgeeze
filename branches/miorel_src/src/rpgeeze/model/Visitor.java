@@ -4,7 +4,6 @@ import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
 import rpgeeze.model.item.Item;
 import rpgeeze.model.terrain.Terrain;
-import rpgeeze.model.map.Map;
 
 public interface Visitor {
 	public void visitModel(Model model);
