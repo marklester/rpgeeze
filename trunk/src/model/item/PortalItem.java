@@ -6,6 +6,7 @@ import util.ResourceLoader;
 import view.Console;
 import model.Location;
 import model.entity.PC;
+import util.AudioThread;
 
 public class PortalItem extends InteractiveItem {
 	private Location where;
@@ -25,7 +26,7 @@ public class PortalItem extends InteractiveItem {
 
 	public void use(PC pc) {
 		pc.getTile().releaseEntity();		
-		ResourceLoader.getInstance().playAudioClip(this.name);
+		AudioThread.getInstance().run(this.name, AudioThread.CLIP);
 		if(where != null) {
 			pc.move(where);
 			Console.getInstance().writeLine("A strange force sweeps you off your feet.");

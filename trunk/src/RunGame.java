@@ -5,6 +5,7 @@ import model.entity.Occupation;
 import view.Time;
 import view.View;
 import controller.WelcomeScreen;
+import util.AudioThread;
 import util.ResourceLoader;
 
 import java.awt.DisplayMode;
@@ -33,7 +34,6 @@ public class RunGame {
 	 * Starts a new game. See the description above for what happens.
 	 */
 	public static WelcomeScreen welcome = null;
-	protected static AudioThread at = new AudioThread();
 	
 	public static void main(String[] arg) {
 		
@@ -59,7 +59,7 @@ public class RunGame {
 					}
 				}
 				Thread t = newGame(welcome.getOccupation(), ResourceLoader.getInstance().getScanner("model.xml"));
-				at.start();
+				AudioThread.getInstance().run("Intro", AudioThread.STREAM);
 				welcome.setVisible(false);		
 				welcome.dispose();
 				try {

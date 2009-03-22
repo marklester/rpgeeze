@@ -13,6 +13,10 @@ import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class ResourceLoader {
 	private final ClassLoader loader;
@@ -60,11 +64,12 @@ public class ResourceLoader {
 		files.put("Mountain Terrain","img/terrain20px/MountainTerrain.png");
 		files.put("Water Terrain","img/terrain20px/WaterTerrain.png");
 		files.put("Skill Button","img/buttons/addSkillPoint.png");
+		files.put("Trampoline","img/trampoline.png");
 		
 		audios.put("Instant Death", "audio/evilLaugh.wav");
 		audios.put("Portal Item", "audio/elevator.wav");
 		audios.put("Bind Wounds", "audio/gasp.wav");
-		audios.put("Intro", "audio/zelda1.mp3");
+		audios.put("Intro", "audio/zelda1.wav");
 		
 		images.put("Intro Image", getImage("img/IntroOccupationTypes.png"));
 		images.put("New Image", getImage("img/buttons/NewGame.png"));
@@ -105,28 +110,25 @@ public class ResourceLoader {
 		return getImage(files.get(key));
 	}
 	
-
-	public void playAudioClip(String key) {
-		try {
-			if (!soundFXMuted) {
-				InputStream in = getStream(audios.get(key)); 
-				AudioStream as = new AudioStream(in);
-				AudioPlayer.player.start(as);
-			}
-		}
-		catch (Exception e) { System.out.println(e); }
-	}
-	
 		
 	/**
 	 * Used by the AudioThread mostly
 	 * @param key Corresponds to key within the audio hashtable
-	 * @return InputStream for the AudioThread to buffer and send to the sound card
+	 * @return File corresponding to the audio file
 	 */
-	public InputStream getIS(String key) {
-		return getStream(audios.get(key));
+	public File getAudioFile(String key) {
+		File ret = null;
+		try {
+			ret = new File("res\\" + audios.get(key));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
 	
+	public InputStream getStreamFromRoot(String key) {
+		return getStream(audios.get(key));
+	}
 	
 	/**
 	 * Gives you an InputStream corresponding to the specified key. Currently

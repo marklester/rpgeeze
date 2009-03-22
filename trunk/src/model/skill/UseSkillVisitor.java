@@ -6,6 +6,7 @@ import model.skill.*;
 import model.entity.*;
 import model.entity.Entity;
 import model.Location;
+import util.AudioThread;
 
 
 public class UseSkillVisitor implements Visitor {
@@ -19,7 +20,7 @@ public class UseSkillVisitor implements Visitor {
 	public void visit(BindWounds sk) {
 
 		if (sm.hasEnoughMP(10)) {
-			ResourceLoader.getInstance().playAudioClip(sk.toString());
+			AudioThread.getInstance().playAudioClip(sk.toString());
 			//Console.getInstance().writeLine("Life is invigorating", Color.WHITE);
 			Console.getInstance().writeLifeEvent("Life is invigorating");
 			//int life = e.getStats().getLife();

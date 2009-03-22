@@ -14,10 +14,8 @@ public abstract class Entity extends Subject implements Drawable, Cloneable {
 	
 	public void move(Location l)
 	{
-		this.updateObservers();
 		Tile from = this.getTile();
 		if(from.hasAE()){
-			updateObservers();
 			from.getAE().setMessageSentFlag(false);
 		}
 		

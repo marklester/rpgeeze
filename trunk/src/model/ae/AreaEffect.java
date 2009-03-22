@@ -15,6 +15,7 @@ public abstract class AreaEffect implements Cloneable {
 			new TakeDamage(),
 			new HealDamage(),
 			new InstantDeath(),
+			new LaunchAE()
 		})
 			prototypes.put(ae.toString(), ae);
 	}
