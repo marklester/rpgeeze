@@ -5,14 +5,14 @@ import java.util.Hashtable;
 import rpgeeze.model.Entity;
 import rpgeeze.model.Location;
 
-public class PortalItem extends InteractiveItem {
+public class Portal extends InteractiveItem {
 	private Location where;
 	
-	public PortalItem() {
+	public Portal() {
 		this(null);
 	}
-	public PortalItem(Location loc) {
-		super("Portal Item");
+	public Portal(Location loc) {
+		super("Portal");
 		this.where = loc;
 	}
 	
