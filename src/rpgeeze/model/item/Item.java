@@ -11,7 +11,7 @@ public abstract class Item implements Visitable, Cloneable {
 	protected final String name;
 	protected Hashtable<String, String> properties;
     private static Hashtable<String, Item> prototypes = new Hashtable<String, Item>();
-    /*static {
+    static {
 		for(Item i: new Item[] {
 			new Sword(),
 			new Boulder(),
@@ -27,7 +27,7 @@ public abstract class Item implements Visitable, Cloneable {
 			new PortalItem()
 		})
 			prototypes.put(i.toString(), i);
-	}*/
+	}
 	public Item(String name){
 		this.name = name;
 	}
