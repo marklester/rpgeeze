@@ -1,13 +1,14 @@
 package rpgeeze.view;
 
-import static rpgeeze.RunGame.APP_FONT;
 import static rpgeeze.RunGame.BACKGROUND_COLOR;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import javax.media.opengl.GL;
-import javax.media.opengl.glu.GLU;
 
 import com.sun.opengl.util.j2d.TextRenderer;
 
@@ -22,6 +23,7 @@ import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.gl.geom.Triangle;
 import rpgeeze.math.StaticVector;
+import rpgeeze.model.occupation.Occupation;
 import rpgeeze.util.ArrayIterator;
 import rpgeeze.util.ResourceLoader;
 
@@ -30,35 +32,41 @@ import rpgeeze.util.ResourceLoader;
  * 
  */
 public class CharacterCreationView extends HighlightableView<CharacterCreationView.State> {
-	private static double Y_SHIFT = 2;
-
+	private static double Y_SHIFT = 4;
+	
+	private Font font = ResourceLoader.getInstance().getFont(GameProperties.getInstance().getProperty("app.font"), Font.PLAIN, 100);
+	
 	private Text characterTitle;
 	private Iterator<Highlightable> wheel;
 	
 	public enum State implements View.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
 	
 	private String characterName;
-	private final String[] occupation = {"Smasher", "Summoner", "Sneak"};
-	private final TexturedRectangle[] occupationImage = {
-		new TexturedRectangle(ResourceLoader.getInstance().getTexture("occupation/smasher.png"), 100, 100),
-		new TexturedRectangle(ResourceLoader.getInstance().getTexture("occupation/summoner.png"), 100, 100),
-		new TexturedRectangle(ResourceLoader.getInstance().getTexture("occupation/sneak.png"), 100, 100),
-	};
+	private final List<Occupation> occupation = new ArrayList<Occupation>();
+	private final List<TexturedRectangle> occupationImage = new ArrayList<TexturedRectangle>();
 	private int occP;
 	
 	public CharacterCreationView(GameManager manager) {
 		super(manager);
+
+		TextRenderer titleRenderer = new TextRenderer(font, true, true);
+		characterTitle = new Text("", titleRenderer, 0.03f);
+		put(characterTitle, null);
+		
+		Iterator<Occupation> occIter = Occupation.getPlayerOccupations();
+		for(occIter.reset(); !occIter.isDone(); occIter.advance()) {
+			occupation.add(occIter.current());
+			String img = GameProperties.getInstance().getProperty("img.occupation." + occIter.current().getName().toLowerCase());
+			occupationImage.add(new TexturedRectangle(ResourceLoader.getInstance().getTexture(img), 100, 100));
+		}
 		
 		GLUtil glutil = new GLUtil();
-		glutil.standardFrustum(GLU.getCurrentGL(), null);
 		Iterator<String> names;
 		
-		TextRenderer renderer = new TextRenderer(APP_FONT.deriveFont(36f), true, true);
+		TextRenderer renderer = new TextRenderer(font.deriveFont(36f), true, true);
 		TextRectangle rect = new TextRectangle(new Text("X", renderer, 0.05f), 10, 3);
 		rect.setXYZ(-10, -12.5 - Y_SHIFT, -14.5);
 		rect.alignText(0.5, 0.5);
-		
-		characterTitle = new Text("", renderer, 0.075f);
 		
 		HighlightableWrapper<TextRectangle> button = new HighlightableWrapper<TextRectangle>(rect, MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 		Iterator<HighlightableWrapper<TextRectangle>> grid = glutil.objectGrid(button, 1, 2, rect.getWidth(), rect.getHeight());
@@ -82,7 +90,8 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 			putHighlightable(wheel.current(), names.current());
 		}
 		
-		put(characterTitle, null);		
+		grid.reset();
+		characterTitle.setXYZ(0, grid.current().getY() + grid.current().getWrappedObject().getHeight() + 0.8, -14.8);
 		
 		changeState(State.NEW);
 	}
@@ -94,12 +103,11 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 		GLUtil glutil = new GLUtil(gl);
 		glutil.standardFrustum(gl, point);
 		glutil.clearColor(BACKGROUND_COLOR);
-		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);		
+		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 		gl.glTranslated(0, Y_SHIFT, 0);
-		
 		glutil.color(MainMenuView.PLAIN);
-		//occupationImage[occP].render(gl);
-			
+		
+		
 		switch(getState()) {
 		case NORMAL:
 			double disp = 14.5 * glutil.getViewportAspectRatio() - 3;
@@ -107,11 +115,6 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 				wheel.current().setX(disp);
 			
 			// silly K's...
-			String title = (characterName + " the " + occupation[occP]).replaceAll("k", "K");
-			characterTitle.setText(title);
-			characterTitle.setXY(-characterTitle.getWidth() / 2, 1);
-		
-			renderObjects(gl);
 			
 			break;
 		case ZOOMING:
@@ -119,18 +122,20 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 			}
 			break;
 		}
+		renderObjects(gl);
 	}
 	
 	public void nextOccupation() {
-		setOccupation((occP + 1) % occupation.length);
+		setOccupation((occP + 1) % occupation.size());
 	}
 	
 	public void previousOccupation() {
-		setOccupation((occP - 1 + occupation.length) % occupation.length);
+		setOccupation((occP - 1 + occupation.size()) % occupation.size());
 	}
 	
 	private void setOccupation(int newOccupation) {
 		occP = newOccupation;
+		setCharacterName(getCharacterName());
 	}
 	
 	public void randomName() {
@@ -153,21 +158,21 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 	
 	public void setCharacterName(String newName) {
 		characterName = newName;
+		String title = (characterName + " the " + occupation.get(occP).getName()).replaceAll("k", "K");
+		characterTitle.setText(title);
+		characterTitle.setX(-characterTitle.getWidth() / 2);
 	}
 	
 	public void changeFrom() {
-		clearAll();
+		clear();
 		changeState(State.HIDDEN);
 	}
 	
 	public void changeTo() {
-		clearAll();
+		clear();
 		Random rnd = new Random();
-		setOccupation(rnd.nextInt(occupation.length));
+		setOccupation(rnd.nextInt(occupation.size()));
 		randomName();
-//		zoom = ZOOM_MIN;
-//		for(TexturedRectangle rect: occupationImage)
-//			rect.setXYZ(-50, -32, 0);
 		changeState(State.NORMAL);
 	}
 	

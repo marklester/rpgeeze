@@ -13,46 +13,88 @@ import rpgeeze.view.KeyBindingsView;
  * Controls the main menu screen.
  */
 public class KeyBindingsViewController extends HighlightableViewController<KeyBindingsView> {
-
 	public KeyBindingsViewController(GameManager manager, KeyBindingsView view) {
 		super(manager, view);
 	}
 
+	
 	/**
 	 * Executes the action corresponding to the clicked button, if any.
 	 */
-	Integer clicked[] = new Integer[1];
-	boolean firstTime = true;
-	KeyBindingsView.Button button;
-//	Point p;
-	int compare = 0;
-	int mouseMoved = 0;
-
 	public void mouseClicked(MouseEvent e) {
 		Point p = e.getPoint();
 		if(e.getButton() == MouseEvent.BUTTON1) {
-			int glName = getView().pickClosest(GLU.getCurrentGL(), p);
-			button = KeyBindingsView.Button.fromGLName(glName);
+			String name = getView().pickClosest(GLU.getCurrentGL(), p);
+			if(name != null) {
+				if(name.equals("OK"))
+					executeOK();
+				else if(name.equals("Defaults")) {
+					getView().activate(null);
+					getView().hover(name);					
+					defaultBindings();
+				}
+				else if(name.equals("Cancel"))
+					executeCancel();
+				else {
+					String activated = getView().getActivated();
+					if(name.equals(activated)) {
+						getView().activate(null);
+						getView().hover(name);
+					}
+					else
+						getView().activate(name);
+				}
+			}
+		}
+	}
+	
+	protected void executeOK() {	
+		
+	}
 
-			if(button != null){
+	protected void executeCancel() {
+		
+	}
+	
+	protected void defaultBindings() {	
+		
+	}
+	
+	/**
+	 * Executes the action corresponding to the clicked button, if any.
+	 */
+//	Integer clicked[] = new Integer[1];
+//	boolean firstTime = true;
+//	KeyBindingsView.Button button;
+//	Point p;
+//	int compare = 0;
+//	int mouseMoved = 0;
 
-				if(compare != button.getGLName() || (compare == button.getGLName() && !button.getHighlighted())){
+//	public void mouseClicked(MouseEvent e) {
+//		Point p = e.getPoint();
+//		if(e.getButton() == MouseEvent.BUTTON1) {
+//			int glName = getView().pickClosest(GLU.getCurrentGL(), p);
+//			button = KeyBindingsView.Button.fromGLName(glName);
 
-					switch(	button) {
-					case OK:
-						getManager().popState();
-						break;
-					case CANCEL:
-						getManager().popState();
-						break;
-					case DEFAULTS:
-						getView().defaults();
-						break;
-					case N_ARROW:
-						button.setHighlighted(true);
-						highlight(e.getPoint());
-						break;
-					case S_ARROW:
+//			if(button != null){
+
+//				if(compare != button.getGLName() || (compare == button.getGLName() && !button.getHighlighted())){
+
+//					switch(	button) {
+//					case OK:
+//						getManager().popState();
+//						break;
+//					case CANCEL:
+//						getManager().popState();
+//						break;
+//					case DEFAULTS:
+//						getView().defaults();
+//						break;
+//					case N_ARROW:
+//						button.setHighlighted(true);
+//						highlight(e.getPoint());
+//						break;
+/*					case S_ARROW:
 						button.setHighlighted(true);
 						highlight(e.getPoint());
 						break;	
@@ -150,11 +192,11 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 
 				}
 		}*/
-	}
+//	}
 
-	protected void highlight(Point p) {
-		getView().unhighlight();
-		int glName = getView().pickClosest(GLU.getCurrentGL(), p);
-		getView().highlight(glName);
-	}
+//	protected void highlight(Point p) {
+//		getView().unhighlight();
+//		int glName = getView().pickClosest(GLU.getCurrentGL(), p);
+//		getView().highlight(glName);
+//	}
 }

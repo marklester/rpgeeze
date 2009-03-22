@@ -1,6 +1,7 @@
 package rpgeeze.view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Point;
 
 import javax.media.opengl.GL;
@@ -19,7 +20,6 @@ import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.util.ArrayIterator;
 import rpgeeze.util.ResourceLoader;
 
-import static rpgeeze.RunGame.APP_FONT;
 import static rpgeeze.RunGame.BACKGROUND_COLOR;
 import static rpgeeze.RunGame.LOGO_Y;
 import static rpgeeze.RunGame.LOGO_Z;
@@ -31,6 +31,8 @@ import static rpgeeze.RunGame.LOGO_SIZE;
 public class MainMenuView extends HighlightableView<MainMenuView.State> {
 	public static final Color PLAIN = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 	public static final Color HIGHLIGHTED = new Color(1.0f, 1.0f, 1.0f, 0.25f);
+
+	private final Font font = ResourceLoader.getInstance().getFont(GameProperties.getInstance().getProperty("app.font"), Font.PLAIN, 100);
 	
 	private ClearColorChange fadeIn;
 	
@@ -38,6 +40,7 @@ public class MainMenuView extends HighlightableView<MainMenuView.State> {
 	
 	public MainMenuView(GameManager manager) {
 		super(manager);
+		
 		ResourceLoader loader = ResourceLoader.getInstance();
 		GameProperties prop = GameProperties.getInstance();
 	
@@ -46,7 +49,7 @@ public class MainMenuView extends HighlightableView<MainMenuView.State> {
 		
 		fadeIn = new ClearColorChange(Color.BLACK, BACKGROUND_COLOR, 1);
 
-		TextRenderer renderer = new TextRenderer(APP_FONT.deriveFont(36f), true, true);
+		TextRenderer renderer = new TextRenderer(font.deriveFont(36f), true, true);
 		TextRectangle rect = new TextRectangle(new Text("X", renderer, 0.05f), 10, 3);
 		rect.setXYZ(-15, -12.5, -14.5);
 		rect.alignText(0.5, 0.5);
@@ -93,12 +96,12 @@ public class MainMenuView extends HighlightableView<MainMenuView.State> {
 	}
 
 	public void changeFrom() {
-		clearAll();
+		clear();
 		changeState(State.HIDDEN);
 	}
 	
 	public void changeTo() {
-		clearAll();
+		clear();
 		if(getState() == State.NEW)
 			changeState(State.FADING_IN);
 		else

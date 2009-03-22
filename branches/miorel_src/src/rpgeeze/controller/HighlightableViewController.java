@@ -23,23 +23,23 @@ public abstract class HighlightableViewController<T extends HighlightableView<?>
 	}
 
 	public void mouseExited(MouseEvent e) {
-		getView().clearAll();
+		getView().clear();
 	}
 
 	public void windowLostFocus(WindowEvent e) {
-		getView().clearAll();
+		getView().clear();
 	}
 
 	public void windowActivated(WindowEvent e) {
-		getView().clearAll();
+		getView().clear();
 	}
 
 	public void windowDeactivated(WindowEvent e) {
-		getView().clearAll();
+		getView().clear();
 	}
 	
 	protected void hover(Point p) {
-		getView().clearAll();
+		getView().clear();
 		String name = getView().pickClosest(GLU.getCurrentGL(), p);
 		getView().hover(name);
 	}

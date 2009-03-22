@@ -32,8 +32,6 @@ public class RunGame {
 	
 	public final static Color BACKGROUND_COLOR = new Color(0.0f, 0.75f, 0.0f, 1.0f);
 	
-	public final static Font APP_FONT = ResourceLoader.getInstance().getFont(GameProperties.getInstance().getProperty("app.font"), Font.PLAIN, 100);
-	
 	private RunGame() {
 	}
 

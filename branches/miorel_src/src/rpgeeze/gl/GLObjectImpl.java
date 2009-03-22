@@ -21,13 +21,15 @@ public abstract class GLObjectImpl implements GLObject {
 	}
 
 	public final void render(GL gl) {
-		gl.glPushMatrix();
-		GLUtil glutil = new GLUtil(gl);
-		gl.glRotated(preAngle, preX, preY, preZ);
-		glutil.translate(getXYZ());
-		gl.glRotated(postAngle, postX, postY, postZ);
-		doRender(gl);
-		gl.glPopMatrix();
+		if(getVisible()) {
+			gl.glPushMatrix();
+			GLUtil glutil = new GLUtil(gl);
+			gl.glRotated(preAngle, preX, preY, preZ);
+			glutil.translate(getXYZ());
+			gl.glRotated(postAngle, postX, postY, postZ);
+			doRender(gl);
+			gl.glPopMatrix();
+		}
 	}
 
 	protected abstract void doRender(GL gl);
