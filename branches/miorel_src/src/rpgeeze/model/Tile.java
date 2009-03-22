@@ -24,7 +24,7 @@ public class Tile implements Visitable {
 		return terrain;
 	}
 	
-	protected void setTerrain(Terrain newTerrain) {
+	public void setTerrain(Terrain newTerrain) {
 		this.terrain = newTerrain;
 	}
 	
@@ -46,19 +46,19 @@ public class Tile implements Visitable {
 		return item;
 	}
 
-	protected void setItem(Item newItem) {
+	public void setItem(Item newItem) {
 		item = newItem;
 	}
 
-	protected AreaEffect getAreaEffect() {
+	public AreaEffect getAreaEffect() {
 		return areaEffect;
 	}
 
-	protected void setAreaEffect(AreaEffect newAreaEffect) {
+	public void setAreaEffect(AreaEffect newAreaEffect) {
 		areaEffect = newAreaEffect;
 	}
 
-	protected void setDecal(Decal newDecal) {
+	public void setDecal(Decal newDecal) {
 		decal = newDecal;
 	}
 	

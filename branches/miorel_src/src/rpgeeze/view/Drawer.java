@@ -25,6 +25,7 @@ public class Drawer implements Visitor {
 	private double size;
 
 	private HashMap<String, Texture> terrains = new HashMap<String, Texture>();
+	private HashMap<String, Texture> items = new HashMap<String, Texture>();
 	
 	public void setSize(double size) {
 		this.size = size;
@@ -46,6 +47,15 @@ public class Drawer implements Visitor {
 	}
 
 	public void visitItem(Item item) {
+		Texture texture = items.get(item.getName());
+		if(texture == null) {
+			String key = "img.item." + item.getName().toLowerCase().replaceAll(" ", "_");
+			System.out.println(key);
+			String imgKey = GameProperties.getInstance().getProperty(key);
+			texture = ResourceLoader.getInstance().getTexture(imgKey);
+			terrains.put(item.getName(), texture);
+		}
+		new TexturedRectangle(texture, size, size).render(gl);
 	}
 
 	public void visitMap(Map map) {
