@@ -4,6 +4,7 @@ import java.util.Hashtable;
 import rpgeeze.model.item.*;
 
 import rpgeeze.model.Entity;
+import rpgeeze.model.Tile;
 import rpgeeze.model.Visitable;
 import rpgeeze.model.Visitor;
 
@@ -36,8 +37,8 @@ public abstract class Item implements Visitable, Cloneable {
 		visitor.visitItem(this);
 	}
 	
-	public abstract void activate(Entity entity);
-	public void deActivate(Entity e){}
+	public abstract void activate(Entity entity, Tile tile);
+	//public void deActivate(Entity e){}
 
 	public Item clone() {
          Item ret = null;
@@ -70,6 +71,6 @@ public abstract class Item implements Visitable, Cloneable {
 	}
 	
 	public String toString() {
-		return this.name;
+		return name;
 	}
 }

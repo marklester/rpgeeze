@@ -1,6 +1,7 @@
 package rpgeeze.model.item;
 
 import rpgeeze.model.Entity;
+import rpgeeze.model.Tile;
 
 
 /**
@@ -10,14 +11,10 @@ import rpgeeze.model.Entity;
  */
 
 public abstract class InteractiveItem extends Item {
-	
 	public InteractiveItem(String name) {
 		super(name);
 	}
 
-	public void activate(Entity e) {
-	        
-	}       
-
-
+	public void activate(Entity entity, Tile tile) { 
+	}
 }

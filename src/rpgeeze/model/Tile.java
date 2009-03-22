@@ -39,6 +39,8 @@ public class Tile implements Visitable {
 		else if(!this.terrain.isPassable(entity)) {
 			throw new IllegalMoveException("Entity may not traverse destination terrain");
 		}
+		if(item != null)
+			item.activate(entity, this);
 		this.entity = entity;
 	}
 

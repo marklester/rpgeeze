@@ -13,7 +13,7 @@ public interface Message {
 	 * 
 	 */
 	public enum Type {
-		DEBUG(), ERROR(Color.RED);
+		DEBUG(), ERROR(Color.RED), GAME();
 
 		private final Color defaultColor;
 

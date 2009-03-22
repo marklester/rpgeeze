@@ -8,16 +8,21 @@ public class Entity implements Visitable {
 	private Direction facing;
 	private Tile tile;
 	private Map map;
+	private Inventory inventory;
 	
 	private Occupation occupation;
-
+	
 	public Entity(Occupation occupation, Map map) {
 		this.map = map;
-		//this.inventory = new Inventory();
+		this.inventory = new Inventory();
 		this.occupation = occupation;
 		//this.stats = (Stats) occupation.stats.clone();
 		//this.skills = occupation.skills;
 		//this.equipment = new Equipment();
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
 	}
 	
 	public void move(Direction dir) {

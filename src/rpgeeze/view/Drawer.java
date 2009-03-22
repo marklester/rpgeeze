@@ -50,7 +50,6 @@ public class Drawer implements Visitor {
 		Texture texture = items.get(item.getName());
 		if(texture == null) {
 			String key = "img.item." + item.getName().toLowerCase().replaceAll(" ", "_");
-			System.out.println(key);
 			String imgKey = GameProperties.getInstance().getProperty(key);
 			texture = ResourceLoader.getInstance().getTexture(imgKey);
 			terrains.put(item.getName(), texture);
