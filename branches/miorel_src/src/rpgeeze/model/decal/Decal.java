@@ -35,6 +35,11 @@ public class Decal implements Visitable {
 		}
 		return clone;
 	}
+	
+	public String getName() {
+		return name;
+	}
+	
 	public String toString() {
 		return this.name;
 	}
