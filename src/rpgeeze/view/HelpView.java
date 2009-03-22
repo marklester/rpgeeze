@@ -2,6 +2,8 @@ package rpgeeze.view;
 
 import java.awt.Font;
 import java.awt.Point;
+import java.util.HashMap;
+
 
 import javax.media.opengl.GL;
 
@@ -9,13 +11,17 @@ import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
 import rpgeeze.GameProperties;
+import rpgeeze.dp.Iterator;
 import rpgeeze.gl.GLUtil;
+import rpgeeze.gl.HighlightableWrapper;
 import rpgeeze.gl.Text;
+import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.util.ResourceLoader;
+import rpgeeze.util.ArrayIterator;
 
 import static rpgeeze.RunGame.BACKGROUND_COLOR;
 
-public class HelpView extends View<HelpView.State> {
+public class HelpView extends HighlightableView<HelpView.State> {
 	private Font plain = ResourceLoader.getInstance().getFont(GameProperties.getInstance().getProperty("app.font"), Font.PLAIN, 100);
 	private Font italic = plain.deriveFont(Font.ITALIC);
 
@@ -25,36 +31,40 @@ public class HelpView extends View<HelpView.State> {
 	private Text title = new Text("RPGEEZE", plainRenderer, 0.015f);
 	private Text controls = new Text("Default Game Controls", italicRenderer, 0.005f);
 	
-	private Text save = new Text("Press 'S' to save the game", italicRenderer, 0.005f);
-	private Text load = new Text("Press 'L' to load a game", italicRenderer, 0.005f);
-	private Text newgame = new Text("Press 'N' start a new game", italicRenderer, 0.005f);
-	private Text option = new Text("Press 'O' to view options", italicRenderer, 0.005f);
-	private Text inventory = new Text("Press 'J' to view your inventory", italicRenderer, 0.005f);
-	private Text statistics = new Text("Press 'Q' to view your statistics", italicRenderer, 0.005f);
-	private Text skills = new Text("Press 'W' to view your skills", italicRenderer, 0.005f);
+	private static final double Y_SHIFT = 3;
+	private static final double X_SHIFT = 18;
 	
-	private Text direction1 = new Text("- Move", italicRenderer, 0.005f);
-	private Text direction2 = new Text("- North", italicRenderer, 0.005f);
-	private Text direction3 = new Text("- South", italicRenderer, 0.005f);
-	private Text direction4 = new Text("- East", italicRenderer, 0.005f);
-	private Text direction5 = new Text("- West", italicRenderer, 0.005f);
-	private Text direction6 = new Text("- NorthEast", italicRenderer, 0.005f);
-	private Text direction7 = new Text("- NorthWest", italicRenderer, 0.005f);
-	private Text direction8 = new Text("- SouthEast", italicRenderer, 0.005f);
-	private Text direction9 = new Text("- SouthWest", italicRenderer, 0.005f);
-	private Text num1 = new Text("1", italicRenderer, 0.005f);
-	private Text num2 = new Text("2", italicRenderer, 0.005f);
-	private Text num3 = new Text("3", italicRenderer, 0.005f);
-	private Text num4 = new Text("4", italicRenderer, 0.005f);
-	private Text num6 = new Text("6", italicRenderer, 0.005f);
-	private Text num7 = new Text("7", italicRenderer, 0.005f);
-	private Text num8 = new Text("8", italicRenderer, 0.005f);
-	private Text num9 = new Text("9", italicRenderer, 0.005f);
+	private TextRenderer renderer;
+
+	private final Font font = ResourceLoader.getInstance().getFont(GameProperties.getInstance().getProperty("app.font"), Font.PLAIN, 100);
 	
 	public enum State implements View.State { NEW, NORMAL, HIDDEN; }
 	
 	public HelpView(GameManager manager) {
 		super(manager);
+		
+		GLUtil glutil = new GLUtil();
+		Iterator<String> names;
+		TextRectangle rect;
+		Iterator<HighlightableWrapper<TextRectangle>> grid;
+		
+		
+		renderer = new TextRenderer(font.deriveFont(36f), true, true);
+		rect = new TextRectangle(new Text("X", renderer, 0.05f), 10, 3);
+		
+		rect.alignText(0.5, 0.5);
+		HighlightableWrapper<TextRectangle> button = new HighlightableWrapper<TextRectangle>(rect, MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
+		
+		rect.setXYZ(-8, -9.25 - Y_SHIFT, -14.5);
+		grid = glutil.objectGrid(button, 1, 1, rect.getWidth(), rect.getHeight());
+		names = new ArrayIterator<String>("Back");
+		for(grid.reset(), names.reset(); !grid.isDone(); grid.advance(), names.advance()) {
+			put(grid.current(), names.current());
+			putHighlightable(grid.current(), names.current());
+			grid.current().getWrappedObject().getText().setText(names.current());
+			grid.current().getWrappedObject().alignText(0.5, 0.5);
+			grid.current().getWrappedObject().getText().setY(button.getWrappedObject().getText().getY());
+		}
 		changeState(State.NEW);
 	}
 	
@@ -63,61 +73,53 @@ public class HelpView extends View<HelpView.State> {
 		glutil.standardFrustum(gl, point);
 		glutil.clearColor(BACKGROUND_COLOR);
 		
+		double ascpectRatio = glutil.getViewportAspectRatio();
+		
+		
 		title.setXYZ(-title.getWidth() / 2, 4 - title.getHeight(), -4);
 		title.render(gl);
+		
+		Iterator<Text> views = new ArrayIterator<Text>(  new Text("Press 'S' to save the game", italicRenderer, 0.005f),
+						                   				 new Text("Press 'L' to load a game", italicRenderer, 0.005f),
+					                                     new Text("Press 'N' start a new game", italicRenderer, 0.005f),
+					                                     new Text("Press 'O' to view options", italicRenderer, 0.005f),
+					                                     new Text("Press 'J' to view your inventory", italicRenderer, 0.005f),
+					                                     new Text("Press 'J' to view your inventory", italicRenderer, 0.005f),
+					                                     new Text("Press 'Q' to view your statistics", italicRenderer, 0.005f),
+					                                     new Text("Press 'W' to view your skills", italicRenderer, 0.005f),
+					                                     new Text("Press 'F1' for the help menu", italicRenderer, 0.005f));
+		
+		Iterator<Text> commands = new ArrayIterator<Text>( new Text("- North 8", italicRenderer, 0.005f),
+														   new Text("- South 2", italicRenderer, 0.005f),
+														   new Text("- East 4", italicRenderer, 0.005f),
+														   new Text("- West 6", italicRenderer, 0.005f),
+														   new Text("- NorthEast 9", italicRenderer, 0.005f),
+														   new Text("- NorthWest 7", italicRenderer, 0.005f),
+														   new Text("- SouthEast 3", italicRenderer, 0.005f),
+														   new Text("- SouthWest 1", italicRenderer, 0.005f));
+												                
+		
+		
 		
 		controls.setXYZ(-controls.getWidth() / 2, title.getY() - controls.getHeight() - 0.1, -4);
 		controls.render(gl);
 		
-		save.setXYZ(-1,1, -4);
-		save.render(gl);
-		load.setXYZ(-1,.25, -4);
-		load.render(gl);
-		newgame.setXYZ(-1,-0.5, -4);
-		newgame.render(gl);
-		option.setXYZ(-1,-1.25, -4);
-		option.render(gl);
-		inventory.setXYZ(-1,-2, -4);
-		inventory.render(gl);
-		statistics.setXYZ(-1,-2.75, -4);
-		statistics.render(gl);
-		skills.setXYZ(-1,-3.5, -4);
-		skills.render(gl);
+		double y = 1;
+		int z = -5;
+		for(views.reset(); !views.isDone(); views.advance()){
+			views.current().setXYZ(ascpectRatio - 3, y, z);
+			views.current().render(gl);
+			y = y - 0.5;
+		}
 		
-		direction1.setXYZ(-6,1, -4);
-		direction1.render(gl);
-		direction2.setXYZ(-7,0.7, -5);
-		direction2.render(gl);
-		num8.setXYZ(-4,0.7, -5);
-		num8.render(gl);
-		direction3.setXYZ(-7,0.2, -5);
-		direction3.render(gl);
-		num2.setXYZ(-4,0.2, -5);
-		num2.render(gl);
-		direction4.setXYZ(-7,-0.3, -5);
-		direction4.render(gl);
-		num4.setXYZ(-4,-0.3, -5);
-		num4.render(gl);
-		direction5.setXYZ(-7,-0.8, -5);
-		direction5.render(gl);
-		num6.setXYZ(-4,-0.8, -5);
-		num6.render(gl);
-		direction6.setXYZ(-7,-1.3, -5);
-		direction6.render(gl);
-		num7.setXYZ(-4,-1.3, -5);
-		num7.render(gl);
-		direction7.setXYZ(-7,-1.8, -5);
-		direction7.render(gl);
-		num9.setXYZ(-4,-1.8, -5);
-		num9.render(gl);
-		direction8.setXYZ(-7,-2.3, -5);
-		direction8.render(gl);
-		num1.setXYZ(-4,-2.3, -5);
-		num1.render(gl);
-		direction9.setXYZ(-7,-2.8, -5);
-		direction9.render(gl);
-		num3.setXYZ(-4,-2.8, -5);
-		num3.render(gl);
+		
+		y = 1;
+		for(commands.reset(); !commands.isDone(); commands.advance()){
+			commands.current().setXYZ(-ascpectRatio + z, y, z);
+			commands.current().render(gl);
+			y = y - 0.5;
+		}
+		renderObjects(gl);
 		gl.glFlush();
 	}
 	
