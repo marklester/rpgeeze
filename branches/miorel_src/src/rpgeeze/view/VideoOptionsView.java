@@ -1,6 +1,5 @@
 package rpgeeze.view;
 
-import java.awt.Font;
 import java.awt.Point;
 
 import javax.media.opengl.GL;
@@ -22,14 +21,13 @@ import static rpgeeze.RunGame.BACKGROUND_COLOR;
 import static rpgeeze.RunGame.LOGO_Y;
 import static rpgeeze.RunGame.LOGO_Z;
 import static rpgeeze.RunGame.LOGO_SIZE;
+import static rpgeeze.RunGame.APP_FONT;
 
 /**
- * The main menu screen.
+ * The video options screen.
+ * 
  */
 public class VideoOptionsView extends HighlightableView<VideoOptionsView.State> {
-
-	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
-	
 	public enum State implements View.State { NEW, FADING_IN, NORMAL, HIDDEN; }
 	
 	public VideoOptionsView(GameManager manager) {
@@ -40,6 +38,7 @@ public class VideoOptionsView extends HighlightableView<VideoOptionsView.State> 
 		TexturedRectangle logo = new TexturedRectangle(loader.getTexture(prop.getProperty("img.logo")), LOGO_SIZE, LOGO_SIZE, -LOGO_SIZE / 2, LOGO_Y - LOGO_SIZE / 2, LOGO_Z);
 		put(logo, null);
 		
+		TextRenderer renderer = new TextRenderer(APP_FONT.deriveFont(36f), true, true);
 		TextRectangle rect = new TextRectangle(new Text("X", renderer, 0.05f), 15, 3);
 		rect.setXYZ(-22, -12.5, -14.5);
 		rect.alignText(0.5, 0.5);

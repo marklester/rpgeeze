@@ -1,6 +1,5 @@
 package rpgeeze.view;
 
-import java.awt.Font;
 import java.awt.Point;
 
 import javax.media.opengl.GL;
@@ -18,6 +17,7 @@ import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.util.ArrayIterator;
 import rpgeeze.util.ResourceLoader;
 
+import static rpgeeze.RunGame.APP_FONT;
 import static rpgeeze.RunGame.BACKGROUND_COLOR;
 import static rpgeeze.RunGame.LOGO_Y;
 import static rpgeeze.RunGame.LOGO_Z;
@@ -27,8 +27,6 @@ import static rpgeeze.RunGame.LOGO_SIZE;
  * The main menu screen.
  */
 public class SoundOptionsView extends HighlightableView<SoundOptionsView.State> {
-	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
-	
 	public enum State implements View.State { NEW, NORMAL, HIDDEN; }
 	
 	public SoundOptionsView(GameManager manager) {
@@ -39,6 +37,7 @@ public class SoundOptionsView extends HighlightableView<SoundOptionsView.State> 
 		TexturedRectangle logo = new TexturedRectangle(loader.getTexture(prop.getProperty("img.logo")), LOGO_SIZE, LOGO_SIZE, -LOGO_SIZE / 2, LOGO_Y - LOGO_SIZE / 2, LOGO_Z);
 		put(logo, null);
 		
+		TextRenderer renderer = new TextRenderer(APP_FONT.deriveFont(36f), true, true);
 		TextRectangle rect = new TextRectangle(new Text("X", renderer, 0.05f), 15, 3);
 		rect.setXYZ(-22.5, -12.5, -14.5);
 		rect.alignText(0.5, 0.5);
