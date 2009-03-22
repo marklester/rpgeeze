@@ -1,7 +1,7 @@
 package rpgeeze.view;
 
 import static rpgeeze.RunGame.BACKGROUND_COLOR;
-import static rpgeeze.RunGame.keyControls;
+//import static rpgeeze.RunGame.keyControls;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -13,6 +13,7 @@ import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
 import rpgeeze.GameProperties;
+import rpgeeze.RunGame;
 import rpgeeze.dp.Iterator;
 import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Highlightable;
@@ -34,6 +35,8 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 	private static final double Y_SHIFT = 3;
 	private static final double X_SHIFT = 18;
 	private static final double ARROW_DISPLACE = 4;
+	
+	private HashMap<String, String> keyControls;
 	
 	private final Font font = ResourceLoader.getInstance().getFont(GameProperties.getInstance().getProperty("app.font"), Font.PLAIN, 100);
 	
@@ -88,12 +91,16 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 
 	public enum State implements View.State { NEW, NORMAL, HIDDEN; }
 
+	public HashMap<String,String> getkeyControls(){
+		return keyControls;
+	}
+	
 	public void changeFrom() {
 		changeState(State.HIDDEN);		
 	}
 
 	public void changeTo() {
-		
+		keyControls = (HashMap<String, String>) RunGame.KEY_CONTROLS.clone();
 		changeState(State.NORMAL);
 	}
 
@@ -113,160 +120,11 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 //	private static final TextRenderer smallRenderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 14);
 	//private HashMap<String,String> keyControls;
 //	private String message = "";
-	
-//	public enum Button {
-//		
-//		N_ARROW(1) {
-//			public Highlightable doGetButton() {
-//				return new HighlightableWrapper(new Triangle(new StaticVector(-1, 0), new StaticVector(1, 0), new StaticVector(0, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED); 
-//			}
-//		},
-//		S_ARROW(2) {
-//			public Highlightable doGetButton() {
-//				return new HighlightableWrapper(new Triangle(new StaticVector(-1, 0), new StaticVector(1, 0), new StaticVector(0, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
-//			}
-/*		},
 		
-		E_ARROW(3) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new StaticVector(0, 0), new StaticVector(0, 2), new StaticVector(1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		
-		W_ARROW(4) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new StaticVector(0, 0), new StaticVector(0, 2), new StaticVector(-1, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		NE_ARROW(5) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new StaticVector(2, 1), new StaticVector(0, 1), new StaticVector(2, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		SE_ARROW(6) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new StaticVector(2, 1), new StaticVector(0, -1), new StaticVector(2, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		NW_ARROW(7) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new StaticVector(-2, 1), new StaticVector(-2, -1), new StaticVector(0, 1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		SW_ARROW(8) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(new Triangle(new StaticVector(-2, 1), new StaticVector(-2, -1), new StaticVector(0, -1)), Color.BLACK, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		SAVE_GAME(9) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Save Game", -19, 18), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		LOAD_GAME(10) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Load Game", -19, 10), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		NEW_GAME(11) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("New Game", -19, 2), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		INVENTORY_VIEW(12) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Inventory View", 5, 18), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		STATS_VIEW(13) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Stats View", 9, 10), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		SKILLS_VIEW(14) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Skills View", 8, 2), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		OPTIONS_VIEW(15) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Options View", -6.5, 2), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		OK(16) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("OK", -10, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		CANCEL(17) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Cancel", 5, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		},
-		DEFAULTS(18) {
-			public Highlightable doGetButton() {
-				return new HighlightableWrapper(getRectangle("Defaults", -5, -3), MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
-			}
-		};
-		
-		private final int glName;
-		private Highlightable button;
-		private boolean highlighted;
-		
-		private Button(int glName) {
-			this.glName = glName;
-			this.highlighted = false;
-		}
-		
-		private static TextRectangle getRectangle(String text, double x, double y) {
-			TextRectangle rect = new TextRectangle(new Text(text, renderer, 0.05f), text.length() + 1, 3);
-			rect.alignText(0.5, 0.5);
-			rect.setXY(x, y);
-			if(!text.equals("OK"))
-				rect.getText().setY(getRectangle("OK", 0, 0).getText().getY());
-			return rect;
-		}
-		
-		public Highlightable getButton() {
-			if(button == null) {
-				button = doGetButton();
-				button.setGLName(glName);
-			}
-			return button;
-		}
-		
-		public boolean getHighlighted(){
-			return highlighted;
-		}
-		
-		public void setHighlighted(boolean highlighted){
-			this.highlighted = highlighted;
-		}
-		
-		public abstract Highlightable doGetButton();
-		
-		public static Button fromGLName(int glName) {
-			for(Button button: values())
-				if(button.glName == glName)
-					return button;
-			return null;
-		}
-		
-		public int getGLName(){
-			return this.glName;
-		}
-		
-	
-	}	
-	
-	public enum State implements View.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
-	
-	private static final double ZOOM_MIN = -60;
-	//private static final double ZOOM_MAX = -1.1;
-	//private static final double ZOOM_STEP = 0.25; 
-	private double zoom = ZOOM_MIN;
-	
-	public KeyBindingsView(GameManager manager) {
+/*
+ * 
+ * public KeyBindingsView(GameManager manager) {
+ *
 		super(manager);
 		for(Button button: Button.values())
 			putHighlightable(button.getButton());
