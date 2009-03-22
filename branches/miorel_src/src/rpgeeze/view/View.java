@@ -134,7 +134,7 @@ public abstract class View<T extends View.State> {
 		iter.reset();
 		String ret = iter.isDone() ? null : iter.current();
 		if(ret != null)
-			LogManager.getInstance().log("Picked object: " + ret, "VIEW");
+			LogManager.getInstance().log("Picked object: " + ret, "OPENGL");
 		return ret;
 	}
 	
