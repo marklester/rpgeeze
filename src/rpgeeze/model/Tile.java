@@ -1,17 +1,24 @@
 package rpgeeze.model;
 
-import rpgeeze.math.Vector;
 import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
 import rpgeeze.model.item.Item;
 import rpgeeze.model.terrain.Terrain;
 
-public abstract class Tile implements Visitable {
+public class Tile implements Visitable {
 	private Terrain terrain;
 	private Entity entity;
 	private Item item;
 	private AreaEffect areaEffect;
 	private Decal decal;
+	
+	private int x, y;
+	
+	public Tile(Terrain terrain, int x, int y) {
+		this.terrain = terrain;
+		this.x = x;
+		this.y = y;
+	}
 	
 	public Terrain getTerrain() {
 		return terrain;
@@ -48,8 +55,6 @@ public abstract class Tile implements Visitable {
 	protected void setDecal(Decal newDecal) {
 		decal = newDecal;
 	}
-	
-	public abstract Tile getTile(Vector offset);
 	
 	public void accept(Visitor visitor) {
 		visitor.visitTile(this);

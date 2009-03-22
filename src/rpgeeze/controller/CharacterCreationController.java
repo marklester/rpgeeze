@@ -10,7 +10,6 @@ import rpgeeze.GameManager;
 import rpgeeze.view.GameplayView;
 import rpgeeze.view.CharacterCreationView;
 import rpgeeze.model.Entity;
-import rpgeeze.model.map.FiniteMatrixMap;
 
 /**
  * Controls the main menu screen.
