@@ -7,10 +7,12 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import rpgeeze.GameManager;
 import rpgeeze.RunGame;
 import rpgeeze.dp.Command;
+import rpgeeze.log.LogManager;
 import rpgeeze.view.GameplayView;
 
 
@@ -57,8 +59,19 @@ public class GameplayController extends Controller<GameplayView> {
 	}
 	
 	public void keyPressed(KeyEvent e){
-		Command cmd = actions.get(RunGame.KEY_CONTROLS.get(KeyEvent.getKeyText(e.getKeyCode())));
-		if(cmd != null)
-			cmd.execute();
+		LogManager lm = LogManager.getInstance();
+		String keyPress = KeyEvent.getKeyText(e.getKeyCode());
+		String action = null;
+		for(Entry<String, String> entry: RunGame.KEY_CONTROLS.entrySet())
+			if(entry.getValue().equals(keyPress)) {
+				action = entry.getKey();
+				break;
+			}
+		lm.log("Pressed " + keyPress + ", " + (action == null ? "no action" : " action is " + action) , "CONTROLLER");
+		if(action != null) {
+			Command cmd = actions.get(action);
+			if(cmd != null)
+				cmd.execute();
+		}
 	}
 }
