@@ -10,7 +10,6 @@ public class HighlightableWrapper<T extends Colorable> implements Highlightable 
 	public Vector getXYZ() {
 		return object.getXYZ();
 	}
-
 	private final Color plain;
 	private final Color highlighted;
 	private T object;
@@ -97,5 +96,13 @@ public class HighlightableWrapper<T extends Colorable> implements Highlightable 
 		}
 		ret.object = (T) object.clone();
 		return ret;
+	}
+
+	public boolean getVisible() {
+		return object.getVisible(); 
+	}
+
+	public void setVisible(boolean newVisible) {
+		object.setVisible(newVisible);
 	}
 }

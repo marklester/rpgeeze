@@ -25,6 +25,7 @@ public class RunGame {
 	public final static double LOGO_Z = -100;
 	public final static double LOGO_Y = -LOGO_Z / 5;
 	public final static double LOGO_SIZE = -LOGO_Z * 1.7;
+	
 	public final static HashMap<String,String> keyControls = new HashMap<String,String>();
 	
 	public final static Color BACKGROUND_COLOR = new Color(0.0f, 0.75f, 0.0f, 1.0f);

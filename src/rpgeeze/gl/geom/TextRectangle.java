@@ -12,7 +12,6 @@ public class TextRectangle extends Rectangle {
 		super(width, height, x, y, z);
 		this.text = text.clone();
 		this.text.setXYZ(0, 0, 0);
-		this.text.removeGLName();
 	}
 
 	public TextRectangle(Text text, double width, double height) {

@@ -9,14 +9,14 @@ public abstract class GLObjectImpl implements GLObject {
 	private double x, y, z;
 	private double preAngle, preX, preY, preZ;
 	private double postAngle, postX, postY, postZ;
-	private int glName = -1;
-	private boolean hasName = false;
-
+	private boolean visible;
+	
 	public GLObjectImpl() {
 		this(0, 0, 0);
 	}
 
 	public GLObjectImpl(double x, double y, double z) {
+		visible = true;
 		setXYZ(x, y, z);
 	}
 
@@ -26,31 +26,20 @@ public abstract class GLObjectImpl implements GLObject {
 		gl.glRotated(preAngle, preX, preY, preZ);
 		glutil.translate(getXYZ());
 		gl.glRotated(postAngle, postX, postY, postZ);
-		if(hasName)
-			gl.glLoadName(glName);
 		doRender(gl);
 		gl.glPopMatrix();
 	}
 
 	protected abstract void doRender(GL gl);
 
-	public int getGLName() {
-		return glName;
+	public boolean getVisible() {
+		return visible;
 	}
 
-	public void setGLName(int newGLName) {
-		glName = newGLName;
-		hasName = true;
+	public void setVisible(boolean newVisible) {
+		visible = newVisible;		
 	}
-
-	public boolean hasGLName() {
-		return hasName;
-	}
-
-	public void removeGLName() {
-		hasName = false;
-	}
-
+	
 	public double getX() {
 		return x;
 	}
