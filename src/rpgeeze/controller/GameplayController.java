@@ -4,10 +4,13 @@ import static rpgeeze.RunGame.KEY_CONTROLS;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
 import rpgeeze.GameManager;
+import rpgeeze.RunGame;
+import rpgeeze.dp.Command;
 import rpgeeze.view.GameplayView;
 
 
@@ -16,8 +19,17 @@ public class GameplayController extends Controller<GameplayView> {
 	
 	private double ZOOM_STEP = 0.025;
 	
+	private HashMap<String, Command> actions;
+	
 	public GameplayController(GameManager manager, GameplayView view) {
 		super(manager, view);
+		actions = new HashMap<String, Command>();
+		actions.put("Pause Game", new Command() {
+			public void execute() {
+				getManager().getModel().togglePaused();
+			}
+		});
+		
 	}
 	
 	public void reactToChange() {
@@ -45,23 +57,8 @@ public class GameplayController extends Controller<GameplayView> {
 	}
 	
 	public void keyPressed(KeyEvent e){
-		
-		if(e.getID() == KeyEvent.KEY_PRESSED) {
-			String action = e.getKeyText(e.getKeyCode());
-			
-			Set s = KEY_CONTROLS.entrySet();
-			Iterator a =  s.iterator();
-			
-			while(a.hasNext()){
-				StringBuilder tempKey = new StringBuilder(a.next().toString());
-				String key = tempKey.substring(tempKey.length()-1);
-				
-				if(action.equals(key)) {
-					System.out.println(tempKey.delete(tempKey.length()-2,tempKey.length()));//prints action for now
-				}
-			}
-			
-		}
-		
+		Command cmd = actions.get(RunGame.KEY_CONTROLS.get(KeyEvent.getKeyText(e.getKeyCode())));
+		if(cmd != null)
+			cmd.execute();
 	}
 }

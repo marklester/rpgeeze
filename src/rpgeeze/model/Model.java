@@ -24,6 +24,10 @@ public class Model {
 		return paused;
 	}
 	
+	public synchronized void togglePaused() {
+		setPaused(!isPaused());
+	}
+	
 	public synchronized void setPaused(boolean value) {
 		lm.log("Setting model paused value to " + value, "MODEL");
 		paused = value;
