@@ -6,29 +6,31 @@ import java.util.Queue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import model.entity.Entity;
+import model.entity.*;
 import model.entity.Occupation;
 import model.xml.GameVisitor;
 import model.xml.ModelElement;
-
 import util.Observer;
 
-public class Model implements util.Subject,ModelElement {
+public class Model extends util.Subject implements ModelElement{
 	private final static Pattern pattern = Pattern.compile("<model>(<map>.*</map>)(<entity>.*</entity>)</model>");
 
 	protected final Queue<Command> commands = new LinkedList<Command>();
-	protected final List<Observer> observers = new LinkedList<Observer>();
-
+	protected final List<EntityEventManager> entities = new LinkedList<EntityEventManager>();
+	
 	private Map.Matrix snapshot;
 
-	private final Entity avatar;
+	private PC avatar;
+	private HumanPlayerEntityManager mainPlayerManager;
+	
 	private Map map;
 	private final Location avatarStart;
 	private boolean paused;
 
-	public Model(Map map, Entity avatar) {
+	public Model(Map map, PC mainCharacter) {
 		this.map = map;
-		this.avatar = avatar;
+		this.avatar = mainCharacter;
+		mainPlayerManager = new HumanPlayerEntityManager(mainCharacter);
 		this.paused = false;
 		
 		avatarStart = avatar.getTile().getLocation();
@@ -52,10 +54,11 @@ public class Model implements util.Subject,ModelElement {
 				this.commands.clear();
 			}
 			while(!tempQ.isEmpty())
-				tempQ.remove().execute(this);
-	
-			this.avatar.update();
-			updateStatusOfAvatar();
+				tempQ.poll().execute(this);
+
+			//this.avatar.update();
+			for(EntityEventManager eem : entities)
+				eem.update();
 			this.snapshot = this.map.getMatrix().clone();
 			updateObservers();
 	
@@ -64,98 +67,57 @@ public class Model implements util.Subject,ModelElement {
 			// apply AoE's
 			// update NPC's
 			// update entity
-			// --Jose
+			// -Jose
 		}
 		else
 			commands.clear();
 	}
 	
-	public void updateStatusOfAvatar() {
-		//He's dead, so drop a life and respawn
-		if(!avatar.isAlive()) {
-			avatar.decALife();
-			//Now check if there are any lives remaining
-			int numOfLivesLeft = avatar.getStats().getPrimary().livesLeft; 
-			if(numOfLivesLeft == 0)
-				endGame();
-			else
-				respawn(numOfLivesLeft);
-		}
-		//Is the avatar now on a AE? If so, apply it!
-		else if(avatar.getTile().hasAE())
-			avatar.getTile().getAE().applyEffect(avatar);
-	}
-	
-	// Observer stuff
-	public void register(Observer o) {
-		this.observers.add(o);
-	}
-
-	public void unregister(Observer o) {
-		this.observers.remove(o);
-	}
-
-	public void updateObservers() {
-		for(Observer obs: this.observers)
-			obs.update(this);
-	}
-
 	public Map.Matrix publishState() {
 		return this.snapshot;
 	}
 
-	public Entity getAvatar() {
+	public PC getAvatar() {
 		return this.avatar;
 	}
 
-	public void moveAvatarRequest(Location l) {
-		if(this.avatar.canMove())
-			avatar.move(l);
+	public void moveAvatarRequest(Location loc) {
+		mainPlayerManager.move(loc);
 	}
 	
 	public boolean isPaused() {
 		return paused;
-	}
-	
+	}	
 	public void pause() {
 		paused = true;
 	}
-	
 	public void unPause() {
 		paused = false;
-	}
-	
+	}	
 	public void endGame() {
 		Thread.currentThread().interrupt();
 	}
 	
-	private void respawn(int numOfLives) {
-		Location from = avatar.getTile().getLocation();
-		Location to = avatarStart;
-		avatar.resetStats(numOfLives); //reset all stats, except num of lives - that shouldn't be reset!
-		avatar.unequipAll();
-		avatar.move(to.subtract(from));
-	}
 	
-	public String toXml() {
-		return toXml("");
-	}
+//	public String toXml() {
+//		return toXml("");
+//	}
 	
-	public String toXml(String indent) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(indent + "<model>\n");
-		sb.append(map.toXml(indent + "\t") + "\n");
-		sb.append(avatar.toXml(indent + "\t") + "\n");
-		sb.append(indent + "</model>");
-		return sb.toString();
-	}
-	
+//	public String toXml(String indent) {
+//		StringBuilder sb = new StringBuilder();
+//		sb.append(indent + "<model>\n");
+//		sb.append(map.toXml(indent + "\t") + "\n");
+//		sb.append(avatar.toXml(indent + "\t") + "\n");
+//		sb.append(indent + "</model>");
+//		return sb.toString();
+//	}
+//	
 	public static Model fromXml(Occupation occ, String xml) {
 		Matcher mat = pattern.matcher(xml);
 		if(!mat.matches())
 			throw new RuntimeException("Bad XML for Model");
 		Map map = Map.fromXml(mat.group(1));
-		Entity avatar = Entity.fromXml(occ, map, mat.group(2));
+		PC avatar = PC.fromXml(occ, map, mat.group(2));
 		return new Model(map, avatar);
 	}
 

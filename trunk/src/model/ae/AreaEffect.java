@@ -1,6 +1,6 @@
 package model.ae;
 
-import model.entity.Entity;
+import model.entity.*;
 import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,7 +52,7 @@ public abstract class AreaEffect implements Cloneable {
 		return ret;
 	}
 	
-	public abstract void applyEffect(Entity e);
+	public abstract void applyEffect(StatsModifiable sm);
 
 	public String toString() {
 		return name;

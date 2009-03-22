@@ -3,13 +3,14 @@ package model;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import model.entity.*;
 import model.item.Item;
 import model.xml.GameVisitor;
 import model.xml.ModelElement;
 import model.decal.Decal;
 import model.entity.Entity;
 import model.ae.AreaEffect;
-import view.Drawer;
+import view.*;
 
 public class Tile implements Cloneable, ModelElement{
 	private static final Pattern pattern = Pattern.compile("<tile>(<terrain>.*</terrain>)(<location>.*</location>)(<decal>.*</decal>|)(<item>.*</item>|)(<ae>.*</ae>|)</tile>");
@@ -20,6 +21,8 @@ public class Tile implements Cloneable, ModelElement{
 	private Item item;
 	private AreaEffect ae;
 	private Entity entity;
+	//private Tile[][] adjacentTiles;
+	private Map map;
 
 	public Tile(Terrain terrain, Location location, Decal decal, Item item, AreaEffect ae) {
 		this.terrain = terrain;
@@ -27,8 +30,9 @@ public class Tile implements Cloneable, ModelElement{
 		this.decal = decal;
 		this.item = item;
 		this.ae = ae;
+		//this.adjacentTiles = new Tile[3][3];
 	}
-
+		
 	public Tile(Terrain terrain, Location location, Item item) {
 		this(terrain, location, null, item, null);
 	}
@@ -41,6 +45,16 @@ public class Tile implements Cloneable, ModelElement{
 		return this.location;
 	}
 
+//	public void setAdjacentTiles(Tile[][] adj)
+//	{
+//		this.adjacentTiles = adj;
+//	}
+	
+	public void setMap(Map map)
+	{
+		this.map = map;
+	}
+	
 	public Item getItem() {
 		return this.item;
 	}
@@ -123,8 +137,30 @@ public class Tile implements Cloneable, ModelElement{
 			item == null ? null : item.clone(),
 			ae == null ? null : ae.clone()
 		);
-		tile.entity = entity == null ? null : entity.clone();
+		tile.entity = (entity == null ? null : entity.clone());
 		return tile;
+	}
+	
+	public Tile getAbsoluteTile(Location l)
+	{
+		return map.getTile(l);
+	}
+	public Tile getAbsoluteTile(int x, int y)
+	{
+		return map.getTile(x, y);
+	}
+	
+	public Tile getRelativeTile(Location l)
+	{
+		//return map.getTile(l);
+		return getRelativeTile(l.getX(), l.getY());
+	}
+	public Tile getRelativeTile(int x, int y)
+	{
+//		if(x > 2 || x < 0 || y > 2 || y < 0)
+//			return null;
+//		return adjacentTiles[x+1][y+1];
+		return map.getTile(location.getX() + x, location.getY() + y);
 	}
 
 	public String toString() {
@@ -134,6 +170,14 @@ public class Tile implements Cloneable, ModelElement{
 	
 	public String toXml() {
 		return toXml("");
+	}
+	
+	public void collectItem(PC pc)
+	{
+		if(item != null) {
+			//OneShotItem need to be removed from the Tile
+			item.activate(pc);
+		}
 	}
 	
 	public String toXml(String indent) {

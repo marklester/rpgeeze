@@ -5,22 +5,17 @@ package model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
-import view.Drawer;
-import model.entity.Entity;
+import model.entity.PC;
 
 public class Mana extends TakeableItem {
 
 	public Mana() {
 		super("Mana");
 	}
-	
-	public void activate(Entity e) {
-		use(e);
-	}
 
-	private void use(Entity e) {
-		e.getStats().incMana(100);
-		e.getInventory().removeItem(this);
+	public void use(PC pc) {
+		pc.addMana(200);
+		pc.removeItem(this);
 		view.Console.getInstance().writeLine("Used Mana Potion.");
 	}
 }

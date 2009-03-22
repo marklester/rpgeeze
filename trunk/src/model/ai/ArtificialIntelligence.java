@@ -1,5 +1,5 @@
 package model.ai;
 
-public class ArtificialIntelligence {
+public interface ArtificialIntelligence {
 	
 }

@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 
 import model.item.Item;
 import util.Iterator;
+import view.Console;
 
 public class Inventory implements Cloneable {
 	private static final Pattern inventoryPattern = Pattern.compile("<inventory>(.*)</inventory>");
@@ -30,12 +31,20 @@ public class Inventory implements Cloneable {
 		this.items = new LinkedList<Item>();
 	}
 
-	public int addItem(Item i) {
+	public void addItem(Item i) {
 		if(this.items.size() <= INV_MAX_SIZE) {
 			this.items.add(i);
-			return INV_SUCCESS;
+			String message = this.toString() + " has been added to your Inventory.";
+			Console.getInstance().writeItemEvent(message);
 		}
-		return INV_FULL;
+		else		
+			Console.getInstance().writeLine("Inventory Full");		
+	}
+	
+	public void addItemSilently(Item i)
+	{
+		if(this.items.size() <= INV_MAX_SIZE)
+			this.items.add(i);
 	}
 
 	public Item removeItemAt(int i) {

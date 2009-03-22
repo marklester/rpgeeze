@@ -5,25 +5,21 @@ package model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
-import model.entity.Entity;
-import view.Drawer;
+import model.entity.PC;
 
 public class Boots extends TakeableItem {
 	public Boots() {
 		super("Boots");
 	}
 	
-	public void activate(Entity e) {
-		use(e);
+	public void deActivate(PC pc)
+	{
+		pc.addMovement(-10);
 	}
 	
-	public void deActivate(Entity e)
-	{
-		e.getStats().setMovement(15);
-	}
-	public void use(Entity e) {
-		e.equipBoots(this);
-		e.getStats().setMovement(7);
+	public void use(PC pc) {
+		pc.equipBoots(this);
+		pc.addMovement(10);
 		view.Console.getInstance().writeLine("Boots have been equipped.");
 	}
 }

@@ -6,7 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
-import model.entity.Entity;
+import model.entity.*;
 
 public class StatView implements Drawable {
 	private final int menu_width = 300;
@@ -25,7 +25,7 @@ public class StatView implements Drawable {
 		// d.drawStatsView(this);
 	}
 
-	public void drawStatsView(Graphics2D graphics, Entity entity, int width, int height) {
+	public void drawStatsView(Graphics2D graphics, PC entity, int width, int height) {
 
 		graphics.setColor(Color.black);
 		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .9f));

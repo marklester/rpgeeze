@@ -5,8 +5,7 @@ package model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
-import model.entity.Entity;
-import view.Drawer;
+import model.entity.PC;
 
 public class Arrows extends TakeableItem {
 
@@ -14,11 +13,7 @@ public class Arrows extends TakeableItem {
 		super("Arrows");
 	}
 
-	public void activate(Entity e) {
-		use(e);
-	}
-
-	public void use(Entity e) {
+	public void use(PC pc) {
 		//view.Console.getInstance().writeLine("You have picked up Arrows.");
 	}
 }

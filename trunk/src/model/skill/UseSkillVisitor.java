@@ -1,42 +1,42 @@
 package model.skill;
 
-import java.awt.Color;
-
 import util.ResourceLoader;
 import view.Console;
 import model.skill.*;
+import model.entity.*;
 import model.entity.Entity;
 import model.Location;
 
 
 public class UseSkillVisitor implements Visitor {
 	
-	Entity e;
+	StatsModifiable sm;
 	
-	public UseSkillVisitor(Entity e) {
-		this.e = e;
+	public UseSkillVisitor(StatsModifiable sm) {
+		this.sm = sm;
 	}
-	
-	
+
 	public void visit(BindWounds sk) {
-		if (e.getStats().getMana() >= 10) {
+
+		if (sm.hasEnoughMP(10)) {
 			ResourceLoader.getInstance().playAudioClip(sk.toString());
-			Console.getInstance().writeLine("Life is invigorating", Color.WHITE);
-			int life = e.getStats().getLife();
-			double perc = 0;
+			//Console.getInstance().writeLine("Life is invigorating", Color.WHITE);
+			Console.getInstance().writeLifeEvent("Life is invigorating");
+			//int life = e.getStats().getLife();
+			//double perc = 0;
 			
-			int points = sk.getPoints();
-			if (points > 20)
-				perc = points * .01;
-			else
-				perc = (points * .01);
-			life = (int) (perc * life);
+			//int points = sk.getPoints();
+//			if (points > 20)
+//				perc = points * .01;
+//			else
+//				perc = (points * .01);
+//			life = (int) (perc * life);
 			
-			e.getStats().incLife(life);
-			e.getStats().decMana(10);
+			sm.addHealth(sk.getSkillLevel() * 20);
+			sm.addMana(-10);
 		}
 		else
-			Console.getInstance().writeLine("You do not have enough mana...", Color.RED);
+			Console.getInstance().writeHarmfulEvent("You do not have enough mana...");			
 	}
 	
 	//public void visit(RangedWeapon sk) {}

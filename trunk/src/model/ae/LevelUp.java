@@ -1,12 +1,14 @@
 package model.ae;
 import model.Tile;
-import model.entity.Entity;
 import model.entity.Stats;
+import model.entity.StatsModifiable;
 
 import view.Console;
 
 public class LevelUp extends AreaEffect {
 
+	private boolean used = false;
+	
 	public LevelUp() {
 		super("Level Up");
 	}
@@ -15,17 +17,22 @@ public class LevelUp extends AreaEffect {
 		super(rate, "Level Up");
 	}
 
-	public void applyEffect(Entity e) {
+	public void applyEffect(StatsModifiable sm) {
 		if(!messageSent) {
-			e.getStats().incLevel();
+			//e.getStats().incLevel();
+			if(!used)
+			{
+				sm.addLevel(1);
+				used = true;
+			}
 			//e.getStats().getPrimary().setExperience(e.getStats().getLevel() * e.getStats().getLevel() * 5);
-			//e.getStats().calculateLevel();
-		
-			if(e.getStats().getLevel() < Stats.MAX_LEVEL) {
+			//e.getStats().calculateLevel();			
+			
+			if(sm.getLevel() < Stats.MAX_LEVEL) {
 				Console.getInstance().writeLine("Woohoo! You leveled up!");
 				messageSent = true;
-				e.getTile().setAreaEffect(null);
-				e.getTile().setDecal(null);
+				//e.getTile().setAreaEffect(null);
+				//e.getTile().setDecal(null);
 			}
 		}
 	}

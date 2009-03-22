@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import util.ResourceLoader;
-import java.util.LinkedList;
+import java.util.List;
 
 
 import model.Model;

@@ -10,6 +10,7 @@ public abstract class Skill implements Cloneable{
 	private int points;
 	private String name;
 	private String descr;	
+	private int skillLevel; 
 	private static Pattern pattern = Pattern.compile("<skill><type>(.*)</type><points>(\\d+)</points></skill>");
 	private static Hashtable<String, Skill> prototypes = new Hashtable<String, Skill>();
 	
@@ -104,6 +105,14 @@ public abstract class Skill implements Cloneable{
 	protected void setAttributesFromXml(String xml) {
 		if(xml.length() > 0)
 			throw new RuntimeException("Bad XML for Skill");
+	}
+	protected void setSkillLevel(int sl)
+	{
+		skillLevel = sl;	
+	}
+	protected int getSkillLevel()
+	{
+		return skillLevel;
 	}
 	
 }

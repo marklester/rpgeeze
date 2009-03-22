@@ -155,9 +155,11 @@ public class Controller extends JComponent implements MouseListener {
 					catch(FileNotFoundException e) {
 					}
 					if(writer != null) {
+						//writer.println(model.toXml());
 						XMLWriterVisitor xmler = new XMLWriterVisitor();
 						xmler.visit(model);
 						writer.println(xmler.toString());
+
 						writer.flush();
 						writer.close();
 					}

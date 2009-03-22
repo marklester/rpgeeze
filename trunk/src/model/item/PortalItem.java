@@ -3,10 +3,9 @@ package model.item;
 import java.util.Hashtable;
 
 import util.ResourceLoader;
-import view.Drawer;
 import view.Console;
 import model.Location;
-import model.entity.Entity;
+import model.entity.PC;
 
 public class PortalItem extends InteractiveItem {
 	private Location where;
@@ -19,16 +18,16 @@ public class PortalItem extends InteractiveItem {
 		this.where = loc;
 	}
 	
-	public void activate(Entity e) {
-		use(e);
+	public void activate(PC pc) {
+		use(pc);
 	}
 	
-	public void use(Entity e) {
-		
-		e.getTile().releaseEntity();
+
+	public void use(PC pc) {
+		pc.getTile().releaseEntity();		
 		ResourceLoader.getInstance().playAudioClip(this.name);
 		if(where != null) {
-			e.move(where);
+			pc.move(where);
 			Console.getInstance().writeLine("A strange force sweeps you off your feet.");
 		}
 	}
