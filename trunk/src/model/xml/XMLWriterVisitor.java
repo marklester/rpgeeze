@@ -1,17 +1,17 @@
-package model.xml;
+package rpgeeze.model.xml;
 import java.io.StringWriter;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import model.Location;
-import model.Map;
-import model.Model;
-import model.Terrain;
-import model.Tile;
-import model.ae.AreaEffect;
-import model.decal.Decal;
-import model.entity.Entity;
-import model.item.Item;
+import rpgeeze.model.Location;
+import rpgeeze.model.Map;
+import rpgeeze.model.Model;
+import rpgeeze.model.terrain.Terrain;
+import rpgeeze.model.Tile;
+import rpgeeze.model.ae.AreaEffect;
+import rpgeeze.model.decal.Decal;
+import rpgeeze.model.entity.Entity;
+import rpgeeze.model.item.Item;
 
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
