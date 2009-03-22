@@ -41,13 +41,13 @@ public class SoundOptionsView extends HighlightableView<SoundOptionsView.State> 
 		
 		TextRenderer renderer = new TextRenderer(font.deriveFont(36f), true, true);
 		TextRectangle rect = new TextRectangle(new Text("X", renderer, 0.05f), 15, 3);
-		rect.setXYZ(-22.5, -12.5, -14.5);
+		rect.setXYZ(-15, -12.5, -14.5);
 		rect.alignText(0.5, 0.5);
 		
 		HighlightableWrapper<TextRectangle> prototype = new HighlightableWrapper<TextRectangle>(rect, MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 		GLUtil glutil = new GLUtil();
-		Iterator<HighlightableWrapper<TextRectangle>> obj = glutil.objectGrid(prototype, 1, 3, rect.getWidth(), rect.getHeight());
-		Iterator<String> names = new ArrayIterator<String>("Mute All", "Mute Background", "Mute Effects");
+		Iterator<HighlightableWrapper<TextRectangle>> obj = glutil.objectGrid(prototype, 2, 2, rect.getWidth(), rect.getHeight());
+		Iterator<String> names = new ArrayIterator<String>("Mute All", "Back", "Mute Effects", "Mute Background");
 		
 		for(obj.reset(), names.reset(); !obj.isDone(); obj.advance(), names.advance()) {
 			put(obj.current(), names.current());
