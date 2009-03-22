@@ -156,32 +156,14 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 
 			}
 		}
-		int i;
-		for(wheel.reset(), i = 0; !wheel.isDone(); i++, wheel.advance()){
-			String key = getNameForObject(wheel.current());
-			String value = keyControls.get(key); 
-			Text text = strText.get(key);
-			text.setText(value);
-			
-			gl.glPushMatrix();
-			gl.glRotated(i/8 * 360, 0, 0, 1);				
-			gl.glTranslated(10, 0, 0);
-			gl.glRotated(-i/8 * 360, 0, 0, 1);
-			text.setPreTranslationRotation(360.0 * i/8, 0, 0, 1);
-			text.setPostTranslationRotation(360.0 * -i/8, 0, 0, 1);
-			text.setXYZ(10, 0, -25);
-			gl.glPopMatrix();
-		}
-		
-
-		i = 0;
+		int i = 0;
 		for(wheel.reset(); !wheel.isDone(); wheel.advance(), ++i) {
 			String key = getNameForObject(wheel.current());
 			String value = keyControls.get(key);			
 			Text text = strText.get(key);
 			text.setText(value);
 			double angle = Math.PI * 2 * i / 8;
-			text.setXYZ(12 * Math.cos(angle) - text.getWidth() / 2, 12 * Math.sin(angle) - text.getHeight() / 2, -25);
+			text.setXYZ(12 * Math.cos(angle) - text.getWidth() / 2, 12 * Math.sin(angle) - text.getHeight() / 2 + 2.3, -25);
 		}
 		
 

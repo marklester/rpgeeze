@@ -3,10 +3,13 @@ package rpgeeze.controller;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import javax.media.opengl.glu.GLU;
 
 import rpgeeze.GameManager;
+import rpgeeze.RunGame;
 import rpgeeze.view.KeyBindingsView;
 
 /**
@@ -18,11 +21,9 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 	}
 
 	public void keyPressed(KeyEvent e) {
-//		if(e.getID() == KeyEvent.KEY_PRESSED) {
 		String activated = getView().getActivated();
 		if(activated != null) // && button.getHighlighted())
 			getView().setCommand(activated, KeyEvent.getKeyText(e.getKeyCode()));
-//		}
 	}
 	
 	/**
@@ -55,16 +56,18 @@ public class KeyBindingsViewController extends HighlightableViewController<KeyBi
 		}
 	}
 	
-	protected void executeOK() {	
-		
+	protected void executeOK() {
+		RunGame.KEY_CONTROLS = getView().getkeyControls();
+		getManager().popState();
 	}
 
 	protected void executeCancel() {
-		
+		getManager().popState();
 	}
 	
-	protected void defaultBindings() {	
-		
+	protected void defaultBindings() {
+		for(Entry<String, String> entry: RunGame.DEFAULT_KEY_CONTROLS.entrySet()) 
+			getView().setCommand(entry.getKey(), entry.getValue());		
 	}
 	
 	/**
