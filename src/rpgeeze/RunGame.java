@@ -2,6 +2,7 @@ package rpgeeze;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -16,6 +17,7 @@ import javax.swing.UIManager;
 import rpgeeze.log.LogManager;
 import rpgeeze.log.PrintStreamLogger;
 import rpgeeze.log.Message;
+import rpgeeze.util.ResourceLoader;
 
 /**
  * Entry point for the game. Houses the main method.
@@ -29,6 +31,8 @@ public class RunGame {
 	public final static HashMap<String,String> keyControls = new HashMap<String,String>();
 	
 	public final static Color BACKGROUND_COLOR = new Color(0.0f, 0.75f, 0.0f, 1.0f);
+	
+	public final static Font APP_FONT = ResourceLoader.getInstance().getFont(GameProperties.getInstance().getProperty("app.font"), Font.PLAIN, 100);
 	
 	private RunGame() {
 	}

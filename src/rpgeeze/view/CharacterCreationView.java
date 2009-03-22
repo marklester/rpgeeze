@@ -1,9 +1,9 @@
 package rpgeeze.view;
 
+import static rpgeeze.RunGame.APP_FONT;
 import static rpgeeze.RunGame.BACKGROUND_COLOR;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Point;
 import java.util.Random;
 import javax.media.opengl.GL;
@@ -31,10 +31,8 @@ import rpgeeze.util.ResourceLoader;
  */
 public class CharacterCreationView extends HighlightableView<CharacterCreationView.State> {
 	private static double Y_SHIFT = 2;
-	
-	private static final TextRenderer renderer = ResourceLoader.getInstance().getTextRenderer("DeutscheZierschrift.ttf", Font.PLAIN, 36);
 
-	private Text characterTitle = new Text("", renderer, 0.075f);
+	private Text characterTitle;
 	private Iterator<Highlightable> wheel;
 	
 	public enum State implements View.State { NEW, NORMAL, ZOOMING, ZOOMED, HIDDEN; }
@@ -55,9 +53,12 @@ public class CharacterCreationView extends HighlightableView<CharacterCreationVi
 		glutil.standardFrustum(GLU.getCurrentGL(), null);
 		Iterator<String> names;
 		
+		TextRenderer renderer = new TextRenderer(APP_FONT.deriveFont(36f), true, true);
 		TextRectangle rect = new TextRectangle(new Text("X", renderer, 0.05f), 10, 3);
 		rect.setXYZ(-10, -12.5 - Y_SHIFT, -14.5);
 		rect.alignText(0.5, 0.5);
+		
+		characterTitle = new Text("", renderer, 0.075f);
 		
 		HighlightableWrapper<TextRectangle> button = new HighlightableWrapper<TextRectangle>(rect, MainMenuView.PLAIN, MainMenuView.HIGHLIGHTED);
 		Iterator<HighlightableWrapper<TextRectangle>> grid = glutil.objectGrid(button, 1, 2, rect.getWidth(), rect.getHeight());

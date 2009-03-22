@@ -22,16 +22,6 @@ public class GameProperties {
 	private static GameProperties instance;
 			
 	private GameProperties() {
-	}		
-	
-	public static GameProperties getInstance() {
-		if(instance == null)
-			instance = new GameProperties();
-		return instance;
-	}
-	
-	public void load(String... arg) {
-		LogManager lm = LogManager.getInstance();
 		Properties prop = new Properties();
 		try {
 			prop.load(ResourceLoader.getInstance().getStream("properties/keyval.properties"));
@@ -43,6 +33,16 @@ public class GameProperties {
 			String key = en.nextElement().toString();
 			map.put(key, prop.getProperty(key));
 		}
+	}		
+	
+	public static GameProperties getInstance() {
+		if(instance == null)
+			instance = new GameProperties();
+		return instance;
+	}
+	
+	public void load(String... arg) {
+		LogManager lm = LogManager.getInstance();
 		for(String s: arg) {
 			try {
 				if(s.matches("--goal-ups=.+"))

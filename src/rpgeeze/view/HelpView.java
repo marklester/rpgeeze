@@ -10,12 +10,12 @@ import com.sun.opengl.util.j2d.TextRenderer;
 import rpgeeze.GameManager;
 import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.Text;
-import rpgeeze.util.ResourceLoader;
 
+import static rpgeeze.RunGame.APP_FONT;
 import static rpgeeze.RunGame.BACKGROUND_COLOR;
 
 public class HelpView extends View<HelpView.State> {
-	private Font plain = ResourceLoader.getInstance().getFont("DeutscheZierschrift.ttf", Font.PLAIN, 100);
+	private Font plain = APP_FONT.deriveFont(100f);
 	private Font italic = plain.deriveFont(Font.ITALIC);
 
 	private TextRenderer plainRenderer = new TextRenderer(plain, true, true);
@@ -126,10 +126,6 @@ public class HelpView extends View<HelpView.State> {
 	
 	public void changeTo() {
 		changeState(State.NORMAL);
-	}
-
-	protected String getNameForGLName(int glName) {
-		return null;
 	}
 }
 
