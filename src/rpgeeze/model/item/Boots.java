@@ -11,18 +11,27 @@ import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
 import rpgeeze.model.entity.PC;
 
-public class Boots extends TakeableItem {
+public class Boots extends TakeableItem implements EquippableItem{
 	public Boots() {
 		super("Boots");
 	}
 	
-	public void deActivate(PC pc) {
-		pc.addMovement(-10);
+	public void equip(Entity entity)
+	{
+		//add movement to the entity
 	}
 	
-	public void use(PC pc) {
-		pc.equipBoots(this);
-		pc.addMovement(10);
+	public void unequip(Entity entity)
+	{
+		//subtract movement from the entity
+	}
+	
+	public Boots clone(){
+		return (Boots) super.clone();
+	}
+	public void use(Entity entity) {
+		entity.equipBoots(this);
+		//entity.addMovement(10);
 		LogManager.getInstance().log("Boots have been equipped.", "", Message.Type.GAME);
 	}
 }
