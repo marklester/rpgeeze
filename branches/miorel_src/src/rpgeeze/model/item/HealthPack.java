@@ -10,7 +10,6 @@ import rpgeeze.log.LogManager;
 import rpgeeze.log.Message;
 import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
-import rpgeeze.model.entity.PC;
 
 public class HealthPack extends OneShotItem {
 	private int amount;
