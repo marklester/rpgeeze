@@ -14,6 +14,7 @@ public class PotionLife extends TakeableItem {
 
 	public PotionLife() {
 		super("Potion Life");
+		setPrice(25);
 	}
 
 	
