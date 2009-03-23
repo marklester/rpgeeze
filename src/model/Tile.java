@@ -207,12 +207,12 @@ public class Tile implements Cloneable, ModelElement{
 	@Override
 	//Visitor Patter Operation For Saving and Reading,etc
 	public void accept(GameVisitor visitor) {
-		/*
+		
 		visitor.visit(terrain);
 		visitor.visit(location);
 		if(decal != null)visitor.visit(decal);
 		if(item != null)visitor.visit(item);
 		if(ae != null)visitor.visit(ae);
-		*/
+		
 	}
 }
