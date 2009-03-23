@@ -62,7 +62,7 @@ public abstract class Monster extends NPC implements StatsModifiable{
 	}
 	
 	public boolean isAlive() {
-		return stats.getLife() <= 0;
+		return stats.getLife() > 0;
 	}
 
 	public int hasCode()

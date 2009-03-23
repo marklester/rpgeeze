@@ -68,17 +68,19 @@ public class GameplayController extends Controller<GameplayView> {
 				Tile next = pc.getTile().adjacentTile(facing);
 				while (next.isPassable()) {
 					if (next.getEntity() != null) {
-						//Affect Stats of him
-						System.out.println("Hit the target!");
+						try {
+							String weap = pc.getEquipment().getWeapon().toString();
+							AudioThread at = AudioThread.getInstance(weap, AudioThread.CLIP);
+							at.start();
+							
+							next.getEntity().getStats().attack(pc.getStats().getOffensiveRating());
+							LogManager.getInstance().log("You nailed that punk!", "", Message.Type.GAME);
+							break;
+						}
+						catch (Exception e) { LogManager.getInstance().log("Error playing sound for the weapon", "", Message.Type.ERROR); }
 					}
 					next = next.adjacentTile(facing);
 				}
-				try {
-					String weap = pc.getEquipment().getWeapon().toString();
-					AudioThread at = AudioThread.getInstance(weap, AudioThread.CLIP);
-					at.start();
-				}
-				catch (Exception e) { LogManager.getInstance().log("Error playing sound for the weapon", "", Message.Type.ERROR); }
 			}
 		});
 		actions.put("Use Spell", new Command() {

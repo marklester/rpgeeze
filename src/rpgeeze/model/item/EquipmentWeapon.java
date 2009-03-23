@@ -3,6 +3,7 @@ package rpgeeze.model.item;
 import rpgeeze.model.entity.Entity;
 
 public class EquipmentWeapon extends EquippableItem {
+	private int effectiveness;
 	protected EquipmentWeapon(String name) {
 		super(name);
 	}
@@ -17,6 +18,7 @@ public class EquipmentWeapon extends EquippableItem {
 		if(old != null)
 			old.unequip(entity);
 		entity.getEquipment().setWeapon(this);
+		entity.getStats().calculateOffensiveRating(this.effectiveness);
 		return entity.getEquipment().getWeapon() == this;
 	}
 
@@ -24,5 +26,13 @@ public class EquipmentWeapon extends EquippableItem {
 		if(entity.addItem(this))
 			entity.getEquipment().setWeapon(null);
 		return entity.getEquipment().getWeapon() != this;
+	}
+	
+	public void setEffectiveness(int ef) {
+		this.effectiveness = ef;
+	}
+	
+	public int getEffectiveness() {
+		return effectiveness;
 	}
 }
