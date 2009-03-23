@@ -16,8 +16,7 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 	private Stats stats;
 	private LinkedList<Skill> skills;
 	private int updateCounter;
-	private Inventory inventory;
-	private Equipment equipment;
+
 	
 	public PC(Occupation occupation, Map map) {
 		this.inventory = new Inventory();

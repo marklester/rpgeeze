@@ -22,6 +22,7 @@ import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.log.LogManager;
 import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
+import rpgeeze.model.entity.Inventory;
 import rpgeeze.model.item.Item;
 import rpgeeze.model.item.TakeableItem;
 import rpgeeze.util.ArrayIterator;
@@ -130,7 +131,6 @@ public class GameplayView extends View<GameplayView.State> {
 			tile.accept(mapDrawer);
 			gl.glPopMatrix();
 		}
-
 		Iterator<TakeableItem> items = getManager().getModel().getAvatar().getInventory().iterator();
 		for(items.reset(), inventory.reset(); !items.isDone(); items.advance(), inventory.advance())
 			inventory.current().setTexture(mapDrawer.textureForItem(items.current()));

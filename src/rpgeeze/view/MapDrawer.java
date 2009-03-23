@@ -97,7 +97,6 @@ public class MapDrawer implements Visitor {
 	}
 
 	public void visitEntity(Entity entity) {
-
 		Iterator<String> iter = avatar.get(new Pair<String, Direction>(entity.getOccupation().getName(), entity.getFacingDirection()));
 		
 		new TexturedRectangle(ResourceLoader.getInstance().getTexture(iter.current()), size, size).render(gl);
