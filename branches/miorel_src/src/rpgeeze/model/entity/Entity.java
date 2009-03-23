@@ -30,6 +30,7 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 	private String entityType;
 	protected Equipment equipment;
 	protected Inventory inventory;
+	private Occupation occupation;
 	
 	public void move(Location l)
 	{
@@ -68,6 +69,10 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 	public void setFacingDirection(Direction dir)
 	{
 		this.facing = dir;
+	}
+	
+	public Occupation getOccupation() {
+		return occupation;
 	}
 	
 	public Direction getFacingDirection() {
