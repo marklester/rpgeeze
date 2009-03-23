@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.ArrayList;
 
+import rpgeeze.dp.Iterator;
 import rpgeeze.model.entity.Smasher;
 import rpgeeze.model.entity.Sneak;
 import rpgeeze.model.entity.Summoner;
@@ -13,6 +14,7 @@ import rpgeeze.model.skill.Observation;
 import rpgeeze.model.entity.Occupation;
 import rpgeeze.model.entity.Stats;
 import rpgeeze.model.skill.Skill;
+import rpgeeze.util.ArrayIterator;
 
 public abstract class Occupation implements Cloneable {
 	private final String name;
@@ -82,5 +84,9 @@ public abstract class Occupation implements Cloneable {
 	
 	public final LinkedList<Skill> getSkills() {
 		return clone().skills;
+	}
+
+	public static Iterator<Occupation> getPlayerOccupations() {
+		return new ArrayIterator<Occupation>(new Smasher(), new Summoner(), new Sneak());
 	}
 }
