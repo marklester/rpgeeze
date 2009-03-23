@@ -9,7 +9,7 @@ import rpgeeze.model.item.*;
 import rpgeeze.model.entity.Occupation;
 import java.util.LinkedList;
 
-public class PC extends Entity { //implements { EquippableInventory, StatsModifiable {
+public class PC extends Entity {//implements StatsModifiable{ //implements { EquippableInventory, StatsModifiable {
 	private LinkedList<Skill> skills;
 	private int updateCounter;
 	private float cash;
@@ -29,29 +29,7 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		this.skills = skills;
 	}
 	
-	public boolean hasEnoughHP(int value){
-		return value <= getStats().life;
-	}
 	
-	public boolean hasEnoughMP(int value)
-	{
-		return value <= getStats().mana;
-	}	
-	
-	public int maxHealth()
-	{
-		return getStats().MAX_LIFE;
-	}
-	
-	public int maxMana()
-	{
-		return getStats().MAX_MP;
-	}
-	
-	public int getLevel()
-	{
-		return getStats().getLevel();
-	}
 	
 	
 	public LinkedList<Skill> getSkills()
