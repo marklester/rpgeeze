@@ -2660,6 +2660,9 @@
 				<x>15</x>
 				<y>5</y>
 			</location>
+			<item>
+				<type>Water Spell</type>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -2681,6 +2684,10 @@
 				<x>18</x>
 				<y>5</y>
 			</location>
+			<item>
+				<type>Lightning Spell</type>
+			</item>
+			
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -2702,6 +2709,9 @@
 				<x>21</x>
 				<y>5</y>
 			</location>
+			<item>
+				<type>Fire Spell</type>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
