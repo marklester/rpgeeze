@@ -640,6 +640,9 @@
 				<x>17</x>
 				<y>1</y>
 			</location>
+			<item>
+				<type>Axe</type>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -661,6 +664,9 @@
 				<x>20</x>
 				<y>1</y>
 			</location>
+			<item>
+				<type>Spear</type>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
