@@ -1,6 +1,5 @@
 package rpgeeze.util;
 
-import rpgeeze.math.Vector;
 
 public enum Direction {
 	NORTH(0, 1),
@@ -29,5 +28,15 @@ public enum Direction {
 
 	public int getY() {
 		return y;
+	}
+	
+	public static Direction forXY(int x, int y) {
+		Direction ret = null;
+		for(Direction d: Direction.values())
+			if(d.x == x && d.y == y) {
+				ret = d;
+				break;
+			}
+		return ret;
 	}
 }
