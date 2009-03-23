@@ -6,8 +6,8 @@ import java.util.Queue;
 import rpgeeze.model.entity.monster.MonsterSpawner;
 import rpgeeze.model.entity.monster.*;
 
-import rpgeeze.model.entity.EntityEventManager;
 import rpgeeze.model.entity.*;
+import rpgeeze.model.entity.merchant.*;
 
 import rpgeeze.dp.Command;
 import rpgeeze.log.LogManager;
@@ -24,17 +24,24 @@ public class Model {
 	private HumanPlayerEntityManager mainPlayerManager;
 	
 	private LogManager lm;
-	private MonsterSpawner tester;
+	private MonsterSpawner spawner;
 	public Model(Map map, PC avatar) {
 		this.map = map;
 		this.avatar = avatar;
-		 mainPlayerManager = new HumanPlayerEntityManager(this.avatar);
+		mainPlayerManager = new HumanPlayerEntityManager(this.avatar);
+		EntityManagerCollection.getInstance().addManager(mainPlayerManager);
+		
+		Merchant m = new Merchant();
+		avatar.getTile().getAbsoluteTile(3, 6).setEntity(m);
+		MerchantManager man = new MerchantManager(m);
+		EntityManagerCollection.getInstance().addManager(man);
+		
 		active = true;
 		paused = true;
-		tester = new MonsterSpawner( avatar.getTile().getRelativeTile(0, 1), MonsterType.Soldier);
+		spawner = new MonsterSpawner( avatar.getTile().getRelativeTile(0, 1), MonsterType.Soldier);
 		lm = LogManager.getInstance();
 		
-		tester.setTile(avatar.getTile().getAbsoluteTile(6, 21));
+		spawner.setTile(avatar.getTile().getAbsoluteTile(6, 21));
 		
 	}
 	public PC getAvatar() {
@@ -80,7 +87,7 @@ public class Model {
 			for(Command cmd: q)
 				cmd.execute();
 			//mainPlayerManager.update();
-			tester.update();
+			spawner.update();
 			EntityManagerCollection.getInstance().update();
 			
 		}

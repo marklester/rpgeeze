@@ -1,8 +1,7 @@
 package rpgeeze.model.ai;
 import rpgeeze.model.*;
-import rpgeeze.model.Tile;
+import rpgeeze.util.*;
 
-import rpgeeze.model.Tile;
 import rpgeeze.model.entity.NPC;
 import rpgeeze.model.*;
 
@@ -27,7 +26,7 @@ public class ContainedAI implements ArtificialIntelligence {
 		
 		if(layer < bound)
 		{			
-			entity.move(randLocation());
+			entity.move(randDirection());
 			
 		}else
 		{
@@ -48,13 +47,13 @@ public class ContainedAI implements ArtificialIntelligence {
 						entity.move(new Location(0, -1));
 						break;
 					case 1:
-						entity.move((xlayer == (loc.getX() - ref.getX()))? new Location(-1, 0): new Location(1, 0) );
+						entity.move((xlayer == (loc.getX() - ref.getX()))? Direction.WEST : Direction.EAST );
 						break;
 					case 2:
 						entity.move(new Location (0, 1));
 						break;
 					case 3:
-						entity.move((xlayer == (loc.getX() - ref.getX()))? new Location(-1, 0): new Location(1, 0) );
+						entity.move((xlayer == (loc.getX() - ref.getX()))? Direction.WEST: Direction.EAST );
 						break;
 					default: break;
 				}
@@ -67,13 +66,13 @@ public class ContainedAI implements ArtificialIntelligence {
 					switch(i)
 					{
 						case 0:
-							entity.move((ylayer == (loc.getY() - ref.getY()))? new Location(0, -1): new Location(0, 1));
+							entity.move((ylayer == (loc.getY() - ref.getY()))? Direction.NORTH: Direction.SOUTH);
 							break;
 						case 1:
 							entity.move(new Location(-1, 0) );
 							break;
 						case 2:
-							entity.move((ylayer == (loc.getY() - ref.getY()))? new Location(0, -1): new Location(0, 1));
+							entity.move((ylayer == (loc.getY() - ref.getY()))? Direction.NORTH: Direction.SOUTH);
 							break;
 						case 3:
 							entity.move(new Location(1, 0) );
@@ -87,16 +86,16 @@ public class ContainedAI implements ArtificialIntelligence {
 					switch(i)
 					{
 						case 0:
-							entity.move((ylayer == (loc.getY() - ref.getY()))? new Location(0, -1): new Location(0, 1));
+							entity.move((ylayer == (loc.getY() - ref.getY()))? Direction.NORTH: Direction.SOUTH);
 							break;
 						case 1:
-							entity.move((xlayer == (loc.getX() - ref.getX()))? new Location(-1, 0): new Location(1, 0) );
+							entity.move((xlayer == (loc.getX() - ref.getX()))? Direction.WEST: Direction.EAST );
 							break;
 						case 2:
-							entity.move((ylayer == (loc.getY() - ref.getY()))? new Location(0, -1): new Location(0, 1));
+							entity.move((ylayer == (loc.getY() - ref.getY()))? Direction.NORTH: Direction.SOUTH);
 							break;
 						case 3:
-							entity.move((xlayer == (loc.getX() - ref.getX()))? new Location(-1, 0): new Location(1, 0) );
+							entity.move((xlayer == (loc.getX() - ref.getX()))? Direction.WEST: Direction.EAST );
 							break;
 						default: break;
 					}
@@ -125,6 +124,26 @@ public class ContainedAI implements ArtificialIntelligence {
 		}
 		return null;		
 	}
+	private Direction randDirection()
+	{
+		java.util.Random r = new java.util.Random();
+		int i = r.nextInt(4);
+		
+		switch(i)
+		{
+		case 0:
+			return Direction.SOUTH;
+		case 1:
+			return  Direction.EAST;
+		case 2:
+			return Direction.NORTH;
+		case 3:
+			return  Direction.WEST;
+		default: break;
+		}
+		return null;		
+	}
+	
 	private int calcLayer(NPC entity)
 	{
 		Location ref = tile.getLocation();

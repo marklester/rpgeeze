@@ -8,7 +8,7 @@ public class Soldier extends Monster {
 	public Soldier()
 	{
 		this.setEntityType("Soldier");		
-		this.setAI(new ContainedAI(3));
+		this.setAI(new AimlessAI());
 		this.inventory = new Inventory(0);
 		this.stats = new Stats();
 		

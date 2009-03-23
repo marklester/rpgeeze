@@ -18,7 +18,7 @@ public class MonsterSpawner{
 		this.tile = t;
 		this.type = type;
 		mobs = new LinkedList<Monster>();
-		mobLimit = 3;
+		mobLimit = 5;
 	}	
 	public void setTile(Tile t){
 		tile = t;
