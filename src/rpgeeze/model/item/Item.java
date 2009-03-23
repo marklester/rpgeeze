@@ -27,7 +27,9 @@ public abstract class Item implements Visitable, Cloneable {
 				new RedArmor(),
 				new Shield(),
 				new Sword(),
-				new Trap()
+				new Trap(),
+				new LittleGun(),
+				new BigGun()
 		})
 			prototypes.put(i.getName(), i);
 	}
