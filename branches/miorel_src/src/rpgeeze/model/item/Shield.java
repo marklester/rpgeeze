@@ -11,6 +11,7 @@ import rpgeeze.model.entity.Entity;
 public class Shield extends TakeableItem implements EquippableItem{
 	public Shield() {
 		super("Shield");
+		setPrice(20);
 	}
 
 
