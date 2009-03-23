@@ -14,8 +14,10 @@ public abstract class TakeableItem extends Item {
 	}
 
 	public final void activate(Entity entity, Tile tile) {
-		if(entity.pickUp(this))
+		System.out.println(entity + " " + tile);
+		if(entity.pickUp(this)) {
 			tile.setItem(null);
+		}
 	}
 	
 	public abstract void use(Entity entity);
