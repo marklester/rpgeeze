@@ -11,24 +11,25 @@ import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
 import rpgeeze.model.entity.PC;
 
-public class CrossBow extends TakeableItem {
-	public CrossBow() {
+public class Crossbow extends TakeableItem implements EquippableItem {
+	public Crossbow() {
 		super("Crossbow");
 	}
 
-	public void activate(PC pc) {
-		use(pc);
-	}
-
-	public void use(PC pc) {
-		pc.equipWeapon(this);
-		pc.unequipAuxiliary();
-		LogManager.getInstance().log("Cross Bow has been equipped.", "", Message.Type.GAME);
-	}
-
-	@Override
-	public void activate(Entity entity, Tile tile) {
-		// TODO Auto-generated method stub
+	public void equip(Entity entity){
 		
+	}
+	
+	public void unequip(Entity entity){
+		
+	}
+	
+	public Crossbow clone(){
+		return (Crossbow) super.clone();
+	}
+	public void use(Entity entity) {
+		//entity.equipWeapon(this);
+		entity.unequipAuxiliary();
+		LogManager.getInstance().log("Cross Bow has been equipped.", "", Message.Type.GAME);
 	}
 }
