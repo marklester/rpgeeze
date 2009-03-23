@@ -251,14 +251,15 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 	public void equipAuxiliary(EquippableItem i) {
 		if(equipment.getAuxiliary() == i)
 			return;
-		inventory.removeItem((TakeableItem) i);
+		
 		if(equipment.getAuxiliary() != null){
 			inventory.addItem((TakeableItem) equipment.getAuxiliary(),false);
 		    equipment.setAuxiliary(i);
+		    inventory.removeItem((TakeableItem) i);
 		}
 		if(equipment.getWeapon() == null){
-			//equipment.getWeapon().equip(this);
-			//inventory.removeItem((TakeableItem) i);
+			equipWeapon(i);
+			inventory.removeItem((TakeableItem) i);
 		}
 	}
 
