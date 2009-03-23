@@ -1,6 +1,7 @@
 package rpgeeze.model;
 
 import rpgeeze.dp.Iterator;
+import rpgeeze.model.terrain.MountainTerrain;
 import rpgeeze.model.terrain.WaterTerrain;
 
 public class Map {
@@ -13,7 +14,7 @@ public class Map {
 	public Tile getTile(int x, int y) {
 		Tile ret = null;
 		if(y < 0 || y >= matrix.length || x < 0 || x >= matrix[0].length)
-			ret = new Tile(WaterTerrain.getInstance(), x, y);
+			ret = new Tile(WaterTerrain.getInstance(), new Location(x, y), null);
 		else
 			ret = matrix[y][x];
 		return ret;

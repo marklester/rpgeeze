@@ -1,6 +1,7 @@
 package rpgeeze.model.ae;
 
 import rpgeeze.model.Entity;
+import rpgeeze.model.StatsModifiable;
 
 public class HealDamage extends AreaEffect {
 	
@@ -12,7 +13,7 @@ public class HealDamage extends AreaEffect {
 	    super(rate, "Heal Damage");
 	}
 
-	public void apply(Entity e) {
+	public void applyEffect(StatsModifiable e) {
 	    if(--counter == 0) {
 	            //int life = e.getStats().getLife();
 	            //e.getStats().incLife(rate);
@@ -25,7 +26,6 @@ public class HealDamage extends AreaEffect {
 	            //}
 	    }
 	}
-		
 }
 
 
