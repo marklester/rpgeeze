@@ -114,5 +114,7 @@ public abstract class Skill implements Cloneable{
 	{
 		return skillLevel;
 	}
-	
+	public static Skill getSkillPrototype(String key){
+		return prototypes.get(key).clone();
+	}
 }
