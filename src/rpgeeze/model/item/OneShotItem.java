@@ -9,6 +9,8 @@ import rpgeeze.model.entity.Entity;
  */
 
 public abstract class OneShotItem extends Item {
+	protected int price;
+	
 	public OneShotItem(String name) {
 		super(name);
 	}
@@ -22,6 +24,14 @@ public abstract class OneShotItem extends Item {
 	
 	public OneShotItem clone() {
 		return (OneShotItem) super.clone();
+	}
+	
+	public void setPrice(int price){
+		this.price = price;
+	}
+	
+	public int getPrice(){
+		return price;
 	}
 }
 
