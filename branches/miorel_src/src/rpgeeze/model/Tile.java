@@ -10,6 +10,7 @@ import rpgeeze.model.Location;
 import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
 import rpgeeze.model.item.Item;
+import rpgeeze.model.item.Trap;
 import rpgeeze.model.terrain.Terrain;
 
 public class Tile implements Cloneable, Visitable {
