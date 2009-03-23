@@ -1,7 +1,7 @@
 package rpgeeze.controller;
 
 import rpgeeze.dp.Command;
-import rpgeeze.model.Entity;
+import rpgeeze.model.entity.Entity;
 import rpgeeze.util.Direction;
 
 public class MoveCommand implements Command {
