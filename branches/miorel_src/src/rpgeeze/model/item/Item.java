@@ -18,16 +18,16 @@ public abstract class Item implements Visitable, Cloneable {
 		for(Item i: new Item[] {
 			new Sword(),
 			new Boulder(),
-			new Crossbow(),
-			new HealthPotion(),
+			new CrossBow(),
+			new HealthPack(),
 			new Shield(),
 			new RedArmor(),
 			new Boots(),
 			new Arrows(),
-			new ManaPotion(),
+			new Mana(),
 			new HealthPack(),
 			new Helmet(),
-			new Portal()
+			new PortalItem()
 		})
 			prototypes.put(i.toString(), i);
 	}
