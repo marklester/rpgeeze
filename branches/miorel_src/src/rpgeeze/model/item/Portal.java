@@ -1,5 +1,7 @@
 package rpgeeze.model.item;
 
+import rpgeeze.log.LogManager;
+import rpgeeze.log.Message;
 import rpgeeze.model.Location;
 import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
@@ -26,7 +28,7 @@ public class Portal extends InteractiveItem {
 			//AudioThread.getInstance().run(this.name, AudioThread.CLIP);
 			if(where != null){
 				entity.move(where);
-				//put log message here A strange force sweeps you off your feet.
+				LogManager.getInstance().log("A strange force sweeps you off your feet.", "", Message.Type.GAME); 
 			}
 		}
 	}
