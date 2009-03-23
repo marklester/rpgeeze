@@ -13,6 +13,7 @@ import rpgeeze.model.entity.Entity;
 public class Boots extends TakeableItem implements EquippableItem{
 	public Boots() {
 		super("Boots");
+		setPrice(100);
 	}
 	
 	public void equip(Entity entity)
