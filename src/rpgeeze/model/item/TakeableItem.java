@@ -9,13 +9,11 @@ import rpgeeze.model.entity.Entity;
  */
 
 public abstract class TakeableItem extends Item {
-	
 	public TakeableItem(String name) {
         super(name);
 	}
 
-	public void activate(PC pc, Tile tile) {
-		pc.addItem(this);
-		use(pc);		
+	public void activate(Entity entity, Tile tile) {
+		//entity.pickUp(this);
 	}
 }
