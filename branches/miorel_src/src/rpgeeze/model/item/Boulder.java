@@ -1,6 +1,6 @@
 package rpgeeze.model.item;
 
-import rpgeeze.model.entity.PC;
+
 
 /** 
  * I haven't really looked into how this is being used, whoever added this
@@ -10,21 +10,7 @@ import rpgeeze.model.entity.PC;
 
 public class Boulder extends Obstacle {
 
-	public Boulder() {//Location location) {
-		super("Boulder");//, location);
+	public Boulder(){
+		super("Boulder");
 	}
-
-	@Override
-	public void activate(PC pc) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void use(PC pc) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 }
