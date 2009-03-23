@@ -42,9 +42,17 @@ public class ModelConstructor{
 		Map map =  createMaps();
 		PC avatar = createPC(doc.getElementsByTagName("entity").item(0),map);
 		NodeList ents = doc.getElementsByTagName("entity");
-		/*for(int i=0;i<ents.getLength();i++){
+		for(int i=0;i<ents.getLength();i++){
 			Element el = (Element)ents.item(i);
-		}*/
+			if(el.getAttribute("entityType").equalsIgnoreCase("vehicle")){
+				int speed  = Integer.parseInt(el.getElementsByTagName("speed").item(0).getTextContent());
+				Location l = createLocation(el.getElementsByTagName("location").item(0));
+				Direction dir = createFacingDirection(el.getElementsByTagName("facing").item(0));
+				Vehicle v = new Vehicle(speed);
+				v.setFacingDirection(dir);
+				map.getTile(l.getX(), l.getX()).setEntity(v);
+			}
+		}
 		if(occ != null){
 			avatar.setOccupation(occ);
 			avatar.setSkills(avatar.getOccupation().getSkills());
