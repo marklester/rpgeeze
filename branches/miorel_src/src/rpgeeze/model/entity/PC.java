@@ -2,13 +2,14 @@ package rpgeeze.model.entity;
 
 import java.util.List;
 import java.util.regex.*;
-//import rpgeeze.model.skill.*;
+
+import rpgeeze.model.entity.*;
+import rpgeeze.model.skill.SkillContainer;
 import rpgeeze.log.LogManager;
 import rpgeeze.log.Message;
 import rpgeeze.model.*;
 import rpgeeze.model.xml.*;
 import rpgeeze.model.item.*;
-import rpgeeze.model.occupation.Occupation;
 
 
 public class PC extends Entity { //implements { EquippableInventory, StatsModifiable {
@@ -16,20 +17,34 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 	private Inventory inventory;
 	private Occupation occupation;
 	private Stats stats;
-	//private SkillContainer skills;
-	//private Equipment equipment;
+	private SkillContainer skills;
+	private Equipment equipment;
 	private int updateCounter;
 	
 	public PC(Occupation occupation, Map map) {
 		this.inventory = new Inventory();
 		this.occupation = occupation;
-		//this.stats = (Stats) occupation.stats.clone();
-		//this.skills = occupation.skills;
-		//this.equipment = new Equipment();
+		this.stats = (Stats) occupation.stats.clone();
+		this.skills = occupation.skills;
+		this.equipment = new Equipment();
 	}
-	public PC()
-	{
-		
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+	public void setOccupation(Occupation occupation) {
+		this.occupation = occupation;
+	}
+	public void setStats(Stats stats) {
+		this.stats = stats;
+	}
+	public void setSkills(SkillContainer skills) {
+		this.skills = skills;
+	}
+	public void setEquipment(Equipment equipment) {
+		this.equipment = equipment;
+	}
+	public PC(){
+		this.setEntityType("Playable Character");
 	}
 
 	
@@ -65,14 +80,14 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 	
 	public void equipActionAtIndex(int index) {
 		//from action listener in viewer
-		if(index >= inventory.itemCount())
+		if(index >= inventory.count())
 			return;
 		inventory.getItemAt(index).activate(this, this.getTile());	
 	}
 	
 	public void dropActionAtIndex(int index) {
 		//from action listener in viewer
-		if(index >= inventory.itemCount())
+		if(index >= inventory.count())
 			return;	
 		//Drop item here
 		dropItem(index);
