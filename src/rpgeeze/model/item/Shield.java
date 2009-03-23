@@ -5,16 +5,28 @@ package rpgeeze.model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
-import model.entity.PC;
-import view.Drawer;
+import rpgeeze.model.entity.Entity;
 
-public class Shield extends TakeableItem {
+
+public class Shield extends TakeableItem implements EquippableItem{
 	public Shield() {
 		super("Shield");
 	}
 
 
-	public void use(PC pc) {
-		pc.equipAuxiliary(this);
+	public void use(Entity entity) {
+		entity.equipAuxiliary(this);
+	}
+	
+	public void equip(Entity entity){
+		
+	}
+	
+	public void unequip(Entity entity){
+		
+	}
+	
+	public Shield clone(){
+		return (Shield) super.clone();
 	}
 }
