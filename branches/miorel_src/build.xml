@@ -11,7 +11,7 @@
 	
 	<property name="jar.name" value="${ant.project.name}.jar"/>
 	
-	<property name="lib.files" value="${lib.dir}/jogl/jogl.jar${path.separator}${lib.dir}/jogl/gluegen-rt.jar"/>
+	<property name="lib.files" value="${lib.dir}/jogl/jogl.jar${path.separator}${lib.dir}/jogl/gluegen-rt.jar${path.separator}${lib.dir}/audio/jl1.0.jar${path.separator}${lib.dir}/audio/tritonus_share.jar"/>
 
 	<property name="src.main" value="RunGame"/>
 	
