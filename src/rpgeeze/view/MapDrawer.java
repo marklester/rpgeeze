@@ -44,6 +44,7 @@ public class MapDrawer implements Visitor {
 	
 	private static HashMap<Pair<String, Direction>, Iterator<String>> avatar = new HashMap<Pair<String, Direction>, Iterator<String>>();
 	private static HashMap<Pair<String, Direction>, Iterator<String>> mobs = new HashMap<Pair<String, Direction>, Iterator<String>>();
+	private static HashMap<Pair<String, Direction>, Iterator<String>> vehicle = new HashMap<Pair<String, Direction>, Iterator<String>>();
 	
 	private final static int SLOW_DOWN_FACTOR = 10;
 
@@ -105,7 +106,36 @@ public class MapDrawer implements Visitor {
 //	        avatar.put(new Pair<String, Direction>(mons.toString(), Direction.SOUTHEAST), avatar.get(new Pair<String, Direction>(mons.getName(), Direction.SOUTH)));
 //	        avatar.put(new Pair<String, Direction>(mons.toString(), Direction.SOUTHWEST), avatar.get(new Pair<String, Direction>(mons.getName(), Direction.SOUTH)));
 		}
-	}
+		
+		
+		
+	        String s = "vehicle";
+	        
+	        vehicle.put(new Pair<String, Direction>(s, Direction.NORTH), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+	                "entity/vehicle/vehicleNorth1.png",
+	                "entity/vehicle/vehicleNorth2.png"
+	        ), SLOW_DOWN_FACTOR));
+
+	        vehicle.put(new Pair<String, Direction>(s, Direction.SOUTH), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+	                "entity/vehicle/vehicleSouth1.png",
+	                "entity/vehicle/vehicleSouth2.png"
+	        ), SLOW_DOWN_FACTOR));
+	        
+	        vehicle.put(new Pair<String, Direction>(s, Direction.EAST), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+	                "entity/vehicle/vehicleEast1.png",
+	                "entity/vehicle/vehicleEast2.png"
+	        ), SLOW_DOWN_FACTOR));
+
+	        vehicle.put(new Pair<String, Direction>(s, Direction.WEST), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+	                "entity/vehicle/vehicleWest1.png",
+	                "entity/vehicle/vehicleWest1.png"
+	        ), SLOW_DOWN_FACTOR));
+
+	        vehicle.put(new Pair<String, Direction>(s, Direction.NORTHEAST), vehicle.get(new Pair<String, Direction>(s, Direction.NORTH)));
+	        vehicle.put(new Pair<String, Direction>(s, Direction.NORTHWEST), vehicle.get(new Pair<String, Direction>(s, Direction.NORTH)));
+	        vehicle.put(new Pair<String, Direction>(s, Direction.SOUTHEAST), vehicle.get(new Pair<String, Direction>(s, Direction.SOUTH)));
+	        vehicle.put(new Pair<String, Direction>(s, Direction.SOUTHWEST), vehicle.get(new Pair<String, Direction>(s, Direction.SOUTH)));
+		}
 	
 	public void setSize(double size) {
 		this.size = size;
@@ -152,6 +182,12 @@ public class MapDrawer implements Visitor {
 	public void visitEntity(Villager entity)
 	{
 		
+	}
+	
+	public void visitEntity(Vehicle entity){
+		Iterator<String> iter = vehicle.get(new Pair<String, Direction>("vehicle", entity.getFacingDirection()));
+		new TexturedRectangle(ResourceLoader.getInstance().getTexture(iter.current()), size, size).render(gl);
+		iter.advance();	
 	}
 	
 	public Texture textureForItem(Item item) {
