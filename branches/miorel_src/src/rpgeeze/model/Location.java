@@ -35,12 +35,11 @@ public class Location {
 	public String toString() {
 		return "(" + this.x + "," + this.y + ")";
 	}
-	/*
+
 	public Direction closestDirection() {
-		//Direction ret =  Direction.forXY(getX(), getY());
+		Direction ret = Direction.forXY(getX(), getY());
 		if(ret == null) ret = Direction.NORTH;
 		return ret;
 	}
-	*/
 	
 }

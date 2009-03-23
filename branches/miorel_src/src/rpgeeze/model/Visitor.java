@@ -2,6 +2,7 @@ package rpgeeze.model;
 
 import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
+import rpgeeze.model.entity.Entity;
 import rpgeeze.model.item.Item;
 import rpgeeze.model.terrain.Terrain;
 
