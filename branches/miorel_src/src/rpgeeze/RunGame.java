@@ -46,6 +46,7 @@ public class RunGame {
 		DEFAULT_KEY_CONTROLS.put("Skills View", "W");
 		DEFAULT_KEY_CONTROLS.put("Options", "O");
 		DEFAULT_KEY_CONTROLS.put("Pause Game", "P");
+		DEFAULT_KEY_CONTROLS.put("Use Weapon", "Z");
 	}
 	public static HashMap<String, String> KEY_CONTROLS = DEFAULT_KEY_CONTROLS;
 	

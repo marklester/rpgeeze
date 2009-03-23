@@ -7,6 +7,7 @@ import rpgeeze.log.Message;
 import rpgeeze.model.Location;
 import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
+import rpgeeze.model.entity.IllegalMoveException;
 import rpgeeze.util.AudioThread;
 
 
@@ -32,13 +33,15 @@ public class Portal extends InteractiveItem {
 	
 	public void activate(Entity entity, Tile tile){
 		if(entity.getEntityType().equals("Playable Character")){
-			AudioThread at = AudioThread.getInstance();
-			at.setKeyType(this.getName(), AudioThread.CLIP);
-			at.start();
+			where = new Location(50,1);
 			if(where != null){
-				LogManager.getInstance().log(where.getX() +" " +where.getY(), "", Message.Type.GAME);
-				entity.move(where);
-				LogManager.getInstance().log("A strange force sweeps you off your feet.", "", Message.Type.GAME); 
+				AudioThread at = AudioThread.getInstance();
+				at.setKeyType(this.getName(), AudioThread.CLIP);
+				at.start();
+				
+				entity.move(where.getX()+entity.getFacingDirection().getX(), where.getY()+entity.getFacingDirection().getY());
+				LogManager.getInstance().log("A strange force sweeps you off your feet.", "", Message.Type.GAME);
+				throw new IllegalMoveException();
 			}
 		}
 	}
