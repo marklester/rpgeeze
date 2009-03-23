@@ -119,10 +119,6 @@ public class Tile implements Cloneable, Visitable {
 			entity.accept(visitor);
 	}
 	
-	public void releaseEntity() {
-		setEntity(null);
-	}
-	
 	public Tile getAbsoluteTile(Location l) {
 		return map.getTile(l.getX(), l.getY());
 	}
@@ -132,28 +128,16 @@ public class Tile implements Cloneable, Visitable {
 	}
 	
 	public Tile getRelativeTile(Location l) {
-		//return map.getTile(l);
 		return getRelativeTile(l.getX(), l.getY());
 	}
 	
 	public Tile getRelativeTile(int x, int y) {
-//		if(x > 2 || x < 0 || y > 2 || y < 0)
-//			return null;
-//		return adjacentTiles[x+1][y+1];
 		return map.getTile(location.getX() + x, location.getY() + y);
 	}
 	
 	public String toString() {
 		return "Tile at " + this.location+"["+this.terrain+","+this.decal
 		+","+this.item+","+this.ae+"]";
-	}
-	
-	public void collectItem(PC pc) {
-		if(item != null) {
-			//OneShotItem need to be removed from the Tile
-			item.activate(pc, this);
-		}
-			//item.activate(pc);
 	}
 
 	public Tile clone() {

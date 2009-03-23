@@ -41,8 +41,6 @@ public class MapDrawer implements Visitor {
 	
 	private final static int SLOW_DOWN_FACTOR = 10;
 
-	
-
 	static{
 		for(Occupation occ: new Occupation[] {new Smasher(), new Summoner(), new Sneak()}) {
 	        String s = occ.getName().toLowerCase();
@@ -98,7 +96,7 @@ public class MapDrawer implements Visitor {
 
 	public void visitEntity(Entity entity) {
 		Iterator<String> iter = avatar.get(new Pair<String, Direction>(entity.getOccupation().getName(), entity.getFacingDirection()));
-		
+		System.out.println(iter);
 		new TexturedRectangle(ResourceLoader.getInstance().getTexture(iter.current()), size, size).render(gl);
 		iter.advance();	
 	}

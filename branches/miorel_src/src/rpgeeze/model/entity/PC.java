@@ -27,12 +27,6 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		this.skills = skills;
 	}
 	
-	public void setTile(Tile tile){
-		super.setTile(tile);
-		//this.updateCounter = super.getSpeed();
-		tile.collectItem(this);
-	}
-	
 	public boolean hasEnoughHP(int value){
 		return value <= getStats().life;
 	}
