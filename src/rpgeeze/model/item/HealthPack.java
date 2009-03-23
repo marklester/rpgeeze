@@ -19,28 +19,9 @@ public class HealthPack extends OneShotItem {
 		this.amount= 10;
 	}
 
-	public void activate(PC pc){
-//		int prev = pc.getStats().getLife();
-//		pc.getStats().incLife(amount);
-//		int end = pc.getStats().getLife() - prev;
-		pc.addHealth(amount);
+	public void use(Entity entity, Tile tile) {
+		//entity.addHealth(amount);
 		LogManager.getInstance().log("Gained " + amount + " Health", "", Message.Type.GAME);
-//		if(end != 0)
-//			
-		//might not want to kill it if it doesn't gain health from pack
-		// yeah you do, it's a one-shot item by definition
-	}
-
-	@Override
-	public void use(PC pc) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void activate(Entity entity, Tile tile) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
