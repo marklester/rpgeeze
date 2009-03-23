@@ -1,6 +1,5 @@
 package rpgeeze.model.item;
 
-import rpgeeze.model.entity.*;
 import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
 
