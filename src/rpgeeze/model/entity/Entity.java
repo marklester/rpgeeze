@@ -1,6 +1,5 @@
 package rpgeeze.model.entity;
 
-import rpgeeze.log.LogManager;
 import rpgeeze.model.Location;
 import rpgeeze.model.Tile;
 import rpgeeze.model.Visitable;
@@ -77,7 +76,7 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 	}
 	
 	public void accept(Visitor visitor) {
-		visitor.visitPC(this);
+		visitor.visitEntity(this);
 	}
 	
 	public Entity clone()
@@ -100,6 +99,9 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 	public void move(Direction direction) {
 		// TODO Auto-generated method stub
 		
+	}
+	public static Entity getEntityPrototype(String key){
+		return (Entity)prototypes.get(key).clone();
 	}
 }
 
