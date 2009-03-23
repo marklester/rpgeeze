@@ -18,10 +18,10 @@ import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
 import rpgeeze.model.entity.Entity;
 import rpgeeze.model.item.Item;
-import rpgeeze.model.occupation.Occupation;
-import rpgeeze.model.occupation.Smasher;
-import rpgeeze.model.occupation.Sneak;
-import rpgeeze.model.occupation.Summoner;
+import rpgeeze.model.entity.Occupation;
+import rpgeeze.model.entity.Smasher;
+import rpgeeze.model.entity.Sneak;
+import rpgeeze.model.entity.Summoner;
 import rpgeeze.model.terrain.Terrain;
 import rpgeeze.util.ContinuousIteratorWithElements;
 import rpgeeze.util.Direction;
@@ -44,7 +44,7 @@ public class MapDrawer implements Visitor {
 	
 
 	static{
-		for(Occupation occ: new Occupation[] {new Smasher(), new Summoner(), new Sneak()}) {
+		for(Occupation occ: new Occupation[] {new Smasher(null,null), new Summoner(null,null), new Sneak(null,null)}) {
 	        String s = occ.getName().toLowerCase();
 	        
 	        avatar.put(new Pair<String, Direction>(occ.getName(), Direction.NORTH), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
