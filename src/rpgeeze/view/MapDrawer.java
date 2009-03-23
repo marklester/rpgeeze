@@ -161,7 +161,6 @@ public class MapDrawer implements Visitor {
 
 	public void visitEntity(PC entity) {
 		Iterator<String> iter = avatar.get(new Pair<String, Direction>(entity.getOccupation().getName(), entity.getFacingDirection()));
-		//System.out.println(iter);
 		new TexturedRectangle(ResourceLoader.getInstance().getTexture(iter.current()), size, size).render(gl);
 		iter.advance();	
 	}
@@ -169,7 +168,6 @@ public class MapDrawer implements Visitor {
 	public void visitEntity(Monster entity)
 	{
 		Iterator<String> iter = mobs.get(new Pair<String, Direction>(entity.toString(), entity.getFacingDirection()));
-		//System.out.println(iter);
 		new TexturedRectangle(ResourceLoader.getInstance().getTexture(iter.current()), size, size).render(gl);
 		iter.advance();	
 	}
@@ -196,7 +194,6 @@ public class MapDrawer implements Visitor {
 		Texture texture = items.get(item.getName());
 		if(texture == null) {
 			String key = "img.item." + item.getName().toLowerCase().replaceAll(" ", "_");
-			System.out.println(key);
 			String imgKey = GameProperties.getInstance().getProperty(key);
 			texture = ResourceLoader.getInstance().getTexture(imgKey);
 			items.put(item.getName(), texture);
@@ -235,7 +232,6 @@ public class MapDrawer implements Visitor {
 		Texture texture = skills.get(s.toString());
 		if(texture == null) {
 			String key = "img.skill." + s.toString().toLowerCase().replaceAll("[ \\-]", "_");
-			System.out.println(key);
 			String imgKey = GameProperties.getInstance().getProperty(key);
 			texture = ResourceLoader.getInstance().getTexture(imgKey);
 			skills.put(s.toString(), texture);

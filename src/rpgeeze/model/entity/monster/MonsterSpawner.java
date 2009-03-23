@@ -55,8 +55,7 @@ public class MonsterSpawner{
 	}
 	protected void spawn(MonsterType type){					
 		
-		if(tile.getEntity()==null){			
-			System.out.println("Spawning a new Monster");
+		if(tile.getEntity()==null){			
 			Monster m = MonsterCreator.getInstance().createMonster(type);
 			mobs.add(m);
 			tile.setEntity(m);

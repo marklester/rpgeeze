@@ -14,8 +14,7 @@ public class AimlessAI implements ArtificialIntelligence{
 //		try {
 //			t.setEntity(entity);
 //			//entity.setTile(t);
-//		}catch(rpgeeze.model.entity.IllegalMoveException ime) { System.out.println("Tile Exception");}
-//		System.out.println("Trying to move the mob");
+//		}catch(rpgeeze.model.entity.IllegalMoveException ime) { }
 		entity.move(randLocation());
 	}
 	

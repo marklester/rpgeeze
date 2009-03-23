@@ -33,7 +33,6 @@ public class ModelConstructor{
             DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
             doc = docBuilder.parse(is);
         } catch (Exception e) {
-            System.out.println(e);
         }
     }
 
@@ -85,7 +84,6 @@ public class ModelConstructor{
 				matrix[loc.getY()][loc.getX()] = tile;
 			}
 			maps.add(new Map(matrix));
-			System.out.println(count);
 		}
 		return maps.get(0);
 	}
@@ -104,7 +102,6 @@ public class ModelConstructor{
 		
 		String xs = location.getElementsByTagName("x").item(0).getTextContent();
 		String ys = location.getElementsByTagName("y").item(0).getTextContent();
-		//System.out.println("("+xs+","+ys+")");
 		int x=0;
 		int y=0;
 		if(xs!=null)x = Integer.parseInt(xs);
@@ -130,7 +127,6 @@ public class ModelConstructor{
 			Hashtable<String,String> ht= new Hashtable<String,String>();
 			for(int i=0;i<properties.getLength();i++){
 				Element p = (Element)properties.item(i);
-				System.out.println(p.getAttribute("location"));
 				ht.put(p.getAttribute("name"),p.getAttribute("value"));
 			}
 			Item i = Item.getItem(type);

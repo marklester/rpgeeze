@@ -118,8 +118,6 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 				if(entry.getValue().equals(value))
 					entry.setValue(keyControls.get(key));
 
-				System.out.println(entry + " " + entry.getKey() + " " + entry.getValue());
-
 			}
 		}
 		keyControls.put(key, value);
