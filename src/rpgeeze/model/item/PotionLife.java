@@ -7,25 +7,32 @@ package rpgeeze.model.item;
 
 import rpgeeze.log.LogManager;
 import rpgeeze.log.Message;
-import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
-import rpgeeze.model.entity.PC;
 
-public class PotionLife extends TakeableItem {
+
+public class PotionLife extends TakeableItem implements EquippableItem{
 
 	public PotionLife() {
 		super("Potion Life");
 	}
 
-	public void use(PC pc) {
-		pc.addHealth(200);
-		pc.getInventory().removeItem(this);
+	
+	
+	public void use(Entity entity){
+		//entity.addHealth(200);
+		entity.getInventory().removeItem(this);
 		LogManager.getInstance().log("Used Heath Potion.", "", Message.Type.GAME);
 	}
 
-	@Override
-	public void activate(Entity entity, Tile tile) {
-		// TODO Auto-generated method stub
+	public PotionLife clone(){
+		return (PotionLife) super.clone();
+	}
+	
+	public void equip(Entity entity){
+		
+	}
+	
+	public void unequip(Entity entity){
 		
 	}
 }
