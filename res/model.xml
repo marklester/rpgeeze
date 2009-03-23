@@ -21255,7 +21255,7 @@
 			</location>
 		</tile>
 	</map>
-	<entity>
+	<entity entityType="Playable Character">
 		<stats>
 			<level>1</level>
 			<life>100</life>
@@ -21288,13 +21288,11 @@
 			<auxiliary>
 			</auxiliary>
 		</equipment>
-		<tile>
 			<terrain>Grass Terrain</terrain>
 			<location>
 				<x>10</x>
 				<y>12</y>
 			</location>
-		</tile>
 		<facing>
 			<location>
 				<x>1</x>
