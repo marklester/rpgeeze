@@ -34,7 +34,13 @@ public abstract class Entity extends Subject implements Cloneable, Visitable, St
 	protected Equipment equipment;
 	protected Inventory inventory;
 	private Occupation occupation;
-
+	private Tile startingTile;
+	public Tile getStartingTile() {
+		return startingTile;
+	}
+	public void setStartingTile(Tile startingTile) {
+		this.startingTile = startingTile;
+	}
 	protected Entity(){}
 	protected Entity(Occupation occ){
 		this.occupation = occ;
