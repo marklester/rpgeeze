@@ -77,7 +77,7 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 	}
 	
 	public void accept(Visitor visitor) {
-		visitor.visitEntity(this);
+		visitor.visitPC(this);
 	}
 	
 	public Entity clone()
