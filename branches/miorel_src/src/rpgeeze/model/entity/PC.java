@@ -12,10 +12,12 @@ import java.util.LinkedList;
 public class PC extends Entity { //implements { EquippableInventory, StatsModifiable {
 	private LinkedList<Skill> skills;
 	private int updateCounter;
+	private float cash;
 
 	public PC(Occupation occupation, Map map) {
 		super(occupation);
 		this.skills = occupation.getSkills();
+		cash = 0;
 	}
 	
 	public PC(){
@@ -34,9 +36,7 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 	public boolean hasEnoughMP(int value)
 	{
 		return value <= getStats().mana;
-	}
-	
-	
+	}	
 	
 	public int maxHealth()
 	{
@@ -83,6 +83,15 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 	@Override
 	public boolean isAlive() {
 		return true; //stats.getLife() <= 0;
+	}
+	
+	public double getCash() {
+		return cash;
+	}
+	
+	public void addCash(int howMuch) {
+		cash+= howMuch;
+		LogManager.getInstance().log("Money in the bank - " + howMuch, "", Message.Type.GAME);
 	}
 
 }
