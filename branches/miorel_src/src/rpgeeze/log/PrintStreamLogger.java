@@ -1,5 +1,6 @@
 package rpgeeze.log;
 
+import java.awt.TrayIcon.MessageType;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
@@ -60,9 +61,12 @@ public class PrintStreamLogger implements Logger {
 	}
 
 	public void log(Message message) {
-		stream.printf("[%s %s] %s%s", message.getAuthor(), message.getType(),
-				message.getMessage(), System.getProperty("line.separator"));
-		stream.flush();
+		if(message.getType() == Message.Type.GAME) {
+			stream.println(message.getMessage());
+			//stream.printf("[%s %s] %s%s", message.getAuthor(), message.getType(),
+			//		message.getMessage(), System.getProperty("line.separator"));
+			stream.flush();
+		}
 	}
 
 	/**
