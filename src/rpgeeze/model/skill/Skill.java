@@ -7,6 +7,7 @@ public abstract class Skill implements Cloneable{
 	private String name;
 	private String descr;	
 	private int skillLevel; 
+	private final static int MaxSkillPoints = 100;
 	private static Hashtable<String, Skill> prototypes = new Hashtable<String, Skill>();
 	
 	static {
@@ -52,23 +53,26 @@ public abstract class Skill implements Cloneable{
 	public int getPoints() {
 		return points;
 	}
+	public int getMaxSkillPoints(){
+		return MaxSkillPoints;
+	}
 	
 	public void incPoints() throws MaxPointsAllocatedException {
-		if (points < 100)
+		if (points < MaxSkillPoints)
 			points++;
 		else 
 			throw new MaxPointsAllocatedException();
 	}
 	
 	public void addPoints(int howMany) throws MaxPointsAllocatedException {
-		if (points+howMany <= 100)
+		if (points+howMany <= MaxSkillPoints)
 			points += howMany;
 		else 
 			throw new MaxPointsAllocatedException();
 	}
 	
 	public void setPoints(int howMany) {
-		if (points+howMany <= 100)
+		if (points+howMany <= MaxSkillPoints)
 			points += howMany;
 		else 
 			points = 50;
