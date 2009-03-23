@@ -10,7 +10,6 @@ import model.item.*;
 import view.Console;
 
 public class PC extends Entity implements EquippableInventory, StatsModifiable, ModelElement {
-
 	private Inventory inventory;
 	private Occupation occupation;
 	private Stats stats;
@@ -25,9 +24,23 @@ public class PC extends Entity implements EquippableInventory, StatsModifiable, 
 		this.skills = occupation.skills;
 		this.equipment = new Equipment();
 	}
-	public PC()
-	{
-		
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+	public void setOccupation(Occupation occupation) {
+		this.occupation = occupation;
+	}
+	public void setStats(Stats stats) {
+		this.stats = stats;
+	}
+	public void setSkills(SkillContainer skills) {
+		this.skills = skills;
+	}
+	public void setEquipment(Equipment equipment) {
+		this.equipment = equipment;
+	}
+	public PC(){
+		this.setEntityType("Playable Character");
 	}
 	
 	public void draw(Drawer d) {
@@ -264,10 +277,10 @@ public class PC extends Entity implements EquippableInventory, StatsModifiable, 
 	public PC clone()
 	{
 		PC pc = (PC)super.clone();
-		pc.equipment = equipment.clone();
-		pc.inventory = inventory.clone();
-		pc.occupation = occupation.clone();		
-		pc.stats = stats.clone();
+		pc.equipment = equipment == null ? null : equipment.clone();
+		pc.inventory = inventory == null ? null : inventory.clone();
+		pc.occupation = occupation == null ? null : occupation.clone();
+		pc.stats = stats == null ? null : stats.clone();
 		return pc;
 	}
 	
