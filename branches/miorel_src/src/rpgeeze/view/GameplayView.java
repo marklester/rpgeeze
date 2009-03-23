@@ -11,6 +11,7 @@ import javax.media.opengl.GL;
 import com.sun.opengl.util.j2d.TextRenderer;
 
 import rpgeeze.GameManager;
+import rpgeeze.GameProperties;
 import rpgeeze.dp.Iterator;
 import rpgeeze.gl.GLUtil;
 import rpgeeze.gl.HighlightableWrapper;
@@ -24,20 +25,25 @@ import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
 import rpgeeze.model.entity.Equipment;
 import rpgeeze.model.entity.Inventory;
+import rpgeeze.model.entity.Stats;
 import rpgeeze.model.item.Item;
 import rpgeeze.model.item.TakeableItem;
 import rpgeeze.util.ArrayIterator;
 import rpgeeze.util.ListIterator;
+import rpgeeze.util.ResourceLoader;
 
 public class GameplayView extends View<GameplayView.State> {
-	private TextRenderer renderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.PLAIN, 24), true, true);
+	private TextRenderer renderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.PLAIN, 20), true, true);
 
 	private final static double MAP_Z = -8;
 	private final static double INVENTORY_Z = -5;
 	private final static double INV_ITEM_SIZE = 0.6;
-
+	private final Font font = ResourceLoader.getInstance().getFont(GameProperties.getInstance().getProperty("app.font"), Font.PLAIN, 16);
 	private BrushColorChange fadeIn;
 	private Text fpsText;
+	private Text row1,row2,row3,row4,row5,row6,row7;
+	private Stats s;
+	
 
 	private MapDrawer mapDrawer = new MapDrawer();
 
@@ -50,16 +56,28 @@ public class GameplayView extends View<GameplayView.State> {
 	private List<Rectangle> equipmentRects = new ArrayList<Rectangle>();
 	
 	private boolean inventoryVisible = true;
+	private boolean statsVisible = true;
 
 	public GameplayView(GameManager manager) {
 		super(manager);
 		fadeIn = new BrushColorChange(new Color(0, 0, 0, 1f), new Color(1, 1, 1, 1f), 1);
 		fpsText = new Text("", Color.RED, renderer, 0.0025f);
+		s = manager.getModel().getAvatar().getStats();
+
+		
+		row1 = new Text("1", Color.RED, renderer, 0.0025f);
+		row2 = new Text("2", Color.RED, renderer, 0.0025f);
+		row3 = new Text("3", Color.RED, renderer, 0.0025f);
+		row4 = new Text("4", Color.RED, renderer, 0.0025f);
+		row5 = new Text("5", Color.RED, renderer, 0.0025f);
+		row6 = new Text("6", Color.RED, renderer, 0.0025f);
+		row7 = new Text("7", Color.RED, renderer, 0.0025f);
+		
 
 		TexturedRectangle prototype = new TexturedRectangle(null, INV_ITEM_SIZE, INV_ITEM_SIZE);
 		prototype.setColor(Color.WHITE);
 		prototype.setXYZ(0, 0, INVENTORY_Z);
-
+		
 		GLUtil glutil = new GLUtil();
 		inventory = glutil.objectGrid(prototype, 5, 5, 1.2 * prototype.getWidth(), -1.2 * prototype.getHeight());
 		List<String> invList = new ArrayList<String>();
@@ -93,6 +111,10 @@ public class GameplayView extends View<GameplayView.State> {
 		equipmentRects.get(6).setVisible(false);
 		equipmentRects.get(8).setVisible(false);
 		
+		
+		
+		
+		
 		put(fpsText, null);
 
 		changeState(State.NEW);
@@ -108,6 +130,18 @@ public class GameplayView extends View<GameplayView.State> {
 
 	public void toggleInventoryVisible() {
 		setInventoryVisible(!getInventoryVisible());
+	}
+	
+	public boolean getStatsVisible(){
+		return statsVisible;
+	}
+	
+	public void setStatsVisible(boolean value){
+		this.statsVisible = value;
+	}
+	
+	public void toggleStatsVisible(){
+		setStatsVisible(!getStatsVisible());
 	}
 
 	public void render(GL gl, Point point) {
@@ -244,6 +278,46 @@ public class GameplayView extends View<GameplayView.State> {
 			equipment.current().setVisible(false);
 			equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getBoots()));
 		}
+		
+		if(getStatsVisible()){
+			
+			row1.setText("Lives " + s.getPrimary().getLivesLeft() +  " Strength " + s.getPrimary().getStrength());
+			row2.setText("Intellect " + s.getPrimary().getIntellect() + " Hardiness " + s.getPrimary().getStrength());
+			row3.setText("Agility " + s.getPrimary().getAgility() + " Experience " + s.getPrimary().getExperience());
+			row4.setText("Level " + s.getLevel() + " Life " + s.getLife());
+			row5.setText("Mana " + s.getMana() + " Offense " + s.getOffensiveRating());
+			row6.setText("Defense " + s.getDefensiveRating() + " Armor " + s.getArmorRating());
+			row7.setText("Movement " + s.getMovement());
+			
+			row1.setXYZ(glutil.getViewportAspectRatio() - row1.getWidth() - row1.getHeight() / 2, 1 - 3 * row1.getHeight() / 2, -1);
+			
+			
+			row2.setXYZ(glutil.getViewportAspectRatio() - row2.getWidth() - row2.getHeight() / 2, row1.getY() - .075, -1);
+			
+			
+			row3.setXYZ(glutil.getViewportAspectRatio() - row3.getWidth() - row3.getHeight() / 2, row2.getY() - .075, -1);
+			
+			
+			row4.setXYZ(glutil.getViewportAspectRatio() - row4.getWidth() - row4.getHeight() / 2, row3.getY() - .075, -1);
+			
+			
+			row5.setXYZ(glutil.getViewportAspectRatio() - row5.getWidth() - row5.getHeight() / 2, row4.getY() - .075, -1);
+			
+			
+			row6.setXYZ(glutil.getViewportAspectRatio() - row6.getWidth() - row6.getHeight() / 2, row5.getY() - .075, -1);
+			
+			
+			row7.setXYZ(glutil.getViewportAspectRatio() - row7.getWidth() - row7.getHeight() / 2, row6.getY() - .075, -1);
+			
+			row1.render(gl);
+			row2.render(gl);
+			row3.render(gl);
+			row4.render(gl);
+			row5.render(gl);
+			row6.render(gl);
+			row7.render(gl);
+			glutil.color(fadeIn.getFinalColor());
+		}
 
 		
 		
@@ -260,11 +334,11 @@ public class GameplayView extends View<GameplayView.State> {
 		
 		
 		
-		fpsText.setVisible(getState() == State.NORMAL);
-		if(getState() == State.NORMAL) {
-			fpsText.setText(String.format("FPS: %.1f", getManager().getFPS()));
-			fpsText.setXYZ(glutil.getViewportAspectRatio() - fpsText.getWidth() - fpsText.getHeight() / 2, 1 - 3 * fpsText.getHeight() / 2, -1);
-		}
+		//fpsText.setVisible(getState() == State.NORMAL);
+		//if(getState() == State.NORMAL) {
+		//fpsText.setText(String.format("FPS: %.1f", getManager().getFPS()));
+			//fpsText.setXYZ(glutil.getViewportAspectRatio() - fpsText.getWidth() - fpsText.getHeight() / 2, 1 - 3 * fpsText.getHeight() / 2, -1);
+		//}
 		
 		renderObjects(gl);
 	}
