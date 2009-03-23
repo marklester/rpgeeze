@@ -12,9 +12,9 @@ import rpgeeze.model.entity.PC;
  */
 
 
-public class Mana extends TakeableItem {
-	public Mana() {
-		super("Mana");
+public class ManaPotion extends TakeableItem {
+	public ManaPotion() {
+		super("Mana Potion");
 	}
 
 	public void use(Entity entity) {

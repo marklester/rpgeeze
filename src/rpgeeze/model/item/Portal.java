@@ -15,7 +15,7 @@ public class Portal extends InteractiveItem {
 	}
 	
 	public Portal(Location loc) {
-		super("Portal Item");
+		super("Portal");
 		this.where = loc;
 	}
 	

@@ -391,7 +391,7 @@ public class GameManager extends DelegatingEventAdapter
 		//matrix[1][6].setItem(new ManaPotion());
 		//matrix[1][0].setItem(new Portal());
 		matrix[2][6].setItem(new HealthPack());
-		matrix[1][6].setItem(new Mana());
+		matrix[1][6].setItem(new ManaPotion());
 		matrix[1][0].setItem(new Portal());
 		matrix[1][8].setItem(new RedArmor());
 		matrix[1][9].setItem(new Shield());
