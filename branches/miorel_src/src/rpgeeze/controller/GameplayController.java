@@ -16,11 +16,14 @@ import rpgeeze.log.Message;
 import rpgeeze.model.Model;
 import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
+import rpgeeze.model.entity.Occupation;
+import rpgeeze.model.entity.Sneak;
 import rpgeeze.util.AudioThread;
 import rpgeeze.util.Direction;
 import rpgeeze.view.GameplayView;
 import rpgeeze.view.OptionsMenuView;
 import rpgeeze.model.entity.PC;
+import rpgeeze.model.item.EquippableItem;
 
 public class GameplayController extends Controller<GameplayView> {
 	private MouseEvent prev = null;
@@ -71,26 +74,43 @@ public class GameplayController extends Controller<GameplayView> {
 				PC pc = getManager().getModel().getAvatar();
 				Direction facing = getManager().getModel().getAvatar().getFacingDirection();
 				Tile next = pc.getTile().adjacentTile(facing);
-				while (next.isPassable()) {
+				Occupation occ = pc.getOccupation();
+				String weap = pc.getEquipment().getWeapon().toString();
+				
+				if (occ instanceof Sneak) {
+					//These are range weapons
+					while (next.isPassable()) {
+						if (next.getEntity() != null) {
+							try {
+								AudioThread at = AudioThread.getInstance(weap, AudioThread.CLIP);
+								at.start();
+								
+								next.getEntity().getStats().attack(pc.getStats().getOffensiveRating());
+								LogManager.getInstance().log("You nailed that punk!", "", Message.Type.GAME);
+								break;
+							}
+							catch (Exception e) { LogManager.getInstance().log("Error playing sound for the weapon", "", Message.Type.ERROR); }
+						}
+						next = next.adjacentTile(facing);
+					}
+				}
+				else {
 					if (next.getEntity() != null) {
 						try {
-							String weap = pc.getEquipment().getWeapon().toString();
 							AudioThread at = AudioThread.getInstance(weap, AudioThread.CLIP);
 							at.start();
 							
 							next.getEntity().getStats().attack(pc.getStats().getOffensiveRating());
 							LogManager.getInstance().log("You nailed that punk!", "", Message.Type.GAME);
-							break;
 						}
 						catch (Exception e) { LogManager.getInstance().log("Error playing sound for the weapon", "", Message.Type.ERROR); }
 					}
-					next = next.adjacentTile(facing);
 				}
 			}
 		});
 		actions.put("Use Spell", new Command() {
 			public void execute() {
-//				System.out.print("Use Spell");
+				//System.out.print("Use Spell");
 			}
 		});
 
@@ -161,7 +181,7 @@ public class GameplayController extends Controller<GameplayView> {
 					getManager().getModel().queueCommand(new Command() {
 						public void execute() {
 							Entity avatar = getManager().getModel().getAvatar();
-//							System.out.println(i);
+							//System.out.println(i);
 							switch(i) {
 							case 1:
 								avatar.getEquipment().getHead().unequip(avatar);
