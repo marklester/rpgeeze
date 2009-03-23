@@ -212,7 +212,7 @@ public class Stats implements Cloneable {
 	
 	public void attack(int offensiveRating)
 	{
-		int life = offensiveRating / this.defensiveRating * 15;
+		int life = (int)((double)offensiveRating / (double)this.defensiveRating) * 15;
 		this.addHealth(0 - life);
 	}
 	

@@ -7,10 +7,11 @@ public class Soldier extends Monster {
 	
 	public Soldier()
 	{
-		super();		
+		this.setEntityType("Soldier");		
 		this.setAI(new ContainedAI(3));
 		this.inventory = new Inventory(0);
 		this.stats = new Stats();
+		
 		setStats(0);
 	}
 	public Soldier(int level)
@@ -38,6 +39,6 @@ public class Soldier extends Monster {
 	}
 	public boolean isAlive()
 	{
-		return stats.life >= 0;
+		return stats.life > 0;
 	}
 }
