@@ -8,7 +8,7 @@ public class Soldier extends Monster {
 	public Soldier()
 	{
 		super();		
-		this.setAI(new ContainedAI(1));
+		this.setAI(new ContainedAI(3));
 		this.inventory = new Inventory(0);
 		this.stats = new Stats();
 		setStats(0);

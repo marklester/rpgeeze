@@ -7,8 +7,8 @@ import java.util.LinkedList;
 
 public class MonsterSpawner{
 	private MonsterType type;
-	private int spawnRate = 800;
-	private int counter = 0;
+	private int spawnRate = 700;
+	private int counter = 5;
 	private int mobLimit = 3;
 	private Tile tile;
 	private LinkedList<Monster> mobs;
@@ -18,6 +18,7 @@ public class MonsterSpawner{
 		this.tile = t;
 		this.type = type;
 		mobs = new LinkedList<Monster>();
+		mobLimit = 3;
 	}	
 	public void setTile(Tile t){
 		tile = t;
@@ -37,19 +38,22 @@ public class MonsterSpawner{
 	public void update(){
 		
 		
-		if(counter-- <= 0){
+		if(counter-- <= 0)
+		{
 			java.util.Iterator<Monster> iter = mobs.iterator();
 			while(iter.hasNext())
+			{
 				if(!iter.next().isAlive())
 					iter.remove();
-			if(mobs.size() <= mobLimit)			
+			}
+			if(mobs.size() < mobLimit)	
+			{
 				this.spawn(type);
+			}
 			counter = spawnRate;
 		}
 	}
-	protected void spawn(MonsterType type){	
-		
-		
+	protected void spawn(MonsterType type){					
 		
 		if(tile.getEntity()==null){			
 			System.out.println("Spawning a new Monster");
