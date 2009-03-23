@@ -1,10 +1,14 @@
 package rpgeeze.model.entity;
 
+import rpgeeze.log.LogManager;
+import rpgeeze.log.Message;
 import rpgeeze.model.Location;
 import rpgeeze.model.Tile;
 import rpgeeze.model.Visitable;
 import rpgeeze.model.Visitor;
+import rpgeeze.model.item.EquippableItem;
 import rpgeeze.model.item.Item;
+import rpgeeze.model.item.TakeableItem;
 import rpgeeze.util.Direction;
 import java.util.Hashtable;
 import rpgeeze.util.Subject;
@@ -24,6 +28,8 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 	private Direction facing;
 	private Tile tile;
 	private String entityType;
+	protected Equipment equipment;
+	protected Inventory inventory;
 	
 	public void move(Location l)
 	{
@@ -94,6 +100,54 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 	public String getEntityType(){
 		return entityType;
 	}
+	
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+	
+	public void setEquipment(Equipment equipment) {
+		this.equipment = equipment;
+	}
+	
+	public Inventory getInventory() {
+		return inventory;
+	}
+	
+	public void addItem(TakeableItem item){
+		inventory.addItem(item, true);
+	}
+	
+	public void addItemSilently(TakeableItem item){
+		inventory.addItem(item, false);
+	}
+	
+	private void dropItem(int index) {
+		if(!getTile().hasItem()) {
+			Item i = this.inventory.removeItemAt(index);
+			getTile().setItem(i);
+			LogManager.getInstance().log("Dropped " + i, "MODEL", Message.Type.GAME);
+		}
+	}
+
+	public void equipActionAtIndex(int index) {
+		//from action listener in viewer
+		if(index >= inventory.itemCount())
+			return;
+		inventory.getItemAt(index).activate(this, this.getTile());	
+	}
+	
+	public void dropActionAtIndex(int index) {
+		//from action listener in viewer
+		if(index >= inventory.itemCount())
+			return;	
+		//Drop item here
+		dropItem(index);
+	}
+	
+	public void removeItem(Item item){
+		inventory.removeItem(item);
+	}
+	
 	public abstract boolean isAlive();
 	public abstract void update();
 
@@ -107,6 +161,107 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 	
 	public boolean pickUp(Item item) {
 		return false;
+	}
+	
+	public void equipHead(EquippableItem i) {
+		if(equipment.getHead() == i){	
+		}else{
+			inventory.removeItem((TakeableItem) i);
+			unequipHead();
+			equipment.setHead(i);
+		}
+	}
+
+	public void equipBoots(EquippableItem i) {
+		if(equipment.getBoots() == i){	
+		}else{
+			inventory.removeItem((TakeableItem) i);
+			unequipBoots();
+			equipment.setBoots(i);
+			i.equip(this);
+		}
+	}
+	
+	public void equipArmor(EquippableItem i) {
+		if(equipment.getArmor() == i){	
+		}else{
+			inventory.removeItem((TakeableItem) i);
+			unequipArmor();
+			equipment.setArmor(i);
+			i.equip(this);
+		}
+	}
+
+	public void equipWeapon(EquippableItem i) {
+		if(equipment.getWeapon() == i){	
+		}else{
+			inventory.removeItem((TakeableItem) i);
+			unequipWeapon();
+			equipment.setWeapon(i);
+			i.equip(this);
+		}
+	}
+//logic for switching here
+	public void equipAuxiliary(EquippableItem i) {
+		if(equipment.getAuxiliary() == i)
+			return;
+		inventory.removeItem((TakeableItem) i);
+		if(equipment.getAuxiliary() != null){
+			inventory.addItem((TakeableItem) equipment.getAuxiliary(),false);
+		    equipment.setAuxiliary(i);
+		}
+		if(equipment.getWeapon() == null){
+			//equipment.getWeapon().equip(this);
+			//inventory.removeItem((TakeableItem) i);
+		}
+	}
+
+	public void unequipHead() {
+		if(equipment.getHead() != null){
+			inventory.addItem((TakeableItem) equipment.getHead(),false);
+			equipment.getHead().unequip(this);
+		}
+		equipment.setHead(null);
+	}
+
+	public void unequipBoots() {
+		if(equipment.getBoots() != null){
+			inventory.addItem((TakeableItem) equipment.getBoots(),false);
+			equipment.getBoots().unequip(this);
+		}
+		equipment.setBoots(null);
+	}
+
+	public void unequipArmor() {
+		if(equipment.getArmor() != null){
+			inventory.addItem((TakeableItem) equipment.getArmor(),false);
+			equipment.getArmor().unequip(this);
+		}
+		equipment.setArmor(null);
+	}
+	
+	public void unequipWeapon() {
+		if(equipment.getWeapon() != null){
+			inventory.addItem((TakeableItem) equipment.getWeapon(),false);
+			equipment.getWeapon().unequip(this);
+		}
+		equipment.setWeapon(null);
+	}
+	
+	public void unequipAuxiliary() {
+		if(equipment.getAuxiliary() != null){
+			inventory.addItem((TakeableItem) equipment.getAuxiliary(),false);
+			equipment.getAuxiliary().unequip(this);
+		}
+		equipment.setAuxiliary(null);
+	}
+	
+	public void unequipAll(){
+		unequipHead();
+		unequipBoots();
+		unequipArmor();
+		unequipWeapon();
+		unequipAuxiliary();
 	}
 }
 
