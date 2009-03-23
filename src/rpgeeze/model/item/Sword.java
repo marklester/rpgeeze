@@ -10,14 +10,11 @@ import rpgeeze.log.Message;
 import rpgeeze.model.entity.Entity;
 
 
-public class Sword extends CloseWeapon{
+public class Sword extends CloseWeapon {
 	public Sword() {
 		super("Sword");
 	}
-	public void use(Entity entity) {
-		entity.equipWeapon(this);
-		LogManager.getInstance().log("Equipped " + this, "MODEL", Message.Type.GAME);
-	}
+
 	public Sword clone(){
 		return (Sword) super.clone();
 	}

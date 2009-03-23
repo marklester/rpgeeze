@@ -11,8 +11,4 @@ public class Crossbow extends RangedWeapon {
 	public Crossbow clone(){
 		return (Crossbow) super.clone();
 	}
-	
-	public void use(Entity entity) {
-		equip(entity);	
-	}
 }

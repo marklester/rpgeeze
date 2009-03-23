@@ -10,26 +10,9 @@ import rpgeeze.log.Message;
 import rpgeeze.model.entity.Entity;
 
 
-public class RedArmor extends TakeableItem implements EquippableItem {
+public class RedArmor extends EquipmentArmor {
 	public RedArmor() {
 		super("Red Armor");
 		setPrice(50);
-	}
-
-	public void use(Entity entity) {
-		entity.equipArmor(this);
-		LogManager.getInstance().log("Armor has been equipped", "", Message.Type.GAME);
-	}
-	
-	public RedArmor clone(){
-		return (RedArmor) super.clone();
-	}
-	
-	public void unequip(Entity entity){
-		
-	}
-	
-	public void equip(Entity entity){
-		
 	}
 }

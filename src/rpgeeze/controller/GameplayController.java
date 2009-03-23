@@ -119,19 +119,19 @@ public class GameplayController extends Controller<GameplayView> {
 							System.out.println(i);
 							switch(i) {
 							case 1:
-								avatar.unequipHead();
+								avatar.getEquipment().getHead().unequip(avatar);
 								break;
 							case 3:
-								avatar.unequipAuxiliary();
+								avatar.getEquipment().getAuxiliary().unequip(avatar);
 								break;
 							case 4:
-								avatar.unequipArmor();
+								avatar.getEquipment().getArmor().unequip(avatar);
 								break;
 							case 5:
-								avatar.unequipWeapon();
+								avatar.getEquipment().getWeapon().unequip(avatar);
 								break;
 							case 7:
-								avatar.unequipBoots();
+								avatar.getEquipment().getBoots().unequip(avatar);
 								break;
 							}
 						}

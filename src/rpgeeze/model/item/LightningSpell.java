@@ -10,13 +10,9 @@ import rpgeeze.log.Message;
 import rpgeeze.model.entity.Entity;
 
 
-public class LightningSpell extends SpellWeapon{
+public class LightningSpell extends SpellWeapon {
 	public LightningSpell() {
 		super("Lightning Spell");
-	}
-	public void use(Entity entity) {
-		entity.equipWeapon(this);
-		LogManager.getInstance().log("Equipped " + this, "MODEL", Message.Type.GAME);
 	}
 	public LightningSpell clone(){
 		return (LightningSpell) super.clone();
