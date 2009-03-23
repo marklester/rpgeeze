@@ -180,6 +180,27 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 		return false;
 	}
 	
+	public void addHealth(int value)
+	{
+		getStats().addHealth(value);
+	}
+
+	public void addMana(int value)
+
+	{
+		getStats().addMana(value);
+	}
+	
+	public void addMovement(int value)
+ 	{
+		getStats().addMovement(value);
+	}
+	
+	public void addLevel(int value)
+	{
+		getStats().addLevel(value);
+	}
+	
 	public void equipHead(EquippableItem i) {
 		if(equipment.getHead() == i){	
 		}else{
