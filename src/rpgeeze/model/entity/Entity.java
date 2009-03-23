@@ -275,8 +275,10 @@ public abstract class Entity extends Subject implements Cloneable, Visitable, St
 				inventory.removeItem((TakeableItem) i);
 			}
 			else{
+				EquippableItem e = unequipWeapon();
 				equipment.setAuxiliary(i);
 				inventory.removeItem((TakeableItem) i);
+				equipWeapon(e);
 			}
 		}
 	}
@@ -306,12 +308,15 @@ public abstract class Entity extends Subject implements Cloneable, Visitable, St
 		equipment.setArmor(null);
 	}
 	
-	public void unequipWeapon() {
+	public EquippableItem unequipWeapon() {
+		EquippableItem e = null;
 		if(equipment.getWeapon() != null){
+			e = equipment.getWeapon();
 			inventory.addItem((TakeableItem) equipment.getWeapon(),false);
 			equipment.getWeapon().unequip(this);
 		}
 		equipment.setWeapon(null);
+		return e;
 	}
 	
 	public void unequipAuxiliary() {
