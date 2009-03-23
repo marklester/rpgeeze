@@ -12,7 +12,8 @@ public class Decal implements Visitable, Cloneable {
 			new GoldStar(),
 			new RedCross(),
 			new SkullAndCrossbones(),
-			new Fire()
+			new Fire(),
+			new TrapDecal()
 		})
 			prototypes.put(d.getName(), d);
 	}
