@@ -17,17 +17,10 @@ public class Mana extends TakeableItem {
 		super("Mana");
 	}
 
-	public void use(PC pc) {
-//		pc.addMana(200);
-		pc.removeItem(this);
+	public void use(Entity entity) {
+//		entity.addMana(200);
+		entity.removeItem(this);
 		LogManager.getInstance().log("Used Mana Potion.", "MODEL", Message.Type.GAME);
 	}
 
-	public void activate(Entity entity, Tile tile) {
-		
-	}
-
-	public void activate(PC pc) {
-		
-	}
 }
