@@ -6,5 +6,6 @@ public class LittleGun extends RangedWeapon {
 	public LittleGun() {
 		super("Little Gun");
 		setPrice(75);
+		setEffectiveness(20);
 	}
 }

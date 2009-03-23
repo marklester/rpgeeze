@@ -13,5 +13,6 @@ import rpgeeze.model.entity.Entity;
 public class Axe extends CloseWeapon{
 	public Axe() {
 		super("Axe");
+		this.setEffectiveness(30);
 	}
 }
