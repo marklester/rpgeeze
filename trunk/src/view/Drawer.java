@@ -14,6 +14,7 @@ import model.entity.Smasher;
 import model.entity.Sneak;
 import model.entity.Summoner;
 import model.entity.PC;
+import model.entity.*;
 import model.Location;
 import model.Map;
 import model.Model;
@@ -35,6 +36,10 @@ public class Drawer implements Observer {
 	private static InventoryView inventoryView;
 	private static SkillView skillView;
 	private static Hashtable<Pair<Occupation, Direction>, Iterator<Image>> avatar = new Hashtable<Pair<Occupation, Direction>, Iterator<Image>>();
+	private static Hashtable<Pair<Monster, Direction>, Iterator<Image>> monsters = new Hashtable<Pair<Monster, Direction>, Iterator<Image>>();
+	private static Hashtable<String, Iterator<Image>>  soldier = new Hashtable<String, Iterator<Image>>();
+	private static Hashtable<String, Iterator<Image>>  rat = new Hashtable<String, Iterator<Image>>();
+	private static Hashtable<String, Iterator<Image>>  skeleton = new Hashtable<String, Iterator<Image>>();
 	private final Queue<Map.Matrix> mapStateQueue = new LinkedList<Map.Matrix>();
 
 	private Graphics2D graphics;// For Transparency
@@ -78,6 +83,92 @@ public class Drawer implements Observer {
 			avatar.put(new Pair<Occupation, Direction>(occ, Direction.SOUTHEAST), avatar.get(new Pair<Occupation, Direction>(occ, Direction.SOUTH)));
 			avatar.put(new Pair<Occupation, Direction>(occ, Direction.SOUTHWEST), avatar.get(new Pair<Occupation, Direction>(occ, Direction.SOUTH)));
 		}
+		
+		for(Monster monster: new Monster[] {new Soldier(), new Rat(), new Skeleton()}) {
+			String s = monster.toString().toLowerCase();
+			
+			monsters.put(new Pair<Monster, Direction>(monster, Direction.NORTH), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkNorth1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkNorth2.png")
+			), SLOW_DOWN_FACTOR));
+	
+			monsters.put(new Pair<Monster, Direction>(monster, Direction.SOUTH), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkSouth1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkSouth2.png")
+			), SLOW_DOWN_FACTOR));
+			
+			monsters.put(new Pair<Monster, Direction>(monster, Direction.EAST), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkEast1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkEast2.png")
+			), SLOW_DOWN_FACTOR));
+	
+			monsters.put(new Pair<Monster, Direction>(monster, Direction.WEST), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkWest1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkWest2.png")
+			), SLOW_DOWN_FACTOR));
+	
+//			monsters.put(new Pair<Monster, Direction>(monster, Direction.NORTHEAST), monsters.get(new Pair<Monster, Direction>(monster, Direction.NORTH)));
+//			monsters.put(new Pair<Monster, Direction>(monster, Direction.NORTHWEST), monsters.get(new Pair<Monster, Direction>(monster, Direction.NORTH)));
+//			monsters.put(new Pair<Monster, Direction>(monster, Direction.SOUTHEAST), monsters.get(new Pair<Monster, Direction>(monster, Direction.SOUTH)));
+//			monsters.put(new Pair<Monster, Direction>(monster, Direction.SOUTHWEST), monsters.get(new Pair<Monster, Direction>(monster, Direction.SOUTH)));
+		}
+		
+		String s = new Soldier().toString().toLowerCase();
+		
+		soldier.put(Direction.NORTH.toString(), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkNorth1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkNorth2.png")
+			), SLOW_DOWN_FACTOR));
+		soldier.put(Direction.SOUTH.toString(), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkSouth1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkSouth2.png")
+			), SLOW_DOWN_FACTOR));
+		soldier.put(Direction.EAST.toString(), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkEast1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkEast2.png")
+			), SLOW_DOWN_FACTOR));
+		soldier.put(Direction.WEST.toString(), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkWest1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkWest2.png")
+			), SLOW_DOWN_FACTOR));
+		
+		s = new Rat().toString().toLowerCase();
+		
+		rat.put(Direction.NORTH.toString(), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkNorth1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkNorth2.png")
+			), SLOW_DOWN_FACTOR));
+		rat.put(Direction.SOUTH.toString(), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkSouth1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkSouth2.png")
+			), SLOW_DOWN_FACTOR));
+		rat.put(Direction.EAST.toString(), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkEast1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkEast2.png")
+			), SLOW_DOWN_FACTOR));
+		rat.put(Direction.WEST.toString(), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkWest1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkWest2.png")
+			), SLOW_DOWN_FACTOR));
+		
+		s = new Skeleton().toString().toLowerCase();
+		
+		skeleton.put(Direction.NORTH.toString(), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkNorth1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkNorth2.png")
+			), SLOW_DOWN_FACTOR));
+		skeleton.put(Direction.SOUTH.toString(), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkSouth1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkSouth2.png")
+			), SLOW_DOWN_FACTOR));
+		skeleton.put(Direction.EAST.toString(), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkEast1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkEast2.png")
+			), SLOW_DOWN_FACTOR));
+		skeleton.put(Direction.WEST.toString(), new MultiplyIterator<Image>(new ContinuousIterator<Image>(
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkWest1.png"),
+				ResourceLoader.getInstance().getImage("img/" + s + "/" + s + "WalkWest2.png")
+			), SLOW_DOWN_FACTOR));		
 	}
 
 	public static Drawer getInstance() {
@@ -156,6 +247,27 @@ public class Drawer implements Observer {
 			
 	public void drawEntity(PC entity) {
 		Iterator<Image> iter = avatar.get(new Pair<Occupation, Direction>(entity.getOccupation(), entity.getFacingDirection()));
+		doDrawImage(iter.current());
+		iter.advance();
+	}
+	
+	public void drawEntity(Soldier entity)
+	{
+		Iterator<Image> iter = soldier.get(entity.getFacingDirection().toString());
+		doDrawImage(iter.current());
+		iter.advance();
+	}
+	
+	public void drawEntity(Rat entity)
+	{
+		Iterator<Image> iter = rat.get(entity.getFacingDirection().toString());
+		doDrawImage(iter.current());
+		iter.advance();
+	}
+	
+	public void drawEntity(Skeleton entity)
+	{
+		Iterator<Image> iter = skeleton.get(entity.getFacingDirection().toString());
 		doDrawImage(iter.current());
 		iter.advance();
 	}

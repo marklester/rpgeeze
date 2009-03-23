@@ -12,7 +12,12 @@ public abstract class EntityEventManager{
 	
 	public void update()
 	{
-		//updateStatusOfAvatar();		
+//		if(!entity.isAlive())
+//		{
+//			EntityManagerCollection.getInstance().remove(this);
+//			entity.getTile().removeEntity();
+//		}
+		//updateStatusOfAvatar();
 	}
 	
 	public void move(Location loc)
@@ -29,12 +34,12 @@ public abstract class EntityEventManager{
 		return entity;
 	}
 	
-//	public void updateStatusOfAvatar() {
+	public void updateStatusOfAvatar() {
 //		//He's dead, so drop a life and respawn
 //		if(!entity.isAlive()) {
-//			avatar.decALife();
-//			//Now check if there are any lives remaining
-//			int numOfLivesLeft = avatar.getStats().getPrimary().livesLeft; 
+//			entity.decLife();
+////			Now check if there are any lives remaining
+//			int numOfLivesLeft = entity.getStats().getPrimary().livesLeft; 
 //			
 //			if(numOfLivesLeft == 0)
 //				endGame();
@@ -42,9 +47,9 @@ public abstract class EntityEventManager{
 //				respawn(numOfLivesLeft);
 //		}
 //		//Is the avatar now on a AE? If so, apply it!
-//		else if(avatar.getTile().hasAE())
-//			avatar.getTile().getAE().applyEffect(avatar);
-//	}
+//		else if(entity.getTile().hasAE())
+//			entity.getTile().getAE().applyEffect(entity);
+	}
 
 	public abstract void killOnce();
 

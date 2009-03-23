@@ -2,13 +2,7 @@ package model.ai;
 
 import model.entity.NPC;
 
-public class ContainedAI implements ArtificialIntelligence {
-	private int bound;
-	
-	public ContainedAI(int bound)
-	{
-		this.bound = bound;
-	}
+public class NoAI implements ArtificialIntelligence {
 
 	@Override
 	public void compute(NPC entity) {

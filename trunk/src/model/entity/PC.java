@@ -284,7 +284,7 @@ public class PC extends Entity implements EquippableInventory, StatsModifiable, 
 		return pc;
 	}
 	
-	public static PC fromXml(Occupation occ, Map map, String xml) {
+	public static PC fromXml(Occupation occ, String xml) {
 		PC ret = fromXml(xml);
 		if(occ != null) 
 		{
@@ -292,7 +292,6 @@ public class PC extends Entity implements EquippableInventory, StatsModifiable, 
 		 ret.stats = (Stats) ret.occupation.stats.clone();
 		 ret.skills = ret.occupation.skills;
 		}
-		//ret.map = map;
 		return ret;
 	}
 	
