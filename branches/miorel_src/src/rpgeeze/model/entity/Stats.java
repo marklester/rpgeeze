@@ -177,14 +177,16 @@ public class Stats implements Cloneable {
 
 	public void addHealth(int value)
 	{
-		life += value;
-		if( life < 0)
+		
+		this.life += value;
+		if( this.life < 0)
 		{
-			life = 0;
+			this.life = 0;
 			//TODO: alert someone that the character has died
+			
 		}
-		if ( life > 0)
-			life = MAX_LIFE;
+		if ( this.life > MAX_LIFE)
+			this.life = MAX_LIFE;
 	}
 	
 	public void addMovement(int value)
