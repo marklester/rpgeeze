@@ -41,28 +41,29 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 		this.equipment = new Equipment();
 		this.stats = occupation.getStats().clone();
 	}
-	public void move(Location l)
-	{
-		Tile from = this.getTile();
-		if(from.hasAE()){
-			from.getAE().setMessageSentFlag(false);
-		}
+
+//	public void move(Location l)
+//	{
+//		Tile from = this.getTile();
+//		if(from.hasAE()){
+//			from.getAE().setMessageSentFlag(false);
+//		}
 		
-		int newX = from.getLocation().getX() + l.getX();
-		int newY = from.getLocation().getY() + l.getY();
+//		int newX = from.getLocation().getX() + l.getX();
+//		int newY = from.getLocation().getY() + l.getY();
 		
 		//Tile to = map.getTile(newX, newY);
 		
-		Tile to = from.getAbsoluteTile(newX, newY);
+//		Tile to = from.getAbsoluteTile(newX, newY);
 		
 		// watch out for race conditions here
-		to.setEntity(this);
-		this.setFacingDirection(l.closestDirection());		
-	}
+//		to.setEntity(this);
+//		this.setFacingDirection(l.closestDirection());		
+//	}
 	
-	/*
+	
 	public void move(int xOffset, int yOffset) {
-		Tile destination = map.getTile(tile.getX() + xOffset, tile.getY() + yOffset);
+		Tile destination = getTile().getRelativeTile(xOffset, yOffset);//tile.getX() + xOffset, tile.getY() + yOffset);
 		try {
 			destination.setEntity(this);
 			Tile oldTile = tile;
@@ -73,7 +74,7 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 			LogManager.getInstance().log("Entity move request refused: " + e.getMessage(), "MODEL");
 		}
 	}
-	*/
+	
 	
 	public void setFacingDirection(Direction dir){
 		this.facing = dir;
@@ -97,7 +98,8 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 	public Stats getStats(){
 		return stats;
 	}
-	public void accept(Visitor visitor) {
+	
+	public final void accept(Visitor visitor) {
 		visitor.visitEntity(this);
 	}
 	
@@ -169,9 +171,10 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 	public abstract void update();
 
 	public void move(Direction direction) {
-		// TODO Auto-generated method stub
-		
+		setFacingDirection(direction);
+		move(direction.getX(), direction.getY());
 	}
+	
 	public static Entity getEntityPrototype(String key){
 		return (Entity)prototypes.get(key).clone();
 	}
