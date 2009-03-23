@@ -1,7 +1,15 @@
 package rpgeeze.model.entity;
 
+import rpgeeze.model.skill.SkillContainer;
+
 public class Summoner extends Occupation {
-	public String getName() {
-		return "Summoner";
+	protected Summoner(String name, Stats stats) {
+		super(name, stats);
 	}
+
+	public Summoner(String name, Stats stats, SkillContainer skills) {
+		super(name, stats, skills);
+	}
+
+
 }

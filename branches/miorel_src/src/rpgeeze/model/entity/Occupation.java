@@ -12,15 +12,15 @@ import rpgeeze.util.ArrayIterator;
 public abstract class Occupation implements Cloneable {
 	public static Iterator<Occupation> getPlayerOccupations() {
 		return new ArrayIterator<Occupation>(
-				new Smasher(),
-				new Summoner(),
-				new Sneak()
+				new Smasher(null, null),
+				new Summoner(null, null),
+				new Sneak(null, null)
 		);
 	}
 	
-	protected final String name;
-	protected Stats stats;
-	protected SkillContainer skills;
+	private String name;
+	private Stats stats;
+	private SkillContainer skills;
 
 	protected Occupation(String name, Stats stats) {
 		this.name = name;
@@ -42,7 +42,7 @@ public abstract class Occupation implements Cloneable {
 		}
 		catch(CloneNotSupportedException e) {
 		}
-		o.stats = this.stats.clone();
+		o.stats = stats.clone();
 		return o;
 	}
 	
@@ -50,12 +50,14 @@ public abstract class Occupation implements Cloneable {
 		return this.name;
 	}
 	
-	public abstract String getName();
+	public String getName() {
+		return name;
+	}
 	
 	public boolean equals(Object o) {
 		boolean ret = false;
 		if(o instanceof Occupation)
-			ret = o.toString().equals(toString());
+			ret = ((Occupation) o).name.equals(name);
 		return ret;
 	}
 	
