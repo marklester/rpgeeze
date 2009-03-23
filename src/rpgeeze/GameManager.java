@@ -382,7 +382,7 @@ public class GameManager extends DelegatingEventAdapter
 		avatar.setTile(pos);
 		pos.setEntity(avatar);
 		
-		matrix[2][2].setItem(new Arrows());
+		
 		matrix[3][2].setItem(new Boots());
 		matrix[3][3].setItem(new Boulder());
 		matrix[2][3].setItem(new Crossbow());
