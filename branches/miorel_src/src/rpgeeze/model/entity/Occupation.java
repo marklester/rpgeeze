@@ -18,15 +18,19 @@ public abstract class Occupation implements Cloneable {
 		);
 	}
 	
-	private String name;
+	protected final String name;
 	private Stats stats;
-	private SkillContainer skills;
+	protected SkillContainer skills;
 
 	protected Occupation(String name, Stats stats) {
 		this.name = name;
 		this.stats = stats;
 		skills = new SkillContainer();
 		populateSkills();
+	}
+	
+	public Stats getStats() {
+		return stats;
 	}
 	
 	protected Occupation(String name, Stats stats, SkillContainer skills) {
@@ -42,7 +46,7 @@ public abstract class Occupation implements Cloneable {
 		}
 		catch(CloneNotSupportedException e) {
 		}
-		o.stats = stats.clone();
+		o.stats = this.stats.clone();
 		return o;
 	}
 	
@@ -50,14 +54,12 @@ public abstract class Occupation implements Cloneable {
 		return this.name;
 	}
 	
-	public String getName() {
-		return name;
-	}
+	public abstract String getName();
 	
 	public boolean equals(Object o) {
 		boolean ret = false;
 		if(o instanceof Occupation)
-			ret = ((Occupation) o).name.equals(name);
+			ret = o.toString().equals(toString());
 		return ret;
 	}
 	
