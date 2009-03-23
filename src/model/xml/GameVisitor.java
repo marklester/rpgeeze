@@ -1,11 +1,11 @@
-package rpgeeze.model.xml;
+package model.xml;
 
-import rpgeeze.model.*;
-import rpgeeze.model.terrain.*;
-import rpgeeze.model.ae.AreaEffect;
-import rpgeeze.model.decal.Decal;
-import rpgeeze.model.entity.Entity;
-import rpgeeze.model.item.Item;
+import model.*;
+import model.Terrain;
+import model.ae.AreaEffect;
+import model.decal.Decal;
+import model.entity.Entity;
+import model.item.Item;
 
 public interface GameVisitor {
 	void visit(Model model);
