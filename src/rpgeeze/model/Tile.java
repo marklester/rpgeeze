@@ -11,6 +11,7 @@ import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
 import rpgeeze.model.item.Item;
 import rpgeeze.model.terrain.Terrain;
+import rpgeeze.util.Direction;
 
 public class Tile implements Cloneable, Visitable {
 	private Terrain terrain;
@@ -70,6 +71,7 @@ public class Tile implements Cloneable, Visitable {
 			throw new IllegalMoveException("Destination tile already occupied");
 		}
 		else if(!this.terrain.isPassable(entity)) {
+			System.out.println(location.getX() + " " + location.getY());
 			throw new IllegalMoveException("Entity may not traverse destination terrain");
 		}
 		if(entity != null && item != null)
@@ -90,6 +92,20 @@ public class Tile implements Cloneable, Visitable {
 			ret = true;
 		}
 		return ret;
+	}
+	
+	public boolean isPassable() {
+		if (item != null) {
+			if (item.getName() == "Boulder")
+				return false;
+		}
+		if (this.terrain.getName() == "Mountain")
+			return false;
+		else
+			return true;
+			
+				
+				
 	}
 	
 	public boolean hasItem() {
@@ -140,6 +156,16 @@ public class Tile implements Cloneable, Visitable {
 	
 	public Tile getRelativeTile(int x, int y) {
 		return map.getTile(location.getX() + x, location.getY() + y);
+	}
+	
+	public Tile adjacentTile(Direction d) {
+		switch (d){
+		case NORTH : return	getAbsoluteTile(getX(), getY()-1);
+		case SOUTH : return	getAbsoluteTile(getX(), getY()+1);
+		case EAST : return 	getAbsoluteTile(getX()-1, getY());
+		case WEST : return 	getAbsoluteTile(getX()-1, getY());
+		default : return this;
+		}
 	}
 	
 	public String toString() {
