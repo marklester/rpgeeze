@@ -23,7 +23,7 @@ public abstract class Item implements Visitable, Cloneable {
 				new Helmet(),
 				new ManaPotion(),
 				new Portal(),
-				new PotionLife(),
+				new HealthPotion(),
 				new RedArmor(),
 				new Shield(),
 				new Sword()

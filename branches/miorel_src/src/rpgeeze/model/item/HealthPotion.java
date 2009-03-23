@@ -10,11 +10,10 @@ import rpgeeze.log.Message;
 import rpgeeze.model.entity.Entity;
 
 
-public class PotionLife extends TakeableItem {
+public class HealthPotion extends TakeableItem {
 
-	public PotionLife() {
-		super("Potion Life");
-		setPrice(25);
+	public HealthPotion() {
+		super("Health Potion");
 	}
 
 	
