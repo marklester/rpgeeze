@@ -17,4 +17,6 @@ public abstract class TakeableItem extends Item {
 		if(entity.pickUp(this))
 			tile.setItem(null);
 	}
+	
+	public abstract void use(Entity entity);
 }
