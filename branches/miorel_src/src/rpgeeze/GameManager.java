@@ -3,6 +3,7 @@ package rpgeeze;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
+import java.io.InputStream;
 import java.util.Stack;
 
 import javax.media.opengl.GLAutoDrawable;
@@ -26,9 +27,11 @@ import rpgeeze.model.entity.PC;
 import rpgeeze.model.decal.*;
 import rpgeeze.model.item.*;
 import rpgeeze.model.terrain.GrassTerrain;
+import rpgeeze.model.xml.ModelConstructor;
 import rpgeeze.util.DelegatingEventAdapter;
 import rpgeeze.util.EventAdapter;
 import rpgeeze.util.Pair;
+import rpgeeze.util.ResourceLoader;
 import rpgeeze.util.SimpleMovingAverageTimer;
 import rpgeeze.util.Timer;
 import rpgeeze.view.MainMenuView;
@@ -400,7 +403,9 @@ public class GameManager extends DelegatingEventAdapter
 		matrix[5][7].setDecal(new Fire());
 		matrix[5][8].setDecal(new SkullAndCrossbones());
 		matrix[5][9].setDecal(new RedCross());
-		
+		InputStream is = ResourceLoader.getInstance().getStream("game/model.xml");
+		ModelConstructor mc = new ModelConstructor(is);
+		//model = mc.createModel(occupation);
 		model = new Model(map, avatar);
 		// end of stuff that needs to be nice
 		
