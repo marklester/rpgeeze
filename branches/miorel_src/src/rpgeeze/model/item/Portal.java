@@ -1,20 +1,22 @@
 package rpgeeze.model.item;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 
-import util.ResourceLoader;
-import view.Console;
-import model.Location;
-import model.entity.PC;
-import util.AudioThread;
+import rpgeeze.model.Location;
+import rpgeeze.model.Tile;
+import rpgeeze.model.entity.Entity;
+import rpgeeze.model.entity.PC;
 
-public class PortalItem extends InteractiveItem {
+//import java.util.Hashtable;
+
+public class Portal extends InteractiveItem {
 	private Location where;
 	
-	public PortalItem() {
+	public Portal() {
 		this(null);
 	}
-	public PortalItem(Location loc) {
+	
+	public Portal(Location loc) {
 		super("Portal Item");
 		this.where = loc;
 	}
@@ -26,7 +28,7 @@ public class PortalItem extends InteractiveItem {
 
 	public void use(PC pc) {
 		pc.getTile().releaseEntity();		
-		AudioThread.getInstance().run(this.name, AudioThread.CLIP);
+		//AudioThread.getInstance().run(this.name, AudioThread.CLIP);
 		if(where != null) {
 			pc.move(where);
 			Console.getInstance().writeLine("A strange force sweeps you off your feet.");
@@ -38,16 +40,7 @@ public class PortalItem extends InteractiveItem {
 			this.where = Location.fromXml(xml);
 	}
 	
-	public String toXml(String indent) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(indent + "<item>\n");
-		sb.append(indent + "\t<type>" + name + "</type>\n");
-		sb.append(where == null ? "" : where.toXml("\t" + indent));
-		sb.append(indent + "</item>");
-		return sb.toString();
-	}
-	@Override
-	public void setProperties(Hashtable<String, String> properties) {
+	public void setProperties(HashMap<String, String> properties) {
 		//Use Properties in Hash Map here
 		super.setProperties(properties);//makes sure save can save properties
 		System.out.println("Portal"+properties.get("location"));
@@ -55,5 +48,14 @@ public class PortalItem extends InteractiveItem {
 		int x = Integer.parseInt(loc[0]);
 		int y = Integer.parseInt(loc[1]);
 		where = new Location(x,y);
+	}
+
+	public void activate(Entity entity, Tile tile) {
+		
+	}
+
+	public void use(PC pc) {
+		// TODO Auto-generated method stub
+		
 	}
 }
