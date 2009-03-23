@@ -56,7 +56,9 @@ public abstract class Occupation implements Cloneable {
 	public String toXml() {
 		return toXml("");
 	}
-	
+	public static Occupation getOccupationPrototype(String key){
+		return prototypes.get(key).clone();
+	}
 	public String toXml(String indent) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(indent + "<occupation>" + name + "</occupation>");
