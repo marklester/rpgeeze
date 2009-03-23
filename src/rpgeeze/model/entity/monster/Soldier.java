@@ -36,4 +36,8 @@ public class Soldier extends Monster {
 	{
 		super.update();
 	}
+	public boolean isAlive()
+	{
+		return stats.life >= 0;
+	}
 }
