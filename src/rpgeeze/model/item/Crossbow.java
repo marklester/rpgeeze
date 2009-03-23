@@ -19,6 +19,7 @@ public class Crossbow extends TakeableItem implements EquippableItem {
 		entity.unequipAuxiliary();
 		
 		entity.equipWeapon(this);
+		
 		LogManager.getInstance().log("Crossbow has been equipped.", "", Message.Type.GAME);	
 	}
 	
