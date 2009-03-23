@@ -405,8 +405,8 @@ public class GameManager extends DelegatingEventAdapter
 		matrix[5][9].setDecal(new RedCross());
 		InputStream is = ResourceLoader.getInstance().getStream("game/model.xml");
 		ModelConstructor mc = new ModelConstructor(is);
-		//model = mc.createModel(occupation);
-		model = new Model(map, avatar);
+		model = mc.createModel(occupation);
+		//model = new Model(map, avatar);
 		// end of stuff that needs to be nice
 		
 		thread = new ModelThread(model);
