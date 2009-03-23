@@ -8,7 +8,6 @@ import rpgeeze.log.Message;
 import rpgeeze.model.*;
 import rpgeeze.model.xml.*;
 import rpgeeze.model.item.*;
-import rpgeeze.model.occupation.Occupation;
 
 
 public class PC extends Entity { //implements { EquippableInventory, StatsModifiable {

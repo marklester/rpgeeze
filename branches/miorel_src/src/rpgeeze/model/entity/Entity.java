@@ -5,7 +5,6 @@ import rpgeeze.model.Location;
 import rpgeeze.model.Tile;
 import rpgeeze.model.Visitable;
 import rpgeeze.model.Visitor;
-import rpgeeze.model.occupation.Occupation;
 import rpgeeze.util.Direction;
 import java.util.Hashtable;
 import rpgeeze.util.Subject;
