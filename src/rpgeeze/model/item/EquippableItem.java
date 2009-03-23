@@ -1,11 +1,12 @@
 package rpgeeze.model.item;
 
-public interface EquippableItem {
-	
-	public void equip();
-	
-	public void unequip();
+import rpgeeze.model.entity.Entity;
 
+public interface EquippableItem extends Cloneable {
 	
-
+	public void equip(Entity entity);
+	
+	public void unequip(Entity entity);
+	
+	public EquippableItem clone();
 }
