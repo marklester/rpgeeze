@@ -13,16 +13,11 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-import model.item.Item;
-import util.Iterator;
-import view.Console;
+import rpgeeze.model.item.Item;
+
+
 
 public class Inventory implements Cloneable {
-	private static final Pattern inventoryPattern = Pattern.compile("<inventory>(.*)</inventory>");
-	private static final Pattern itemPattern = Pattern.compile("(<item>.*?</item>)");
-	
-	public static final int INV_SUCCESS = 0;
-	public static final int INV_FULL = -1;
 	public static final int INV_MAX_SIZE = 100;
 
 	private List<Item> items;
@@ -86,55 +81,6 @@ public class Inventory implements Cloneable {
 	}
 
 	public Iterator<Item> iterator() {
-		final List<Item> list;
-		synchronized(this) {
-			list = this.clone().items;
-		}
-		return new Iterator<Item>() {
-			private int cursor = 0;
-			
-			public boolean isDone() {
-				return cursor >= list.size();
-			}
-			
-			public Item current() {
-				return list.get(cursor);
-			}
-			
-			public void reset() {
-				cursor = 0;
-			}
-			
-			public void advance() {
-				++cursor;
-			}
-		};
-	}
-	
-	public String toXml() {
-		return toXml("");
-	}
-	
-	public String toXml(String indent) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(indent + "<inventory>\n");
-		Iterator<Item> iterator = iterator();
-		for(iterator.reset(); !iterator.isDone(); iterator.advance())
-			sb.append(iterator.current().toXml(indent + "\t") + "\n");
-		sb.append(indent + "</inventory>");
-		return sb.toString();
-	}
-
-	public static Inventory fromXml(String xml) {
-		Matcher invMatcher = inventoryPattern.matcher(xml);
-		if(!invMatcher.matches())
-			throw new RuntimeException("Bad XML for Inventory");
-		Matcher itemMatcher = itemPattern.matcher(invMatcher.group(1));
-		Inventory ret = new Inventory();
-		while(itemMatcher.find()) {
-			Item item = Item.fromXml(itemMatcher.group());
-			ret.addItem(item);
-		}
-		return ret;
+		final ArrayList<Item> list;
 	}
 }
