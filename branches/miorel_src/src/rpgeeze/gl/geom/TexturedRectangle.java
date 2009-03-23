@@ -45,7 +45,7 @@ public class TexturedRectangle extends Rectangle {
 			gl.glTexCoord2i(1, 0);
 			gl.glVertex2d(getWidth(), getHeight());
 			gl.glEnd();
-			//texture.disable();
+			gl.glBindTexture(GL.GL_TEXTURE_2D, 0);
 		}
 	}
 

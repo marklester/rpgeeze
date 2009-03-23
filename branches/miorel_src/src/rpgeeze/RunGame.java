@@ -41,9 +41,9 @@ public class RunGame {
 		DEFAULT_KEY_CONTROLS.put("Save Game", "S");
 		DEFAULT_KEY_CONTROLS.put("Load Game", "L");
 		DEFAULT_KEY_CONTROLS.put("New Game", "N");
-		DEFAULT_KEY_CONTROLS.put("Show Inventory", "I");
-		DEFAULT_KEY_CONTROLS.put("Show Stats", "Q");
-		DEFAULT_KEY_CONTROLS.put("Show Skills", "W");
+		DEFAULT_KEY_CONTROLS.put("Inventory View", "I");
+		DEFAULT_KEY_CONTROLS.put("Stats View", "Q");
+		DEFAULT_KEY_CONTROLS.put("Skills View", "W");
 		DEFAULT_KEY_CONTROLS.put("Options", "O");
 		DEFAULT_KEY_CONTROLS.put("Pause Game", "P");
 	}
