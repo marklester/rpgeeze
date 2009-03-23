@@ -22,8 +22,13 @@ public class Map implements ModelElement{
 
 		private volatile Tile[][] map;
 
-		public Matrix(Tile[][] map) {
+		public Matrix(Tile[][] map,Map myMap) {
 			this.map = map;
+			for(int i=0;i<map.length;i++){
+				for(int j=0;j<map[i].length;j++){
+					map[i][j].setMap(myMap);
+				}		
+			}
 		}
 
 		public Tile getTile(int x, int y) {
@@ -98,7 +103,7 @@ public class Map implements ModelElement{
 	}
 
 	private Map(Tile[][] matrix) {
-		this.matrix = new Matrix(matrix);
+		this.matrix = new Matrix(matrix,this);
 	}
 	
 	public static Map fromStream(InputStream stream) {
