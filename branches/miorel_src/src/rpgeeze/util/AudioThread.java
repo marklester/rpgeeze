@@ -69,8 +69,6 @@ public class AudioThread extends Thread implements Observer {
 	            player.play();
 	        }
 	        catch (Exception e) {
-	            System.out.println("Problem playing file " + key);
-	            System.out.println(e);
 	        }
 		}
 	}
@@ -87,7 +85,7 @@ public class AudioThread extends Thread implements Observer {
 				//as.close();
 			}
 		}
-		catch (Exception e) { System.out.println(e); }
+		catch (Exception e) { }
 	}
 	
     public void close() {

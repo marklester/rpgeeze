@@ -27,14 +27,17 @@ public class ActionMenuView extends HighlightableViewController<OptionsMenuView>
 		if(e.getButton() == MouseEvent.BUTTON1) {
 			String name = getView().pickClosest(GLU.getCurrentGL(), p);
 			if(name != null) {
-				if(name.equals("Talk"))
-					System.out.println("TALK");
-				else if(name.equals("Attack")) 	
-					System.out.println("ATTACK");
-				else if(name.equals("Use Skill"))
-					System.out.println("SKILL");
+				if(name.equals("Talk")) {
+//					System.out.println("TALK");
+                }
+				else if(name.equals("Attack")) {
+//					System.out.println("ATTACK");
+				}
+				else if(name.equals("Use Skill")) {
+//					System.out.println("SKILL");
+				}
 				else if(name.equals("Use Item")) {
-					System.out.println("USE");
+//					System.out.println("USE");
 				}
 			}
 		}

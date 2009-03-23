@@ -27,7 +27,6 @@ public class ModelThread extends Thread {
 			long start = System.nanoTime();
 			model.update();
 			long duration = System.nanoTime() - start;
-			//System.out.println(duration);
 			int ups = GameProperties.getInstance().getGoalUPS();
 			long nap = (1000000000 - duration * ups) / ups / 1000000;
 			if(nap > 0) {
