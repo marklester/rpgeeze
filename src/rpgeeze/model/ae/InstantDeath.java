@@ -1,6 +1,7 @@
 package rpgeeze.model.ae;
 
 import rpgeeze.model.Entity;
+import rpgeeze.model.StatsModifiable;
 
 public class InstantDeath extends AreaEffect {
 	
@@ -12,7 +13,7 @@ public class InstantDeath extends AreaEffect {
         super(rate, "Instant Death");
     }
 
-    public void apply(Entity e) {
+    public void applyEffect(StatsModifiable e) {
 // kill the entity
 		
 		/*

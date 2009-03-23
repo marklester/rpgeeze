@@ -16,6 +16,7 @@ import rpgeeze.controller.Controller;
 import rpgeeze.controller.MainMenuController;
 import rpgeeze.log.LogManager;
 import rpgeeze.model.Entity;
+import rpgeeze.model.Location;
 import rpgeeze.model.Map;
 import rpgeeze.model.Model;
 import rpgeeze.model.ModelThread;
@@ -371,7 +372,7 @@ public class GameManager extends DelegatingEventAdapter
 		Tile[][] matrix = new Tile[10][10];
 		for(int i = 0; i != 10; ++i) {
 			for(int j = 0; j != 10; ++j) {
-				matrix[i][j] = new Tile(GrassTerrain.getInstance(), j, i);
+				matrix[i][j] = new Tile(GrassTerrain.getInstance(), new Location(j, i));
 			}
 		}
 		Map map = new Map(matrix);
@@ -394,7 +395,7 @@ public class GameManager extends DelegatingEventAdapter
 		matrix[2][9].setDecal(new GoldStar());
 		matrix[5][7].setDecal(new Fire());
 		matrix[5][8].setDecal(new SkullAndCrossbones());
-		matrix[5][8].setDecal(new RedCross());
+		matrix[5][9].setDecal(new RedCross());
 		
 		model = new Model(map, avatar);
 		// end of stuff that needs to be nice

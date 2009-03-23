@@ -40,7 +40,8 @@ public class GameplayView extends View<GameplayView.State> {
 	
 	public enum State implements View.State { NEW, FADING_IN, NORMAL, HIDDEN; }
 	
-	public Iterator<TexturedRectangle> inventory; 
+	private Iterator<TexturedRectangle> inventory; 
+	private List<Rectangle> rects = new ArrayList<Rectangle>();
 	
 	public GameplayView(GameManager manager) {
 		super(manager);
@@ -59,14 +60,12 @@ public class GameplayView extends View<GameplayView.State> {
 		Iterator<String> names = new ListIterator<String>(invList);
 		
 		for(inventory.reset(), names.reset(); !inventory.isDone(); inventory.advance(), names.advance()) {
-			put(inventory.current(), names.current());
-//			TexturedRectangle clone = inventory.current().clone();
-			//clone.setColor(new Color(1f, 1f, 1f, 0.8f));
-//			put(clone, null);
-//			putHighlightable(obj.current(), names.current());
-//			obj.current().getWrappedObject().getText().setText(names.current());
-//			obj.current().getWrappedObject().alignText(0.5, 0.5);
-//			obj.current().getWrappedObject().getText().setY(prototype.getWrappedObject().getText().getY());
+			TexturedRectangle trect = inventory.current();
+			put(trect, names.current());
+			Rectangle rect = new Rectangle(trect.getWidth(), trect.getHeight());
+			rect.setXYZ(trect.getX(), trect.getY(), trect.getZ());// - 0.01);
+			//rect.setColor(new Color(1f, 1f, 1f, 0.8f));
+			rects.add(rect);
 		}
 		
 		put(fpsText, null);
@@ -78,7 +77,8 @@ public class GameplayView extends View<GameplayView.State> {
 		GLUtil glutil = new GLUtil(gl);
 		glutil.standardFrustum(gl, point);
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
-		gl.glClearColor(0, 0, 0, 0);
+		gl.glClearColor(1, 1, 1, 1);
+		gl.glDisable(GL.GL_DEPTH);
 		
 		if(getState() == State.FADING_IN) {
 			if(point == null) {
@@ -120,19 +120,20 @@ public class GameplayView extends View<GameplayView.State> {
 			tile.accept(mapDrawer);
 			gl.glPopMatrix();
 		}
-
-		//gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
+		
 		Iterator<Item> items = getManager().getModel().getAvatar().getInventory().iterator();
-		for(items.reset(), inventory.reset(); !items.isDone(); items.advance(), inventory.advance()) {
+		for(items.reset(), inventory.reset(); !items.isDone(); items.advance(), inventory.advance())
 			inventory.current().setTexture(mapDrawer.textureForItem(items.current()));
-			//gl.glPushMatrix();
-			//double dx = inventory.current().getX();
-			//double dy = inventory.current().getY();
-			//gl.glTranslated(dx, dy, INVENTORY_Z);
-			//items.current().accept(mapDrawer);
-			//inventory.current().setVisible(false);
-			//gl.glPopMatrix();
+		
+		//glutil.color(fadeIn.getFinalColor());
+		//gl.glClearColor(0, 0, 0, 0);
+		gl.glBlendFunc(GL.GL_ZERO, GL.GL_SRC_COLOR);
+		//gl.glDisable(GL.GL_TEXTURE_2D);
+		for(Rectangle r: rects) {
+			r.setColor(new Color(1f, 1f, 1f, 1f));
+			r.render(gl);
 		}
+		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 		
 		while(!inventory.isDone()) {
 			inventory.current().setTexture(null);

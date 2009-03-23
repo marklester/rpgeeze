@@ -4,13 +4,23 @@ import rpgeeze.log.LogManager;
 import rpgeeze.model.occupation.Occupation;
 import rpgeeze.util.Direction;
 
-public class Entity implements Visitable {
+public class Entity implements Visitable, Cloneable {
 	private Direction facing;
 	private Tile tile;
 	private Map map;
 	private Inventory inventory;
 	
 	private Occupation occupation;
+	
+	public Entity clone() {
+		Entity ret = null;
+		try {
+			ret = (Entity) super.clone();
+		}
+		catch (CloneNotSupportedException e) {
+		}
+		return ret;
+	}
 	
 	public Entity(Occupation occupation, Map map) {
 		this.map = map;

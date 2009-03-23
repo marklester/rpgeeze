@@ -1,6 +1,7 @@
 package rpgeeze.model.ae;
 
 import rpgeeze.model.Entity;
+import rpgeeze.model.StatsModifiable;
 
 public class LevelUp extends AreaEffect {
 	
@@ -12,7 +13,7 @@ public class LevelUp extends AreaEffect {
         super(rate, "Level Up");
     }
 
-    public void apply(Entity e) {
+    public void applyEffect(StatsModifiable e) {
 // gain a level
 		
 		/*

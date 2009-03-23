@@ -2,16 +2,16 @@ package rpgeeze.model;
 
 import rpgeeze.model.Map;
 import rpgeeze.model.Tile;
-import rpgeeze.model.entity.PC;
-import rpgeeze.model.xml.GameVisitor;
+//import rpgeeze.model.entity.PC;
+import rpgeeze.model.Visitor;
 import rpgeeze.model.Location;
-import rpgeeze.model.xml.ModelElement;
+//import rpgeeze.model.xml.ModelElement;
 import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
 import rpgeeze.model.item.Item;
 import rpgeeze.model.terrain.Terrain;
 
-public class Tile implements Cloneable, ModelElement, Visitable {
+public class Tile implements Cloneable, Visitable {
 	private Terrain terrain;
 	private Entity entity;
 	private Item item;
@@ -44,6 +44,14 @@ public class Tile implements Cloneable, ModelElement, Visitable {
 
 	public Location getLocation() {
 		return this.location;
+	}
+	
+	public int getX() {
+		return 0;
+	}
+
+	public int getY() {
+		return 0;
 	}
 	
 	public Terrain getTerrain() {
@@ -116,23 +124,20 @@ public class Tile implements Cloneable, ModelElement, Visitable {
 		setEntity(null);
 	}
 	
-
-	public Tile getAbsoluteTile(Location l)
-	{
-		return map.getTile(l);
+	public Tile getAbsoluteTile(Location l) {
+		return map.getTile(l.getX(), l.getY());
 	}
-	public Tile getAbsoluteTile(int x, int y)
-	{
+	
+	public Tile getAbsoluteTile(int x, int y)	{
 		return map.getTile(x, y);
 	}
 	
-	public Tile getRelativeTile(Location l)
-	{
+	public Tile getRelativeTile(Location l) {
 		//return map.getTile(l);
 		return getRelativeTile(l.getX(), l.getY());
 	}
-	public Tile getRelativeTile(int x, int y)
-	{
+	
+	public Tile getRelativeTile(int x, int y) {
 //		if(x > 2 || x < 0 || y > 2 || y < 0)
 //			return null;
 //		return adjacentTiles[x+1][y+1];
@@ -144,13 +149,12 @@ public class Tile implements Cloneable, ModelElement, Visitable {
 		+","+this.item+","+this.ae+"]";
 	}
 	
-	public void collectItem(PC pc)
-	{
-		if(item != null) {
+//	public void collectItem(PC pc) {
+//		if(item != null) {
 			//OneShotItem need to be removed from the Tile
-			item.activate(pc);
-		}
-	}
+//			item.activate(pc);
+//		}
+//	}
 
 	public Tile clone() {
 		Tile tile = new Tile(
@@ -162,15 +166,5 @@ public class Tile implements Cloneable, ModelElement, Visitable {
 		);
 		tile.entity = (entity == null ? null : entity.clone());
 		return tile;
-	}
-	
-	@Override
-	//Visitor Patter Operation For Saving and Reading,etc
-	public void accept(GameVisitor visitor) {
-		visitor.visit(terrain);
-		visitor.visit(location);
-		if(decal != null)visitor.visit(decal);
-		if(item != null)visitor.visit(item);
-		if(ae != null)visitor.visit(ae);
 	}
 }
