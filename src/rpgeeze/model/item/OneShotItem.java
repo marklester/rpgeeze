@@ -1,5 +1,6 @@
 package rpgeeze.model.item;
 
+import rpgeeze.model.entity.PC;
 import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
 
@@ -13,8 +14,11 @@ public abstract class OneShotItem extends Item {
 		super(name);
 	}
 
-	public void activate(Entity entity, Tile tile) {
-		// don't bother having a use, just use it here
+	public void activate(PC pc) {
+		use(pc);
+	}
+	
+	public void use(PC pc)	{
 	}
 }
 

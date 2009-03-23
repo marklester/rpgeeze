@@ -1,5 +1,6 @@
 package rpgeeze.model.item;
 
+import rpgeeze.model.entity.*;
 import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
 
@@ -13,8 +14,9 @@ public abstract class TakeableItem extends Item {
         super(name);
 	}
 
-	public void activate(Entity entity, Tile tile) {
-		if(	entity.getInventory().addItem(this, true))
-			tile.setItem(null);
+	public void activate(PC pc)
+	{
+		pc.addItem(this);
+		use(pc);
 	}
 }
