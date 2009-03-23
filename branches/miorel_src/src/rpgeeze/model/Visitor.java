@@ -3,6 +3,7 @@ package rpgeeze.model;
 import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
 import rpgeeze.model.entity.PC;
+import rpgeeze.model.entity.Vehicle;
 import rpgeeze.model.entity.monster.*;
 import rpgeeze.model.entity.merchant.*;
 import rpgeeze.model.entity.villager.*;
@@ -23,6 +24,7 @@ public interface Visitor {
 	public void visitEntity(Monster entity);
 	public void visitEntity(Villager entity);
 	//public void visitEntity(Entity entity);
+	public void visitEntity(Vehicle vehicle);
 }
 /*
 public interface GameVisitor {
