@@ -16,6 +16,17 @@ public abstract class Item implements Visitable, Cloneable {
 	private static Hashtable<String, Item> prototypes = new Hashtable<String, Item>();
     static {
 		for(Item i: new Item[] {
+				new Boots(),
+				new Boulder(),
+				new Crossbow(),
+				new HealthPack(),
+				new Helmet(),
+				new Mana(),
+				new Portal(),
+				new PotionLife(),
+				new RedArmor(),
+				new Shield(),
+				new Sword()
 		})
 			prototypes.put(i.getName(), i);
 	}
