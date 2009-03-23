@@ -86,7 +86,7 @@ public class GameplayController extends Controller<GameplayView> {
 				System.out.print("Use Spell");
 			}
 		});
->>>>>>> .r1104
+
 		actions.put("Move North", moveEncapsulate(Direction.NORTH));
 		actions.put("Move South", moveEncapsulate(Direction.SOUTH));
 		actions.put("Move East", moveEncapsulate(Direction.EAST));
