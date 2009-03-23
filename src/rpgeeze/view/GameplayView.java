@@ -44,7 +44,7 @@ public class GameplayView extends View<GameplayView.State> {
 	private Text fpsText;
 	private Text row1,row2,row3,row4,row5,row6,row7;
 	private Stats s;
-	
+
 
 	private MapDrawer mapDrawer = new MapDrawer();
 
@@ -58,9 +58,10 @@ public class GameplayView extends View<GameplayView.State> {
 
 	private Iterator<TexturedRectangle> skill; 
 	private List<Rectangle> skillRects = new ArrayList<Rectangle>();
-	
+
 	private boolean inventoryVisible = true;
 	private boolean statsVisible = true;
+	private boolean skillsVisible = true;
 
 	public GameplayView(GameManager manager) {
 		super(manager);
@@ -68,7 +69,7 @@ public class GameplayView extends View<GameplayView.State> {
 		fpsText = new Text("", Color.RED, renderer, 0.0025f);
 		s = manager.getModel().getAvatar().getStats();
 
-		
+
 		row1 = new Text("1", Color.RED, renderer, 0.0025f);
 		row2 = new Text("2", Color.RED, renderer, 0.0025f);
 		row3 = new Text("3", Color.RED, renderer, 0.0025f);
@@ -76,12 +77,12 @@ public class GameplayView extends View<GameplayView.State> {
 		row5 = new Text("5", Color.RED, renderer, 0.0025f);
 		row6 = new Text("6", Color.RED, renderer, 0.0025f);
 		row7 = new Text("7", Color.RED, renderer, 0.0025f);
-		
+
 
 		TexturedRectangle prototype = new TexturedRectangle(null, INV_ITEM_SIZE, INV_ITEM_SIZE);
 		prototype.setColor(Color.WHITE);
 		prototype.setXYZ(0, 0, INVENTORY_Z);
-		
+
 		GLUtil glutil = new GLUtil();
 		inventory = glutil.objectGrid(prototype, 5, 5, 1.2 * prototype.getWidth(), -1.2 * prototype.getHeight());
 		List<String> invList = new ArrayList<String>();
@@ -114,8 +115,8 @@ public class GameplayView extends View<GameplayView.State> {
 		equipmentRects.get(2).setVisible(false);
 		equipmentRects.get(6).setVisible(false);
 		equipmentRects.get(8).setVisible(false);
-		
-				
+
+
 		skill = glutil.objectGrid(prototype, 1, 6, 1.2 * prototype.getWidth(), -1.2 * prototype.getHeight());
 		List<String> skillList = new ArrayList<String>();
 		for(int i = 0; i < 6; ++i)
@@ -129,10 +130,28 @@ public class GameplayView extends View<GameplayView.State> {
 			rect.setXYZ(trect.getX(), trect.getY(), trect.getZ());
 			skillRects.add(rect);
 		}
-		
-		put(fpsText, null);
+
+		skill.reset();
+		for(Skill s: getManager().getModel().getAvatar().getSkills()) {
+			skill.current().setTexture(mapDrawer.textureForSkill(s));
+			skill.advance();
+		}
+
+		//put(fpsText, null);
 
 		changeState(State.NEW);
+	}
+
+	public boolean getSkillsVisible() {
+		return skillsVisible;
+	}
+
+	public void setSkillsVisible(boolean value) {
+		this.skillsVisible = value;
+	}
+
+	public void toggleSkillsVisible() {
+		setSkillsVisible(!getSkillsVisible());
 	}
 
 	public boolean getInventoryVisible() {
@@ -146,15 +165,15 @@ public class GameplayView extends View<GameplayView.State> {
 	public void toggleInventoryVisible() {
 		setInventoryVisible(!getInventoryVisible());
 	}
-	
+
 	public boolean getStatsVisible(){
 		return statsVisible;
 	}
-	
+
 	public void setStatsVisible(boolean value){
 		this.statsVisible = value;
 	}
-	
+
 	public void toggleStatsVisible(){
 		setStatsVisible(!getStatsVisible());
 	}
@@ -208,15 +227,6 @@ public class GameplayView extends View<GameplayView.State> {
 			inventory.current().setTexture(null);
 			inventory.advance();
 		}
-		
-		skill.reset();
-//		System.out.println("SKILL        " + getManager().getModel().getAvatar().getSkills());
-		for(Skill s: getManager().getModel().getAvatar().getSkills()) {
-			System.out.println("SKILL        " + s.toString());
-			skill.current().setTexture(mapDrawer.textureForSkill(s));
-			skill.advance();
-		}
-		
 
 		if(getInventoryVisible()) {
 			gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
@@ -237,7 +247,7 @@ public class GameplayView extends View<GameplayView.State> {
 			gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 			gl.glPopMatrix();
 			glutil.color(fadeIn.getFinalColor());
-			
+
 			gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
 			gl.glBindTexture(0, GL.GL_TEXTURE_2D);
 			gl.glPushMatrix();
@@ -255,7 +265,7 @@ public class GameplayView extends View<GameplayView.State> {
 			gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 			gl.glPopMatrix();
 			glutil.color(fadeIn.getFinalColor());
-			
+
 			Equipment eq = getManager().getModel().getAvatar().getEquipment();
 			equipment.reset();
 			equipment.advance();
@@ -279,7 +289,7 @@ public class GameplayView extends View<GameplayView.State> {
 		else {
 			for(inventory.reset(); !inventory.isDone(); inventory.advance())
 				inventory.current().setVisible(false);
-			
+
 			Equipment eq = getManager().getModel().getAvatar().getEquipment();
 			equipment.reset();
 			equipment.advance();
@@ -300,39 +310,33 @@ public class GameplayView extends View<GameplayView.State> {
 			equipment.current().setVisible(false);
 			equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getBoots()));
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
-		gl.glBindTexture(0, GL.GL_TEXTURE_2D);
-		gl.glPushMatrix();
-		skill.reset();
-		double skillX = -3 * skill.current().getHeight();
-		double skillY = -INVENTORY_Z - skill.current().getHeight() - 0.2 * skill.current().getHeight();
-		gl.glTranslated(skillX, skillY, 0);
-		for(Rectangle r: skillRects) {
-			skill.current().setVisible(true);
-			skill.current().setXY(r.getX() + skillX, r.getY() + skillY);
-			r.setColor(new Color(0f, 1f, 1f, 0.4f));
-			r.render(gl);
-			equipment.advance();
+
+
+
+
+		if(getSkillsVisible()) {
+			gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
+			gl.glBindTexture(0, GL.GL_TEXTURE_2D);
+			gl.glPushMatrix();
+			skill.reset();
+			double skillX = -3 * skill.current().getHeight();
+			double skillY = -INVENTORY_Z - skill.current().getHeight() - 0.2 * skill.current().getHeight();
+			gl.glTranslated(skillX, skillY, 0);
+			for(Rectangle r: skillRects) {
+				skill.current().setVisible(true);
+				skill.current().setXY(r.getX() + skillX, r.getY() + skillY);
+				skill.advance();
+			}
+			gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+			gl.glPopMatrix();
+			glutil.color(fadeIn.getFinalColor());
 		}
-		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
-		gl.glPopMatrix();
-		glutil.color(fadeIn.getFinalColor());
-		
-			
-		
-		
-		
-		
-		
+		else {
+			for(skill.reset(); !skill.isDone(); skill.advance())
+				skill.current().setVisible(false);
+		}
+
+
 		if(getStatsVisible()) {			
 			row1.setText("Lives " + s.getPrimary().getLivesLeft() +  " Strength " + s.getPrimary().getStrength());
 			row2.setText("Intellect " + s.getPrimary().getIntellect() + " Hardiness " + s.getPrimary().getStrength());
@@ -341,7 +345,7 @@ public class GameplayView extends View<GameplayView.State> {
 			row5.setText("Mana " + s.getMana() + " Offense " + s.getOffensiveRating());
 			row6.setText("Defense " + s.getDefensiveRating() + " Armor " + s.getArmorRating());
 			row7.setText("Movement " + s.getMovement());
-			
+
 			row1.setXYZ(glutil.getViewportAspectRatio() - row1.getWidth() - row1.getHeight() / 2, 1 - 3 * row1.getHeight() / 2, -1);	
 			row2.setXYZ(glutil.getViewportAspectRatio() - row2.getWidth() - row2.getHeight() / 2, row1.getY() - .075, -1);			
 			row3.setXYZ(glutil.getViewportAspectRatio() - row3.getWidth() - row3.getHeight() / 2, row2.getY() - .075, -1);		
@@ -349,7 +353,7 @@ public class GameplayView extends View<GameplayView.State> {
 			row5.setXYZ(glutil.getViewportAspectRatio() - row5.getWidth() - row5.getHeight() / 2, row4.getY() - .075, -1);
 			row6.setXYZ(glutil.getViewportAspectRatio() - row6.getWidth() - row6.getHeight() / 2, row5.getY() - .075, -1);
 			row7.setXYZ(glutil.getViewportAspectRatio() - row7.getWidth() - row7.getHeight() / 2, row6.getY() - .075, -1);
-			
+
 			row1.render(gl);
 			row2.render(gl);
 			row3.render(gl);
@@ -360,27 +364,27 @@ public class GameplayView extends View<GameplayView.State> {
 			glutil.color(fadeIn.getFinalColor());
 		}
 
-		
-		
-		
-		
-		
-//		for(items.reset(), inventory.reset(); !items.isDone(); items.advance(), inventory.advance())
-//			inventory.current().setTexture(mapDrawer.textureForItem(items.current()));
 
-//		while(!inventory.isDone()) {
-//			inventory.current().setTexture(null);
-//			inventory.advance();
-//		}
-		
-		
-		
+
+
+
+
+		//		for(items.reset(), inventory.reset(); !items.isDone(); items.advance(), inventory.advance())
+		//			inventory.current().setTexture(mapDrawer.textureForItem(items.current()));
+
+		//		while(!inventory.isDone()) {
+		//			inventory.current().setTexture(null);
+		//			inventory.advance();
+		//		}
+
+
+
 		//fpsText.setVisible(getState() == State.NORMAL);
 		//if(getState() == State.NORMAL) {
 		//fpsText.setText(String.format("FPS: %.1f", getManager().getFPS()));
-			//fpsText.setXYZ(glutil.getViewportAspectRatio() - fpsText.getWidth() - fpsText.getHeight() / 2, 1 - 3 * fpsText.getHeight() / 2, -1);
+		//fpsText.setXYZ(glutil.getViewportAspectRatio() - fpsText.getWidth() - fpsText.getHeight() / 2, 1 - 3 * fpsText.getHeight() / 2, -1);
 		//}
-		
+
 		renderObjects(gl);
 	}
 
