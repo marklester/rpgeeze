@@ -1,8 +1,11 @@
 package rpgeeze.model.ae;
 
+import rpgeeze.log.LogManager;
+import rpgeeze.log.Message;
 import rpgeeze.model.entity.Entity;
 import rpgeeze.model.entity.StatsModifiable;
 import rpgeeze.util.AudioThread;
+import rpgeeze.model.entity.Stats;
 
 public class InstantDeath extends AreaEffect {
 	
@@ -18,9 +21,8 @@ public class InstantDeath extends AreaEffect {
 		AudioThread at = AudioThread.getInstance();
 		at.setKeyType(this.toString(), AudioThread.CLIP);
 		at.start();
-        //ResourceLoader.getInstance().playAudioClip(this.name);
-        //e.getStats().decLife(Stats.MAX_LIFE);
-        //Console.getInstance().writeLine("You just got Knocked The Hack Out", Color.RED);
+        e.getStats().decLife(Stats.MAX_LIFE);
+        LogManager.getInstance().log("You just got Knocked The Hack Out", "", Message.Type.GAME);
     }
 
 }
