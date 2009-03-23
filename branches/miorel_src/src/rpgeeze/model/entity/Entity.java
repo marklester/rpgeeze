@@ -12,8 +12,9 @@ import rpgeeze.model.item.TakeableItem;
 import rpgeeze.util.Direction;
 import java.util.Hashtable;
 import rpgeeze.util.Subject;
+import rpgeeze.model.entity.StatsModifiable;
 
-public abstract class Entity extends Subject implements Cloneable, Visitable {
+public abstract class Entity extends Subject implements Cloneable, Visitable, StatsModifiable {
 	
 	private static Hashtable<String, Entity> prototypes = new Hashtable<String, Entity>();
 	static {
@@ -199,6 +200,29 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 		getStats().addLevel(value);
 	}
 	
+	public boolean hasEnoughHP(int value){
+		return value <= getStats().life;
+	}
+	
+	public boolean hasEnoughMP(int value)
+	{
+		return value <= getStats().mana;
+	}	
+	
+	public int maxHealth()
+	{
+		return getStats().MAX_LIFE;
+	}
+	
+	public int maxMana()
+	{
+		return getStats().MAX_MP;
+	}
+	
+	public int getLevel()
+	{
+		return getStats().getLevel();
+	}
 	public void equipHead(EquippableItem i) {
 		if(equipment.getHead() == i){	
 		}else{
