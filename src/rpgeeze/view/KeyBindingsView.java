@@ -76,7 +76,7 @@ public class KeyBindingsView extends HighlightableView<KeyBindingsView.State> {
 		rect.setWidth(14);
 		rect.setXYZ(-14 - X_SHIFT, -1.5 - Y_SHIFT, -25);
 		grid = glutil.objectGrid(button, 4, 2, rect.getWidth() + 2 * X_SHIFT, rect.getHeight() + 3.5);
-		names = new ArrayIterator<String>("Pause Game", "Options", "Save Game", "Show Skills", "Load Game", "Show Stats", "New Game", "Show Inventory");
+		names = new ArrayIterator<String>("Pause Game", "Options", "Save Game", "Skills View", "Load Game", "Stats View", "New Game", "Inventory View");
 		for(grid.reset(), names.reset(); !grid.isDone(); grid.advance(), names.advance()) {
 			put(grid.current(), names.current());
 			putHighlightable(grid.current(), names.current());

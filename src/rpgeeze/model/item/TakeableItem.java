@@ -14,9 +14,8 @@ public abstract class TakeableItem extends Item {
         super(name);
 	}
 
-	public void activate(PC pc)
-	{
+	public void activate(PC pc, Tile tile) {
 		pc.addItem(this);
-		use(pc);
+		use(pc);		
 	}
 }

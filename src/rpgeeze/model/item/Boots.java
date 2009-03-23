@@ -16,8 +16,7 @@ public class Boots extends TakeableItem {
 		super("Boots");
 	}
 	
-	public void deActivate(PC pc)
-	{
+	public void deActivate(PC pc) {
 		pc.addMovement(-10);
 	}
 	
@@ -25,11 +24,5 @@ public class Boots extends TakeableItem {
 		pc.equipBoots(this);
 		pc.addMovement(10);
 		LogManager.getInstance().log("Boots have been equipped.", "", Message.Type.GAME);
-	}
-
-	@Override
-	public void activate(Entity entity, Tile tile) {
-		// TODO Auto-generated method stub
-		
 	}
 }

@@ -35,6 +35,11 @@ public class GameplayController extends Controller<GameplayView> {
 				getManager().getModel().togglePaused();
 			}
 		});
+		actions.put("Inventory View", new Command() {
+			public void execute() {
+				getView().toggleInventoryVisible();
+			}
+		});
 		actions.put("Options", new Command() {
 			public void execute() {
 				wasPaused = getManager().getModel().isPaused();

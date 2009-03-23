@@ -5,7 +5,10 @@ package rpgeeze.model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
-import model.entity.PC;
+import rpgeeze.log.LogManager;
+import rpgeeze.log.Message;
+//import model.entity.PC;
+import rpgeeze.model.entity.PC;
 
 public class Sword extends TakeableItem {
 	public Sword() {
@@ -13,7 +16,7 @@ public class Sword extends TakeableItem {
 	}
 
 	public void use(PC pc) {
-		pc.equipWeapon(this);
-		view.Console.getInstance().writeLine("Sword has been equipped.");
+		//pc.equipWeapon(this);
+		LogManager.getInstance().log("Equipped " + this, "MODEL", Message.Type.GAME);
 	}
 }
