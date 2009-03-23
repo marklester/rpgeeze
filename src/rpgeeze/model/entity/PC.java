@@ -10,31 +10,19 @@ import rpgeeze.model.entity.Occupation;
 import java.util.LinkedList;
 
 public class PC extends Entity { //implements { EquippableInventory, StatsModifiable {
-
-	
-	private Occupation occupation;
-	
 	private LinkedList<Skill> skills;
 	private int updateCounter;
-	
+
 	public PC(Occupation occupation, Map map) {
-		this.inventory = new Inventory();
-		this.occupation = occupation;
-		this.stats = occupation.getStats().clone();
+		super(occupation);
 		this.skills = occupation.getSkills();
-		this.equipment = new Equipment();
 	}
 	
 	public PC(){
+		super();
 		this.setEntityType("Playable Character");
 	}
 	
-	public void setOccupation(Occupation occupation) {
-		this.occupation = occupation;
-	}
-	public void setStats(Stats stats) {
-		this.stats = stats;
-	}
 	public void setSkills(LinkedList<Skill> skills) {
 		this.skills = skills;
 	}
@@ -45,43 +33,50 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		tile.collectItem(this);
 	}
 	
-	
-	
 	public boolean hasEnoughHP(int value){
-		return value <= stats.life;
+		return value <= getStats().life;
 	}
 	
 	public boolean hasEnoughMP(int value)
 	{
-		return value <= stats.mana;
+		return value <= getStats().mana;
 	}
 	
+	public void addHealth(int value)
+	{
+		getStats().addHealth(value);
+	}
 	
+	public void addMana(int value)
+	{
+		getStats().addMana(value);
+	}
+	
+	public void addMovement(int value)
+ 	{
+		getStats().addMovement(value);
+	}
+	
+	public void addLevel(int value)
+	{
+		getStats().addLevel(value);
+	}
 	
 	public int maxHealth()
 	{
-		return stats.MAX_LIFE;
+		return getStats().MAX_LIFE;
 	}
 	
 	public int maxMana()
 	{
-		return stats.MAX_MP;
+		return getStats().MAX_MP;
 	}
 	
 	public int getLevel()
 	{
-		return stats.getLevel();
+		return getStats().getLevel();
 	}
 	
-	public Equipment getEquipment()
-	{
-		return equipment;
-	}
-
-	public Stats getStats()
-	{
-		return stats;
-	}
 	
 	public LinkedList<Skill> getSkills()
 	{
@@ -93,11 +88,6 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		return skills.get(index);
 	}
 	
-	public Occupation getOccupation()
-	{
-		return occupation;
-	}
-	
 	public void update()
 	{
 		if(this.updateCounter > 0)
@@ -106,14 +96,13 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 	
 	public PC clone()
 	{
-		PC pc = (PC)super.clone();
+		return (PC)super.clone();
 		/*
 		pc.equipment = equipment.clone();
 		pc.inventory = inventory.clone();
 		pc.occupation = occupation.clone();		
 		pc.stats = stats.clone();
 		*/
-		return pc;
 	}
 	@Override
 	public boolean isAlive() {
