@@ -17,7 +17,6 @@ public interface Visitor {
 	public void visitItem(Item item);
 	public void visitDecal(Decal decal);
 	public void visitEntity(Entity entity);
-	public void visitPC(PC pc);
 }
 /*
 public interface GameVisitor {

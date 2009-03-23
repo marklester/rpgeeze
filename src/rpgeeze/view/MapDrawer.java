@@ -44,7 +44,7 @@ public class MapDrawer implements Visitor {
 	
 
 	static{
-		for(Occupation occ: new Occupation[] {new Smasher(null,null), new Summoner(null,null), new Sneak(null,null)}) {
+		for(Occupation occ: new Occupation[] {new Smasher(), new Summoner(), new Sneak()}) {
 	        String s = occ.getName().toLowerCase();
 	        
 	        avatar.put(new Pair<String, Direction>(occ.getName(), Direction.NORTH), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
