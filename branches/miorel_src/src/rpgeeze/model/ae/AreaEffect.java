@@ -3,7 +3,7 @@ package rpgeeze.model.ae;
 import java.util.Hashtable;
 import rpgeeze.model.Visitable;
 import rpgeeze.model.Visitor;
-import rpgeeze.model.StatsModifiable;
+import rpgeeze.model.entity.StatsModifiable;
 
 public abstract class AreaEffect implements Visitable, Cloneable {
 	
