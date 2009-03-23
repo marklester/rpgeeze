@@ -1,6 +1,8 @@
 package rpgeeze.model.entity;
 
-import java.util.Hashtable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import rpgeeze.model.entity.Smasher;
 import rpgeeze.model.entity.Sneak;
@@ -16,44 +18,28 @@ import rpgeeze.model.skill.Skill;
 import java.util.LinkedList;
 
 public abstract class Occupation implements Cloneable {
+	private final String name;
+	private Stats stats;
+	private List<Skill> skills;
 	
-	private static Hashtable<String, Occupation> prototypes = new Hashtable<String, Occupation>();
+	protected Occupation(String name, Stats stats, List<Skill> skills) {
+		this.name = name;
+		this.skills = skills;
+		this.stats = stats;
+	}
+	
+	private static HashMap<String, Occupation> prototypes = new HashMap<String, Occupation>();
 	static {
 		for(Occupation o: new Occupation[] {
-			new Smasher(null, null),
-			new Summoner(null, null),
-			new Sneak(null, null)
+			new Smasher(),
+			new Summoner(),
+			new Sneak()
 		})
-			prototypes.put(o.toString(), o);
+			prototypes.put(o.getName(), o);
 	}
-	
-	public static Iterator<Occupation> getPlayerOccupations() {
-		return new ArrayIterator<Occupation>(
-				new Smasher(null, null),
-				new Summoner(null, null),
-				new Sneak(null, null)
-		);
-	}
-	
-	protected final String name;
-	private Stats stats;
-	protected LinkedList<Skill> skills;
-
-	protected Occupation(String name, Stats stats) {
-		this.name = name;
-		this.stats = stats;
-		skills = new LinkedList<Skill>();
-		populateSkills();
-	}
-	
+		
 	public Stats getStats() {
-		return stats;
-	}
-	
-	protected Occupation(String name, Stats stats, LinkedList<Skill> skills) {
-		this.name = name;
-		this.stats = stats;
-		this.skills = skills;
+		return clone().stats;
 	}
 	
 	public Occupation clone() {
@@ -63,34 +49,37 @@ public abstract class Occupation implements Cloneable {
 		}
 		catch(CloneNotSupportedException e) {
 		}
-		o.stats = this.stats.clone();
+		o.stats = stats.clone();
+		o.skills = new ArrayList<Skill>();
+		for(Skill s: skills)
+			o.skills.add(s.clone());
 		return o;
 	}
 	
 	public String toString() {
-		return this.name;
+		return name;
 	}
 	
 	public String getName() {
-		return toString();
+		return name;
 	}
 	
 	public boolean equals(Object o) {
 		boolean ret = false;
 		if(o instanceof Occupation)
-			ret = o.toString().equals(toString());
+			ret = ((Occupation) o).name.equals(name);
 		return ret;
 	}
+
+	public int hashCode() {
+		return name.hashCode();
+	}
 	
-	public static Occupation getOccupationPrototype(String key){
+	public static Occupation getOccupation(String key){
 		return prototypes.get(key).clone();
 	}
-	public LinkedList<Skill> getSkillContainer(){
-		return skills;
-	}
-	public void populateSkills() {
-		skills.add(new BindWounds());
-		skills.add(new Bargain());
-		skills.add(new Observation());
+	
+	public final List<Skill> getSkillContainer() {
+		return clone().skills;
 	}
 }

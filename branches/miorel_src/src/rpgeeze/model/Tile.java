@@ -27,7 +27,6 @@ public class Tile implements Cloneable, Visitable {
 		this.decal = decal;
 		this.item = item;
 		this.ae = ae;
-		//this.adjacentTiles = new Tile[3][3];
 	}
 	
 	public Tile(Terrain terrain, Location location, Item item) {
@@ -38,8 +37,7 @@ public class Tile implements Cloneable, Visitable {
 		this(terrain, location, null, null, null);
 	}
 	
-	public void setMap(Map map)
-	{
+	public void setMap(Map map) {
 		this.map = map;
 	}
 
