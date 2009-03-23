@@ -592,6 +592,9 @@
 				<x>11</x>
 				<y>1</y>
 			</location>
+			<item>
+				<type>Little Gun</type>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -613,6 +616,9 @@
 				<x>14</x>
 				<y>1</y>
 			</location>
+			<item>
+				<type>Big Gun</type>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
