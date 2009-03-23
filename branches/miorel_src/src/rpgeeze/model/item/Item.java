@@ -2,8 +2,9 @@ package rpgeeze.model.item;
 
 import java.util.Hashtable;
 
+import rpgeeze.model.entity.PC;
+import rpgeeze.model.item.Item;
 import rpgeeze.model.entity.Entity;
-import rpgeeze.model.item.*;
 
 import rpgeeze.model.Tile;
 import rpgeeze.model.Visitable;
@@ -42,12 +43,12 @@ public abstract class Item implements Visitable, Cloneable {
 	//public void deActivate(Entity e){}
 
 	public Item clone() {
-         Item ret = null;
-         try {
-                 ret = (Item) super.clone();
-         }
-         catch(CloneNotSupportedException e) {}
-         return ret;
+		Item ret = null;
+		try {
+			ret = (Item) super.clone();
+		}
+		catch(CloneNotSupportedException e) {}
+		return ret;
 	}
 	
 	/**
@@ -74,4 +75,18 @@ public abstract class Item implements Visitable, Cloneable {
 	public String toString() {
 		return name;
 	}
+	
+	public boolean isPassable() {
+		return true;
+	}
+
+	public abstract void activate(PC pc);
+	
+	public abstract void use(PC pc);
+	
+	public void deActivate(PC pc)
+	{
+		
+	}
+	
 }
