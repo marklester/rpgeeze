@@ -21351,4 +21351,17 @@
 		<skillContainer> 
 		</skillContainer>
 	</entity>
+	<entity entityType ="vehicle">
+		<speed>10</speed>
+		<location>
+				<x>10</x>
+				<y>25</y>
+			</location>
+		<facing>
+			<location>
+				<x>1</x>
+				<y>42</y>
+			</location>
+		</facing>
+	</entity>
 </model>
