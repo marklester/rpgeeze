@@ -35,6 +35,13 @@ public class AudioThread extends Thread implements Observer {
 		return instance;
 	}
 	
+	public static AudioThread getInstance(String key, int type) {
+		//returns a new instance each time
+		AudioThread instance = new AudioThread();
+		instance.setKeyType(key, type);
+		return instance;
+	}
+	
 	public void setKeyType(String key, int type)
 	{
 		this.key = key;
@@ -76,6 +83,8 @@ public class AudioThread extends Thread implements Observer {
 				//InputStream in = ResourceLoader.getInstance().getAudio(key); 
 				AudioStream as = new AudioStream(in);
 				AudioPlayer.player.start(as);
+				
+				//as.close();
 			}
 		}
 		catch (Exception e) { System.out.println(e); }
