@@ -2,8 +2,10 @@ package rpgeeze.model;
 
 import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
-import rpgeeze.model.entity.Entity;
 import rpgeeze.model.entity.PC;
+import rpgeeze.model.entity.monster.*;
+import rpgeeze.model.entity.merchant.*;
+import rpgeeze.model.entity.villager.*;
 import rpgeeze.model.item.Item;
 import rpgeeze.model.terrain.Terrain;
 
@@ -16,7 +18,11 @@ public interface Visitor {
 	public void visitAreaEffect(AreaEffect area_effect);
 	public void visitItem(Item item);
 	public void visitDecal(Decal decal);
-	public void visitEntity(Entity entity);
+	public void visitEntity(Merchant entity);
+	public void visitEntity(PC entity);
+	public void visitEntity(Monster entity);
+	public void visitEntity(Villager entity);
+	//public void visitEntity(Entity entity);
 }
 /*
 public interface GameVisitor {

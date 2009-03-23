@@ -29,7 +29,9 @@ public class PC extends Entity {//implements StatsModifiable{ //implements { Equ
 		this.skills = skills;
 	}
 	
-	
+	public void accept(Visitor visitor) {
+		visitor.visitEntity(this);
+	}	
 	
 	
 	public LinkedList<Skill> getSkills()

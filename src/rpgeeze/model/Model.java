@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import rpgeeze.model.entity.monster.MonsterSpawner;
-import rpgeeze.model.entity.monster.MonsterType;
+import rpgeeze.model.entity.monster.*;
 
 import rpgeeze.model.entity.EntityEventManager;
-import rpgeeze.model.entity.PC;
+import rpgeeze.model.entity.*;
 
 import rpgeeze.dp.Command;
 import rpgeeze.log.LogManager;
@@ -21,16 +21,21 @@ public class Model {
 	private PC avatar;
 
 	private Queue<Command> commands = new LinkedList<Command>();
+	private HumanPlayerEntityManager mainPlayerManager;
 	
 	private LogManager lm;
 	private MonsterSpawner tester;
 	public Model(Map map, PC avatar) {
 		this.map = map;
 		this.avatar = avatar;
+		 mainPlayerManager = new HumanPlayerEntityManager(this.avatar);
 		active = true;
 		paused = true;
 		tester = new MonsterSpawner( avatar.getTile().getRelativeTile(0, 1), MonsterType.Soldier);
 		lm = LogManager.getInstance();
+		
+		tester.setTile(avatar.getTile().getAbsoluteTile(6, 21));
+		
 	}
 	public PC getAvatar() {
 		return this.avatar;
@@ -74,6 +79,10 @@ public class Model {
 			}
 			for(Command cmd: q)
 				cmd.execute();
+			//mainPlayerManager.update();
+			tester.update();
+			EntityManagerCollection.getInstance().update();
+			
 		}
 	}
 

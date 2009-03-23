@@ -16,7 +16,7 @@ import rpgeeze.model.item.TakeableItem;
 import rpgeeze.util.ArrayIterator;
 import rpgeeze.dp.Iterator;
 
-public class Inventory {
+public class Inventory implements Cloneable{
 	public static final int INV_MAX_SIZE = 25;
 
 	private final int maxSize;
@@ -69,5 +69,15 @@ public class Inventory {
 
 	public Iterator<TakeableItem> iterator() {
 		return new ArrayIterator<TakeableItem>(items.toArray(new TakeableItem[0]));
+	}
+	
+	public Inventory clone()
+	{
+		Inventory i = null;
+		try {
+			i = (Inventory)super.clone();
+		}catch(CloneNotSupportedException ce) {}		
+		i.items = (ArrayList<TakeableItem>)items.clone();
+		return i;
 	}
 }

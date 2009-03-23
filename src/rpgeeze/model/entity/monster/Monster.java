@@ -1,5 +1,6 @@
 package rpgeeze.model.entity.monster;
 
+import rpgeeze.model.Visitor;
 import rpgeeze.model.entity.NPC;
 import rpgeeze.model.entity.StatsModifiable;
 
@@ -66,19 +67,28 @@ public abstract class Monster extends NPC implements StatsModifiable{
 		return toString().hashCode();
 	}
 	
+	public void accept(Visitor visitor) {
+		visitor.visitEntity(this);
+	}
+	
 	public boolean equals(Object o)
 	{
 		boolean ret = false;
 		if(o instanceof Monster)
 		{
 			ret = o.toString().equals(toString());
-			//System.out.println(o);
 		}
 		return ret;
 	}
 	public String toString()
 	{
-		return "monster";
+		return "Monster";
+	}
+	
+	public Monster clone()
+	{
+		return (Monster)super.clone();
+		
 	}
 }
 
