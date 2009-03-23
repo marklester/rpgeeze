@@ -71,7 +71,6 @@ public class Tile implements Cloneable, Visitable {
 			throw new IllegalMoveException("Destination tile already occupied");
 		}
 		else if(!this.terrain.isPassable(entity)) {
-			System.out.println(location.getX() + " " + location.getY());
 			throw new IllegalMoveException("Entity may not traverse destination terrain");
 		}
 		if(entity != null && item != null)
