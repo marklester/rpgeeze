@@ -180,53 +180,75 @@ public class GameplayView extends View<GameplayView.State> {
 			gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 			gl.glPopMatrix();
 			glutil.color(fadeIn.getFinalColor());
+			
+			gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
+			//gl.glBlendFunc(GL.GL_SRC_COLOR, GL.GL_SRC_ALPHA);
+			gl.glBindTexture(0, GL.GL_TEXTURE_2D);
+			gl.glPushMatrix();
+			equipment.reset();
+			double eqpX = INVENTORY_Z * glutil.getViewportAspectRatio() + 0.2 * equipment.current().getHeight();
+			double eqpY = -INVENTORY_Z - equipment.current().getHeight() - 0.2 * equipment.current().getHeight();
+			gl.glTranslated(eqpX, eqpY, 0);
+			for(Rectangle r: equipmentRects) {
+				equipment.current().setVisible(true);
+				equipment.current().setXY(r.getX() + eqpX, r.getY() + eqpY);
+				r.setColor(new Color(0f, 1f, 1f, 0.4f));
+				r.render(gl);
+				equipment.advance();
+			}
+			gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+			gl.glPopMatrix();
+			glutil.color(fadeIn.getFinalColor());
+			
+			Equipment eq = getManager().getModel().getAvatar().getEquipment();
+			equipment.reset();
+			equipment.advance();
+			equipment.current().setVisible(true);
+			equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getHead()));
+			equipment.advance();
+			equipment.advance();
+			equipment.current().setVisible(true);
+			equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getAuxiliary()));
+			equipment.advance();
+			equipment.current().setVisible(true);
+			equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getArmor()));		
+			equipment.advance();
+			equipment.current().setVisible(true);
+			equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getWeapon()));
+			equipment.advance();
+			equipment.advance();
+			equipment.current().setVisible(true);
+			equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getBoots()));
 		}
 		else {
 			for(inventory.reset(); !inventory.isDone(); inventory.advance())
 				inventory.current().setVisible(false);
+			
+			Equipment eq = getManager().getModel().getAvatar().getEquipment();
+			equipment.reset();
+			equipment.advance();
+			equipment.current().setVisible(false);
+			equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getHead()));
+			equipment.advance();
+			equipment.advance();
+			equipment.current().setVisible(false);
+			equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getAuxiliary()));
+			equipment.advance();
+			equipment.current().setVisible(false);
+			equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getArmor()));		
+			equipment.advance();
+			equipment.current().setVisible(false);
+			equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getWeapon()));
+			equipment.advance();
+			equipment.advance();
+			equipment.current().setVisible(false);
+			equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getBoots()));
 		}
 
 		
 		
 		
-		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
-		//gl.glBlendFunc(GL.GL_SRC_COLOR, GL.GL_SRC_ALPHA);
-		gl.glBindTexture(0, GL.GL_TEXTURE_2D);
-		gl.glPushMatrix();
-		equipment.reset();
-		double eqpX = INVENTORY_Z * glutil.getViewportAspectRatio() + 0.2 * equipment.current().getHeight();
-		double eqpY = -INVENTORY_Z - equipment.current().getHeight() - 0.2 * equipment.current().getHeight();
-		gl.glTranslated(eqpX, eqpY, 0);
-		for(Rectangle r: equipmentRects) {
-			equipment.current().setVisible(true);
-			equipment.current().setXY(r.getX() + eqpX, r.getY() + eqpY);
-			r.setColor(new Color(0f, 1f, 1f, 0.4f));
-			r.render(gl);
-			equipment.advance();
-		}
-		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
-		gl.glPopMatrix();
-		glutil.color(fadeIn.getFinalColor());
 		
-		Equipment eq = getManager().getModel().getAvatar().getEquipment();
-		equipment.reset();
-		equipment.advance();
-		equipment.current().setVisible(true);
-		equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getHead()));
-		equipment.advance();
-		equipment.advance();
-		equipment.current().setVisible(true);
-		equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getAuxiliary()));
-		equipment.advance();
-		equipment.current().setVisible(true);
-		equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getArmor()));		
-		equipment.advance();
-		equipment.current().setVisible(true);
-		equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getWeapon()));
-		equipment.advance();
-		equipment.advance();
-		equipment.current().setVisible(true);
-		equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getBoots()));
 		
 //		for(items.reset(), inventory.reset(); !items.isDone(); items.advance(), inventory.advance())
 //			inventory.current().setTexture(mapDrawer.textureForItem(items.current()));
