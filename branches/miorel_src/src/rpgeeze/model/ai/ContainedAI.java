@@ -4,6 +4,7 @@ import rpgeeze.model.Tile;
 
 import rpgeeze.model.Tile;
 import rpgeeze.model.entity.NPC;
+import rpgeeze.model.*;
 
 public class ContainedAI implements ArtificialIntelligence {
 	private int bound;
