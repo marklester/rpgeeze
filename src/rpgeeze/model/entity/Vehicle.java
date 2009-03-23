@@ -3,7 +3,7 @@ package rpgeeze.model.entity;
 import rpgeeze.model.Visitor;
 
 
-public class Vehicle extends Entity{
+public class Vehicle extends PC{
 	private int updateCounter;
 	private int speed;
 	
