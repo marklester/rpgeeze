@@ -1,7 +1,5 @@
 package rpgeeze.model.entity;
 
-import java.util.List;
-import java.util.regex.*;
 import rpgeeze.model.skill.*;
 import rpgeeze.log.LogManager;
 import rpgeeze.log.Message;
@@ -23,18 +21,30 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 	public PC(Occupation occupation, Map map) {
 		this.inventory = new Inventory();
 		this.occupation = occupation;
-		//this.stats = (Stats) occupation.stats.clone();
-		//this.skills = occupation.skills;
-		//this.equipment = new Equipment();
+		this.stats = occupation.getStats().clone();
+		this.skills = occupation.getSkillContainer();
+		this.equipment = new Equipment();
 	}
-	public PC()
-	{
-		
-	}
-
 	
-	public void setTile(Tile tile)
-	{
+	public PC(){
+		this.setEntityType("Playable Character");
+	}
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+	public void setOccupation(Occupation occupation) {
+		this.occupation = occupation;
+	}
+	public void setStats(Stats stats) {
+		this.stats = stats;
+	}
+	public void setSkills(SkillContainer skills) {
+		this.skills = skills;
+	}
+	public void setEquipment(Equipment equipment) {
+		this.equipment = equipment;
+	}
+	public void setTile(Tile tile){
 		super.setTile(tile);
 		//this.updateCounter = super.getSpeed();
 		tile.collectItem(this);
@@ -44,13 +54,11 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		return inventory;
 	}
 	
-	public void addItem(Item item)
-	{
+	public void addItem(Item item){
 		inventory.addItem(item, true);
 	}
 	
-	public void addItemSilenetly(Item item)
-	{
+	public void addItemSilently(Item item){
 		inventory.addItem(item, false);
 	}
 	
@@ -62,127 +70,120 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		}
 	}
 
-	/*
 	public void equipActionAtIndex(int index) {
 		//from action listener in viewer
-		if(index >= inventory.count())
+		if(index >= inventory.itemCount())
 			return;
 		inventory.getItemAt(index).activate(this, this.getTile());	
 	}
 	
 	public void dropActionAtIndex(int index) {
 		//from action listener in viewer
-		if(index >= inventory.count())
+		if(index >= inventory.itemCount())
 			return;	
 		//Drop item here
 		dropItem(index);
 	}
 	
-	public void removeItem(Item item)
-	{
+	public void removeItem(Item item){
 		inventory.removeItem(item);
 	}
 	
 	public void equipHead(Item i) {
-		if(equipment.head == i)
-			return;
-		inventory.removeItem(i);
-		unequipHead();
-		equipment.head = i;
+		if(equipment.getHead() == i){	
+		}else{
+			inventory.removeItem(i);
+			unequipHead();
+			equipment.setHead(i);
+		}
 	}
 
 	public void equipBoots(Item i) {
-		if(equipment.boots == i)
-			return;
-		inventory.removeItem(i);
-		unequipBoots();
-		equipment.boots = i;
+		if(equipment.getBoots() == i){	
+		}else{
+			inventory.removeItem(i);
+			unequipBoots();
+			equipment.setBoots(i);
+		}
 	}
 	
 	public void equipArmor(Item i) {
-		if(equipment.armor == i)
-			return;
-		inventory.removeItem(i);
-		unequipArmor();
-		equipment.armor = i;
+		if(equipment.getArmor() == i){	
+		}else{
+			inventory.removeItem(i);
+			unequipArmor();
+			equipment.setArmor(i);
+		}
 	}
 
 	public void equipWeapon(Item i) {
-		if(equipment.weapon == i)
-			return;
-		inventory.removeItem(i);
-		unequipWeapon();
-		equipment.weapon = i;
+		if(equipment.getWeapon() == i){	
+		}else{
+			inventory.removeItem(i);
+			unequipWeapon();
+			equipment.setWeapon(i);
+		}
 	}
 
 	public void equipAuxiliary(Item i) {
-		if(equipment.auxiliary == i)
+		if(equipment.getAuxiliary() == i)
 			return;
 		inventory.removeItem(i);
-		if(equipment.auxiliary != null)
-			inventory.addItem(equipment.auxiliary);
-		equipment.auxiliary = i;
-		if(equipment.weapon != null)
-			equipment.weapon.use(this);
+		if(equipment.getAuxiliary() != null)
+			inventory.addItem(equipment.getAuxiliary(),false);
+		equipment.setAuxiliary(i);
+		if(equipment.getWeapon() != null)
+			equipment.getWeapon().use(this);
 	}
 
 	public void unequipHead() {
-		if(equipment.head != null)
-		{
-			inventory.addItem(equipment.head);
-			equipment.head.deActivate(this);
+		if(equipment.getHead() != null){
+			inventory.addItem(equipment.getHead(),false);
+			equipment.getHead().deActivate(this);
 		}
-		equipment.head = null;
+		equipment.setHead(null);
 	}
 
 	public void unequipBoots() {
-		if(equipment.boots != null)
-		{
-			inventory.addItem(equipment.boots);
-			equipment.boots.deActivate(this);
+		if(equipment.getBoots() != null){
+			inventory.addItem(equipment.getBoots(),false);
+			equipment.getBoots().deActivate(this);
 		}
-			
-		equipment.boots = null;
+		equipment.setBoots(null);
 	}
 
 	public void unequipArmor() {
-		if(equipment.armor != null)
-		{
-			inventory.addItem(equipment.armor);
-			equipment.armor.deActivate(this);
+		if(equipment.getArmor() != null){
+			inventory.addItem(equipment.getArmor(),false);
+			equipment.getArmor().deActivate(this);
 		}
-		equipment.armor = null;
+		equipment.setArmor(null);
 	}
 	
 	public void unequipWeapon() {
-		if(equipment.weapon != null)
-		{
-			inventory.addItem(equipment.weapon);
-			equipment.weapon.deActivate(this);
+		if(equipment.getWeapon() != null){
+			inventory.addItem(equipment.getWeapon(),false);
+			equipment.getWeapon().deActivate(this);
 		}
-		equipment.weapon = null;
+		equipment.setWeapon(null);
 	}
 	
 	public void unequipAuxiliary() {
-		if(equipment.auxiliary != null)
-		{
-			inventory.addItem(equipment.auxiliary);
-			equipment.auxiliary.deActivate(this);
+		if(equipment.getAuxiliary() != null){
+			inventory.addItem(equipment.getAuxiliary(),false);
+			equipment.getAuxiliary().deActivate(this);
 		}
-		equipment.auxiliary = null;
+		equipment.setAuxiliary(null);
 	}
 	
-	public void unequipAll()
-	{
+	public void unequipAll(){
 		unequipHead();
 		unequipBoots();
 		unequipArmor();
 		unequipWeapon();
 		unequipAuxiliary();
 	}
-	*/
-	public boolean hasEnoughHP(int value)
-	{
+	public boolean hasEnoughHP(int value){
 		return value <= stats.life;
 	}
 	
