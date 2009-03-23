@@ -62,7 +62,7 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		}
 	}
 
-	
+	/*
 	public void equipActionAtIndex(int index) {
 		//from action listener in viewer
 		if(index >= inventory.count())
@@ -180,7 +180,7 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		unequipWeapon();
 		unequipAuxiliary();
 	}
-	
+	*/
 	public boolean hasEnoughHP(int value)
 	{
 		return value <= stats.life;
