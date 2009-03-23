@@ -27,6 +27,7 @@ import rpgeeze.model.entity.PC;
 import rpgeeze.model.decal.*;
 import rpgeeze.model.item.*;
 import rpgeeze.model.terrain.GrassTerrain;
+import rpgeeze.util.AudioThread;
 import rpgeeze.model.xml.ModelConstructor;
 import rpgeeze.util.DelegatingEventAdapter;
 import rpgeeze.util.EventAdapter;
@@ -281,6 +282,9 @@ public class GameManager extends DelegatingEventAdapter
 	 * 
 	 */
 	public void start() {
+		AudioThread at = AudioThread.getInstance();
+		at.setKeyType("audio.game", AudioThread.STREAM);
+		at.start();
 		frame.addWindowListener(this);
 		frame.addWindowFocusListener(this);
 		canvas.addKeyListener(this);
