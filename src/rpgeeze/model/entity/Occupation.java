@@ -19,7 +19,7 @@ import rpgeeze.util.ArrayIterator;
 public abstract class Occupation implements Cloneable {
 	private final String name;
 	private Stats stats;
-	private LinkedList<Skill> skills;
+	private LinkedList<Skill> skills = new LinkedList<Skill>();
 	
 	protected Occupation(String name, Stats stats, Skill... skills) {
 		this.name = name;
