@@ -179,8 +179,8 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 		return (Entity)prototypes.get(key).clone();
 	}
 	
-	public boolean pickUp(Item item) {
-		return false;
+	public boolean pickUp(TakeableItem item) {
+		return inventory.addItem(item, true);
 	}
 	
 	public void addHealth(int value)
