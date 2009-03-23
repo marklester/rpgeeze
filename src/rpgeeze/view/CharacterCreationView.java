@@ -25,7 +25,7 @@ import rpgeeze.gl.geom.TextRectangle;
 import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.gl.geom.Triangle;
 import rpgeeze.math.StaticVector;
-import rpgeeze.model.occupation.Occupation;
+import rpgeeze.model.entity.Occupation;
 import rpgeeze.util.ArrayIterator;
 import rpgeeze.util.ResourceLoader;
 
