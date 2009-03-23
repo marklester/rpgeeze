@@ -1,7 +1,7 @@
 package rpgeeze.model.item;
 
-import rpgeeze.model.Entity;
 import rpgeeze.model.Tile;
+import rpgeeze.model.entity.Entity;
 
 /**
  * An Item that is activated and removed from the Map when touched by an

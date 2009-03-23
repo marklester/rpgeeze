@@ -5,7 +5,7 @@ package rpgeeze.model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
-import rpgeeze.model.Entity;
+import rpgeeze.model.entity.Entity;
 
 public class Arrows extends TakeableItem {
 

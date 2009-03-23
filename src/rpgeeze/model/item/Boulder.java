@@ -1,7 +1,7 @@
 package rpgeeze.model.item;
 
-import rpgeeze.model.Entity;
 import rpgeeze.model.Tile;
+import rpgeeze.model.entity.Entity;
 
 /** 
  * Obstacle Item

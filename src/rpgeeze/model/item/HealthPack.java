@@ -1,6 +1,6 @@
 package rpgeeze.model.item;
 
-import rpgeeze.model.Entity;
+import rpgeeze.model.entity.Entity;
 
 /** 
  * HealthPack is a One Shot Item that when used give

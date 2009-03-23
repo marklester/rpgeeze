@@ -1,8 +1,8 @@
 package rpgeeze.model.item;
 
-import rpgeeze.model.Entity;
-import rpgeeze.model.IllegalMoveException;
 import rpgeeze.model.Tile;
+import rpgeeze.model.entity.Entity;
+import rpgeeze.model.entity.IllegalMoveException;
 
 /**
  * Makes the Tile that contains it permanently impassable.

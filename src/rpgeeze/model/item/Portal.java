@@ -2,8 +2,8 @@ package rpgeeze.model.item;
 
 import java.util.Hashtable;
 
-import rpgeeze.model.Entity;
 import rpgeeze.model.Location;
+import rpgeeze.model.entity.Entity;
 
 public class Portal extends InteractiveItem {
 	private Location where;
