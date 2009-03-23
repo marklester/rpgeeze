@@ -25,9 +25,6 @@ public abstract class Occupation implements Cloneable {
 		this.name = name;
 		for(Skill s: skills)
 			this.skills.add(s);
-		this.skills.add(new BindWounds());
-		this.skills.add(new Bargain());
-		this.skills.add(new Observation());
 		this.stats = stats;
 	}
 	
