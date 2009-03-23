@@ -47,11 +47,11 @@ public class Tile implements Cloneable, Visitable {
 	}
 	
 	public int getX() {
-		return 0;
+		return location.getX();
 	}
 
 	public int getY() {
-		return 0;
+		return location.getY();
 	}
 	
 	public Terrain getTerrain() {
