@@ -18,16 +18,24 @@ public class Pair<T, U> {
 	}
 	
 	public int hashCode() {
-		return first.hashCode() * 23 + second.hashCode();
+		int num = first.hashCode() * 23;
+		num += second.hashCode();
+		return num;
 	}
 	
 	public boolean equals(Object o) {
 		boolean ret = false;
 		if(o instanceof Pair) {
-			Pair p = (Pair) o;
+			Pair<T, U> p = (Pair<T, U>) o;
+			
 			if(first.equals(p.first) && second.equals(p.second)) 
 				ret = true;
 		}
 		return ret;
 	}
+	public String toString()
+	{
+		return first + " " + second;
+	}
+	
 }

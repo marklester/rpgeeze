@@ -16,7 +16,6 @@ public class Model extends util.Subject implements ModelElement{
 	private final static Pattern pattern = Pattern.compile("<model>(<map>.*</map>)(<entity>.*</entity>)</model>");
 
 	protected final Queue<Command> commands = new LinkedList<Command>();
-	protected final List<EntityEventManager> entities = new LinkedList<EntityEventManager>();
 	
 	private Map.Matrix snapshot;
 
@@ -24,16 +23,20 @@ public class Model extends util.Subject implements ModelElement{
 	private HumanPlayerEntityManager mainPlayerManager;
 	
 	private Map map;
+	private MonsterSpawner tester;
 	private final Location avatarStart;
 	private boolean paused;
 
 	public Model(Map map, PC mainCharacter) {
 		this.map = map;
+		
 		this.avatar = mainCharacter;
 		mainPlayerManager = new HumanPlayerEntityManager(mainCharacter);
+		EntityManagerCollection.getInstance().addManager(mainPlayerManager);
 		this.paused = false;
 		
 		avatarStart = avatar.getTile().getLocation();
+		tester = new MonsterSpawner( avatar.getTile().getRelativeTile(0, 1), MonsterType.Soldier);
 		Tile tile = map.getTile(avatarStart);
 		tile.accept(avatar);
 	}
@@ -55,10 +58,10 @@ public class Model extends util.Subject implements ModelElement{
 			}
 			while(!tempQ.isEmpty())
 				tempQ.poll().execute(this);
-
-			//this.avatar.update();
-			for(EntityEventManager eem : entities)
-				eem.update();
+			
+			EntityManagerCollection.getInstance().update();
+			tester.update();
+			
 			this.snapshot = this.map.getMatrix().clone();
 			updateObservers();
 	
@@ -117,7 +120,7 @@ public class Model extends util.Subject implements ModelElement{
 		if(!mat.matches())
 			throw new RuntimeException("Bad XML for Model");
 		Map map = Map.fromXml(mat.group(1));
-		PC avatar = PC.fromXml(occ, map, mat.group(2));
+		PC avatar = PC.fromXml(occ, mat.group(2));
 		return new Model(map, avatar);
 	}
 

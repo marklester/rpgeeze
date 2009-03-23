@@ -44,11 +44,6 @@ public class Tile implements Cloneable, ModelElement{
 	public Location getLocation() {
 		return this.location;
 	}
-
-//	public void setAdjacentTiles(Tile[][] adj)
-//	{
-//		this.adjacentTiles = adj;
-//	}
 	
 	public void setMap(Map map)
 	{
@@ -95,6 +90,11 @@ public class Tile implements Cloneable, ModelElement{
 	public Entity getEntity() {
 		return this.entity;
 	}
+	
+	public void removeEntity()
+	{
+		this.entity = null; 
+	}
 
 	public boolean hasEntity() {
 		return this.entity != null;
@@ -103,6 +103,8 @@ public class Tile implements Cloneable, ModelElement{
 	void setEntity(Entity entity) {
 		this.entity = entity;
 	}
+	
+	
 
 	public void draw(Drawer d) {
 		this.terrain.draw(d);

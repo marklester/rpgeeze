@@ -82,6 +82,7 @@ public abstract class Entity extends Subject implements Drawable, Cloneable {
 	}
 	public abstract boolean isAlive();
 	public abstract void update();
+	public abstract void draw(view.Drawer d);
 		
 //	private static final Pattern pattern = Pattern.compile("<entity>(<stats>.*</stats>)(<occupation>.*</occupation>)(<inventory>.*</inventory>)(<equipment>.*</equipment>)(<tile>.*</tile>)<facing>(.*)</facing></entity>");
 //	
