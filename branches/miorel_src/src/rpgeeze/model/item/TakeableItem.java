@@ -19,4 +19,8 @@ public abstract class TakeableItem extends Item {
 	}
 	
 	public abstract void use(Entity entity);
+	
+	public TakeableItem clone() {
+		return (TakeableItem) super.clone();
+	}
 }

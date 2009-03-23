@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import rpgeeze.log.LogManager;
 import rpgeeze.log.Message;
 import rpgeeze.model.item.Item;
+import rpgeeze.model.item.TakeableItem;
 import rpgeeze.util.ArrayIterator;
 import rpgeeze.dp.Iterator;
 
@@ -19,18 +20,18 @@ public class Inventory {
 	public static final int INV_MAX_SIZE = 25;
 
 	private final int maxSize;
-	private ArrayList<Item> items;
+	private ArrayList<TakeableItem> items;
 
 	public Inventory() {
 		this(INV_MAX_SIZE);
 	}
 	
 	public Inventory(int maxSize) {
-		items = new ArrayList<Item>();
+		items = new ArrayList<TakeableItem>();
 		this.maxSize = maxSize;
 	}
 
-	public boolean addItem(Item item, boolean announce) {
+	public boolean addItem(TakeableItem item, boolean announce) {
 		LogManager lm = LogManager.getInstance();
 		boolean ret;
 		if(items.size() < maxSize) {
@@ -66,7 +67,7 @@ public class Inventory {
 		return items.size();
 	}
 
-	public Iterator<Item> iterator() {
-		return new ArrayIterator<Item>(items.toArray(new Item[0]));
+	public Iterator<TakeableItem> iterator() {
+		return new ArrayIterator<TakeableItem>(items.toArray(new TakeableItem[0]));
 	}
 }
