@@ -16,6 +16,7 @@ public class HealthPack extends OneShotItem {
 	public HealthPack() {
 		super("Health Pack");
 		this.amount= 10;
+		setPrice(50);
 	}
 
 	public void use(Entity entity, Tile tile) {
