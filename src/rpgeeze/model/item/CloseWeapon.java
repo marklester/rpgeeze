@@ -20,7 +20,7 @@ public abstract class CloseWeapon extends TakeableItem implements EquippableItem
 		return (CloseWeapon) super.clone();
 	}
 	public void equip(Entity entity){
-		if(entity.getOccupation().getName().compareTo("Summoner")==0){
+		if(entity.getOccupation().getName().compareTo("Smasher")==0){
 			entity.unequipAuxiliary();
 			entity.equipWeapon(this);
 			LogManager.getInstance().log(getName()+" has been equipped.", "", Message.Type.GAME);	
