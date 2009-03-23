@@ -14,7 +14,7 @@ public abstract class Entity extends Subject implements Drawable, Cloneable {
 		for(Entity d: new Entity[] {
 			new PC()
 		})
-		prototypes.put(d.toString(), d);
+		prototypes.put(d.getEntityType(), d);
 	}
 	private Direction dir;
 	private int speed;	
