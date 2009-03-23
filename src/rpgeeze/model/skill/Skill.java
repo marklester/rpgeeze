@@ -17,7 +17,15 @@ public abstract class Skill implements Cloneable{
 			new RangedWeapon(),
 			new OneHandedWeapon(),
 			new Brawling(),
-			new Observation()
+			new Observation(),
+			new PickPocket(),
+			new DetectTrap(),
+			new Creep(),
+			new RangedWeapon(),
+			new Enchantment(),
+			new Boon(),
+			new Bane(),
+			new Staff()
 		})
 			prototypes.put(s.toString(), s);
 	}
