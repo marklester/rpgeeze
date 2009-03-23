@@ -9,6 +9,8 @@ import rpgeeze.model.entity.Entity;
  */
 
 public abstract class TakeableItem extends Item {
+	protected int price;
+	
 	public TakeableItem(String name) {
         super(name);
 	}
@@ -24,5 +26,13 @@ public abstract class TakeableItem extends Item {
 	
 	public TakeableItem clone() {
 		return (TakeableItem) super.clone();
+	}
+	
+	public void setPrice(int price){
+		this.price = price;
+	}
+	
+	public int getPrice(){
+		return price;
 	}
 }
