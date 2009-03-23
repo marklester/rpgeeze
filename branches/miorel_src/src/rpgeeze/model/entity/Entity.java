@@ -25,12 +25,12 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 	
 	private int speed;	
 	private Location l;
-	private Direction facing = Direction.EAST;
+	private Direction facing;
 	private Tile tile;
 	private String entityType;
 	protected Equipment equipment;
 	protected Inventory inventory;
-	private Occupation occupation;
+	protected Stats stats;
 	
 	public void move(Location l)
 	{
@@ -65,14 +65,29 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 		}
 	}
 	*/
+	public void addHealth(int value)
+	{
+		stats.addHealth(value);
+	}
+	
+	public void addMana(int value)
+	{
+		stats.addMana(value);
+	}
+	
+	public void addMovement(int value)
+ 	{
+		stats.addMovement(value);
+	}
+	
+	public void addLevel(int value)
+	{
+		stats.addLevel(value);
+	}
 	
 	public void setFacingDirection(Direction dir)
 	{
 		this.facing = dir;
-	}
-	
-	public Occupation getOccupation() {
-		return occupation;
 	}
 	
 	public Direction getFacingDirection() {
@@ -168,106 +183,7 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 		return false;
 	}
 	
-	public void equipHead(EquippableItem i) {
-		if(equipment.getHead() == i){	
-		}else{
-			inventory.removeItem((TakeableItem) i);
-			unequipHead();
-			equipment.setHead(i);
-		}
-	}
-
-	public void equipBoots(EquippableItem i) {
-		if(equipment.getBoots() == i){	
-		}else{
-			inventory.removeItem((TakeableItem) i);
-			unequipBoots();
-			equipment.setBoots(i);
-			i.equip(this);
-		}
-	}
 	
-	public void equipArmor(EquippableItem i) {
-		if(equipment.getArmor() == i){	
-		}else{
-			inventory.removeItem((TakeableItem) i);
-			unequipArmor();
-			equipment.setArmor(i);
-			i.equip(this);
-		}
-	}
-
-	public void equipWeapon(EquippableItem i) {
-		if(equipment.getWeapon() == i){	
-		}else{
-			inventory.removeItem((TakeableItem) i);
-			unequipWeapon();
-			equipment.setWeapon(i);
-			i.equip(this);
-		}
-	}
-//logic for switching here
-	public void equipAuxiliary(EquippableItem i) {
-		if(equipment.getAuxiliary() == i)
-			return;
-		inventory.removeItem((TakeableItem) i);
-		if(equipment.getAuxiliary() != null){
-			inventory.addItem((TakeableItem) equipment.getAuxiliary(),false);
-		    equipment.setAuxiliary(i);
-		}
-		if(equipment.getWeapon() == null){
-			//equipment.getWeapon().equip(this);
-			//inventory.removeItem((TakeableItem) i);
-		}
-	}
-
-	public void unequipHead() {
-		if(equipment.getHead() != null){
-			inventory.addItem((TakeableItem) equipment.getHead(),false);
-			equipment.getHead().unequip(this);
-		}
-		equipment.setHead(null);
-	}
-
-	public void unequipBoots() {
-		if(equipment.getBoots() != null){
-			inventory.addItem((TakeableItem) equipment.getBoots(),false);
-			equipment.getBoots().unequip(this);
-		}
-		equipment.setBoots(null);
-	}
-
-	public void unequipArmor() {
-		if(equipment.getArmor() != null){
-			inventory.addItem((TakeableItem) equipment.getArmor(),false);
-			equipment.getArmor().unequip(this);
-		}
-		equipment.setArmor(null);
-	}
-	
-	public void unequipWeapon() {
-		if(equipment.getWeapon() != null){
-			inventory.addItem((TakeableItem) equipment.getWeapon(),false);
-			equipment.getWeapon().unequip(this);
-		}
-		equipment.setWeapon(null);
-	}
-	
-	public void unequipAuxiliary() {
-		if(equipment.getAuxiliary() != null){
-			inventory.addItem((TakeableItem) equipment.getAuxiliary(),false);
-			equipment.getAuxiliary().unequip(this);
-		}
-		equipment.setAuxiliary(null);
-	}
-	
-	public void unequipAll(){
-		unequipHead();
-		unequipBoots();
-		unequipArmor();
-		unequipWeapon();
-		unequipAuxiliary();
-	}
 }
 
 /*
