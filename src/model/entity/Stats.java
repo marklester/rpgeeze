@@ -208,7 +208,7 @@ public class Stats implements Cloneable {
 		Stats s = new Stats();
 		try {
 		s = (Stats) super.clone();
-		s.primaryStats = this.primaryStats.clone();}
+		s.primaryStats = primaryStats == null? null :primaryStats.clone();}
 		catch(CloneNotSupportedException e){}
 		return s;
 	}
