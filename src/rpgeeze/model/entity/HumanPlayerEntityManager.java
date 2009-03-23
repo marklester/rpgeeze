@@ -21,6 +21,7 @@ public class HumanPlayerEntityManager extends EntityEventManager implements Comm
 		
 	}
 	
+	
 	public PC getEntity()
 	{
 		return entity;
