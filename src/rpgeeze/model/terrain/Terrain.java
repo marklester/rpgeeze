@@ -31,6 +31,10 @@ public abstract class Terrain {
 		return this.name;
 	}
 	
+	public String getName() {
+		return toString();
+	}
+	
 	public boolean isPassable(Entity e) {
 		return true;
 	}
