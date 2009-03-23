@@ -1,7 +1,8 @@
 package rpgeeze.model.ae;
 
 import rpgeeze.model.entity.Entity;
-import rpgeeze.model.StatsModifiable;
+import rpgeeze.model.entity.StatsModifiable;
+import rpgeeze.util.AudioThread;
 
 public class InstantDeath extends AreaEffect {
 	
@@ -14,17 +15,13 @@ public class InstantDeath extends AreaEffect {
     }
 
     public void applyEffect(StatsModifiable e) {
-// kill the entity
-		
-		/*
-		 * Idea: deal "infinite damage" to the entity
-		 * by TDA, entity will only take as much damage as it has health and trigger
-		 * whatever death mechanism it has: respawn, end game, simply disappear, etc. 
-		 * 
-		 */
+		AudioThread at = AudioThread.getInstance();
+		at.setKeyType(this.toString(), AudioThread.CLIP);
+		at.start();
         //ResourceLoader.getInstance().playAudioClip(this.name);
         //e.getStats().decLife(Stats.MAX_LIFE);
         //Console.getInstance().writeLine("You just got Knocked The Hack Out", Color.RED);
     }
+
 }
 
