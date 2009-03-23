@@ -25,19 +25,22 @@ public class ContainedAI implements ArtificialIntelligence {
 		}
 		
 		if(layer < bound)
-		{
+		{			
 			entity.move(randLocation());
+			
 		}else
 		{
-			Location ref = tile.getLocation();
 			Location loc = entity.getTile().getLocation();
+			Location ref = this.tile.getLocation();
 			int xlayer = Math.abs(loc.getX() - ref.getX());
-			int ylayer = Math.abs(loc.getY() - ref.getY());
+			int ylayer = Math.abs(loc.getY() - ref.getY());			
+			
+			java.util.Random r = new java.util.Random();
+			int i = r.nextInt(4);
+			
 			if(xlayer > ylayer)
 			{
-				java.util.Random r = new java.util.Random();
-				int i = r.nextInt(4);
-				
+								
 				switch(i)
 				{
 					case 0:
@@ -55,52 +58,51 @@ public class ContainedAI implements ArtificialIntelligence {
 					default: break;
 				}
 			}
-			else if(xlayer < ylayer)
-			{
-				java.util.Random r = new java.util.Random();
-				int i = r.nextInt(4);
-				
-				switch(i)
-				{
-					case 0:
-						entity.move((ylayer == (loc.getY() - ref.getY()))? new Location(0, -1): new Location(0, 1));
-						break;
-					case 1:
-						entity.move(new Location(-1, 0) );
-						break;
-					case 2:
-						entity.move((ylayer == (loc.getY() - ref.getY()))? new Location(0, -1): new Location(0, 1));
-						break;
-					case 3:
-						entity.move(new Location(1, 0) );
-						break;
-					default: break;
-				}
-			}
 			else
 			{
-				java.util.Random r = new java.util.Random();
-				int i = r.nextInt(4);
-				
-				switch(i)
+				if(xlayer < ylayer)
 				{
-					case 0:
-						entity.move((ylayer == (loc.getY() - ref.getY()))? new Location(0, -1): new Location(0, 1));
-						break;
-					case 1:
-						entity.move((xlayer == (loc.getX() - ref.getX()))? new Location(-1, 0): new Location(1, 0) );
-						break;
-					case 2:
-						entity.move((ylayer == (loc.getY() - ref.getY()))? new Location(0, -1): new Location(0, 1));
-						break;
-					case 3:
-						entity.move((xlayer == (loc.getX() - ref.getX()))? new Location(-1, 0): new Location(1, 0) );
-						break;
-					default: break;
+					
+					switch(i)
+					{
+						case 0:
+							entity.move((ylayer == (loc.getY() - ref.getY()))? new Location(0, -1): new Location(0, 1));
+							break;
+						case 1:
+							entity.move(new Location(-1, 0) );
+							break;
+						case 2:
+							entity.move((ylayer == (loc.getY() - ref.getY()))? new Location(0, -1): new Location(0, 1));
+							break;
+						case 3:
+							entity.move(new Location(1, 0) );
+							break;
+						default: break;
+					}
+				}
+				else
+				{
+					
+					switch(i)
+					{
+						case 0:
+							entity.move((ylayer == (loc.getY() - ref.getY()))? new Location(0, -1): new Location(0, 1));
+							break;
+						case 1:
+							entity.move((xlayer == (loc.getX() - ref.getX()))? new Location(-1, 0): new Location(1, 0) );
+							break;
+						case 2:
+							entity.move((ylayer == (loc.getY() - ref.getY()))? new Location(0, -1): new Location(0, 1));
+							break;
+						case 3:
+							entity.move((xlayer == (loc.getX() - ref.getX()))? new Location(-1, 0): new Location(1, 0) );
+							break;
+						default: break;
+					}
 				}
 			}
 		}
-		// TODO Auto-generated method stub
+		layer = calcLayer(entity);
 		
 	}
 	private Location randLocation()
@@ -121,6 +123,14 @@ public class ContainedAI implements ArtificialIntelligence {
 		default: break;
 		}
 		return null;		
+	}
+	private int calcLayer(NPC entity)
+	{
+		Location ref = tile.getLocation();
+		Location loc = entity.getTile().getLocation();
+		int xlayer = Math.abs(loc.getX() - ref.getX());
+		int ylayer = Math.abs(loc.getY() - ref.getY());
+		return Math.max(xlayer, ylayer);		
 	}
 	
 }
