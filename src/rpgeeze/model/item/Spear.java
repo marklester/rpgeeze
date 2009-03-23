@@ -13,7 +13,7 @@ import rpgeeze.model.entity.Entity;
 public class Spear extends CloseWeapon{
 	public Spear() {
 		super("Spear");
-		setEffectiveness(50);
+		setEffectiveness(70);
 	}
 
 	public Spear clone(){
