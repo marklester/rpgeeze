@@ -81,8 +81,13 @@ public class Tile implements Cloneable, Visitable {
 		return item;
 	}
 
-	public void setItem(Item newItem) {
-		item = newItem;
+	public boolean setItem(Item newItem) {
+		boolean ret = false;
+		if(item == null) { 
+			item = newItem;
+			ret = true;
+		}
+		return ret;
 	}
 	
 	public boolean hasItem() {
