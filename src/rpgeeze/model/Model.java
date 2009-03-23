@@ -3,6 +3,8 @@ package rpgeeze.model;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import rpgeeze.model.entity.PC;
+
 import rpgeeze.dp.Command;
 import rpgeeze.log.LogManager;
 import rpgeeze.log.Message;
@@ -13,13 +15,13 @@ public class Model {
 	private boolean active;
 
 	private Map map;
-	private Entity avatar;
+	private PC avatar;
 
 	private Queue<Command> commands = new LinkedList<Command>();
 	
 	private LogManager lm;
 
-	public Model(Map map, Entity avatar) {
+	public Model(Map map, PC avatar) {
 		this.map = map;
 		this.avatar = avatar;
 		active = true;
@@ -27,8 +29,8 @@ public class Model {
 		lm = LogManager.getInstance();
 	}
 
-	public Entity getAvatar() {
-		return avatar;
+	public PC getAvatar() {
+		return this.avatar;
 	}
 	
 	public synchronized boolean isPaused() {
