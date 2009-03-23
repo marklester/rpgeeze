@@ -29,7 +29,6 @@ public abstract class RangedWeapon extends TakeableItem implements EquippableIte
 	}
 	
 	public void unequip(Entity entity){
-		entity.addItemSilently(this);
 		entity.unequipWeapon();
 		LogManager.getInstance().log(getName()+" has been unequipped.", "", Message.Type.GAME);
 	}
