@@ -7,13 +7,13 @@ package rpgeeze.model.item;
 
 import rpgeeze.log.LogManager;
 import rpgeeze.log.Message;
-import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
-import rpgeeze.model.entity.PC;
+
 
 public class Helmet extends TakeableItem implements EquippableItem{
 	public Helmet() {
 		super("Helmet");
+		setPrice(100);
 	}
 
 	public void equip(Entity entity){
