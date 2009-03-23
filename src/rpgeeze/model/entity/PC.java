@@ -2,14 +2,13 @@ package rpgeeze.model.entity;
 
 import java.util.List;
 import java.util.regex.*;
-
-import rpgeeze.model.entity.*;
-import rpgeeze.model.skill.SkillContainer;
+import rpgeeze.model.skill.*;
 import rpgeeze.log.LogManager;
 import rpgeeze.log.Message;
 import rpgeeze.model.*;
 import rpgeeze.model.xml.*;
 import rpgeeze.model.item.*;
+import rpgeeze.model.entity.Occupation;
 
 
 public class PC extends Entity { //implements { EquippableInventory, StatsModifiable {
@@ -24,27 +23,13 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 	public PC(Occupation occupation, Map map) {
 		this.inventory = new Inventory();
 		this.occupation = occupation;
-		this.stats = (Stats) occupation.stats.clone();
-		this.skills = occupation.skills;
-		this.equipment = new Equipment();
+		//this.stats = (Stats) occupation.stats.clone();
+		//this.skills = occupation.skills;
+		//this.equipment = new Equipment();
 	}
-	public void setInventory(Inventory inventory) {
-		this.inventory = inventory;
-	}
-	public void setOccupation(Occupation occupation) {
-		this.occupation = occupation;
-	}
-	public void setStats(Stats stats) {
-		this.stats = stats;
-	}
-	public void setSkills(SkillContainer skills) {
-		this.skills = skills;
-	}
-	public void setEquipment(Equipment equipment) {
-		this.equipment = equipment;
-	}
-	public PC(){
-		this.setEntityType("Playable Character");
+	public PC()
+	{
+		
 	}
 
 	
@@ -97,7 +82,7 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 	{
 		inventory.removeItem(item);
 	}
-/*
+	
 	public void equipHead(Item i) {
 		if(equipment.head == i)
 			return;
@@ -195,7 +180,7 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		unequipWeapon();
 		unequipAuxiliary();
 	}
-
+	
 	public boolean hasEnoughHP(int value)
 	{
 		return value <= stats.life;
@@ -241,10 +226,6 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		return stats.getLevel();
 	}
 	
-	public boolean isAlive() {
-		return stats.getLife() <= 0;
-	}
-	
 	public Equipment getEquipment()
 	{
 		return equipment;
@@ -264,7 +245,7 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 	{
 		return skills.get(index);
 	}
-	*/
+	
 	public Occupation getOccupation()
 	{
 		return occupation;
