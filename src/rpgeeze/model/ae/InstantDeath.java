@@ -22,6 +22,7 @@ public class InstantDeath extends AreaEffect {
 		at.setKeyType(this.toString(), AudioThread.CLIP);
 		at.start();
         e.getStats().decLife(Stats.MAX_LIFE);
+        
         LogManager.getInstance().log("You just got Knocked The Hack Out", "", Message.Type.GAME);
     }
 
