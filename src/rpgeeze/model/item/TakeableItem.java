@@ -3,6 +3,7 @@ package rpgeeze.model.item;
 import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
 
+
 /**
  * An Item that is added to an Entity's Inventory on touch.
  */
