@@ -7,16 +7,28 @@ package rpgeeze.model.item;
 
 import rpgeeze.log.LogManager;
 import rpgeeze.log.Message;
-//import model.entity.PC;
-import rpgeeze.model.entity.PC;
+import rpgeeze.model.entity.Entity;
 
-public class Sword extends TakeableItem {
+
+public class Sword extends TakeableItem implements EquippableItem{
 	public Sword() {
 		super("Sword");
 	}
 
-	public void use(PC pc) {
-		//pc.equipWeapon(this);
+	public void use(Entity entity) {
+		entity.equipWeapon(this);
 		LogManager.getInstance().log("Equipped " + this, "MODEL", Message.Type.GAME);
+	}
+	
+	public void equip(Entity entity){
+		
+	}
+	
+	public void unequip(Entity entity){
+		
+	}
+	
+	public Sword clone(){
+		return (Sword) super.clone();
 	}
 }
