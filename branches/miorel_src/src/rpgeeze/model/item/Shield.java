@@ -1,6 +1,6 @@
 package rpgeeze.model.item;
 
-import rpgeeze.model.Entity;
+import rpgeeze.model.entity.Entity;
 
 /** 
  *Equippable Item probably brings up defense

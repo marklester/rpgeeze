@@ -1,6 +1,6 @@
 package rpgeeze.model.item;
 
-import rpgeeze.model.Entity;
+import rpgeeze.model.entity.Entity;
 
 /** 
  * Potion that goes in inventory

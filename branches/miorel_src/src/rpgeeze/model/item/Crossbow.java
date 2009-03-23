@@ -1,6 +1,6 @@
 package rpgeeze.model.item;
 
-import rpgeeze.model.Entity;
+import rpgeeze.model.entity.Entity;
 
 /** 
  * I haven't really looked into how this is being used, whoever added this

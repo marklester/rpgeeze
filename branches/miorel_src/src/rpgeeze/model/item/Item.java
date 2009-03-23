@@ -1,9 +1,10 @@
 package rpgeeze.model.item;
 
 import java.util.Hashtable;
+
+import rpgeeze.model.entity.Entity;
 import rpgeeze.model.item.*;
 
-import rpgeeze.model.Entity;
 import rpgeeze.model.Tile;
 import rpgeeze.model.Visitable;
 import rpgeeze.model.Visitor;

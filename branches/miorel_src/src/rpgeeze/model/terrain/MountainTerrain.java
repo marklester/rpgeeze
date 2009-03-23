@@ -1,6 +1,6 @@
 package rpgeeze.model.terrain;
 
-import rpgeeze.model.Entity;
+import rpgeeze.model.entity.Entity;
 
 public class MountainTerrain extends Terrain {
 	private static Terrain instance;

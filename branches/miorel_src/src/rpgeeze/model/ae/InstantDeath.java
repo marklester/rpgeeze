@@ -1,6 +1,6 @@
 package rpgeeze.model.ae;
 
-import rpgeeze.model.Entity;
+import rpgeeze.model.entity.Entity;
 import rpgeeze.model.StatsModifiable;
 
 public class InstantDeath extends AreaEffect {
