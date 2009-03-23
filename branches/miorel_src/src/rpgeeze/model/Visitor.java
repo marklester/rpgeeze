@@ -3,6 +3,7 @@ package rpgeeze.model;
 import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
 import rpgeeze.model.entity.Entity;
+import rpgeeze.model.entity.PC;
 import rpgeeze.model.item.Item;
 import rpgeeze.model.terrain.Terrain;
 
@@ -16,6 +17,7 @@ public interface Visitor {
 	public void visitItem(Item item);
 	public void visitDecal(Decal decal);
 	public void visitEntity(Entity entity);
+	public void visitPC(PC pc);
 }
 /*
 public interface GameVisitor {
