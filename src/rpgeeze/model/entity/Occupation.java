@@ -12,19 +12,20 @@ import rpgeeze.model.skill.BindWounds;
 import rpgeeze.model.skill.Observation;
 import rpgeeze.model.entity.Occupation;
 import rpgeeze.model.entity.Stats;
-import rpgeeze.dp.Iterator;
-import rpgeeze.util.ArrayIterator;
 import rpgeeze.model.skill.Skill;
-import java.util.LinkedList;
 
 public abstract class Occupation implements Cloneable {
 	private final String name;
 	private Stats stats;
 	private List<Skill> skills;
 	
-	protected Occupation(String name, Stats stats, List<Skill> skills) {
+	protected Occupation(String name, Stats stats, Skill... skills) {
 		this.name = name;
-		this.skills = skills;
+		for(Skill s: skills)
+			this.skills.add(s);
+		this.skills.add(new BindWounds());
+		this.skills.add(new Bargain());
+		this.skills.add(new Observation());
 		this.stats = stats;
 	}
 	
@@ -79,7 +80,7 @@ public abstract class Occupation implements Cloneable {
 		return prototypes.get(key).clone();
 	}
 	
-	public final List<Skill> getSkillContainer() {
+	public final List<Skill> getSkills() {
 		return clone().skills;
 	}
 }
