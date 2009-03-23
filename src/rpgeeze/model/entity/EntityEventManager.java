@@ -1,6 +1,6 @@
 package rpgeeze.model.entity;
 
-import model.*;
+import rpgeeze.model.*;
 
 public abstract class EntityEventManager{
 	private Entity entity;

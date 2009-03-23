@@ -1,6 +1,6 @@
 package rpgeeze.model.entity;
 
-import model.item.*;
+import rpgeeze.model.item.*;
 
 public interface EquippableInventory extends Inventoryable{
 
