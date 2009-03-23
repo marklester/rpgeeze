@@ -5,15 +5,30 @@ package rpgeeze.model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
-import model.entity.PC;
+import rpgeeze.log.LogManager;
+import rpgeeze.log.Message;
+import rpgeeze.model.entity.Entity;
 
-public class RedArmor extends TakeableItem {
+
+public class RedArmor extends TakeableItem implements EquippableItem {
 	public RedArmor() {
 		super("Red Armor");
 	}
 
-	public void use(PC pc) {
-		pc.equipArmor(this);
-		view.Console.getInstance().writeLine("Armor has been equipped");
+	public void use(Entity entity) {
+		entity.equipArmor(this);
+		LogManager.getInstance().log("Armor has been equipped", "", Message.Type.GAME);
+	}
+	
+	public RedArmor clone(){
+		return (RedArmor) super.clone();
+	}
+	
+	public void unequip(Entity entity){
+		
+	}
+	
+	public void equip(Entity entity){
+		
 	}
 }
