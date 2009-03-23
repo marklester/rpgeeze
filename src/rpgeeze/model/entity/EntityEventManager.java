@@ -12,7 +12,6 @@ public abstract class EntityEventManager{
 	
 	public void update()
 	{
-		System.out.println(entity.getEntityType() + "-- " + entity.getStats().getLife());
 		if(!entity.isAlive())
 		{
 			EntityManagerCollection.getInstance().remove(this);

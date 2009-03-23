@@ -34,7 +34,8 @@ public abstract class Item implements Visitable, Cloneable {
 				new Axe(),
 				new LightningSpell(),
 				new WaterSpell(),
-				new FireSpell()
+				new FireSpell(),
+				new Gold()
 		})
 			prototypes.put(i.getName(), i);
 	}
