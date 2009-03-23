@@ -155,9 +155,9 @@ public class ModelConstructor{
 		pchar.setSkills(skills);
 		pchar.setEquipment(equip);
 		//This may cause problem
-		pchar.setTile(map.getTile(location.getX(),location.getY()));
-		pchar.getTile().setEntity(pchar);
+		map.getTile(location.getX(),location.getY()).setEntity(pchar);
 		pchar.setFacingDirection(dir);
+		pchar.setStartingTile(pchar.getTile());
 		return pchar;
 	}
 	private Direction createFacingDirection(Node fnode){
