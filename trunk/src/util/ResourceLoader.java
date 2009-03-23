@@ -60,6 +60,9 @@ public class ResourceLoader {
 		files.put("Gold Star","img/goldenstar.png");
 		files.put("Red Cross","img/redcross.png");
 		files.put("Fire Decal","img/fire.png");
+		files.put("Fire Decal","img/fire.png");
+		files.put("Trap","img/trap.png");
+		
 		files.put("Grass Terrain","img/terrain20px/GrassTerrain.png");
 		files.put("Mountain Terrain","img/terrain20px/MountainTerrain.png");
 		files.put("Water Terrain","img/terrain20px/WaterTerrain.png");
