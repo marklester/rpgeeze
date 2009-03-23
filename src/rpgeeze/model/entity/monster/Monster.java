@@ -3,10 +3,13 @@ package rpgeeze.model.entity.monster;
 import rpgeeze.model.Visitor;
 import rpgeeze.model.entity.NPC;
 import rpgeeze.model.entity.StatsModifiable;
+import rpgeeze.model.ai.*;
 
 public abstract class Monster extends NPC implements StatsModifiable{
 	
-	public Monster(){}
+	public Monster(){
+		this.setAI(new NoAI());
+	}
 
 	@Override
 	public void update() {

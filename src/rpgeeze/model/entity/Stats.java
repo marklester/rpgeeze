@@ -204,6 +204,12 @@ public class Stats implements Cloneable {
 			level = 0;
 	}
 	
+	public void attack(int offensiveRating)
+	{
+		int life = offensiveRating / this.defensiveRating * 15;
+		this.addHealth(0 - life);
+	}
+	
 	public Stats clone()  {
 		Stats s = new Stats();
 		try {
