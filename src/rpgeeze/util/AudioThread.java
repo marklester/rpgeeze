@@ -1,4 +1,5 @@
 package rpgeeze.util;
+import rpgeeze.GameProperties;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
@@ -20,9 +21,12 @@ public class AudioThread extends Thread implements Observer {
 	public static final int STREAM = 1;
     private volatile boolean STmuted = false;
     private volatile boolean FXmuted = false;
+    private int type;
+    private String key;
     private Player player;
 	
 	private AudioThread() {
+		super();
 	}
 	
 	public static AudioThread getInstance() {
@@ -31,59 +35,31 @@ public class AudioThread extends Thread implements Observer {
 		return instance;
 	}
 	
-	public void run(String key, int type)
+	public void setKeyType(String key, int type)
 	{
-		/*
-		Config.getInstance().load(initConfig);
-	    BasicPlayer bplayer = new BasicPlayer();
-	    List mixers = bplayer.getMixers();
-	    if (mixers != null)
-	    {
-	        Iterator it = mixers.iterator();
-	        String mixer = Config.getInstance().getAudioDevice();
-	        boolean mixerFound = false;
-	        if ((mixer != null) && (mixer.length() > 0))
-	        {
-	            // Check if mixer is valid. 
-	            while (it.hasNext())
-	            {
-	                if (((String) it.next()).equals(mixer))
-	                {
-	                    bplayer.setMixerName(mixer);
-	                    mixerFound = true;
-	                    break;
-	                }
-	            }
-	        }
-	        if (mixerFound == false)
-	        {
-	            // Use first mixer available.
-	            it = mixers.iterator();
-	            if (it.hasNext())
-	            {
-	                mixer = (String) it.next();
-	                bplayer.setMixerName(mixer);
-	            }
-	        }
-	    }
-	    theSoundPlayer = bplayer;
-	    */
+		this.key = key;
+		this.type = type;
+	}
+	
+	public void run()
+	{
 		switch (type) {
 		case CLIP :
 			playAudioClip(key);
 			break;
 		case STREAM :
-			play(key);
+			playStream(key);
 			break;
 		}
 	}
 	
-	public void play(String key) {
+	public void playStream(String key) {
 		if (!STmuted){
 	        try {
-	            InputStream is = ResourceLoader.getInstance().getAudio(key);
+	            InputStream is = ResourceLoader.getInstance().getAudio( GameProperties.getInstance().getProperty("audio.game") );
 	            BufferedInputStream bis = new BufferedInputStream(is);
 	            player = new Player(bis);
+	            player.play();
 	        }
 	        catch (Exception e) {
 	            System.out.println("Problem playing file " + key);
