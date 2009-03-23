@@ -1,7 +1,7 @@
 package rpgeeze.model.entity;
 
-import model.Command;
-import model.Location;
+import rpgeeze.model.Command;
+import rpgeeze.model.Location;
 
 public class HumanPlayerEntityManager extends EntityEventManager implements CommandHandler{
 	private PC entity;
