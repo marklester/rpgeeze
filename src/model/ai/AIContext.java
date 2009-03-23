@@ -1,6 +1,6 @@
 package model.ai;
 
-import model.entity.*;
+import model.entity2.*;
 
 public class AIContext {
 	private ArtificialIntelligence ai;

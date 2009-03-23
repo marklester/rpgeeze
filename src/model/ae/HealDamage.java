@@ -1,7 +1,7 @@
 package model.ae;
 
 import view.Console;
-import model.entity.*;
+import model.entity2.*;
 
 public class HealDamage extends AreaEffect {
 

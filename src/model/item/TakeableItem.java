@@ -1,6 +1,6 @@
 package model.item;
 
-import model.entity.*;
+import model.entity2.*;
 
 /**
  * An Item that is added to an Entity's Inventory on touch.

@@ -1,6 +1,6 @@
 package model.skill;
 
-import model.entity.Entity;
+import model.entity2.Entity;
 
 public interface UsableSkill {
 

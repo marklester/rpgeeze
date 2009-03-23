@@ -6,7 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
-import model.entity.*;
+import model.entity2.*;
 
 public class StatView implements Drawable {
 	private final int menu_width = 300;

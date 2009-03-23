@@ -1,7 +1,7 @@
 package model.ae;
 import model.Tile;
-import model.entity.Stats;
-import model.entity.StatsModifiable;
+import model.entity2.Stats;
+import model.entity2.StatsModifiable;
 
 import view.Console;
 

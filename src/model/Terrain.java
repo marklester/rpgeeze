@@ -4,7 +4,7 @@ import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import model.entity.Entity;
+import model.entity2.Entity;
 
 import view.Drawable;
 import view.Drawer;

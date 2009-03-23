@@ -3,8 +3,7 @@ package model.skill;
 import util.ResourceLoader;
 import view.Console;
 import model.skill.*;
-import model.entity.*;
-import model.entity.Entity;
+import model.entity2.*;
 import model.Location;
 import util.AudioThread;
 

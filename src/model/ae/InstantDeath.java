@@ -3,7 +3,7 @@ import java.awt.Color;
 import util.AudioThread;
 import util.ResourceLoader;
 import view.Console;
-import model.entity.StatsModifiable;
+import model.entity2.StatsModifiable;
 
 public class InstantDeath extends AreaEffect {
 

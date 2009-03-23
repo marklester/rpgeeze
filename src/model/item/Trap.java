@@ -1,6 +1,6 @@
 package model.item;
 
-import model.entity.PC;
+import model.entity2.PC;
 import view.Console;
 import view.Drawer;
 

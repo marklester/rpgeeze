@@ -6,8 +6,7 @@ import java.util.Queue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import model.entity.*;
-import model.entity.Occupation;
+import model.entity2.*;
 import model.xml.GameVisitor;
 import model.xml.ModelElement;
 import util.Observer;

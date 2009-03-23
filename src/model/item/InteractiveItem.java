@@ -6,7 +6,7 @@ package model.item;
  * (e.g., puzzle).
  */
 
-import model.entity.PC;
+import model.entity2.PC;
 
 public abstract class InteractiveItem extends Item {
 	public InteractiveItem(String name) {

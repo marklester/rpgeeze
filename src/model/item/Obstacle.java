@@ -4,7 +4,7 @@ package model.item;
  * Makes the Tile that contains it permanently impassable.
  */
 
-import model.entity.PC;
+import model.entity2.PC;
 
 public abstract class Obstacle extends Item {
 	public Obstacle(String name) {

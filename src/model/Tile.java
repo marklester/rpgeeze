@@ -3,12 +3,11 @@ package model;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import model.entity.*;
 import model.item.Item;
 import model.xml.GameVisitor;
 import model.xml.ModelElement;
 import model.decal.Decal;
-import model.entity.Entity;
+import model.entity2.*;
 import model.ae.AreaEffect;
 import view.*;
 
