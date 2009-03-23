@@ -21,6 +21,7 @@ import rpgeeze.model.entity.Occupation;
 import rpgeeze.model.entity.Smasher;
 import rpgeeze.model.entity.Sneak;
 import rpgeeze.model.entity.Summoner;
+import rpgeeze.model.skill.Skill;
 import rpgeeze.model.terrain.Terrain;
 import rpgeeze.model.entity.monster.*;
 import rpgeeze.model.entity.*;
@@ -39,6 +40,7 @@ public class MapDrawer implements Visitor {
 	private HashMap<String, Texture> terrains = new HashMap<String, Texture>();
 	private HashMap<String, Texture> items = new HashMap<String, Texture>();
 	private HashMap<String, Texture> decals = new HashMap<String, Texture>();
+	private HashMap<String, Texture> skills = new HashMap<String, Texture>();
 	
 	private static HashMap<Pair<String, Direction>, Iterator<String>> avatar = new HashMap<Pair<String, Direction>, Iterator<String>>();
 	private static HashMap<Pair<String, Direction>, Iterator<String>> mobs = new HashMap<Pair<String, Direction>, Iterator<String>>();
@@ -189,5 +191,19 @@ public class MapDrawer implements Visitor {
 	}
 
 	public void visitTile(Tile tile) {
+	}
+
+	public Texture textureForSkill(Skill s) {
+		if(s == null)
+			return null;
+		Texture texture = skills.get(s.toString());
+		if(texture == null) {
+			String key = "img.skill." + s.toString().toLowerCase().replaceAll(" ", "_");
+			System.out.println(key);
+			String imgKey = GameProperties.getInstance().getProperty(key);
+			texture = ResourceLoader.getInstance().getTexture(imgKey);
+			skills.put(s.toString(), texture);
+		}
+		return texture;
 	}
 }
