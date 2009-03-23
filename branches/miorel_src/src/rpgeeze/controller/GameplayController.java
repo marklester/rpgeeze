@@ -88,19 +88,30 @@ public class GameplayController extends Controller<GameplayView> {
 	}
 
 	public void mousePressed(MouseEvent e) {
-		switch(e.getButton()) {
-		case MouseEvent.BUTTON3:
-			String name = getView().pickClosest(GLU.getCurrentGL(), e.getPoint());
-			if(name != null) {
-				final String id = name.replaceAll("Inventory Item ", "");
-				if(id.matches("\\d+")) {
+		String name = getView().pickClosest(GLU.getCurrentGL(), e.getPoint());
+		if(name != null) {
+			final String id = name.replaceAll("Inventory Item ", "");
+			if(id.matches("\\d+")) {
+				final int i = Integer.parseInt(id);
+				if(e.getButton() == MouseEvent.BUTTON3) {
 					getManager().getModel().queueCommand(new Command() {
 						public void execute() {
-							getManager().getModel().getAvatar().dropItemAt(Integer.parseInt(id));
+							getManager().getModel().getAvatar().dropItemAt(i);
+						}
+					});
+				}
+				if(e.getButton() == MouseEvent.BUTTON1) {
+					getManager().getModel().queueCommand(new Command() {
+						public void execute() {
+							Entity avatar = getManager().getModel().getAvatar(); 
+							avatar.getInventory().getItemAt(i).use(avatar);
 						}
 					});
 				}
 			}
+		}
+		switch(e.getButton()) {
+		case MouseEvent.BUTTON3:
 			break;
 //		case MouseEvent.BUTTON3:
 //			prev = e;

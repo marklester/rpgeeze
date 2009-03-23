@@ -29,7 +29,8 @@ public class Map {
 		return getTiles(0, 0, matrix[0].length - 1, matrix.length - 1);
 	}
 	
-	public Iterator<Tile> getTiles(final int minX, final int minY, final int maxX, final int maxY) {
+	public Iterator<Tile> getTiles(final int minX, final int minY, final int maxX, final int maxY) {	
+//		Tile[][] copy = new Tile[matrix.length][matrix[0].length];
 		return new Iterator<Tile>() {
 			private int x, y;
 			
