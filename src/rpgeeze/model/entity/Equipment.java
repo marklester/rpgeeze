@@ -1,19 +1,20 @@
 package rpgeeze.model.entity;
 
-import rpgeeze.model.item.TakeableItem;
+
+import rpgeeze.model.item.EquippableItem;
 
 public class Equipment implements Cloneable {
-	private TakeableItem head;
-	private TakeableItem armor;
-	private TakeableItem boots;
-	private TakeableItem weapon;
-	private TakeableItem auxiliary;
+	private EquippableItem head;
+	private EquippableItem armor;
+	private EquippableItem boots;
+	private EquippableItem weapon;
+	private EquippableItem auxiliary;
 	
 	public Equipment() 	{
 		this(null, null, null, null, null);
 	}
 
-	public Equipment(TakeableItem head, TakeableItem armor, TakeableItem boots, TakeableItem weapon, TakeableItem auxiliary) {
+	public Equipment(EquippableItem head, EquippableItem armor, EquippableItem boots, EquippableItem weapon, EquippableItem auxiliary) {
 		this.head = head;
 		this.armor = armor;
 		this.boots = boots;
@@ -21,43 +22,43 @@ public class Equipment implements Cloneable {
 		this.auxiliary = auxiliary;
 	}
 	
-	public TakeableItem getHead() {
+	public EquippableItem getHead() {
 		return head;
 	}
 
-	public void setHead(TakeableItem head) {
+	public void setHead(EquippableItem head) {
 		this.head = head;
 	}
 
-	public TakeableItem getArmor() {
+	public EquippableItem getArmor() {
 		return armor;
 	}
 
-	public void setArmor(TakeableItem armor) {
+	public void setArmor(EquippableItem armor) {
 		this.armor = armor;
 	}
 
-	public TakeableItem getBoots() {
+	public EquippableItem getBoots() {
 		return boots;
 	}
 
-	public void setBoots(TakeableItem boots) {
+	public void setBoots(EquippableItem boots) {
 		this.boots = boots;
 	}
 
-	public TakeableItem getWeapon() {
+	public EquippableItem getWeapon() {
 		return weapon;
 	}
 
-	public void setWeapon(TakeableItem weapon) {
+	public void setWeapon(EquippableItem weapon) {
 		this.weapon = weapon;
 	}
 
-	public TakeableItem getAuxiliary() {
+	public EquippableItem getAuxiliary() {
 		return auxiliary;
 	}
 
-	public void setAuxiliary(TakeableItem auxiliary) {
+	public void setAuxiliary(EquippableItem auxiliary) {
 		this.auxiliary = auxiliary;
 	}
 
