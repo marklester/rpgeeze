@@ -198,7 +198,7 @@ public class MapDrawer implements Visitor {
 			return null;
 		Texture texture = skills.get(s.toString());
 		if(texture == null) {
-			String key = "img.skill." + s.toString().toLowerCase().replaceAll(" ", "_");
+			String key = "img.skill." + s.toString().toLowerCase().replaceAll("[ \\-]", "_");
 			System.out.println(key);
 			String imgKey = GameProperties.getInstance().getProperty(key);
 			texture = ResourceLoader.getInstance().getTexture(imgKey);
