@@ -15,12 +15,13 @@ import com.sun.opengl.util.FPSAnimator;
 import rpgeeze.controller.Controller;
 import rpgeeze.controller.MainMenuController;
 import rpgeeze.log.LogManager;
-import rpgeeze.model.Entity;
 import rpgeeze.model.Location;
 import rpgeeze.model.Map;
 import rpgeeze.model.Model;
 import rpgeeze.model.ModelThread;
 import rpgeeze.model.Tile;
+import rpgeeze.model.entity.Entity;
+import rpgeeze.model.entity.PC;
 import rpgeeze.model.decal.*;
 import rpgeeze.model.item.*;
 import rpgeeze.model.occupation.Occupation;
@@ -376,7 +377,7 @@ public class GameManager extends DelegatingEventAdapter
 			}
 		}
 		Map map = new Map(matrix);
-		Entity avatar = new Entity(occupation, map);
+		PC avatar = new PC(occupation, map);
 		Tile pos = matrix[8][6];
 		avatar.setTile(pos);
 		pos.setEntity(avatar);
