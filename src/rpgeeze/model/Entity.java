@@ -26,6 +26,7 @@ public class Entity implements Visitable, Cloneable {
 		this.map = map;
 		this.inventory = new Inventory();
 		this.occupation = occupation;
+		this.facing = Direction.SOUTH;
 		//this.stats = (Stats) occupation.stats.clone();
 		//this.skills = occupation.skills;
 		//this.equipment = new Equipment();
@@ -37,6 +38,7 @@ public class Entity implements Visitable, Cloneable {
 	
 	public void move(Direction dir) {
 		move(dir.getX(), dir.getY());
+		setFacingDirection(dir);
 	}
 	
 	public void move(int xOffset, int yOffset) {
@@ -58,6 +60,10 @@ public class Entity implements Visitable, Cloneable {
 	
 	public Direction getFacingDirection() {
 		return facing;
+	}
+	
+	public void setFacingDirection(Direction dir){
+		this.facing = dir;
 	}
 
 	public Tile getTile() {
