@@ -568,6 +568,9 @@
 				<x>8</x>
 				<y>1</y>
 			</location>
+			<item>
+				<type>Trap</type>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>

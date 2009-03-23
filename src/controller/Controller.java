@@ -157,7 +157,7 @@ public class Controller extends JComponent implements MouseListener {
 					if(writer != null) {
 						//writer.println(model.toXml());
 						XMLWriterVisitor xmler = new XMLWriterVisitor();
-						xmler.visit(model);
+						//xmler.visit(model);
 						writer.println(xmler.toString());
 
 						writer.flush();
