@@ -23,6 +23,7 @@ import rpgeeze.log.LogManager;
 import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
 import rpgeeze.model.item.Item;
+import rpgeeze.model.item.TakeableItem;
 import rpgeeze.util.ArrayIterator;
 import rpgeeze.util.ListIterator;
 
@@ -130,7 +131,7 @@ public class GameplayView extends View<GameplayView.State> {
 			gl.glPopMatrix();
 		}
 
-		Iterator<Item> items = getManager().getModel().getAvatar().getInventory().iterator();
+		Iterator<TakeableItem> items = getManager().getModel().getAvatar().getInventory().iterator();
 		for(items.reset(), inventory.reset(); !items.isDone(); items.advance(), inventory.advance())
 			inventory.current().setTexture(mapDrawer.textureForItem(items.current()));
 
