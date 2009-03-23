@@ -8,13 +8,14 @@ import rpgeeze.log.Message;
 import rpgeeze.model.*;
 import rpgeeze.model.xml.*;
 import rpgeeze.model.item.*;
+import rpgeeze.model.occupation.Occupation;
 
 
 public class PC extends Entity { //implements { EquippableInventory, StatsModifiable {
 
 	private Inventory inventory;
 	private Occupation occupation;
-	//private Stats stats;
+	private Stats stats;
 	//private SkillContainer skills;
 	//private Equipment equipment;
 	private int updateCounter;
