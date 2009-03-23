@@ -10,6 +10,7 @@ public abstract class Monster extends NPC implements StatsModifiable{
 	public Monster(){
 		this.setAI(new NoAI());
 	}
+	
 
 	@Override
 	public void update() {
