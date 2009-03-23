@@ -6,6 +6,7 @@ public class MountainTerrain extends Terrain {
 	private static Terrain instance;
 	
 	private MountainTerrain() {
+		super("Mountain Terrain");
 	}
 	
 	public static Terrain getInstance() {
@@ -16,9 +17,5 @@ public class MountainTerrain extends Terrain {
 	
 	public boolean isPassable(Entity e) {
 		return false;
-	}
-	
-	public String getName() {
-		return "Mountain Terrain";
 	}
 }

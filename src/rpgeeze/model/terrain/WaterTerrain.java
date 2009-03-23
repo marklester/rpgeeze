@@ -6,6 +6,7 @@ public class WaterTerrain extends Terrain {
 	private static Terrain instance;
 	
 	private WaterTerrain() {
+		super("Water Terrain");
 	}
 	
 	public static Terrain getInstance() {
@@ -16,9 +17,5 @@ public class WaterTerrain extends Terrain {
 	
 	public boolean isPassable(Entity e) {
 		return false;
-	}
-	
-	public String getName() {
-		return "Water Terrain";
 	}
 }

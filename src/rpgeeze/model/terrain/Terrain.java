@@ -1,6 +1,6 @@
 package rpgeeze.model.terrain;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 
 import rpgeeze.model.terrain.GrassTerrain;
 import rpgeeze.model.terrain.MountainTerrain;
@@ -10,9 +10,8 @@ import rpgeeze.model.Visitor;
 import rpgeeze.model.entity.Entity;
 
 public abstract class Terrain {
-	
-	private static Hashtable<String, Terrain> prototypes = new Hashtable<String, Terrain>();
-	protected String name;
+	private final String name;
+	private static HashMap<String, Terrain> prototypes = new HashMap<String, Terrain>();
 	
 	static {
 		for(Terrain t: new Terrain[] {
@@ -20,7 +19,11 @@ public abstract class Terrain {
 			GrassTerrain.getInstance(),
 			WaterTerrain.getInstance(),
 		})
-			prototypes.put(t.toString(), t);
+			prototypes.put(t.getName(), t);
+	}
+	
+	protected Terrain(String name) {
+		this.name = name;
 	}
 	
 	public void accept(Visitor visitor) {
@@ -28,19 +31,18 @@ public abstract class Terrain {
 	}
 	
 	public String toString() {
-		return this.name;
+		return name;
 	}
 	
 	public String getName() {
 		return toString();
 	}
 	
-	public boolean isPassable(Entity e) {
+	public boolean isPassable(Entity entity) {
 		return true;
 	}
 	
-	//Used to get a Terrain Prototype
 	public static Terrain getTerrain(String key){
-		return (Terrain)prototypes.get(key);
+		return prototypes.get(key);
 	}
 }
