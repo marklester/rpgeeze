@@ -6,7 +6,7 @@ public class EntityManagerCollection {
 
 	private static EntityManagerCollection instance;
 	
-	private List<EntityEventManager> managers;
+	private LinkedList<EntityEventManager> managers;
 	
 	private EntityManagerCollection() {
 		managers = new LinkedList<EntityEventManager>();
@@ -23,9 +23,10 @@ public class EntityManagerCollection {
 	
 	public void update()
 	{
-		for(EntityEventManager eem: managers)
+		Iterator<EntityEventManager> iter = ((LinkedList<EntityEventManager>)managers.clone()).iterator();
+		while(iter.hasNext())
 		{
-			eem.update();
+			iter.next().update();
 		}
 	}
 	
