@@ -51,7 +51,7 @@ public class Inventory {
 		return items.remove(i);
 	}
 
-	public Item getItemAt(int i) {
+	public TakeableItem getItemAt(int i) {
 		return items.get(i);
 	}
 

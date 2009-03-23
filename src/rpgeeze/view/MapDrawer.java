@@ -102,6 +102,8 @@ public class MapDrawer implements Visitor {
 	}
 
 	public Texture textureForItem(Item item) {
+		if(item == null)
+			return null;
 		Texture texture = items.get(item.getName());
 		if(texture == null) {
 			String key = "img.item." + item.getName().toLowerCase().replaceAll(" ", "_");

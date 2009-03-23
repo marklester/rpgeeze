@@ -19,7 +19,7 @@ public class Crossbow extends TakeableItem implements EquippableItem {
 		entity.unequipAuxiliary();
 		
 		entity.equipWeapon(this);
-		LogManager.getInstance().log("Cross Bow has been equipped.", "", Message.Type.GAME);	
+		LogManager.getInstance().log("Crossbow has been equipped.", "", Message.Type.GAME);	
 	}
 	
 	public void unequip(Entity entity){
@@ -29,9 +29,8 @@ public class Crossbow extends TakeableItem implements EquippableItem {
 	public Crossbow clone(){
 		return (Crossbow) super.clone();
 	}
+	
 	public void use(Entity entity) {
-		equip(entity);
-		
-		
+		equip(entity);	
 	}
 }

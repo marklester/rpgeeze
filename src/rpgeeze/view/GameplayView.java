@@ -22,6 +22,7 @@ import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.log.LogManager;
 import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
+import rpgeeze.model.entity.Equipment;
 import rpgeeze.model.entity.Inventory;
 import rpgeeze.model.item.Item;
 import rpgeeze.model.item.TakeableItem;
@@ -45,6 +46,9 @@ public class GameplayView extends View<GameplayView.State> {
 	private Iterator<TexturedRectangle> inventory; 
 	private List<Rectangle> rects = new ArrayList<Rectangle>();
 
+	private Iterator<TexturedRectangle> equipment; 
+	private List<Rectangle> equipmentRects = new ArrayList<Rectangle>();
+	
 	private boolean inventoryVisible = true;
 
 	public GameplayView(GameManager manager) {
@@ -67,11 +71,28 @@ public class GameplayView extends View<GameplayView.State> {
 			TexturedRectangle trect = inventory.current();
 			put(trect, names.current());
 			Rectangle rect = new Rectangle(trect.getWidth(), trect.getHeight());
-			rect.setXYZ(trect.getX(), trect.getY(), trect.getZ());// - 0.01);
-			//rect.setColor(new Color(1f, 1f, 1f, 0.8f));
+			rect.setXYZ(trect.getX(), trect.getY(), trect.getZ());
 			rects.add(rect);
 		}
 
+		equipment = glutil.objectGrid(prototype, 3, 3, 1.2 * prototype.getWidth(), -1.2 * prototype.getHeight());
+		List<String> eqpList = new ArrayList<String>();
+		for(int i = 0; i < 9; ++i)
+			eqpList.add("Equipment Item " + i);
+		names = new ListIterator<String>(eqpList);
+
+		for(equipment.reset(), names.reset(); !equipment.isDone(); equipment.advance(), names.advance()) {
+			TexturedRectangle trect = equipment.current();
+			put(trect, names.current());
+			Rectangle rect = new Rectangle(trect.getWidth(), trect.getHeight());
+			rect.setXYZ(trect.getX(), trect.getY(), trect.getZ());
+			equipmentRects.add(rect);
+		}
+		equipmentRects.get(0).setVisible(false);
+		equipmentRects.get(2).setVisible(false);
+		equipmentRects.get(6).setVisible(false);
+		equipmentRects.get(8).setVisible(false);
+		
 		put(fpsText, null);
 
 		changeState(State.NEW);
@@ -159,18 +180,70 @@ public class GameplayView extends View<GameplayView.State> {
 			gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 			gl.glPopMatrix();
 			glutil.color(fadeIn.getFinalColor());
-
-			fpsText.setVisible(getState() == State.NORMAL);
-			if(getState() == State.NORMAL) {
-				fpsText.setText(String.format("FPS: %.1f", getManager().getFPS()));
-				fpsText.setXYZ(glutil.getViewportAspectRatio() - fpsText.getWidth() - fpsText.getHeight() / 2, 1 - 3 * fpsText.getHeight() / 2, -1);
-			}
 		}
 		else {
 			for(inventory.reset(); !inventory.isDone(); inventory.advance())
 				inventory.current().setVisible(false);
 		}
 
+		
+		
+		
+		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_SRC_COLOR);
+		//gl.glBlendFunc(GL.GL_SRC_COLOR, GL.GL_SRC_ALPHA);
+		gl.glBindTexture(0, GL.GL_TEXTURE_2D);
+		gl.glPushMatrix();
+		equipment.reset();
+		double eqpX = INVENTORY_Z * glutil.getViewportAspectRatio() + 0.2 * equipment.current().getHeight();
+		double eqpY = -INVENTORY_Z - equipment.current().getHeight() - 0.2 * equipment.current().getHeight();
+		gl.glTranslated(eqpX, eqpY, 0);
+		for(Rectangle r: equipmentRects) {
+			equipment.current().setVisible(true);
+			equipment.current().setXY(r.getX() + eqpX, r.getY() + eqpY);
+			r.setColor(new Color(0f, 1f, 1f, 0.4f));
+			r.render(gl);
+			equipment.advance();
+		}
+		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
+		gl.glPopMatrix();
+		glutil.color(fadeIn.getFinalColor());
+		
+		Equipment eq = getManager().getModel().getAvatar().getEquipment();
+		equipment.reset();
+		equipment.advance();
+		equipment.current().setVisible(true);
+		equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getHead()));
+		equipment.advance();
+		equipment.advance();
+		equipment.current().setVisible(true);
+		equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getAuxiliary()));
+		equipment.advance();
+		equipment.current().setVisible(true);
+		equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getArmor()));		
+		equipment.advance();
+		equipment.current().setVisible(true);
+		equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getWeapon()));
+		equipment.advance();
+		equipment.advance();
+		equipment.current().setVisible(true);
+		equipment.current().setTexture(mapDrawer.textureForItem((Item)eq.getBoots()));
+		
+//		for(items.reset(), inventory.reset(); !items.isDone(); items.advance(), inventory.advance())
+//			inventory.current().setTexture(mapDrawer.textureForItem(items.current()));
+
+//		while(!inventory.isDone()) {
+//			inventory.current().setTexture(null);
+//			inventory.advance();
+//		}
+		
+		
+		
+		fpsText.setVisible(getState() == State.NORMAL);
+		if(getState() == State.NORMAL) {
+			fpsText.setText(String.format("FPS: %.1f", getManager().getFPS()));
+			fpsText.setXYZ(glutil.getViewportAspectRatio() - fpsText.getWidth() - fpsText.getHeight() / 2, 1 - 3 * fpsText.getHeight() / 2, -1);
+		}
+		
 		renderObjects(gl);
 	}
 
