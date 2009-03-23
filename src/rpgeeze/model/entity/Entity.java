@@ -22,14 +22,16 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 		})
 		prototypes.put(d.getEntityType(), d);
 	}
-	private Stats stats;
+	protected Stats stats;
+	
+
 	private int speed;	
 	private Location l;
 	private Direction facing = Direction.EAST;
 	private Tile tile;
 	private String entityType;
-	private Equipment equipment;
-	private Inventory inventory;
+	protected Equipment equipment;
+	protected Inventory inventory;
 	private Occupation occupation;
 	
 	protected Entity(){}
@@ -236,13 +238,13 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 		}
 	}
 
-	public void unequipHead() {
-		if(equipment.getHead() != null){
-			inventory.addItem((TakeableItem) equipment.getHead(),false);
-			equipment.getHead().unequip(this);
-		}
-		equipment.setHead(null);
-	}
+        public void unequipHead() {
+                if(equipment.getHead() != null){
+                        inventory.addItem((TakeableItem) equipment.getHead(),false);
+                        //equipment.getHead().unequip(this);
+                }
+                equipment.setHead(null);
+        }
 
 	public void unequipBoots() {
 		if(equipment.getBoots() != null){
@@ -251,6 +253,7 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 		}
 		equipment.setBoots(null);
 	}
+
 
 	public void unequipArmor() {
 		if(equipment.getArmor() != null){
