@@ -8,12 +8,7 @@ import rpgeeze.model.entity.PC;
 import rpgeeze.model.xml.GameVisitor;
 //import rpgeeze.model.entity.PC;
 import rpgeeze.model.Visitor;
->>>>>>> .r876
 import rpgeeze.model.Location;
-<<<<<<< .mine
-=======
-//import rpgeeze.model.xml.ModelElement;
->>>>>>> .r876
 import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
 import rpgeeze.model.item.Item;
@@ -157,15 +152,13 @@ public class Tile implements Cloneable, Visitable {
 		+","+this.item+","+this.ae+"]";
 	}
 	
-//	public void collectItem(PC pc) {
-//		if(item != null) {
+	public void collectItem(PC pc) {
+		if(item != null) {
 			//OneShotItem need to be removed from the Tile
 			item.activate(pc, this);
 		}
+			//item.activate(pc);
 	}
-//			item.activate(pc);
-//		}
-//	}
 
 	public Tile clone() {
 		Tile tile = new Tile(
@@ -178,8 +171,4 @@ public class Tile implements Cloneable, Visitable {
 		tile.entity = (entity == null ? null : entity.clone());
 		return tile;
 	}
-<<<<<<< .mine
-		
-=======
->>>>>>> .r876
 }
