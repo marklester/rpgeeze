@@ -96,10 +96,10 @@ public class Tile implements Cloneable, Visitable {
 	
 	public boolean isPassable() {
 		if (item != null) {
-			if (item.getName() == "Boulder")
+			if (item.getName().equals("Boulder"))
 				return false;
 		}
-		if (this.terrain.getName() == "Mountain")
+		if (this.terrain.getName().equals( "Mountain Terrain") || this.terrain.getName().equals( "Water Terrain"))
 			return false;
 		else
 			return true;

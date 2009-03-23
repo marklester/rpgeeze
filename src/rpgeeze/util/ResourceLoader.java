@@ -103,13 +103,12 @@ public class ResourceLoader {
 		if(ret == null){
 			try{
 				ret = getStream("audio/" + key);
-				audios.put(key, ret);
+				//audios.put(key, ret);
 			}
 			catch(Exception e){
 				LogManager.getInstance().log("Problem getting audio:" + e.getMessage(), "ResourceLoader", Message.Type.ERROR);
 			}
 		}
-		
 		return ret;
 	}
 	

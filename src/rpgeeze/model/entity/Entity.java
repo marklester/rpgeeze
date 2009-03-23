@@ -60,6 +60,7 @@ public abstract class Entity extends Subject implements Cloneable, Visitable, St
 		}
 	}
 
+	
 	public void setFacingDirection(Direction dir){
 		this.facing = dir;
 	}

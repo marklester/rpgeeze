@@ -12,11 +12,15 @@ import javax.media.opengl.glu.GLU;
 import rpgeeze.GameManager;
 import rpgeeze.dp.Command;
 import rpgeeze.log.LogManager;
+import rpgeeze.log.Message;
 import rpgeeze.model.Model;
+import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
+import rpgeeze.util.AudioThread;
 import rpgeeze.util.Direction;
 import rpgeeze.view.GameplayView;
 import rpgeeze.view.OptionsMenuView;
+import rpgeeze.model.entity.PC;
 
 public class GameplayController extends Controller<GameplayView> {
 	private MouseEvent prev = null;
@@ -47,6 +51,31 @@ public class GameplayController extends Controller<GameplayView> {
 				OptionsMenuView omv = new OptionsMenuView(getManager());
 				OptionsMenuController omc = new OptionsMenuController(getManager(), omv);
 				getManager().pushState(omv, omc);
+			}
+		});
+		actions.put("Use Weapon", new Command() {
+			public void execute() {
+				PC pc = getManager().getModel().getAvatar();
+				Direction facing = getManager().getModel().getAvatar().getFacingDirection();
+				Tile next = pc.getTile().adjacentTile(facing);
+				while (next.isPassable()) {
+					if (next.getEntity() != null) {
+						//Affect Stats of him
+						System.out.println("Hit the target!");
+					}
+					next = next.adjacentTile(facing);
+				}
+				try {
+					String weap = pc.getEquipment().getWeapon().toString();
+					AudioThread at = AudioThread.getInstance(weap, AudioThread.CLIP);
+					at.start();
+				}
+				catch (Exception e) { LogManager.getInstance().log("Error playing sound for the weapon", "", Message.Type.ERROR); }
+			}
+		});
+		actions.put("Use Spell", new Command() {
+			public void execute() {
+				System.out.print("Use Spell");
 			}
 		});
 		actions.put("Move North", moveEncapsulate(Direction.NORTH));
