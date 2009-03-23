@@ -52,7 +52,7 @@
 				<y>0</y>
 			</location>
 			<item>
-				<type>Portal Item</type>
+				<type>Portal</type>
 				<property name="location" value="5,5"/>
 			</item>
 		</tile>
@@ -16396,7 +16396,7 @@
 				<y>33</y>
 			</location>
 			<item>
-				<type>Portal Item</type>
+				<type>Portal</type>
 				<property name="location" value="-3,3"/>
 			</item>
 		</tile>
@@ -20277,7 +20277,7 @@
 				<y>41</y>
 			</location>
 			<item>
-				<type>Portal Item</type>
+				<type>Portal</type>
 				<property name="location" value="9,-9"/>
 			</item>
 		</tile>
