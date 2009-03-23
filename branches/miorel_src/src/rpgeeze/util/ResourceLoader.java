@@ -97,6 +97,8 @@ public class ResourceLoader {
 	}
 	
 	public InputStream getAudio(String key){
+		key = key.replace(" ", ".");
+		key = key.trim();
 		InputStream ret = audios.get(key);
 		if(ret == null){
 			try{

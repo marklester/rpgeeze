@@ -81,7 +81,7 @@ public class AudioThread extends Thread implements Observer {
 	public void play(String key) {
 		if (!STmuted){
 	        try {
-	            InputStream is = ResourceLoader.getInstance().getIS(key);
+	            InputStream is = ResourceLoader.getInstance().getAudio(key);
 	            BufferedInputStream bis = new BufferedInputStream(is);
 	            player = new Player(bis);
 	        }
@@ -95,7 +95,7 @@ public class AudioThread extends Thread implements Observer {
 	public void playAudioClip(String key) {
 		try {
 			if (!FXmuted) {
-				InputStream in = ResourceLoader.getInstance().getStreamFromRoot(key); 
+				InputStream in = ResourceLoader.getInstance().getAudio(key); 
 				AudioStream as = new AudioStream(in);
 				AudioPlayer.player.start(as);
 			}
