@@ -25,7 +25,7 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 	
 	private int speed;	
 	private Location l;
-	private Direction facing;
+	private Direction facing = Direction.EAST;
 	private Tile tile;
 	private String entityType;
 	protected Equipment equipment;
