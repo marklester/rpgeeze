@@ -42,8 +42,8 @@ public class Stats implements Cloneable {
 	PrimaryStats primaryStats;
 	private boolean visible = true;
 	
-	public int MAX_LIFE = 100;
-	public int MAX_MP = 100;
+	public static int MAX_LIFE = 100;
+	public static int MAX_MP = 100;
 	public static final int MAX_LEVEL 	= 10;
 
 	public Stats() {
