@@ -10,28 +10,13 @@ import rpgeeze.log.Message;
 import rpgeeze.model.entity.Entity;
 
 
-public class Boots extends TakeableItem implements EquippableItem{
+public class Boots extends EquipmentBoots {
 	public Boots() {
 		super("Boots");
 		setPrice(100);
 	}
 	
-	public void equip(Entity entity)
-	{
-		entity.addMovement(10);
-	}
-	
-	public void unequip(Entity entity)
-	{
-		entity.addMovement(-10);
-	}
-	
 	public Boots clone(){
 		return (Boots) super.clone();
-	}
-	public void use(Entity entity) {
-		entity.equipBoots(this);
-		
-		LogManager.getInstance().log("Boots have been equipped.", "", Message.Type.GAME);
 	}
 }

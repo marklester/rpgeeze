@@ -14,10 +14,7 @@ public class Spear extends CloseWeapon{
 	public Spear() {
 		super("Spear");
 	}
-	public void use(Entity entity) {
-		entity.equipWeapon(this);
-		LogManager.getInstance().log("Equipped " + this, "MODEL", Message.Type.GAME);
-	}
+
 	public Spear clone(){
 		return (Spear) super.clone();
 	}

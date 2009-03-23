@@ -10,25 +10,12 @@ import rpgeeze.log.Message;
 import rpgeeze.model.entity.Entity;
 
 
-public class Helmet extends TakeableItem implements EquippableItem{
+public class Helmet extends EquipmentHead {
 	public Helmet() {
 		super("Helmet");
 		setPrice(100);
 	}
-
-	public void equip(Entity entity){
-		
-	}
 	
-	public void unequip(Entity entity){
-		
-	}
-	
-	public void use(Entity entity) {
-		entity.equipHead(this);
-		LogManager.getInstance().log("Helmet has been equipped", "", Message.Type.GAME);
-	}
-
 	public Helmet clone(){
 		return (Helmet) super.clone();
 	}

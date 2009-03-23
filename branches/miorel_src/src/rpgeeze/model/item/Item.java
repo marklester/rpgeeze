@@ -39,7 +39,7 @@ public abstract class Item implements Visitable, Cloneable {
 			prototypes.put(i.getName(), i);
 	}
 
-    public Item(String name){
+    protected Item(String name){
 		this.name = name;
 	}
 	

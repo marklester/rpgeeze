@@ -8,25 +8,12 @@ package rpgeeze.model.item;
 import rpgeeze.model.entity.Entity;
 
 
-public class Shield extends TakeableItem implements EquippableItem{
+public class Shield extends EquipmentAuxiliary {
 	public Shield() {
 		super("Shield");
 		setPrice(20);
 	}
 
-
-	public void use(Entity entity) {
-		entity.equipAuxiliary(this);
-	}
-	
-	public void equip(Entity entity){
-		
-	}
-	
-	public void unequip(Entity entity){
-		
-	}
-	
 	public Shield clone(){
 		return (Shield) super.clone();
 	}

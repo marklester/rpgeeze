@@ -14,11 +14,4 @@ public class Axe extends CloseWeapon{
 	public Axe() {
 		super("Axe");
 	}
-	public void use(Entity entity) {
-		entity.equipWeapon(this);
-		LogManager.getInstance().log("Equipped " + this, "MODEL", Message.Type.GAME);
-	}
-	public Axe clone(){
-		return (Axe) super.clone();
-	}
 }

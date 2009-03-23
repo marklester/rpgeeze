@@ -14,11 +14,4 @@ public class FireSpell extends SpellWeapon{
 	public FireSpell() {
 		super("Fire Spell");
 	}
-	public void use(Entity entity) {
-		entity.equipWeapon(this);
-		LogManager.getInstance().log("Equipped " + this, "MODEL", Message.Type.GAME);
-	}
-	public FireSpell clone(){
-		return (FireSpell) super.clone();
-	}
 }

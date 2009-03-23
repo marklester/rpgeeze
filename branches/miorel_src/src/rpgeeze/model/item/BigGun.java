@@ -7,12 +7,4 @@ public class BigGun extends RangedWeapon {
 		super("Big Gun");
 		setPrice(75);
 	}
-	
-	public BigGun clone(){
-		return (BigGun) super.clone();
-	}
-	
-	public void use(Entity entity) {
-		equip(entity);	
-	}
 }

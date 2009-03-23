@@ -15,5 +15,4 @@ public class ManaPotion extends TakeableItem {
 		entity.removeItem(this);
 		LogManager.getInstance().log("Used Mana Potion.", "MODEL", Message.Type.GAME);
 	}
-
 }
