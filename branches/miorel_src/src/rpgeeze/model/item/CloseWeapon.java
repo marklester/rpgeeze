@@ -28,7 +28,6 @@ public abstract class CloseWeapon extends TakeableItem implements EquippableItem
 	}
 	
 	public void unequip(Entity entity){
-		entity.addItemSilently(this);
 		entity.unequipWeapon();
 		LogManager.getInstance().log(getName()+" has been unequipped.", "", Message.Type.GAME);
 	}
