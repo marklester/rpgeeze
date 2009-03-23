@@ -2,10 +2,18 @@ package rpgeeze.model;
 
 import rpgeeze.model.Map;
 import rpgeeze.model.Tile;
+import rpgeeze.model.entity.Entity;
+import rpgeeze.model.entity.IllegalMoveException;
+import rpgeeze.model.entity.PC;
+import rpgeeze.model.xml.GameVisitor;
 //import rpgeeze.model.entity.PC;
 import rpgeeze.model.Visitor;
+>>>>>>> .r876
 import rpgeeze.model.Location;
+<<<<<<< .mine
+=======
 //import rpgeeze.model.xml.ModelElement;
+>>>>>>> .r876
 import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
 import rpgeeze.model.item.Item;
@@ -47,11 +55,11 @@ public class Tile implements Cloneable, Visitable {
 	}
 	
 	public int getX() {
-		return location.getX();
+		return 0;
 	}
 
 	public int getY() {
-		return location.getY();
+		return 0;
 	}
 	
 	public Terrain getTerrain() {
@@ -152,6 +160,9 @@ public class Tile implements Cloneable, Visitable {
 //	public void collectItem(PC pc) {
 //		if(item != null) {
 			//OneShotItem need to be removed from the Tile
+			item.activate(pc, this);
+		}
+	}
 //			item.activate(pc);
 //		}
 //	}
@@ -167,4 +178,8 @@ public class Tile implements Cloneable, Visitable {
 		tile.entity = (entity == null ? null : entity.clone());
 		return tile;
 	}
+<<<<<<< .mine
+		
+=======
+>>>>>>> .r876
 }
