@@ -156,6 +156,7 @@ public class ModelConstructor{
 		pchar.setEquipment(equip);
 		//This may cause problem
 		pchar.setTile(map.getTile(location.getX(),location.getY()));
+		pchar.getTile().setEntity(pchar);
 		pchar.setFacingDirection(dir);
 		return pchar;
 	}
