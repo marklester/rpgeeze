@@ -44,6 +44,7 @@ public class MapDrawer implements Visitor {
 	
 	private static HashMap<Pair<String, Direction>, Iterator<String>> avatar = new HashMap<Pair<String, Direction>, Iterator<String>>();
 	private static HashMap<Pair<String, Direction>, Iterator<String>> mobs = new HashMap<Pair<String, Direction>, Iterator<String>>();
+	private static HashMap<Pair<String, Direction>, Iterator<String>> merchant = new HashMap<Pair<String, Direction>, Iterator<String>>();
 	private static HashMap<Pair<String, Direction>, Iterator<String>> vehicle = new HashMap<Pair<String, Direction>, Iterator<String>>();
 	
 	private final static int SLOW_DOWN_FACTOR = 10;
@@ -106,10 +107,33 @@ public class MapDrawer implements Visitor {
 //	        avatar.put(new Pair<String, Direction>(mons.toString(), Direction.SOUTHEAST), avatar.get(new Pair<String, Direction>(mons.getName(), Direction.SOUTH)));
 //	        avatar.put(new Pair<String, Direction>(mons.toString(), Direction.SOUTHWEST), avatar.get(new Pair<String, Direction>(mons.getName(), Direction.SOUTH)));
 		}
+				
+		Merchant merch = new Merchant();
+        //String s = merch.toString().toLowerCase();
+		String s = "villager";
+        
+        merchant.put(new Pair<String, Direction>(merch.toString(), Direction.NORTH), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+                "entity/" + s + "/" + s + "WalkNorth1.png",
+                "entity/" + s + "/" + s  + "WalkNorth2.png"
+        ), SLOW_DOWN_FACTOR));
+
+        merchant.put(new Pair<String, Direction>(merch.toString(), Direction.SOUTH), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+                "entity/" + s + "/" + s  + "WalkSouth1.png",
+                "entity/" + s + "/" + s +  "WalkSouth2.png"
+        ), SLOW_DOWN_FACTOR));
+        
+        merchant.put(new Pair<String, Direction>(merch.toString(), Direction.EAST), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+                "entity/" + s + "/" + s + "WalkEast1.png",
+                "entity/" + s + "/" + s + "WalkEast2.png"
+        ), SLOW_DOWN_FACTOR));
+
+        merchant.put(new Pair<String, Direction>(merch.toString(), Direction.WEST), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+                "entity/" + s + "/" + s  + "WalkWest1.png",
+                "entity/" + s + "/" + s  + "WalkWest2.png"
+        ), SLOW_DOWN_FACTOR));
+				
 		
-		
-		
-	        String s = "vehicle";
+	        s = "vehicle";
 	        
 	        vehicle.put(new Pair<String, Direction>(s, Direction.NORTH), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
 	                "entity/vehicle/vehicleNorth1.png",
@@ -174,7 +198,9 @@ public class MapDrawer implements Visitor {
 	
 	public void visitEntity(Merchant entity)
 	{
-		
+		Iterator<String> iter = merchant.get(new Pair<String, Direction>(entity.toString(), entity.getFacingDirection()));
+		new TexturedRectangle(ResourceLoader.getInstance().getTexture(iter.current()), size, size).render(gl);
+		iter.advance();	
 	}
 	
 	public void visitEntity(Villager entity)
