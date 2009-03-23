@@ -43,7 +43,7 @@ public class GameplayView extends View<GameplayView.State> {
 	private BrushColorChange fadeIn;
 	private Text fpsText;
 	private Text row1,row2,row3,row4,row5,row6,row7;
-	private Stats s;
+	private Entity s;
 
 
 	private MapDrawer mapDrawer = new MapDrawer();
@@ -67,7 +67,7 @@ public class GameplayView extends View<GameplayView.State> {
 		super(manager);
 		fadeIn = new BrushColorChange(new Color(0, 0, 0, 1f), new Color(1, 1, 1, 1f), 1);
 		fpsText = new Text("", Color.RED, renderer, 0.0025f);
-		s = manager.getModel().getAvatar().getStats();
+		s = manager.getModel().getAvatar();
 
 
 		row1 = new Text("1", Color.RED, renderer, 0.0025f);
@@ -338,13 +338,13 @@ public class GameplayView extends View<GameplayView.State> {
 
 
 		if(getStatsVisible()) {			
-			row1.setText("Lives " + s.getPrimary().getLivesLeft() +  " Strength " + s.getPrimary().getStrength());
-			row2.setText("Intellect " + s.getPrimary().getIntellect() + " Hardiness " + s.getPrimary().getStrength());
-			row3.setText("Agility " + s.getPrimary().getAgility() + " Experience " + s.getPrimary().getExperience());
-			row4.setText("Level " + s.getLevel() + " Life " + s.getLife());
-			row5.setText("Mana " + s.getMana() + " Offense " + s.getOffensiveRating());
-			row6.setText("Defense " + s.getDefensiveRating() + " Armor " + s.getArmorRating());
-			row7.setText("Movement " + s.getMovement());
+			row1.setText("Lives " + s.getStats().getPrimary().getLivesLeft() +  " Strength " + s.getStats().getPrimary().getStrength());
+			row2.setText("Intellect " + s.getStats().getPrimary().getIntellect() + " Hardiness " + s.getStats().getPrimary().getStrength());
+			row3.setText("Agility " + s.getStats().getPrimary().getAgility() + " Experience " + s.getStats().getPrimary().getExperience());
+			row4.setText("Level " + s.getStats().getLevel() + " Life " + s.getStats().getLife());
+			row5.setText("Mana " + s.getStats().getMana() + " Offense " + s.getStats().getOffensiveRating());
+			row6.setText("Defense " + s.getStats().getDefensiveRating() + " Armor " + s.getStats().getArmorRating());
+			row7.setText("Movement " + s.getStats().getMovement() + " Cash " + s.getCash());
 
 			row1.setXYZ(glutil.getViewportAspectRatio() - row1.getWidth() - row1.getHeight() / 2, 1 - 3 * row1.getHeight() / 2, -1);	
 			row2.setXYZ(glutil.getViewportAspectRatio() - row2.getWidth() - row2.getHeight() / 2, row1.getY() - .075, -1);			
