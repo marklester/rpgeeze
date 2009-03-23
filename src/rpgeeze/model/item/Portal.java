@@ -5,6 +5,7 @@ import rpgeeze.log.Message;
 import rpgeeze.model.Location;
 import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
+import rpgeeze.util.AudioThread;
 
 
 
@@ -25,7 +26,9 @@ public class Portal extends InteractiveItem {
 	public void activate(Entity entity, Tile tile){
 		if(entity.getEntityType().equals("Playable Character")){
 			entity.getTile().releaseEntity();
-			//AudioThread.getInstance().run(this.name, AudioThread.CLIP);
+			AudioThread at = AudioThread.getInstance();
+			at.setKeyType(this.getName(), AudioThread.CLIP);
+			at.start();
 			if(where != null){
 				entity.move(where);
 				LogManager.getInstance().log("A strange force sweeps you off your feet.", "", Message.Type.GAME); 
