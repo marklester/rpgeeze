@@ -15,8 +15,9 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 	private Occupation occupation;
 	private Stats stats;
 	private LinkedList<Skill> skills;
-	
 	private int updateCounter;
+	private Inventory inventory;
+	private Equipment equipment;
 	
 	public PC(Occupation occupation, Map map) {
 		this.inventory = new Inventory();
@@ -36,7 +37,7 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 	public void setStats(Stats stats) {
 		this.stats = stats;
 	}
-	public void setSkills(SkillContainer skills) {
+	public void setSkills(LinkedList<Skill> skills) {
 		this.skills = skills;
 	}
 	
@@ -100,7 +101,7 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		return stats;
 	}
 	
-	public SkillContainer getSkills()
+	public LinkedList<Skill> getSkills()
 	{
 		return skills;
 	}
