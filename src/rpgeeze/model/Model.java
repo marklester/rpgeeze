@@ -6,6 +6,7 @@ import java.util.Queue;
 import rpgeeze.dp.Command;
 import rpgeeze.log.LogManager;
 import rpgeeze.log.Message;
+import rpgeeze.model.entity.Entity;
 
 public class Model {
 	private boolean paused;
