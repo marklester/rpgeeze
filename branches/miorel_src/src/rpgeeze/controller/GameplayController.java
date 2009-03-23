@@ -109,6 +109,35 @@ public class GameplayController extends Controller<GameplayView> {
 					});
 				}
 			}
+			else {
+				final String id2 = name.replaceAll("Equipment Item ", "");
+				if(id2.matches("\\d+") && e.getButton() == MouseEvent.BUTTON3) {
+					final int i = Integer.parseInt(id2);
+					getManager().getModel().queueCommand(new Command() {
+						public void execute() {
+							Entity avatar = getManager().getModel().getAvatar();
+							System.out.println(i);
+							switch(i) {
+							case 1:
+								avatar.unequipHead();
+								break;
+							case 3:
+								avatar.unequipAuxiliary();
+								break;
+							case 4:
+								avatar.unequipArmor();
+								break;
+							case 5:
+								avatar.unequipWeapon();
+								break;
+							case 7:
+								avatar.unequipBoots();
+								break;
+							}
+						}
+					});
+				}
+			}
 		}
 		switch(e.getButton()) {
 		case MouseEvent.BUTTON3:
