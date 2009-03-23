@@ -20,7 +20,7 @@ public class HealthPack extends OneShotItem {
 	}
 
 	public void use(Entity entity, Tile tile) {
-		//entity.addHealth(amount);
+		entity.addHealth(amount);
 		LogManager.getInstance().log("Gained " + amount + " Health", "", Message.Type.GAME);
 	}
 
