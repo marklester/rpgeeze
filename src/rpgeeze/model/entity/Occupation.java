@@ -85,7 +85,9 @@ public abstract class Occupation implements Cloneable {
 	public static Occupation getOccupationPrototype(String key){
 		return prototypes.get(key).clone();
 	}
-	
+	public SkillContainer getSkillContainer(){
+		return skills;
+	}
 	public void populateSkills() {
 		skills.add(new BindWounds());
 		skills.add(new Bargain());
