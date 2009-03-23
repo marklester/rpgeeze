@@ -5,8 +5,6 @@ import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
 import rpgeeze.model.entity.IllegalMoveException;
 import rpgeeze.model.entity.PC;
-import rpgeeze.model.xml.GameVisitor;
-//import rpgeeze.model.entity.PC;
 import rpgeeze.model.Visitor;
 import rpgeeze.model.Location;
 import rpgeeze.model.ae.AreaEffect;
