@@ -1,5 +1,6 @@
 package rpgeeze.model.ai;
 
+import rpgeeze.model.Tile;
 import rpgeeze.model.entity.NPC;
 
 public class ContainedAI implements ArtificialIntelligence {
