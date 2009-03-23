@@ -7,14 +7,14 @@ import rpgeeze.model.*;
 //import rpgeeze.model.xml.*;
 import rpgeeze.model.item.*;
 import rpgeeze.model.entity.Occupation;
-
+import java.util.LinkedList;
 
 public class PC extends Entity { //implements { EquippableInventory, StatsModifiable {
 
 	
 	private Occupation occupation;
 	private Stats stats;
-	private SkillContainer skills;
+	private LinkedList<Skill> skills;
 	
 	private int updateCounter;
 	
