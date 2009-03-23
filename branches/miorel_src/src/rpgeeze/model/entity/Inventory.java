@@ -8,79 +8,68 @@ package rpgeeze.model.entity;
  */
 
 //import util.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+import rpgeeze.dp.Iterator;
+import rpgeeze.log.LogManager;
+import rpgeeze.log.Message;
 import rpgeeze.model.item.Item;
+import rpgeeze.util.ListIterator;
 
 
 
 public class Inventory implements Cloneable {
 	public static final int INV_MAX_SIZE = 100;
 
-	private List<Item> items;
+	private ArrayList<Item> items;
 
 	public Inventory() {
-		this.items = new LinkedList<Item>();
+		items = new ArrayList<Item>();
 	}
 
-	public void addItem(Item i) {
-		if(this.items.size() <= INV_MAX_SIZE) {
-			this.items.add(i);
-			String message = this.toString() + " has been added to your Inventory.";
-			Console.getInstance().writeItemEvent(message);
+	public void addItem(Item i, boolean announce) {
+		if(items.size() < INV_MAX_SIZE) {
+			items.add(i);
+			if(announce)
+				LogManager.getInstance().log("Picked up " + i.getName() + ".", "MODEL", Message.Type.GAME);
 		}
-		else		
-			Console.getInstance().writeLine("Inventory Full");		
+		else {
+			if(announce)
+				LogManager.getInstance().log("Inventory full!", "MODEL", Message.Type.GAME);
+		}		
 	}
 	
-	public void addItemSilently(Item i)
-	{
-		if(this.items.size() <= INV_MAX_SIZE)
-			this.items.add(i);
-	}
-
 	public Item removeItemAt(int i) {
-		return this.items.remove(i);
+		return items.remove(i);
 	}
-	public Item getItemAt(int i)
-	{
-		return this.items.get(i);
+	
+	public Item getItemAt(int i) {
+		return items.get(i);
 	}
-	public void removeItem(Item i)
-	{
+	
+	public void removeItem(Item i) {
 		items.remove(i);
 	}
 
-	// Should this return the Item object... It may need to be re-drawn on the
-	// map once dropped.
-	// Also, what should it receive? Controller will receive the "command" to
-	// drop a certain
-	// item in the inventory. This command is somehow sent to the Model, who
-	// says, "Hey Entity
-	// X, go ahead and drop item i from your inventory"... I think we're going
-	// to need a way
-	// for the Controller to tell the Entity WHICH SPECIFIC item in the
-	// inventory needs to
-	// be dropped
 	public boolean isEmpty() {
-		return this.items.isEmpty();
+		return items.isEmpty();
 	}
 
-	public int count()
-	{
+	public int count() {
 		return items.size();
 	}
 	
 	public synchronized Inventory clone() {
 		Inventory clone = new Inventory();
-		for(Item i: items) clone.addItem(i);
+		clone.items.addAll(items);
 		return clone;
 	}
 
 	public Iterator<Item> iterator() {
-		final ArrayList<Item> list;
+		return new ListIterator<Item>(clone().items);
 	}
 }
