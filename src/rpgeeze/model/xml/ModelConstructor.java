@@ -41,7 +41,14 @@ public class ModelConstructor{
 	public Model createModel(Occupation occ) {//new Game
 		Map map =  createMaps();
 		PC avatar = createPC(doc.getElementsByTagName("entity").item(0),map);
-		avatar.setOccupation(occ);
+		NodeList ents = doc.getElementsByTagName("entity");
+		/*for(int i=0;i<ents.getLength();i++){
+			Element el = (Element)ents.item(i);
+		}*/
+		if(occ != null){
+			avatar.setOccupation(occ);
+			avatar.setSkills(avatar.getOccupation().getSkills());
+		}
 		return new Model(map,avatar);
 		//List<EntityHandler> ehs= createEntityHandlers();
 		//return new Model(aassdwmaps,ehs);
@@ -143,6 +150,7 @@ public class ModelConstructor{
 		PC pchar= (PC)Entity.getEntityPrototype(type);
 		Inventory inv = createInventory(pc.getElementsByTagName("inventory").item(0));
 		Occupation occ = createOccupation(pc.getElementsByTagName("occupation").item(0));
+		
 		Stats stats =createStats(pc.getElementsByTagName("stats").item(0));
 		LinkedList<Skill> skills = createSkills(pc.getElementsByTagName("skillContainer").item(0));
 		Equipment equip = createEquipment(pc.getElementsByTagName("equipment").item(0));
