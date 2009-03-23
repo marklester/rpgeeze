@@ -7,9 +7,7 @@ package rpgeeze.model.item;
 
 import rpgeeze.log.LogManager;
 import rpgeeze.log.Message;
-import rpgeeze.model.Tile;
 import rpgeeze.model.entity.Entity;
-import rpgeeze.model.entity.PC;
 
 public class Crossbow extends TakeableItem implements EquippableItem {
 	public Crossbow() {
@@ -17,7 +15,10 @@ public class Crossbow extends TakeableItem implements EquippableItem {
 	}
 
 	public void equip(Entity entity){
+		entity.unequipAuxiliary();
 		
+		entity.equipWeapon(this);
+		LogManager.getInstance().log("Cross Bow has been equipped.", "", Message.Type.GAME);	
 	}
 	
 	public void unequip(Entity entity){
@@ -28,8 +29,8 @@ public class Crossbow extends TakeableItem implements EquippableItem {
 		return (Crossbow) super.clone();
 	}
 	public void use(Entity entity) {
-		//entity.equipWeapon(this);
-		entity.unequipAuxiliary();
-		LogManager.getInstance().log("Cross Bow has been equipped.", "", Message.Type.GAME);
+		equip(entity);
+		
+		
 	}
 }
