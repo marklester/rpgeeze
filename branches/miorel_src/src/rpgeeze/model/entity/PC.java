@@ -13,10 +13,9 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 
 	
 	private Occupation occupation;
-	private Stats stats;
+	
 	private LinkedList<Skill> skills;
 	private int updateCounter;
-
 	
 	public PC(Occupation occupation, Map map) {
 		this.inventory = new Inventory();
@@ -46,6 +45,8 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		tile.collectItem(this);
 	}
 	
+	
+	
 	public boolean hasEnoughHP(int value){
 		return value <= stats.life;
 	}
@@ -55,25 +56,7 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		return value <= stats.mana;
 	}
 	
-	public void addHealth(int value)
-	{
-		stats.addHealth(value);
-	}
 	
-	public void addMana(int value)
-	{
-		stats.addMana(value);
-	}
-	
-	public void addMovement(int value)
- 	{
-		stats.addMovement(value);
-	}
-	
-	public void addLevel(int value)
-	{
-		stats.addLevel(value);
-	}
 	
 	public int maxHealth()
 	{
