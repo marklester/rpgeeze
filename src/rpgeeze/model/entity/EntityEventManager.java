@@ -12,12 +12,12 @@ public abstract class EntityEventManager{
 	
 	public void update()
 	{
-//		if(!entity.isAlive())
-//		{
-//			EntityManagerCollection.getInstance().remove(this);
-//			entity.getTile().removeEntity();
-//		}
-		//updateStatusOfAvatar();
+		if(!entity.isAlive())
+		{
+			EntityManagerCollection.getInstance().remove(this);
+			entity.getTile().setEntity(null);
+		}
+		updateStatusOfAvatar();
 	}
 	
 	public void move(Location loc)
