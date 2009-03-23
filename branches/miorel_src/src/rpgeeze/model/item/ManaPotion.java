@@ -7,6 +7,7 @@ import rpgeeze.model.entity.Entity;
 public class ManaPotion extends TakeableItem {
 	public ManaPotion() {
 		super("Mana Potion");
+		setPrice(150);
 	}
 
 	public void use(Entity entity) {
