@@ -23,7 +23,7 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		this.inventory = new Inventory();
 		this.occupation = occupation;
 		this.stats = occupation.getStats().clone();
-		this.skills = occupation.getSkillContainer();
+		this.skills = occupation.getSkills();
 		this.equipment = new Equipment();
 	}
 	

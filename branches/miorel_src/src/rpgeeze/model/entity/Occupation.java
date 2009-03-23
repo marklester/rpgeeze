@@ -1,8 +1,8 @@
 package rpgeeze.model.entity;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
 import rpgeeze.model.entity.Smasher;
 import rpgeeze.model.entity.Sneak;
@@ -17,7 +17,7 @@ import rpgeeze.model.skill.Skill;
 public abstract class Occupation implements Cloneable {
 	private final String name;
 	private Stats stats;
-	private List<Skill> skills;
+	private LinkedList<Skill> skills;
 	
 	protected Occupation(String name, Stats stats, Skill... skills) {
 		this.name = name;
@@ -51,7 +51,7 @@ public abstract class Occupation implements Cloneable {
 		catch(CloneNotSupportedException e) {
 		}
 		o.stats = stats.clone();
-		o.skills = new ArrayList<Skill>();
+		o.skills = new LinkedList<Skill>();
 		for(Skill s: skills)
 			o.skills.add(s.clone());
 		return o;
@@ -80,7 +80,7 @@ public abstract class Occupation implements Cloneable {
 		return prototypes.get(key).clone();
 	}
 	
-	public final List<Skill> getSkills() {
+	public final LinkedList<Skill> getSkills() {
 		return clone().skills;
 	}
 }
