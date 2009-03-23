@@ -1,19 +1,19 @@
 package rpgeeze.model.entity;
 
-import rpgeeze.model.item.Item;
+import rpgeeze.model.item.TakeableItem;
 
 public class Equipment implements Cloneable {
-	private Item head;
-	private Item armor;
-	private Item boots;
-	private Item weapon;
-	private Item auxiliary;
+	private TakeableItem head;
+	private TakeableItem armor;
+	private TakeableItem boots;
+	private TakeableItem weapon;
+	private TakeableItem auxiliary;
 	
 	public Equipment() 	{
 		this(null, null, null, null, null);
 	}
 
-	public Equipment(Item head, Item armor, Item boots, Item weapon, Item auxiliary) {
+	public Equipment(TakeableItem head, TakeableItem armor, TakeableItem boots, TakeableItem weapon, TakeableItem auxiliary) {
 		this.head = head;
 		this.armor = armor;
 		this.boots = boots;
@@ -21,43 +21,43 @@ public class Equipment implements Cloneable {
 		this.auxiliary = auxiliary;
 	}
 	
-	public Item getHead() {
+	public TakeableItem getHead() {
 		return head;
 	}
 
-	public void setHead(Item head) {
+	public void setHead(TakeableItem head) {
 		this.head = head;
 	}
 
-	public Item getArmor() {
+	public TakeableItem getArmor() {
 		return armor;
 	}
 
-	public void setArmor(Item armor) {
+	public void setArmor(TakeableItem armor) {
 		this.armor = armor;
 	}
 
-	public Item getBoots() {
+	public TakeableItem getBoots() {
 		return boots;
 	}
 
-	public void setBoots(Item boots) {
+	public void setBoots(TakeableItem boots) {
 		this.boots = boots;
 	}
 
-	public Item getWeapon() {
+	public TakeableItem getWeapon() {
 		return weapon;
 	}
 
-	public void setWeapon(Item weapon) {
+	public void setWeapon(TakeableItem weapon) {
 		this.weapon = weapon;
 	}
 
-	public Item getAuxiliary() {
+	public TakeableItem getAuxiliary() {
 		return auxiliary;
 	}
 
-	public void setAuxiliary(Item auxiliary) {
+	public void setAuxiliary(TakeableItem auxiliary) {
 		this.auxiliary = auxiliary;
 	}
 

@@ -14,11 +14,15 @@ public abstract class OneShotItem extends Item {
 	}
 
 	public final void activate(Entity entity, Tile tile) {
-		doActivate(entity, tile);
+		use(entity, tile);
 		tile.setItem(null);
 	}
 	
-	protected abstract void doActivate(Entity entity, Tile tile);
+	protected abstract void use(Entity entity, Tile tile);
+	
+	public OneShotItem clone() {
+		return (OneShotItem) super.clone();
+	}
 }
 
 

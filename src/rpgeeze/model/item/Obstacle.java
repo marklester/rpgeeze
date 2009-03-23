@@ -17,5 +17,9 @@ public abstract class Obstacle extends Item {
 	public final void activate(Entity entity, Tile tile) throws IllegalMoveException {
 		throw new IllegalMoveException("Obstacle present");
 	}
+	
+	public Obstacle clone() {
+		return (Obstacle) super.clone();
+	}
 }
 

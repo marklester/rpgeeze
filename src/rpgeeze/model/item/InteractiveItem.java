@@ -10,4 +10,8 @@ public abstract class InteractiveItem extends Item {
 	public InteractiveItem(String name) {
 		super(name);
 	}
+	
+	public InteractiveItem clone() {
+		return (InteractiveItem) super.clone();
+	}
 }

@@ -17,7 +17,6 @@ import rpgeeze.util.ArrayIterator;
 public abstract class Occupation implements Cloneable {
 	
 	private static Hashtable<String, Occupation> prototypes = new Hashtable<String, Occupation>();
-	
 	static {
 		for(Occupation o: new Occupation[] {
 			new Smasher(null, null),

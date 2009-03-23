@@ -4,6 +4,7 @@ import rpgeeze.model.Location;
 import rpgeeze.model.Tile;
 import rpgeeze.model.Visitable;
 import rpgeeze.model.Visitor;
+import rpgeeze.model.item.Item;
 import rpgeeze.util.Direction;
 import java.util.Hashtable;
 import rpgeeze.util.Subject;
@@ -102,6 +103,10 @@ public abstract class Entity extends Subject implements Cloneable, Visitable {
 	}
 	public static Entity getEntityPrototype(String key){
 		return (Entity)prototypes.get(key).clone();
+	}
+	
+	public boolean pickUp(Item item) {
+		return false;
 	}
 }
 
