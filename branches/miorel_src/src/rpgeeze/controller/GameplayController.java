@@ -53,6 +53,14 @@ public class GameplayController extends Controller<GameplayView> {
 				getManager().pushState(omv, omc);
 			}
 		});
+
+		
+		actions.put("Stats View", new Command(){
+			public void execute(){
+				getView().toggleStatsVisible();
+			}
+		});
+
 		actions.put("Use Weapon", new Command() {
 			public void execute() {
 				PC pc = getManager().getModel().getAvatar();
@@ -78,6 +86,7 @@ public class GameplayController extends Controller<GameplayView> {
 				System.out.print("Use Spell");
 			}
 		});
+>>>>>>> .r1104
 		actions.put("Move North", moveEncapsulate(Direction.NORTH));
 		actions.put("Move South", moveEncapsulate(Direction.SOUTH));
 		actions.put("Move East", moveEncapsulate(Direction.EAST));
