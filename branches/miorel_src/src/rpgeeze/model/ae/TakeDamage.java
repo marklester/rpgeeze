@@ -1,7 +1,7 @@
 package rpgeeze.model.ae;
 
 import rpgeeze.model.entity.Entity;
-import rpgeeze.model.StatsModifiable;
+import rpgeeze.model.entity.StatsModifiable;
 
 public class TakeDamage extends AreaEffect {
 	
