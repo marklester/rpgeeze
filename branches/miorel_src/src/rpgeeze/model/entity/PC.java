@@ -46,8 +46,9 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 	{
 		getStats().addHealth(value);
 	}
-	
+
 	public void addMana(int value)
+
 	{
 		getStats().addMana(value);
 	}
