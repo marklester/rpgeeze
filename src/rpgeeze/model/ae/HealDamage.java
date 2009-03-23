@@ -1,7 +1,9 @@
 package rpgeeze.model.ae;
 
+import rpgeeze.log.LogManager;
+import rpgeeze.log.Message;
 import rpgeeze.model.entity.Entity;
-import rpgeeze.model.StatsModifiable;
+import rpgeeze.model.entity.StatsModifiable;
 
 public class HealDamage extends AreaEffect {
 	
@@ -15,18 +17,18 @@ public class HealDamage extends AreaEffect {
 
 	public void applyEffect(StatsModifiable e) {
 	    if(--counter == 0) {
-	            //int life = e.getStats().getLife();
-	            //e.getStats().incLife(rate);
-	            //if(life != e.getStats().getLife()) { 
-	            counter = UPDATE_RATE; //reset
+	            
+	            e.addHealth(rate);
+	            	             
+	            counter = UPDATE_RATE; 
 	            if(!messageSent) {
-	                   // Console.getInstance().writeLine("Congrats. Enjoy some life.", Color.GREEN);
-	                    messageSent = true;
+	            	LogManager.getInstance().log("Congrats. Enjoy some life.", "", Message.Type.GAME);    	                    messageSent = true;
 	            }
-	            //}
+	            messageSent = true;
+	            }
 	    }
 	}
-}
+
 
 
 
