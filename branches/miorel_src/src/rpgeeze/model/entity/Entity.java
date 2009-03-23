@@ -35,6 +35,9 @@ public abstract class Entity extends Subject implements Cloneable, Visitable, St
 	protected Inventory inventory;
 	private Occupation occupation;
 	private Tile startingTile;
+	private float cash = 0;
+	
+	
 	public Tile getStartingTile() {
 		return startingTile;
 	}
@@ -237,4 +240,14 @@ public abstract class Entity extends Subject implements Cloneable, Visitable, St
 	public void setStats(Stats stats) {
 		this.stats = stats;
 	}
+	
+	public double getCash() {
+		return cash;
+	}
+	
+	public void addCash(int howMuch) {
+		cash+= howMuch;
+		LogManager.getInstance().log("Money in the bank - " + howMuch, "", Message.Type.GAME);
+	}
+	
 }

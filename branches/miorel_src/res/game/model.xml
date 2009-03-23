@@ -209,6 +209,10 @@
 				<x>28</x>
 				<y>42</y>
 			</location>
+			<item>
+				<type>Gold</type>
+				<property name="amount" value="40"/>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Water Terrain</terrain>
@@ -272,6 +276,10 @@
 				<x>37</x>
 				<y>42</y>
 			</location>
+						<item>
+				<type>Gold</type>
+				<property name="amount" value="50"/>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -347,6 +355,10 @@
 				<x>47</x>
 				<y>42</y>
 			</location>
+						<item>
+				<type>Gold</type>
+				<property name="amount" value="60"/>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -12018,6 +12030,10 @@
 				<x>11</x>
 				<y>18</y>
 			</location>
+			<item>
+				<type>Gold</type>
+				<property name="amount" value="40"/>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -15188,6 +15204,10 @@
 				<x>41</x>
 				<y>12</y>
 			</location>
+			<item>
+				<type>Gold</type>
+				<property name="amount" value="140"/>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
@@ -15272,6 +15292,10 @@
 				<x>53</x>
 				<y>12</y>
 			</location>
+			<item>
+				<type>Gold</type>
+				<property name="amount" value="10"/>
+			</item>
 		</tile>
 		<tile>
 			<terrain>Grass Terrain</terrain>
