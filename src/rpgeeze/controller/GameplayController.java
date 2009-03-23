@@ -23,7 +23,6 @@ import rpgeeze.util.Direction;
 import rpgeeze.view.GameplayView;
 import rpgeeze.view.OptionsMenuView;
 import rpgeeze.model.entity.PC;
-import rpgeeze.model.item.EquippableItem;
 
 public class GameplayController extends Controller<GameplayView> {
 	private MouseEvent prev = null;
@@ -110,7 +109,7 @@ public class GameplayController extends Controller<GameplayView> {
 		});
 		actions.put("Use Spell", new Command() {
 			public void execute() {
-				//System.out.print("Use Spell");
+
 			}
 		});
 
@@ -181,7 +180,6 @@ public class GameplayController extends Controller<GameplayView> {
 					getManager().getModel().queueCommand(new Command() {
 						public void execute() {
 							Entity avatar = getManager().getModel().getAvatar();
-							//System.out.println(i);
 							switch(i) {
 							case 1:
 								avatar.getEquipment().getHead().unequip(avatar);
