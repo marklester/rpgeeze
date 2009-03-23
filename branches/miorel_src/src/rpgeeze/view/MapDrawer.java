@@ -7,6 +7,7 @@ import javax.media.opengl.GL;
 import com.sun.opengl.util.texture.Texture;
 
 import rpgeeze.GameProperties;
+import rpgeeze.dp.Iterator;
 import rpgeeze.gl.geom.TexturedRectangle;
 import rpgeeze.log.LogManager;
 import rpgeeze.model.Entity;
@@ -17,7 +18,15 @@ import rpgeeze.model.Visitor;
 import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
 import rpgeeze.model.item.Item;
+import rpgeeze.model.occupation.Occupation;
+import rpgeeze.model.occupation.Smasher;
+import rpgeeze.model.occupation.Sneak;
+import rpgeeze.model.occupation.Summoner;
 import rpgeeze.model.terrain.Terrain;
+import rpgeeze.util.ContinuousIteratorWithElements;
+import rpgeeze.util.Direction;
+import rpgeeze.util.MultiplyIterator;
+import rpgeeze.util.Pair;
 import rpgeeze.util.ResourceLoader;
 
 public class MapDrawer implements Visitor {
@@ -27,6 +36,43 @@ public class MapDrawer implements Visitor {
 	private HashMap<String, Texture> terrains = new HashMap<String, Texture>();
 	private HashMap<String, Texture> items = new HashMap<String, Texture>();
 	private HashMap<String, Texture> decals = new HashMap<String, Texture>();
+	
+	private static HashMap<Pair<String, Direction>, Iterator<String>> avatar = new HashMap<Pair<String, Direction>, Iterator<String>>();
+	
+	private final static int SLOW_DOWN_FACTOR = 10;
+
+	
+
+	static{
+		for(Occupation occ: new Occupation[] {new Smasher(), new Summoner(), new Sneak()}) {
+	        String s = occ.getName().toLowerCase();
+	        
+	        avatar.put(new Pair<String, Direction>(occ.getName(), Direction.NORTH), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+	                "entity/" + s + "/" + s + "WalkNorth1.png",
+	                "entity/" + s + "/" + s  + "WalkNorth2.png"
+	        ), SLOW_DOWN_FACTOR));
+
+	        avatar.put(new Pair<String, Direction>(occ.getName(), Direction.SOUTH), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+	                "entity/" + s + "/" + s  + "WalkSouth1.png",
+	                "entity/" + s + "/" + s +  "WalkSouth2.png"
+	        ), SLOW_DOWN_FACTOR));
+	        
+	        avatar.put(new Pair<String, Direction>(occ.getName(), Direction.EAST), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+	                "entity/" + s + "/" + s + "WalkEast1.png",
+	                "entity/" + s + "/" + s + "WalkEast2.png"
+	        ), SLOW_DOWN_FACTOR));
+
+	        avatar.put(new Pair<String, Direction>(occ.getName(), Direction.WEST), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+	                "entity/" + s + "/" + s  + "WalkWest1.png",
+	                "entity/" + s + "/" + s  + "WalkWest2.png"
+	        ), SLOW_DOWN_FACTOR));
+
+	        avatar.put(new Pair<String, Direction>(occ.getName(), Direction.NORTHEAST), avatar.get(new Pair<String, Direction>(occ.getName(), Direction.NORTH)));
+	        avatar.put(new Pair<String, Direction>(occ.getName(), Direction.NORTHWEST), avatar.get(new Pair<String, Direction>(occ.getName(), Direction.NORTH)));
+	        avatar.put(new Pair<String, Direction>(occ.getName(), Direction.SOUTHEAST), avatar.get(new Pair<String, Direction>(occ.getName(), Direction.SOUTH)));
+	        avatar.put(new Pair<String, Direction>(occ.getName(), Direction.SOUTHWEST), avatar.get(new Pair<String, Direction>(occ.getName(), Direction.SOUTH)));
+	}
+	}
 	
 	public void setSize(double size) {
 		this.size = size;
