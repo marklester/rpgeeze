@@ -15,7 +15,7 @@ public abstract class OneShotItem extends Item {
 
 	public final void activate(Entity entity, Tile tile) {
 		doActivate(entity, tile);
-		// tile.setItem(null);
+		tile.setItem(null);
 	}
 	
 	protected abstract void doActivate(Entity entity, Tile tile);

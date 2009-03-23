@@ -14,7 +14,7 @@ public abstract class Obstacle extends Item {
 		super(name);
 	}
 
-	public void activate(Entity entity, Tile tile) throws IllegalMoveException {
+	public final void activate(Entity entity, Tile tile) throws IllegalMoveException {
 		throw new IllegalMoveException("Obstacle present");
 	}
 }

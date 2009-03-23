@@ -13,7 +13,8 @@ public abstract class TakeableItem extends Item {
         super(name);
 	}
 
-	public void activate(Entity entity, Tile tile) {
-		//entity.pickUp(this);
+	public final void activate(Entity entity, Tile tile) {
+		if(entity.pickUp(this))
+			tile.setItem(null);
 	}
 }
