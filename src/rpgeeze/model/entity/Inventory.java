@@ -7,22 +7,15 @@ package rpgeeze.model.entity;
  *  
  */
 
-//import util.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
-import rpgeeze.dp.Iterator;
 import rpgeeze.log.LogManager;
 import rpgeeze.log.Message;
 import rpgeeze.model.item.Item;
-import rpgeeze.util.ListIterator;
+import rpgeeze.util.ArrayIterator;
+import rpgeeze.dp.Iterator;
 
-
-
-public class Inventory implements Cloneable {
+public class Inventory {
 	public static final int INV_MAX_SIZE = 100;
 
 	private ArrayList<Item> items;
@@ -31,26 +24,30 @@ public class Inventory implements Cloneable {
 		items = new ArrayList<Item>();
 	}
 
-	public void addItem(Item i, boolean announce) {
+	public boolean addItem(Item i, boolean announce) {
+		LogManager lm = LogManager.getInstance();
+		boolean ret;
 		if(items.size() < INV_MAX_SIZE) {
 			items.add(i);
 			if(announce)
-				LogManager.getInstance().log("Picked up " + i.getName() + ".", "MODEL", Message.Type.GAME);
+				lm.log(i.getName() + " has been added to your inventory.", "INVENTORY", Message.Type.GAME);
+			ret = true;
 		}
 		else {
-			if(announce)
-				LogManager.getInstance().log("Inventory full!", "MODEL", Message.Type.GAME);
-		}		
+			lm.log("Inventory full!", "INVENTORY", Message.Type.GAME);
+			ret = false;
+		}
+		return ret;
 	}
-	
+
 	public Item removeItemAt(int i) {
-		return items.remove(i);
+		return this.items.remove(i);
 	}
-	
+
 	public Item getItemAt(int i) {
 		return items.get(i);
 	}
-	
+
 	public void removeItem(Item i) {
 		items.remove(i);
 	}
@@ -59,17 +56,11 @@ public class Inventory implements Cloneable {
 		return items.isEmpty();
 	}
 
-	public int count() {
+	public int itemCount() {
 		return items.size();
-	}
-	
-	public synchronized Inventory clone() {
-		Inventory clone = new Inventory();
-		clone.items.addAll(items);
-		return clone;
 	}
 
 	public Iterator<Item> iterator() {
-		return new ListIterator<Item>(clone().items);
+		return new ArrayIterator<Item>(items.toArray(new Item[0]));
 	}
 }
