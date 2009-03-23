@@ -42,26 +42,7 @@ public class PC extends Entity { //implements { EquippableInventory, StatsModifi
 		return value <= getStats().mana;
 	}
 	
-	public void addHealth(int value)
-	{
-		getStats().addHealth(value);
-	}
-
-	public void addMana(int value)
-
-	{
-		getStats().addMana(value);
-	}
 	
-	public void addMovement(int value)
- 	{
-		getStats().addMovement(value);
-	}
-	
-	public void addLevel(int value)
-	{
-		getStats().addLevel(value);
-	}
 	
 	public int maxHealth()
 	{
