@@ -1,20 +1,17 @@
-package rpgeeze.model.xml;
+package model.xml;
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import rpgeeze.model.Location;
-import rpgeeze.model.Map;
-import rpgeeze.model.Model;
-import rpgeeze.model.terrain.Terrain;
-import rpgeeze.model.Tile;
-import rpgeeze.model.ae.AreaEffect;
-import rpgeeze.model.decal.Decal;
-import rpgeeze.model.entity.Entity;
-import rpgeeze.model.entity.Occupation;
-import rpgeeze.model.item.Item;
+import model.*;
+import model.ae.AreaEffect;
+import model.decal.Decal;
+import model.entity.*;
+import model.entity.Entity;
+import model.item.Item;
+import model.skill.Skill;
+import model.skill.SkillContainer;
 
 import org.w3c.dom.*;
 
@@ -39,8 +36,8 @@ public class ModelConstructor{
 	
 	public Model createModel(Occupation occ) {//new Game
 		Map map =  createMaps();
-		model.entity.PC avatar = new model.entity.PC(occ,map);
-		avatar.setTile(map.getTile(0,0));
+		PC avatar = createPC(doc.getElementsByTagName("entity").item(0),map);
+		avatar.setOccupation(occ);
 		return new Model(map,avatar);
 		//List<EntityHandler> ehs= createEntityHandlers();
 		//return new Model(aassdwmaps,ehs);
@@ -135,6 +132,108 @@ public class ModelConstructor{
 		}catch(NullPointerException e){
 			return null;
 		}
+	}
+	private PC createPC(Node pcNode,Map map){
+		Element pc = (Element)pcNode;
+		String type = pc.getAttribute("entityType");
+		PC pchar= (PC)Entity.getEntityPrototype(type);
+		Inventory inv = createInventory(pc.getElementsByTagName("inventory").item(0));
+		Occupation occ = createOccupation(pc.getElementsByTagName("occupation").item(0));
+		Stats stats =createStats(pc.getElementsByTagName("stats").item(0));
+		SkillContainer skills = createSkillContainer(pc.getElementsByTagName("skillContainer").item(0));
+		Equipment equip = createEquipment(pc.getElementsByTagName("equipment").item(0));
+		Location location = createLocation(pc.getElementsByTagName("location").item(0));
+		Direction dir = createFacingDirection(pc.getElementsByTagName("facing").item(0));
+		
+		pchar.setInventory(inv);
+		pchar.setOccupation(occ);
+		pchar.setStats(stats);
+		pchar.setSkills(skills);
+		pchar.setEquipment(equip);
+		//This may cause problem
+		pchar.setTile(map.getTile(location));
+		pchar.setFacingDirection(dir);
+		return pchar;
+	}
+	private Direction createFacingDirection(Node fnode){
+		Element el = (Element)fnode;
+		Location loc = createLocation(el.getElementsByTagName("location").item(0));
+		return loc.closestDirection();
+	}
+	private Inventory createInventory(Node invNode){
+		Element inv = (Element)invNode;
+		NodeList items = inv.getElementsByTagName("item");
+		Inventory inventory = new Inventory();
+		for(int i =0;i<items.getLength();i++){
+			inventory.addItemSilently(createItem(items.item(i)));
+		}
+		return inventory;
+	}
+	private Occupation createOccupation(Node occNode){
+		try{
+			return Occupation.getOccupationPrototype(occNode.getTextContent());
+		}catch(NullPointerException e){
+			return null;
+		}
+	}
+	private Stats createStats(Node statsNode){
+		Element stat = (Element)statsNode;
+		try{
+			int level = Integer.parseInt(stat.getElementsByTagName("level").item(0).getTextContent());
+			int life = Integer.parseInt(stat.getElementsByTagName("life").item(0).getTextContent());
+			int mana = Integer.parseInt(stat.getElementsByTagName("mana").item(0).getTextContent());
+			int movement = Integer.parseInt(stat.getElementsByTagName("movement").item(0).getTextContent());
+			PrimaryStats pstats = createPrimaryStats(stat.getElementsByTagName("primaryStats").item(0));
+			Stats stats = new Stats(level,life,mana,movement,pstats);
+			return stats;
+		}catch(NullPointerException e){
+			return null;
+		}
+	}
+	private PrimaryStats createPrimaryStats(Node pstatsNode){
+		Element stat = (Element)pstatsNode;
+		try{
+			int livesLeft = Integer.parseInt(stat.getElementsByTagName("livesLeft").item(0).getTextContent());
+			int strength = Integer.parseInt(stat.getElementsByTagName("strength").item(0).getTextContent());
+			int agility = Integer.parseInt(stat.getElementsByTagName("agility").item(0).getTextContent());
+			int intellect = Integer.parseInt(stat.getElementsByTagName("intellect").item(0).getTextContent());
+			double hardiness = Double.parseDouble(stat.getElementsByTagName("hardiness").item(0).getTextContent());
+			int experience = Integer.parseInt(stat.getElementsByTagName("experience").item(0).getTextContent());
+			return new PrimaryStats(livesLeft,strength,agility,intellect,hardiness,experience);
+		}catch(NullPointerException e){
+			return null;
+		}
+	}
+	private SkillContainer createSkillContainer(Node skillsNode){
+		Element skillContainer = (Element)skillsNode;
+		NodeList skilts = skillContainer.getElementsByTagName("skill");
+		SkillContainer scon = new SkillContainer();
+		for(int i =0;i<skilts.getLength();i++){
+			scon.add(createSkill(skilts.item(i)));
+		}
+		return scon;
+	}
+	private Skill createSkill(Node skillNode){
+		try{
+			Element el = (Element)skillNode;
+			String type = el.getElementsByTagName("type").item(0).getTextContent();
+			int points = Integer.parseInt(el.getElementsByTagName("points").item(0).getTextContent());
+			Skill skill = Skill.getSkillPrototype(type);
+			skill.setPoints(points);
+			return skill;
+		}catch(NullPointerException e){
+			return null;
+		}
+	}
+	private Equipment createEquipment(Node eqNode){
+		Element el = (Element)eqNode;
+		Item head = null;
+		head = createItem(el.getElementsByTagName("head").item(0));
+		Item armor = createItem(el.getElementsByTagName("armor").item(0));
+		Item boot = createItem(el.getElementsByTagName("boot").item(0));
+		Item weapon = createItem(el.getElementsByTagName("weapon").item(0));
+		Item auxiliary = createItem(el.getElementsByTagName("auxiliary").item(0));
+		return new Equipment(head,armor,boot,weapon,auxiliary);
 	}
 }
 
