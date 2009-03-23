@@ -25,7 +25,6 @@ public class Portal extends InteractiveItem {
 	
 	public void activate(Entity entity, Tile tile){
 		if(entity.getEntityType().equals("Playable Character")){
-			entity.getTile().releaseEntity();
 			AudioThread at = AudioThread.getInstance();
 			at.setKeyType(this.getName(), AudioThread.CLIP);
 			at.start();
