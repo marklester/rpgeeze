@@ -5,7 +5,7 @@ package model.item;
  * should document it (i.e. I am too lazy to do it.)
  */
 
-import model.entity.PC;
+import model.entity2.PC;
 
 public class Mana extends TakeableItem {
 

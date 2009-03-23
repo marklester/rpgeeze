@@ -1,6 +1,6 @@
 package model;
 
-import model.entity.Entity;
+import model.entity2.Entity;
 import view.Drawer;
 
 public class WaterTerrain extends Terrain {

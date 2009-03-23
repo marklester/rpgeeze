@@ -6,7 +6,7 @@ package model.item;
  */
 
 
-import model.entity.PC;
+import model.entity2.PC;
 import view.Console;
 
 public class HealthPack extends OneShotItem {

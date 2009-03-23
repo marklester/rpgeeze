@@ -1,10 +1,9 @@
 package model.xml;
 
 import model.*;
-import model.Terrain;
 import model.ae.AreaEffect;
 import model.decal.Decal;
-import model.entity.Entity;
+import model.entity2.Entity;
 import model.item.Item;
 
 public interface GameVisitor {

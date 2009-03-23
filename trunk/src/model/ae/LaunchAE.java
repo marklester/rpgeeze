@@ -1,8 +1,8 @@
 package model.ae;
 
-import model.entity.Entity;
 import model.Location;
-import model.entity.StatsModifiable;
+import model.entity2.Entity;
+import model.entity2.StatsModifiable;
 
 public class LaunchAE extends AreaEffect {
 

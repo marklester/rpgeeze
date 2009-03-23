@@ -1,6 +1,6 @@
 package model.ai;
 
-import model.entity.NPC;
+import model.entity2.NPC;
 
 public class ContainedAI implements ArtificialIntelligence {
 	private int bound;

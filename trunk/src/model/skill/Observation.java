@@ -1,6 +1,6 @@
 package model.skill;
 
-import model.entity.Stats;
+import model.entity2.Stats;
 
 public class Observation extends Skill implements PermanentSkill {
 

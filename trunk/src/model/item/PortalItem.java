@@ -5,7 +5,7 @@ import java.util.Hashtable;
 import util.ResourceLoader;
 import view.Console;
 import model.Location;
-import model.entity.PC;
+import model.entity2.PC;
 import util.AudioThread;
 
 public class PortalItem extends InteractiveItem {

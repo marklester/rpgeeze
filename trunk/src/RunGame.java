@@ -1,7 +1,7 @@
 import model.Map;
 import model.Model;
-import model.entity.Entity;
-import model.entity.Occupation;
+import model.entity2.Entity;
+import model.entity2.Occupation;
 import model.xml.ModelConstructor;
 import view.Time;
 import view.View;

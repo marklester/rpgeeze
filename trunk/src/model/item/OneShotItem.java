@@ -5,7 +5,7 @@ package model.item;
  * Entity.
  */
 
-import model.entity.PC;
+import model.entity2.PC;
 
 public abstract class OneShotItem extends Item {
 	public OneShotItem(String name) {

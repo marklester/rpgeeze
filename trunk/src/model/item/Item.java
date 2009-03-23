@@ -10,7 +10,7 @@ import java.util.Hashtable;
 
 import view.Drawable;
 import view.Drawer;
-import model.entity.*;
+import model.entity2.*;
 
 public abstract class Item implements Drawable, Cloneable {
 	protected final String name;

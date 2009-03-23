@@ -9,12 +9,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import model.Direction;
-import model.entity.Occupation;
-import model.entity.Smasher;
-import model.entity.Sneak;
-import model.entity.Summoner;
-import model.entity.PC;
-import model.entity.*;
+import model.entity2.*;
 import model.Location;
 import model.Map;
 import model.Model;

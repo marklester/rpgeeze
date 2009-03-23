@@ -1,6 +1,6 @@
 package model.ai;
 
-import model.entity.NPC;
+import model.entity2.NPC;
 import model.*;
 
 public class AimlessAI implements ArtificialIntelligence{
