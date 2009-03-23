@@ -1,5 +1,10 @@
 package rpgeeze.model.entity;
 
+import java.util.Hashtable;
+
+import rpgeeze.model.entity.Smasher;
+import rpgeeze.model.entity.Sneak;
+import rpgeeze.model.entity.Summoner;
 import rpgeeze.model.skill.Bargain;
 import rpgeeze.model.skill.BindWounds;
 import rpgeeze.model.skill.Observation;
@@ -10,6 +15,18 @@ import rpgeeze.dp.Iterator;
 import rpgeeze.util.ArrayIterator;
 
 public abstract class Occupation implements Cloneable {
+	
+	private static Hashtable<String, Occupation> prototypes = new Hashtable<String, Occupation>();
+	
+	static {
+		for(Occupation o: new Occupation[] {
+			new Smasher(null, null),
+			new Summoner(null, null),
+			new Sneak(null, null)
+		})
+			prototypes.put(o.toString(), o);
+	}
+	
 	public static Iterator<Occupation> getPlayerOccupations() {
 		return new ArrayIterator<Occupation>(
 				new Smasher(null, null),
@@ -54,13 +71,19 @@ public abstract class Occupation implements Cloneable {
 		return this.name;
 	}
 	
-	public abstract String getName();
+	public String getName() {
+		return toString();
+	}
 	
 	public boolean equals(Object o) {
 		boolean ret = false;
 		if(o instanceof Occupation)
 			ret = o.toString().equals(toString());
 		return ret;
+	}
+	
+	public static Occupation getOccupationPrototype(String key){
+		return prototypes.get(key).clone();
 	}
 	
 	public void populateSkills() {
