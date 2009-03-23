@@ -19,7 +19,7 @@ public class AudioThread extends Thread implements Observer {
 
 	public static final int CLIP = 0;
 	public static final int STREAM = 1;
-    private volatile boolean STmuted = false;
+    private volatile boolean STmuted = true;
     private volatile boolean FXmuted = false;
     private int type;
     private String key;
@@ -71,7 +71,9 @@ public class AudioThread extends Thread implements Observer {
 	public void playAudioClip(String key) {
 		try {
 			if (!FXmuted) {
-				InputStream in = ResourceLoader.getInstance().getAudio(key); 
+				key = key.toLowerCase().replace(" ", ".");
+				InputStream in = ResourceLoader.getInstance().getAudio( GameProperties.getInstance().getProperty("audio." +key) );
+				//InputStream in = ResourceLoader.getInstance().getAudio(key); 
 				AudioStream as = new AudioStream(in);
 				AudioPlayer.player.start(as);
 			}
