@@ -118,12 +118,16 @@ public class Stats implements Cloneable {
 	}
 
 	public void decLife(int amount) {
-		if (amount == MAX_LIFE)
+		if (amount == MAX_LIFE){
 			life = 0;
+			primaryStats.decLivesLeft();
+		}
 		else
 			this.life -= Math.max( (int)(amount/(this.level + this.primaryStats.hardiness)) , 0);
-		if(this.life < 0)
+		if(this.life < 0){
 			this.life = 0;
+		primaryStats.decLivesLeft();
+		}
 	}
 
 	public void decMana(int amount) {
