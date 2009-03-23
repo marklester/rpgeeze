@@ -8,10 +8,15 @@ public class AimlessAI implements ArtificialIntelligence{
 
 	@Override
 	public void compute(NPC entity) {
-		Tile t = entity.getTile();
-		t.setEntity(null);
-		t = t.getRelativeTile(randLocation());
-		t.setEntity(entity);
+//		Tile t = entity.getTile();
+//		t.setEntity(null);
+//		t = t.getRelativeTile(randLocation());
+//		try {
+//			t.setEntity(entity);
+//			//entity.setTile(t);
+//		}catch(rpgeeze.model.entity.IllegalMoveException ime) { System.out.println("Tile Exception");}
+//		System.out.println("Trying to move the mob");
+		entity.move(randLocation());
 	}
 	
 	private Location randLocation()

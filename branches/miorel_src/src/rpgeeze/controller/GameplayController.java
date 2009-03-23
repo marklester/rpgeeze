@@ -210,4 +210,10 @@ public class GameplayController extends Controller<GameplayView> {
 				cmd.execute();
 		}
 	}
+	
+	
+	public void keyReleased(KeyEvent e) {
+	}
+	
+	
 }

@@ -50,9 +50,9 @@ public abstract class Entity extends Subject implements Cloneable, Visitable, St
 	public void move(int xOffset, int yOffset) {
 		Tile destination = getTile().getRelativeTile(xOffset, yOffset);//tile.getX() + xOffset, tile.getY() + yOffset);
 		try {
-			destination.setEntity(this);
 			Tile oldTile = tile;
-			tile = destination;
+			destination.setEntity(this);
+			//tile = destination;
 			oldTile.setEntity(null);
 		}
 		catch(IllegalMoveException e) {
@@ -84,15 +84,16 @@ public abstract class Entity extends Subject implements Cloneable, Visitable, St
 		return stats;
 	}
 
-	public final void accept(Visitor visitor) {
-		visitor.visitEntity(this);
-	}
+	public abstract void accept(Visitor visitor);
 
 	public Entity clone()
 	{
 		Entity e = null;
 		try {
 			e = (Entity)super.clone();
+			e.equipment = (this.equipment != null ) ? this.equipment.clone(): null;
+			e.inventory = (this.inventory != null ) ? this.inventory.clone(): null;
+			e.stats = (this.stats != null) ? this.stats.clone(): null;
 		}catch(CloneNotSupportedException ce) {}		
 		return e;		
 	}

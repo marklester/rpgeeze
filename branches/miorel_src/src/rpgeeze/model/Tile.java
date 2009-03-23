@@ -79,6 +79,10 @@ public class Tile implements Cloneable, Visitable {
 		if(entity != null && ae != null)
 			ae.applyEffect(entity);
 		this.entity = entity;
+		//System.out.println("Before: " + this.entity.getTile());
+		if(this.entity != null)
+			this.entity.setTile(this);
+		//System.out.println("After: " + this.entity.getTile());
 	}
 
 	public Item getItem() {

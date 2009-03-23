@@ -377,36 +377,7 @@ public class GameManager extends DelegatingEventAdapter
 		LogManager.getInstance().log("Creating model using " + occupation.getName() + " occupation", "MANAGER");
 		
 		// this needs to be nice
-		Tile[][] matrix = new Tile[10][10];
-		for(int i = 0; i != 10; ++i) {
-			for(int j = 0; j != 10; ++j) {
-				matrix[i][j] = new Tile(GrassTerrain.getInstance(), new Location(j, i));
-			}
-		}
-		Map map = new Map(matrix);
-		PC avatar = new PC(occupation, map);
-		Tile pos = matrix[8][6];
-		avatar.setTile(pos);
-		pos.setEntity(avatar);
-		
-		
-		matrix[3][2].setItem(new Boots());
-		matrix[3][3].setItem(new Boulder());
-		//matrix[2][3].setItem(new Crossbow());
-		matrix[5][5].setItem(new HealthPack());
-		//matrix[2][6].setItem(new HealthPotion());
-		//matrix[1][6].setItem(new ManaPotion());
-		//matrix[1][0].setItem(new Portal());
-		matrix[2][6].setItem(new HealthPack());
-		matrix[1][6].setItem(new ManaPotion());
-		matrix[1][0].setItem(new Portal());
-		matrix[1][8].setItem(new RedArmor());
-		matrix[1][9].setItem(new Shield());
-		matrix[2][9].setItem(new Sword());
-		matrix[2][9].setDecal(new GoldStar());
-		matrix[5][7].setDecal(new Fire());
-		matrix[5][8].setDecal(new SkullAndCrossbones());
-		matrix[5][9].setDecal(new RedCross());
+
 		InputStream is = ResourceLoader.getInstance().getStream("game/model.xml");
 		ModelConstructor mc = new ModelConstructor(is);
 		model = mc.createModel(occupation);

@@ -5,7 +5,7 @@ import rpgeeze.model.entity.NPCEntityManager;
 public class MonsterManager extends NPCEntityManager{
 
 	private Monster entity;
-	private int updateRate = 100;
+	private int updateRate = 50;
 	private int count = updateRate;
 	public MonsterManager(Monster entity) {
 		super(entity);
@@ -24,7 +24,7 @@ public class MonsterManager extends NPCEntityManager{
 	
 	@Override
 	public void update()
-	{
+	{		
 		super.update();
 		if(count-- <= 0)
 		{

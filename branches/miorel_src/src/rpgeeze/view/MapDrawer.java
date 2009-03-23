@@ -16,13 +16,16 @@ import rpgeeze.model.Tile;
 import rpgeeze.model.Visitor;
 import rpgeeze.model.ae.AreaEffect;
 import rpgeeze.model.decal.Decal;
-import rpgeeze.model.entity.Entity;
 import rpgeeze.model.item.Item;
 import rpgeeze.model.entity.Occupation;
 import rpgeeze.model.entity.Smasher;
 import rpgeeze.model.entity.Sneak;
 import rpgeeze.model.entity.Summoner;
 import rpgeeze.model.terrain.Terrain;
+import rpgeeze.model.entity.monster.*;
+import rpgeeze.model.entity.*;
+import rpgeeze.model.entity.merchant.*;
+import rpgeeze.model.entity.villager.*;
 import rpgeeze.util.ContinuousIteratorWithElements;
 import rpgeeze.util.Direction;
 import rpgeeze.util.MultiplyIterator;
@@ -38,6 +41,7 @@ public class MapDrawer implements Visitor {
 	private HashMap<String, Texture> decals = new HashMap<String, Texture>();
 	
 	private static HashMap<Pair<String, Direction>, Iterator<String>> avatar = new HashMap<Pair<String, Direction>, Iterator<String>>();
+	private static HashMap<Pair<String, Direction>, Iterator<String>> mobs = new HashMap<Pair<String, Direction>, Iterator<String>>();
 	
 	private final static int SLOW_DOWN_FACTOR = 10;
 
@@ -69,7 +73,36 @@ public class MapDrawer implements Visitor {
 	        avatar.put(new Pair<String, Direction>(occ.getName(), Direction.NORTHWEST), avatar.get(new Pair<String, Direction>(occ.getName(), Direction.NORTH)));
 	        avatar.put(new Pair<String, Direction>(occ.getName(), Direction.SOUTHEAST), avatar.get(new Pair<String, Direction>(occ.getName(), Direction.SOUTH)));
 	        avatar.put(new Pair<String, Direction>(occ.getName(), Direction.SOUTHWEST), avatar.get(new Pair<String, Direction>(occ.getName(), Direction.SOUTH)));
-	}
+		}
+		
+		for(Monster mons: new Monster[] {new Soldier(), new Skeleton(), new Rat()}) {
+	        String s = mons.toString().toLowerCase();
+	        
+	        mobs.put(new Pair<String, Direction>(mons.toString(), Direction.NORTH), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+	                "entity/" + s + "/" + s + "WalkNorth1.png",
+	                "entity/" + s + "/" + s  + "WalkNorth2.png"
+	        ), SLOW_DOWN_FACTOR));
+
+	        mobs.put(new Pair<String, Direction>(mons.toString(), Direction.SOUTH), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+	                "entity/" + s + "/" + s  + "WalkSouth1.png",
+	                "entity/" + s + "/" + s +  "WalkSouth2.png"
+	        ), SLOW_DOWN_FACTOR));
+	        
+	        mobs.put(new Pair<String, Direction>(mons.toString(), Direction.EAST), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+	                "entity/" + s + "/" + s + "WalkEast1.png",
+	                "entity/" + s + "/" + s + "WalkEast2.png"
+	        ), SLOW_DOWN_FACTOR));
+
+	        mobs.put(new Pair<String, Direction>(mons.toString(), Direction.WEST), new MultiplyIterator<String>(new ContinuousIteratorWithElements<String>(
+	                "entity/" + s + "/" + s  + "WalkWest1.png",
+	                "entity/" + s + "/" + s  + "WalkWest2.png"
+	        ), SLOW_DOWN_FACTOR));
+
+//	        avatar.put(new Pair<String, Direction>(mons.toString(), Direction.NORTHEAST), avatar.get(new Pair<String, Direction>(mons.getName(), Direction.NORTH)));
+//	        avatar.put(new Pair<String, Direction>(mons.toString(), Direction.NORTHWEST), avatar.get(new Pair<String, Direction>(mons.getName(), Direction.NORTH)));
+//	        avatar.put(new Pair<String, Direction>(mons.toString(), Direction.SOUTHEAST), avatar.get(new Pair<String, Direction>(mons.getName(), Direction.SOUTH)));
+//	        avatar.put(new Pair<String, Direction>(mons.toString(), Direction.SOUTHWEST), avatar.get(new Pair<String, Direction>(mons.getName(), Direction.SOUTH)));
+		}
 	}
 	
 	public void setSize(double size) {
@@ -94,13 +127,31 @@ public class MapDrawer implements Visitor {
 		new TexturedRectangle(texture, size, size).render(gl);
 	}
 
-	public void visitEntity(Entity entity) {
+	public void visitEntity(PC entity) {
 		Iterator<String> iter = avatar.get(new Pair<String, Direction>(entity.getOccupation().getName(), entity.getFacingDirection()));
 		//System.out.println(iter);
 		new TexturedRectangle(ResourceLoader.getInstance().getTexture(iter.current()), size, size).render(gl);
 		iter.advance();	
 	}
-
+	
+	public void visitEntity(Monster entity)
+	{
+		Iterator<String> iter = mobs.get(new Pair<String, Direction>(entity.toString(), entity.getFacingDirection()));
+		//System.out.println(iter);
+		new TexturedRectangle(ResourceLoader.getInstance().getTexture(iter.current()), size, size).render(gl);
+		iter.advance();	
+	}
+	
+	public void visitEntity(Merchant entity)
+	{
+		
+	}
+	
+	public void visitEntity(Villager entity)
+	{
+		
+	}
+	
 	public Texture textureForItem(Item item) {
 		if(item == null)
 			return null;
