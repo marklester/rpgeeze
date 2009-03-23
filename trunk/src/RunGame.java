@@ -2,6 +2,7 @@ import model.Map;
 import model.Model;
 import model.entity.Entity;
 import model.entity.Occupation;
+import model.xml.ModelConstructor;
 import view.Time;
 import view.View;
 import controller.WelcomeScreen;
@@ -12,6 +13,7 @@ import java.awt.DisplayMode;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.io.InputStream;
 import java.util.Scanner;
 
 
@@ -59,7 +61,7 @@ public class RunGame {
 					}
 				}
 				Thread t = newGame(welcome.getOccupation(), ResourceLoader.getInstance().getScanner("model.xml"));
-				AudioThread.getInstance().run("Intro", AudioThread.STREAM);
+				//AudioThread.getInstance().run("Intro", AudioThread.STREAM);
 				welcome.setVisible(false);		
 				welcome.dispose();
 				try {
@@ -114,8 +116,10 @@ public class RunGame {
 		StringBuilder xml = new StringBuilder();
 		while(scanner.hasNextLine()) 
 			xml.append(scanner.nextLine().replaceAll("\\t", ""));
-		Model model = Model.fromXml(occ, xml.toString());
-		
+		//Model model = Model.fromXml(occ, xml.toString());
+		InputStream is = ResourceLoader.getInstance().getStream("model.xml");
+		ModelConstructor mc = new ModelConstructor(is);
+		Model model = mc.createModel(occ);
 		//Register the AudioThread in order to keep track of the Entity and his locatio
 		//model.getAvatar().register(at);
 		
