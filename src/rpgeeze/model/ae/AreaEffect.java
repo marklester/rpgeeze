@@ -1,8 +1,6 @@
 package rpgeeze.model.ae;
 
 import java.util.Hashtable;
-
-import rpgeeze.model.Entity;
 import rpgeeze.model.Visitable;
 import rpgeeze.model.Visitor;
 import rpgeeze.model.StatsModifiable;
