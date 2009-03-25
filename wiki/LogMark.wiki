@@ -39,3 +39,14 @@
 
 3/3/09 19-22:30
  * Iteration 2 Discussion
+
+3/21/09 9:00-29:00
+ * Coding XML Writer
+ * Coding XML Reader
+ * Merge Model to new View
+ * Other stuff I can't remember
+
+3/22/09 11:00-39:00
+ * Merge NPC Code
+ * Update XML Reader
+ * Other stuff I can't remember
