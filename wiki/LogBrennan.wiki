@@ -104,7 +104,22 @@
   * Created Options Screen and Controller
 
 3/20/09 1:00-5:00
-  *Worked on Key Bindings View
+  * Worked on Key Bindings View
 
 3/20/09 18:00-24:00
-  *Group meeting and worked on Key Bindings View
+  * Group meeting and worked on Key Bindings View
+
+3/21/09 9:00-19:00
+  * Worked on Iteration 2
+
+3/22/09 0:00-4:00
+  * Worked on Iteration 2
+
+3/22/09 9:00-11:30
+  * Worked on Iteration 2
+
+3/22/09 14:00-24:00
+  * Worked on Iteration 2
+
+3/23/09 0:00-17:00
+  * Worked on Iteration 2
