@@ -50,3 +50,5 @@
  * Merge NPC Code
  * Update XML Reader
  * Other stuff I can't remember
+2/26/09 20-22:30
+ * worked on group wrap up
